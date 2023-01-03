@@ -9,14 +9,16 @@
     border: 0.2rem solid rgba(255, 0, 0, 0.3);
   }
 
-  > input {
+  > input,
+  & > select,
+  & > textarea {
     width: 100%;
     height: fit-content;
     background-color: transparent;
     border: none;
     outline: none;
     display: block;
-    
+
     font-style: normal;
     font-weight: 400;
     font-size: 1.4rem;
@@ -24,6 +26,12 @@
     color: #545f7d;
     opacity: 0.6;
     padding: 1.75rem 1.6rem 1.25rem 1.6rem;
+  }
+
+  > select {
+    -moz-appearance: none;
+    --webkit-appearance: none;
+    appearance: none;
   }
 
   input:-webkit-autofill,
@@ -38,7 +46,7 @@
     height: 100%;
     background-color: transparent;
     border: none;
-    
+
     font-style: normal;
     font-weight: 600;
     font-size: 1.2rem;

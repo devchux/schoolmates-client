@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import AuthLayout from "../layouts/auth-layout";
 import Login from "../pages/auth/login";
 
@@ -8,6 +8,8 @@ const AppRoutes = () => {
     <AuthLayout>
       <Routes>
         <Route path="auth" element={<Login />} />
+
+        <Route path="*" element={<Navigate to="/auth" />} />
       </Routes>
     </AuthLayout>
   );

@@ -3,26 +3,25 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/buttons/button";
 import AuthInput from "../../components/inputs/auth-input";
 import { useForm } from "react-formid";
+import AuthSelect from "../../components/inputs/auth-select";
 
 const Login = () => {
   const navigate = useNavigate();
   const { inputs, handleSubmit, handleChange, errors } = useForm({
-    defaultValues: { username: "", password: "" },
+    defaultValues: { username: "", password: "", role: "super-admin" },
     validation: {
       password: {
         hasMoreThan6Chars: (val) =>
-          val.length >= 6 || 'Please enter 6 or more characters',
+          val.length >= 6 || "Please enter 6 or more characters",
         hasCapsChars: (val) =>
-          /[A-Z]/.test(val) ||
-          'Please enter at least one capital letter',
+          /[A-Z]/.test(val) || "Please enter at least one capital letter",
         hasLowercaseChars: (val) =>
-          /[a-z]/.test(val) ||
-          'Please enter at least one lowercase letter',
+          /[a-z]/.test(val) || "Please enter at least one lowercase letter",
         hasNumChars: (val) =>
-          /[0-9]/.test(val) || 'Please enter at least one number',
+          /[0-9]/.test(val) || "Please enter at least one number",
         hasSpecialChars: (val) =>
           /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(val) ||
-          'Please enter at least one special character',
+          "Please enter at least one special character",
       },
     },
   });
@@ -52,7 +51,9 @@ const Login = () => {
               name="username"
               onChange={handleChange}
             />
-            {!!errors.username && <p className="error-message">{errors.username}</p>}
+            {!!errors.username && (
+              <p className="error-message">{errors.username}</p>
+            )}
           </div>
           <div className="form-group">
             <AuthInput
@@ -66,6 +67,24 @@ const Login = () => {
             {!!errors.password && (
               <p className="error-message">{errors.password}</p>
             )}
+          </div>
+          <div>
+            <AuthSelect
+              value={inputs.role}
+              name="role"
+              onChange={handleChange}
+              options={[
+                { value: "super-admin", title: "Super Admin" },
+                { value: "admin", title: "Admin" },
+                { value: "principal", title: "Principal" },
+                { value: "teacher", title: "Teacher" },
+                { value: "alumni", title: "Alumni (Old Student)" },
+                { value: "student", title: "Student" },
+                { value: "accountant", title: "Accountant" },
+                { value: "store-keeper", title: "Store Keeper" },
+                { value: "manage-portal", title: "Manage Portal" },
+              ]}
+            />
           </div>
           <div className="form-group">
             <Link to="/" className="forgot-password-text">
