@@ -5,9 +5,10 @@ import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-phone-number-input/style.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "react-phone-number-input/style.css";
 import "./assets/scss/index.scss";
+import NavbarProvider from "./context/navbar";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -17,7 +18,9 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <App />
+        <NavbarProvider>
+          <App />
+        </NavbarProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>
