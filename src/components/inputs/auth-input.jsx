@@ -1,9 +1,12 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
+import PhoneInput from "react-phone-number-input";
+import flags from "react-phone-number-input/flags";
 
 const AuthInput = ({
   wrapperClassName,
   hasError = false,
   type,
+  isPhone = false,
   ...rest
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +34,24 @@ const AuthInput = ({
         </button>
       </div>
     );
+
+  if (isPhone)
+    return (
+      <div
+        className={`auth-input-wrapper is-phone ${
+          hasError ? "has-error" : ""
+        } ${wrapperClassName || ""}`}
+      >
+        <PhoneInput
+          international
+          countryCallingCodeEditable={false}
+          flags={flags}
+          defaultCountry="NG"
+          {...rest}
+        />
+      </div>
+    );
+
   return (
     <div
       className={`auth-input-wrapper ${hasError ? "has-error" : ""} ${

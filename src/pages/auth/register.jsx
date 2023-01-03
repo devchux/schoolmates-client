@@ -4,49 +4,59 @@ import Button from "../../components/buttons/button";
 import AuthInput from "../../components/inputs/auth-input";
 import { useForm } from "react-formid";
 import validator from "validator";
+import { isValidPhoneNumber } from "react-phone-number-input";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { inputs, handleSubmit, handleChange, errors } = useForm({
-    defaultValues: {
-      username: "",
-      password: "",
-      schoolName: "",
-      email: "",
-      phoneNumber: "",
-      confirmPassword: "",
-    },
-    validation: {
-      schoolName: {
-        required: (val) => !!val || "School name is required",
+  const { inputs, handleSubmit, handleChange, errors, setFieldValue } = useForm(
+    {
+      defaultValues: {
+        username: "",
+        password: "",
+        schoolName: "",
+        email: "",
+        phoneNumber: "+234",
+        confirmPassword: "",
       },
-      email: {
-        required: (val) => !!val || "Email address is required",
-        isValid: (val) => validator.isEmail(val) || "Email address is invalid",
+      validation: {
+        schoolName: {
+          required: (val) => !!val || "School name is required",
+        },
+        email: {
+          required: (val) => !!val || "Email address is required",
+          isValid: (val) =>
+            validator.isEmail(val) || "Email address is invalid",
+        },
+        username: {
+          required: (val) => !!val || "Username is required",
+        },
+        phoneNumber: {
+          required: (val) => !!val || "Phone number is required",
+          isValid: (val) =>
+            (typeof val === "string" && isValidPhoneNumber(val)) ||
+            "Phone number is invalid",
+        },
+        password: {
+          required: (val) => !!val || "Password is required",
+          hasMoreThan6Chars: (val) =>
+            val.length >= 6 || "Please enter 6 or more characters",
+          hasCapsChars: (val) =>
+            /[A-Z]/.test(val) || "Please enter at least one capital letter",
+          hasLowercaseChars: (val) =>
+            /[a-z]/.test(val) || "Please enter at least one lowercase letter",
+          hasNumChars: (val) =>
+            /[0-9]/.test(val) || "Please enter at least one number",
+          hasSpecialChars: (val) =>
+            /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(val) ||
+            "Please enter at least one special character",
+        },
+        confirmPassword: {
+          shouldMatch: (val, { password }) =>
+            val === password || "Passwords do not match",
+        },
       },
-      username: {
-        required: (val) => !!val || "Username is required",
-      },
-      password: {
-        required: (val) => !!val || "Password is required",
-        hasMoreThan6Chars: (val) =>
-          val.length >= 6 || "Please enter 6 or more characters",
-        hasCapsChars: (val) =>
-          /[A-Z]/.test(val) || "Please enter at least one capital letter",
-        hasLowercaseChars: (val) =>
-          /[a-z]/.test(val) || "Please enter at least one lowercase letter",
-        hasNumChars: (val) =>
-          /[0-9]/.test(val) || "Please enter at least one number",
-        hasSpecialChars: (val) =>
-          /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(val) ||
-          "Please enter at least one special character",
-      },
-      confirmPassword: {
-        shouldMatch: (val, { password }) =>
-          val === password || "Passwords do not match",
-      },
-    },
-  });
+    }
+  );
 
   const onSubmit = (data) => {
     const d = new Date();
@@ -100,6 +110,13 @@ const Register = () => {
               onChange={handleChange}
             />
             {!!errors.email && <p className="error-message">{errors.email}</p>}
+          </div>
+          <div>
+            <AuthInput
+              isPhone
+              value={inputs.phoneNumber}
+              onChange={(value) => setFieldValue("phoneNumber", value || '')}
+            />
           </div>
           <div className="form-group">
             <AuthInput
