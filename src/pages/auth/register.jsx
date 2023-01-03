@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/buttons/button";
 import AuthInput from "../../components/inputs/auth-input";
 import { useForm } from "react-formid";
+import validator from "validator";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -21,10 +22,7 @@ const Register = () => {
       },
       email: {
         required: (val) => !!val || "Email address is required",
-        isValid: (val) =>
-          /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(
-            val
-          ) || "Email address is invalid",
+        isValid: (val) => validator.isEmail(val) || "Email address is invalid",
       },
       username: {
         required: (val) => !!val || "Username is required",
