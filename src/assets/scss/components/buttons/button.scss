@@ -1,0 +1,20 @@
+.custom-button {
+  background: #39cdcc;
+  border-radius: 0.8rem;
+  height: 4.8rem;
+  font-family: "Avenir Next";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+  letter-spacing: 0.0625em;
+  text-transform: uppercase;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+
+  &.is-block {
+    display: block;
+    width: 100%;
+  }
+}
