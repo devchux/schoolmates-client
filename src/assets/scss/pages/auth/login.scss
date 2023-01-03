@@ -18,28 +18,26 @@
     }
 
     .page-title {
-      font-family: "Avenir Next";
       font-weight: 700;
       font-size: 4rem;
       line-height: 5.5rem;
       letter-spacing: -0.0025em;
-      color: #213f7d;
+      color: #367fa9;
     }
-  
+
     .page-subtitle {
-      font-family: "Avenir Next";
       font-weight: 400;
       font-size: 2rem;
       line-height: 2.7rem;
       color: #545f7d;
     }
-  
+
     .form-wrapper {
       display: flex;
       flex-direction: column;
       gap: 2.4rem;
       margin-top: 6rem;
-  
+
       > .form-group {
         &:last-child {
           margin-top: 0.6rem;
@@ -50,16 +48,15 @@
           line-height: 1.4;
           font-size: 1.2rem;
         }
-  
+
         > .forgot-password-text {
-          font-family: "Avenir Next";
           font-style: normal;
           font-weight: 600;
           font-size: 1.2rem;
           line-height: 1.6rem;
           letter-spacing: 0.0625em;
           text-transform: uppercase;
-          color: #39cdcc;
+          color: #367fa9;
           cursor: pointer;
           text-decoration: none;
         }

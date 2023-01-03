@@ -7,7 +7,7 @@ import { useForm } from "react-formid";
 const Login = () => {
   const navigate = useNavigate();
   const { inputs, handleSubmit, handleChange, errors } = useForm({
-    defaultValues: { email: "", password: "" },
+    defaultValues: { username: "", password: "" },
     validation: {
       password: {
         hasMoreThan6Chars: (val) =>
@@ -30,7 +30,7 @@ const Login = () => {
   const onSubmit = (data) => {
     const d = new Date();
     d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
-    document.cookie = `email=${data.email}; expires=${d.toUTCString()}`;
+    document.cookie = `username=${data.username}; expires=${d.toUTCString()}`;
     navigate("/");
   };
   return (
@@ -45,14 +45,14 @@ const Login = () => {
         >
           <div className="form-group">
             <AuthInput
-              type="email"
-              placeholder="Email"
-              hasError={!!errors.email}
-              value={inputs.email}
-              name="email"
+              type="text"
+              placeholder="Username"
+              hasError={!!errors.username}
+              value={inputs.username}
+              name="username"
               onChange={handleChange}
             />
-            {!!errors.email && <p className="error-message">{errors.email}</p>}
+            {!!errors.username && <p className="error-message">{errors.username}</p>}
           </div>
           <div className="form-group">
             <AuthInput

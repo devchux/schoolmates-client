@@ -29,11 +29,11 @@
     .auth-layout-image-inner-wrapper {
       > div {
         &:first-child {
-          margin: 10.77rem auto 14.83rem 9.7rem;
+          margin: 10.77rem auto 7rem 9.7rem;
 
-          > svg {
-            width: 17.38rem;
-            height: 3.6rem;
+          > img {
+            width: 9rem;
+            height: 9rem;
           }
         }
 
@@ -49,7 +49,7 @@
             display: block;
           }
 
-          > img {
+          > svg {
             width: 100%;
             height: 100%;
           }

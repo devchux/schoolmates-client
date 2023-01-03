@@ -1,8 +1,8 @@
 .custom-button {
-  background: #39cdcc;
+  background: #367fa9;
   border-radius: 0.8rem;
   height: 4.8rem;
-  font-family: "Avenir Next";
+
   font-style: normal;
   font-weight: 600;
   font-size: 1.4rem;
@@ -16,5 +16,31 @@
   &.is-block {
     display: block;
     width: 100%;
+  }
+
+  &.outline {
+    border: 0.2rem solid #367fa9;
+    background: transparent;
+    color: #367fa9;
+
+    &:hover {
+      background: #367fa9;
+      color: #ffffff;
+    }
+  }
+
+  &.danger {
+    background: #dc3545;
+  }
+
+  &.outline-danger {
+    border: 0.2rem solid #dc3545;
+    background: transparent;
+    color: #dc3545;
+
+    &:hover {
+      background: #dc3545;
+      color: #ffffff;
+    }
   }
 }
