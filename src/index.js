@@ -5,6 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-phone-number-input/style.css';
 import "./assets/scss/index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

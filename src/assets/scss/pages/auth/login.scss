@@ -5,6 +5,14 @@
     padding: 22rem 0 0 10rem;
   }
 
+  &.register-page {
+    padding: 5rem 10rem;
+  
+    @media only screen and (min-width: 900px) {
+      padding: 10rem 0 0 10rem;
+    }
+  }
+
   .page-content-wrapper {
     max-width: 90%;
     margin: auto;
