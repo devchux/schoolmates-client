@@ -1,4 +1,5 @@
 import React from "react";
+import { Outlet } from 'react-router-dom'
 import logoImage from "../assets/images/logo.jpeg";
 import { AuthBannerIcon } from "../assets/svgs";
 
@@ -15,7 +16,9 @@ const AuthLayout = ({ children }) => {
           </div>
         </div>
       </div>
-      <div className="auth-layout-form-wrapper">{children}</div>
+      <div className="auth-layout-form-wrapper">
+        <Outlet />
+      </div>
     </div>
   );
 };

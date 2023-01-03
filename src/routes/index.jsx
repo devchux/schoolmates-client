@@ -1,20 +1,23 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import AuthLayout from "../layouts/auth-layout";
+import DashboardLayout from "../layouts/dashboard-layout";
 import Login from "../pages/auth/login";
 import Register from "../pages/auth/register";
+import SuperAdmin from "../pages/dashboard/super-admin";
 
-const AppRoutes = () => {
+const CustomRoutes = () => {
   return (
-    <AuthLayout>
-      <Routes>
-        <Route exact path="auth" element={<Login />} />
-        <Route path="auth/register" element={<Register />} />
-
-        <Route path="*" element={<Navigate to="/auth" />} />
-      </Routes>
-    </AuthLayout>
+    <Routes>
+      <Route path="app" element={<DashboardLayout />}>
+        <Route path="super-admin" element={<SuperAdmin />} />
+      </Route>
+      <Route path="auth" element={<AuthLayout />}>
+        <Route index element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
+    </Routes>
   );
 };
 
-export default AppRoutes;
+export default CustomRoutes;
