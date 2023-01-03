@@ -1,10 +1,10 @@
 .auth-layout-wrapper {
   display: flex;
   flex-direction: column;
-  height: 99vh;
 
   @media only screen and (min-width: 900px) {
     flex-direction: row;
+    height: 99vh;
   }
 
   .auth-layout-form-wrapper {
