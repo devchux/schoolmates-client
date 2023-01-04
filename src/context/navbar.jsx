@@ -3,7 +3,7 @@ import React, { createContext, useState } from "react";
 export const NavbarContext = createContext({});
 
 const NavbarProvider = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <NavbarContext.Provider
