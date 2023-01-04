@@ -15,8 +15,8 @@ import {
 export const backendAPI = 'https://schoolmate.powershellerp.com/api'
 
 export const dashboardSideBarLinks = {
-  admin: [],
-  superAdmin: [
+  Admin: [],
+  Superadmin: [
     {
       to: "/app/super-admin",
       title: "Home",

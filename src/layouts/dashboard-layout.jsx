@@ -12,19 +12,21 @@ import {
 import Hamburger from "../components/common/hamburger";
 import ProfileImage from "../components/common/profile-image";
 import { NavbarContext } from "../context/navbar";
+import { UserContext } from "../context/user";
 import { dashboardSideBarLinks } from "../utils/constants";
 
 const DashboardLayout = () => {
   const [dropdown, setDropdown] = useState(false);
-  const { isOpen: navbarIsOpen, toggle: toggleNavbar } = useContext(NavbarContext)
-  const type = "superAdmin";
+  const { isOpen: navbarIsOpen, toggle: toggleNavbar } =
+    useContext(NavbarContext);
+  const { user } = useContext(UserContext);
 
   return (
     <div className="dashboard-layout-wrapper">
-      <div className={`sidebar-wrapper ${navbarIsOpen ? 'toggle-navbar' : ''}`}>
+      <div className={`sidebar-wrapper ${navbarIsOpen ? "toggle-navbar" : ""}`}>
         <div className="sidebar-top-wrapper"></div>
         <div className="sidebar-links-wrapper">
-          {dashboardSideBarLinks[type]?.map((item, i) => (
+          {dashboardSideBarLinks[user?.designation_name]?.map((item, i) => (
             <NavLink key={i} to={item?.to}>
               <FontAwesomeIcon icon={item?.icon} />
               <p>{item.title}</p>
