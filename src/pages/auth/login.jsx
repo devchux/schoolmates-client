@@ -1,14 +1,14 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../../components/buttons/button";
 import AuthInput from "../../components/inputs/auth-input";
 import { useForm } from "react-formid";
-import AuthSelect from "../../components/inputs/auth-select";
+// import AuthSelect from "../../components/inputs/auth-select";
+import { useAuth } from "../../hooks/useAuth";
 
 const Login = () => {
-  const navigate = useNavigate();
   const { inputs, handleSubmit, handleChange, errors } = useForm({
-    defaultValues: { username: "", password: "", role: "super-admin" },
+    defaultValues: { username: "", password: "" },
     validation: {
       password: {
         hasMoreThan6Chars: (val) =>
@@ -26,11 +26,10 @@ const Login = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    const d = new Date();
-    d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
-    document.cookie = `username=${data.username}; expires=${d.toUTCString()}`;
-    navigate("/");
+  const { login, loginLoading } = useAuth();
+
+  const onSubmit = async (data) => {
+    await login({ email: data.username, password: "12345678" });
   };
   return (
     <div className="login-page">
@@ -68,7 +67,7 @@ const Login = () => {
               <p className="error-message">{errors.password}</p>
             )}
           </div>
-          <div>
+          {/* <div>
             <AuthSelect
               value={inputs.role}
               name="role"
@@ -85,14 +84,19 @@ const Login = () => {
                 { value: "manage-portal", title: "Manage Portal" },
               ]}
             />
-          </div>
+          </div> */}
           <div className="form-group">
             <Link to="/" className="forgot-password-text">
               Forgot PASSWORD?
             </Link>
           </div>
           <div className="form-group">
-            <Button block type="submit">
+            <Button
+              block
+              disabled={loginLoading}
+              isLoading={loginLoading}
+              type="submit"
+            >
               Log In
             </Button>
           </div>

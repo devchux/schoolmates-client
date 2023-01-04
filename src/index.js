@@ -7,8 +7,10 @@ import { BrowserRouter } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-phone-number-input/style.css";
+import "react-toastify/dist/ReactToastify.css";
 import "./assets/scss/index.scss";
 import NavbarProvider from "./context/navbar";
+import UserProvider from "./context/user";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -18,9 +20,11 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <NavbarProvider>
-          <App />
-        </NavbarProvider>
+        <UserProvider>
+          <NavbarProvider>
+            <App />
+          </NavbarProvider>
+        </UserProvider>
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>

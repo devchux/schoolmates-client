@@ -1,6 +1,14 @@
 import React from "react";
+import { Spinner } from "reactstrap";
 
-const Button = ({ children, className, block = false, variant, ...rest }) => {
+const Button = ({
+  children,
+  className,
+  block = false,
+  variant,
+  isLoading = false,
+  ...rest
+}) => {
   const getVariant = () => {
     switch (variant) {
       case "outline":
@@ -24,7 +32,7 @@ const Button = ({ children, className, block = false, variant, ...rest }) => {
       } ${className || ""}`}
       {...rest}
     >
-      {children}
+      {isLoading ? <Spinner /> : children}
     </button>
   );
 };

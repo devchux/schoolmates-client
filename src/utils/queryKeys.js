@@ -1,0 +1,1 @@
+export const GET_DESIGNATION = "GET_DESIGNATION";

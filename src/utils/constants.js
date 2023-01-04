@@ -12,6 +12,8 @@ import {
   faTruck,
 } from "@fortawesome/free-solid-svg-icons";
 
+export const backendAPI = 'https://schoolmate.powershellerp.com/api'
+
 export const dashboardSideBarLinks = {
   admin: [],
   superAdmin: [
