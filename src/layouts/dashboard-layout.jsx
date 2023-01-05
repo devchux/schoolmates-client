@@ -1,3 +1,4 @@
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
@@ -24,6 +25,15 @@ const DashboardLayout = () => {
   return (
     <div className="dashboard-layout-wrapper">
       <div className={`sidebar-wrapper ${navbarIsOpen ? "toggle-navbar" : ""}`}>
+        <div className="d-flex justify-content-end p-3 close-nav-button-wrapper">
+          <button
+            type="button"
+            className="btn"
+            onClick={toggleNavbar}
+          >
+            <FontAwesomeIcon icon={faClose} className="me-2" /> Close
+          </button>
+        </div>
         <div className="sidebar-top-wrapper"></div>
         <div className="sidebar-links-wrapper">
           {dashboardSideBarLinks[user?.designation_name]?.map((item, i) => (

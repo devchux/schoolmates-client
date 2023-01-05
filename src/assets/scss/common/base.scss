@@ -131,4 +131,8 @@ html {
   @media only screen and (max-width: 767px) {
     font-size: calc(100vw * 10 / 767);
   }
+
+  @media only screen and (max-width: 428px) {
+    font-size: calc(100vw * 10 / 428);
+  }
 }
