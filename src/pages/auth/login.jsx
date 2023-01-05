@@ -22,7 +22,7 @@ const Login = () => {
   const { login, loginLoading } = useAuth();
 
   const onSubmit = async (data) => {
-    await login({ email: data.username, password: "12345678" });
+    await login(data);
   };
   return (
     <div className="login-page">
