@@ -9,6 +9,14 @@ import { useAuth } from "../../hooks/useAuth";
 const Login = () => {
   const { inputs, handleSubmit, handleChange, errors } = useForm({
     defaultValues: { username: "", password: "" },
+    validation: {
+      username: {
+        required: (val) => !!val || "Username is required",
+      },
+      password: {
+        required: (val) => !!val || "Password is required",
+      },
+    },
   });
 
   const { login, loginLoading } = useAuth();
