@@ -25,7 +25,7 @@ export const useAuth = () => {
           data?.data?.find((item) => item.id === user.designation_id)
             ?.attributes || {};
         updateUser({ ...user, designation_name });
-        navigate("/app/super-admin");
+        navigate("/app/classes");
       },
       onError(err) {
         apiServices.errorhandler(err);

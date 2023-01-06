@@ -39,16 +39,7 @@ const Register = () => {
         password: {
           required: (val) => !!val || "Password is required",
           hasMoreThan6Chars: (val) =>
-            val.length >= 6 || "Please enter 6 or more characters",
-          hasCapsChars: (val) =>
-            /[A-Z]/.test(val) || "Please enter at least one capital letter",
-          hasLowercaseChars: (val) =>
-            /[a-z]/.test(val) || "Please enter at least one lowercase letter",
-          hasNumChars: (val) =>
-            /[0-9]/.test(val) || "Please enter at least one number",
-          hasSpecialChars: (val) =>
-            /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(val) ||
-            "Please enter at least one special character",
+            val.length >= 8 || "Please enter 8 or more characters",
         },
         confirmPassword: {
           shouldMatch: (val, { password }) =>

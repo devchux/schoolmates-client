@@ -19,6 +19,13 @@ class Helpers {
   eraseToken() {
     document.cookie = "userToken=; Max-Age=-99999999;";
   }
+
+  formatData(data) {
+    return data?.data?.map((x, index) => ({
+      ...x?.attributes,
+      serial_no: index + 1,
+    }));
+  }
 }
 
 export default Helpers;

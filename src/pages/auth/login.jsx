@@ -11,10 +11,10 @@ const Login = () => {
     defaultValues: { username: "", password: "" },
     validation: {
       username: {
-        required: (val) => !!val || "Username is required",
+        required: true,
       },
       password: {
-        required: (val) => !!val || "Password is required",
+        required: true,
       },
     },
   });

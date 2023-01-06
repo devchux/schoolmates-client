@@ -35,6 +35,12 @@
           background-color: rgba(#367fa9, 0.2);
         }
       }
+
+      &.centered {
+        td {
+          text-align: center;
+        }
+      }
     }
   }
 }

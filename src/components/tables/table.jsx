@@ -7,6 +7,7 @@ const CustomTable = ({
   data,
   onCellClick = () => null,
   isLoading = false,
+  centered = false,
 }) => {
   const memoisedData = React.useMemo(() => data || [], [data]);
 
@@ -24,7 +25,10 @@ const CustomTable = ({
       )}
       {memoisedData.length && !isLoading ? (
         <div>
-          <Table {...getTableProps()} bordered className="custom-table">
+          <Table
+            {...getTableProps()}
+            className={`custom-table ${centered ? "centered" : ""}`}
+          >
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
@@ -58,7 +62,9 @@ const CustomTable = ({
           </Table>
         </div>
       ) : null}
-      {!memoisedData.length && !isLoading ? <p className="text-center">No data to display.</p> : null}
+      {!memoisedData.length && !isLoading ? (
+        <p className="text-center">No data to display.</p>
+      ) : null}
     </div>
   );
 };

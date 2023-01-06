@@ -13,6 +13,7 @@ export const useClasses = () => {
       onError(err) {
         apiServices.errorhandler(err);
       },
+      select: apiServices.formatData,
     }
   );
 
