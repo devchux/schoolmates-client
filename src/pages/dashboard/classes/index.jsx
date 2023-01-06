@@ -14,8 +14,8 @@ const Classes = () => {
           isLoading={isLoading}
           columns={[
             {
-              Header: "s/n",
-              accessor: "serial_no",
+              Header: "id",
+              accessor: "id",
             },
             {
               Header: "Class Name",

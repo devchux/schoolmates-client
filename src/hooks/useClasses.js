@@ -6,7 +6,7 @@ const apiServices = new APIServies();
 
 export const useClasses = () => {
   const { isLoading, data: classes } = useQuery(
-    [queryKeys.GET_DESIGNATION],
+    [queryKeys.GET_ALL_CLASSES],
     apiServices.getAllClasses,
     {
       retry: 3,

@@ -21,9 +21,9 @@ class Helpers {
   }
 
   formatData(data) {
-    return data?.data?.map((x, index) => ({
+    return data?.data?.map((x) => ({
       ...x?.attributes,
-      serial_no: index + 1,
+      id: x?.id,
     }));
   }
 }

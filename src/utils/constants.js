@@ -28,7 +28,7 @@ export const dashboardSideBarLinks = {
       icon: faTape,
     },
     {
-      to: "/",
+      to: "/app/campus",
       title: "Campus",
       icon: faBuildingColumns,
     },
