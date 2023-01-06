@@ -65,6 +65,7 @@ const CampusDetail = () => {
     if (campusData) {
       setInputs({ ...inputs, ...campusData });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [campusData]);
 
   return (
