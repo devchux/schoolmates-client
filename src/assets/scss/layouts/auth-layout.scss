@@ -29,7 +29,15 @@
     .auth-layout-image-inner-wrapper {
       > div {
         &:first-child {
-          margin: 10.77rem auto 7rem 9.7rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 4rem 0;
+
+          @media only screen and (min-width: 900px) {
+            display: block;
+            margin: 10.77rem auto 7rem 9.7rem;
+          }
 
           > img {
             width: 9rem;
