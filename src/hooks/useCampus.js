@@ -55,6 +55,18 @@ export const useCampus = () => {
       },
     });
 
+  const { mutateAsync: disableCampus } = useMutation(
+    apiServices.disableCampus,
+    {
+      onSuccess() {
+        toast.success("Campus has been disabled successfully");
+      },
+      onError(err) {
+        apiServices.errorhandler(err);
+      },
+    }
+  );
+
   const isLoading =
     addCampusLoading ||
     campusListLoading ||
@@ -68,5 +80,6 @@ export const useCampus = () => {
     addCampus,
     updateCampus,
     campusData,
+    disableCampus,
   };
 };

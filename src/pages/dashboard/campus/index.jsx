@@ -5,9 +5,7 @@ import CustomTable from "../../../components/tables/table";
 import { useCampus } from "../../../hooks/useCampus";
 
 const Campus = () => {
-  const { campusList, isLoading } = useCampus();
-
-  console.log(campusList);
+  const { campusList, isLoading, disableCampus } = useCampus();
 
   return (
     <PageSheet>
@@ -15,7 +13,11 @@ const Campus = () => {
       <div>
         <CustomTable
           centered
+          rowHasDisable
+          rowHasUpdate
           isLoading={isLoading}
+          onRowDisable={async (id) => await disableCampus(id)}
+          onRowUpdate={(id) => console.log(id)}
           columns={[
             {
               Header: "id",

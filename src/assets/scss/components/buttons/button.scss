@@ -42,6 +42,10 @@
     background: #dc3545;
   }
 
+  &.dark {
+    background: #000000;
+  }
+
   &.outline-danger {
     border: 0.2rem solid #dc3545;
     background: transparent;

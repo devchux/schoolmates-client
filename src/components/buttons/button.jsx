@@ -20,6 +20,9 @@ const Button = ({
       case "danger":
         return variant;
 
+      case "dark":
+        return variant;
+
       default:
         return null;
     }
