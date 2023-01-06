@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/user";
 import APIServies from "../services/api-services";
-import { GET_DESIGNATION } from "../utils/queryKeys";
+import queryKeys from "../utils/queryKeys";
 
 const apiServices = new APIServies();
 
@@ -14,7 +14,7 @@ export const useAuth = () => {
     useState(false);
 
   const { isLoading: designationLoading } = useQuery(
-    [GET_DESIGNATION],
+    [queryKeys.GET_DESIGNATION],
     apiServices.getDesignation,
     {
       enabled: initiateDesignationQuery,

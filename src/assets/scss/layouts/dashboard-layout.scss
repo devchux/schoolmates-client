@@ -9,6 +9,7 @@
 
   > div {
     height: 100%;
+    overflow-y: auto;
   }
 
   > .sidebar-wrapper {
@@ -38,11 +39,21 @@
     }
 
     .sidebar-top-wrapper {
-      height: 13rem;
+      height: 10rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 1.6rem;
+
+      @media only screen and (min-width: 900px) {
+        height: 13rem;
+      }
+
+      p {
+        font-size: 1.4rem;
+        font-weight: 600;
+      }
     }
 
     .sidebar-links-wrapper {

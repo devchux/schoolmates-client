@@ -33,7 +33,7 @@ export const dashboardSideBarLinks = {
       icon: faBuildingColumns,
     },
     {
-      to: "/",
+      to: "/app/classes",
       title: "Classes",
       icon: faSchool,
     },

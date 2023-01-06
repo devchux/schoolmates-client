@@ -31,6 +31,17 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  async getAllClasses() {
+    const { data } = await axios.get(`${backendAPI}/class`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;
