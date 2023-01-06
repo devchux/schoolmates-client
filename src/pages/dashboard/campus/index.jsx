@@ -32,6 +32,10 @@ const Campus = () => {
               accessor: "email",
             },
             {
+              Header: "Status",
+              accessor: "status",
+            },
+            {
               Header: "Address",
               accessor: "address",
             },

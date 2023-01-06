@@ -25,7 +25,7 @@ const CustomRoutes = () => {
         <Route path="classes" element={<Classes />} />
         <Route exact path="campus" element={<Campus />} />
         <Route path="campus/new" element={<CampusDetail />} />
-        <Route path="campus/:id" element={<CampusDetail />} />
+        <Route path="campus/edit/:id" element={<CampusDetail />} />
         <Route index path="*" element={<Navigate to="/app/super-admin" />} />
       </Route>
       <Route path="auth" element={<AuthLayout />}>

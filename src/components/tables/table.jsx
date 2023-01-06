@@ -104,6 +104,7 @@ const CustomTable = ({
                         <Button
                           variant="dark"
                           className="d-block mx-auto"
+                          disabled={row.original.status === 'disabled'}
                           onClick={() => openModal(row.original.id, "disable")}
                         >
                           Disable
