@@ -19,12 +19,12 @@ const CustomTable = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalStatus, setModalStatus] = useState("disable");
-  const [id, setId] = useState("");
+  const [row, setRow] = useState({});
 
   const toggleModal = () => setModalOpen(!modalOpen);
 
-  const openModal = (itemId, status) => {
-    setId(itemId);
+  const openModal = (row, status) => {
+    setRow(row);
     setModalStatus(status);
     setModalOpen(true);
   };
@@ -33,10 +33,13 @@ const CustomTable = ({
     setModalOpen(false);
     switch (modalStatus) {
       case "delete":
-        return onRowDelete(id);
+        return onRowDelete(row?.original?.id);
 
       default:
-        return onRowDisable(id);
+        return onRowDisable({
+          id: row?.original?.id,
+          status: row?.original?.status === "disabled" ? "active" : "disabled",
+        });
     }
   };
 
@@ -102,12 +105,17 @@ const CustomTable = ({
                     {rowHasDisable && (
                       <td>
                         <Button
-                          variant="dark"
+                          variant={
+                            row.original.status === "disabled"
+                              ? "dark"
+                              : "danger"
+                          }
                           className="d-block mx-auto"
-                          disabled={row.original.status === 'disabled'}
-                          onClick={() => openModal(row.original.id, "disable")}
+                          onClick={() => openModal(row, "disable")}
                         >
-                          Disable
+                          {row.original.status === "disabled"
+                            ? "Enable"
+                            : "Disable"}
                         </Button>
                       </td>
                     )}
@@ -116,7 +124,7 @@ const CustomTable = ({
                         <Button
                           variant="danger"
                           className="d-block mx-auto"
-                          onClick={() => openModal(row.original.id, "delete")}
+                          onClick={() => openModal(row, "delete")}
                         >
                           Delete
                         </Button>

@@ -9,17 +9,17 @@ const apiServices = new APIServies();
 export const useCampus = () => {
   const { id } = useParams();
 
-  const { isLoading: campusListLoading, data: campusList } = useQuery(
-    [queryKeys.GET_ALL_CAMPUSES],
-    apiServices.getAllCampuses,
-    {
-      retry: 3,
-      onError(err) {
-        apiServices.errorhandler(err);
-      },
-      select: apiServices.formatData,
-    }
-  );
+  const {
+    isLoading: campusListLoading,
+    data: campusList,
+    refetch: refetchCampusList,
+  } = useQuery([queryKeys.GET_ALL_CAMPUSES], apiServices.getAllCampuses, {
+    retry: 3,
+    onError(err) {
+      apiServices.errorhandler(err);
+    },
+    select: apiServices.formatData,
+  });
 
   const { isLoading: getCampusLoading, data: campusData } = useQuery(
     [queryKeys.GET_CAMPUS, id],
@@ -59,7 +59,8 @@ export const useCampus = () => {
     apiServices.disableCampus,
     {
       onSuccess() {
-        toast.success("Campus has been disabled successfully");
+        refetchCampusList();
+        toast.success("Campus status updated successfully");
       },
       onError(err) {
         apiServices.errorhandler(err);

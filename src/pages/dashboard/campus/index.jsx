@@ -16,7 +16,7 @@ const Campus = () => {
           rowHasDisable
           rowHasUpdate
           isLoading={isLoading}
-          onRowDisable={async (id) => await disableCampus(id)}
+          onRowDisable={async (data) => await disableCampus(data)}
           onRowUpdate={(id) => console.log(id)}
           columns={[
             {
