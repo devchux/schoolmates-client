@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import PhoneInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
+import TagsInput from "react-tagsinput";
 
 const AuthInput = ({
   wrapperClassName,
   hasError = false,
   type,
   isPhone = false,
+  isMulti = false,
   label,
   ...rest
 }) => {
@@ -58,6 +60,19 @@ const AuthInput = ({
         </div>
       </>
     );
+
+  if (isMulti) return (
+    <>
+      {label && <label className="mb-2">{label}</label>}
+      <div
+        className={`auth-input-wrapper ${hasError ? "has-error" : ""} ${
+          wrapperClassName || ""
+        }`}
+      >
+        <TagsInput {...rest} />
+      </div>
+    </>
+  )
 
   return (
     <>

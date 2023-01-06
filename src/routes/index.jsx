@@ -7,6 +7,7 @@ import Register from "../pages/auth/register";
 import Campus from "../pages/dashboard/campus";
 import CampusDetail from "../pages/dashboard/campus/detail";
 import Classes from "../pages/dashboard/classes";
+import ClassDetail from "../pages/dashboard/classes/detail";
 import SuperAdmin from "../pages/dashboard/super-admin";
 import Protected from "./protected";
 
@@ -22,7 +23,9 @@ const CustomRoutes = () => {
         }
       >
         <Route path="super-admin" element={<SuperAdmin />} />
-        <Route path="classes" element={<Classes />} />
+        <Route exact path="classes" element={<Classes />} />
+        <Route path="classes/new" element={<ClassDetail />} />
+        <Route path="classes/edit/:id" element={<ClassDetail />} />
         <Route exact path="campus" element={<Campus />} />
         <Route path="campus/new" element={<CampusDetail />} />
         <Route path="campus/edit/:id" element={<CampusDetail />} />

@@ -68,7 +68,9 @@ export const useCampus = () => {
     }
   );
 
-  const findCampus = id ? campusList?.find((x) => x.id === id) : undefined;
+  const singleCampus = id ? campusList?.find((x) => x.id === id) : undefined;
+
+  const handleUpdateCampus = async (data) => await updateCampus({ id, body: { ...data } })
 
   const isLoading =
     addCampusLoading ||
@@ -77,12 +79,11 @@ export const useCampus = () => {
     getCampusLoading;
 
   return {
-    campusId: id,
     isLoading,
     campusList,
     addCampus,
-    updateCampus,
-    campusData: campusData || findCampus,
+    updateCampus: handleUpdateCampus,
+    campusData: campusData || singleCampus,
     disableCampus,
     isEdit: !!id,
   };

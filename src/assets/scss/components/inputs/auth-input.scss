@@ -39,6 +39,12 @@
     appearance: none;
   }
 
+  .react-tagsinput {
+    width: 100%;
+    border: none;
+    padding: 0;
+  }
+
   input:-webkit-autofill,
   textarea:-webkit-autofill,
   select:-webkit-autofill {

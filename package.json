@@ -19,6 +19,7 @@
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "react-table": "^7.8.0",
+    "react-tagsinput": "^3.20.0",
     "react-toastify": "^9.1.1",
     "reactstrap": "^9.1.5",
     "sass": "^1.57.1",
