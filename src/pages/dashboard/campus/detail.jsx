@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-formid";
 import { useNavigate } from "react-router-dom";
 import { Col, Row } from "reactstrap";
@@ -13,44 +13,60 @@ import { useCampus } from "../../../hooks/useCampus";
 
 const CampusDetail = () => {
   const navigate = useNavigate();
-  const { getFieldProps, inputs, setFieldValue, handleSubmit, errors } =
-    useForm({
-      defaultValues: {
-        name: "",
-        email: "",
-        phoneno: "+234",
-        address: "",
-        state: "",
+  const {
+    getFieldProps,
+    inputs,
+    setFieldValue,
+    handleSubmit,
+    errors,
+    setInputs,
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      phoneno: "+234",
+      address: "",
+      state: "",
+    },
+    validation: {
+      name: {
+        required: (val) => !!val || "Campus name is required",
       },
-      validation: {
-        name: {
-          required: (val) => !!val || "Campus name is required",
-        },
-        email: {
-          required: (val) => !!val || "Email address is required",
-          isValid: (val) =>
-            validator.isEmail(val) || "Email address is invalid",
-        },
-        address: {
-          required: (val) => !!val || "Address is required",
-        },
-        phoneNumber: {
-          required: (val) => !!val || "Phone number is required",
-          isValid: (val) =>
-            (typeof val === "string" && isValidPhoneNumber(val)) ||
-            "Phone number is invalid",
-        },
-        state: {
-          required: (val) => !!val || "State is required",
-        },
+      email: {
+        required: (val) => !!val || "Email address is required",
+        isValid: (val) => validator.isEmail(val) || "Email address is invalid",
       },
-    });
+      address: {
+        required: (val) => !!val || "Address is required",
+      },
+      phoneNumber: {
+        required: (val) => !!val || "Phone number is required",
+        isValid: (val) =>
+          (typeof val === "string" && isValidPhoneNumber(val)) ||
+          "Phone number is invalid",
+      },
+      state: {
+        required: (val) => !!val || "State is required",
+      },
+    },
+  });
 
-  const { addCampus, isLoading } = useCampus();
+  const { addCampus, isLoading, updateCampus, campusData, isEdit } =
+    useCampus();
 
   const onSubmit = async (data) => {
+    if (isEdit) {
+      return await updateCampus({ id: campusData.id, body: data });
+    }
     await addCampus(data);
   };
+
+  useEffect(() => {
+    if (campusData) {
+      setInputs({ ...inputs, ...campusData });
+    }
+  }, [campusData]);
+
   return (
     <div>
       <GoBack />

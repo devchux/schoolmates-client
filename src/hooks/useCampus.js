@@ -68,6 +68,8 @@ export const useCampus = () => {
     }
   );
 
+  const findCampus = id ? campusList?.find((x) => x.id === id) : undefined;
+
   const isLoading =
     addCampusLoading ||
     campusListLoading ||
@@ -80,7 +82,8 @@ export const useCampus = () => {
     campusList,
     addCampus,
     updateCampus,
-    campusData,
+    campusData: campusData || findCampus,
     disableCampus,
+    isEdit: !!id,
   };
 };
