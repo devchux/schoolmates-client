@@ -43,6 +43,16 @@ const CustomTable = ({
     }
   };
 
+  const displayStatus = (render) => {
+    switch (render) {
+      case "disabled":
+        return <p className="text-danger">Inactive</p>;
+
+      default:
+        return <p className="text-success">Active</p>;
+    }
+  };
+
   const memoisedData = React.useMemo(() => data || [], [data]);
 
   const memoisedColumns = React.useMemo(() => columns, [columns]);
@@ -88,7 +98,9 @@ const CustomTable = ({
                           {...cell.getCellProps()}
                           onClick={() => onCellClick(cell)}
                         >
-                          {cell.render("Cell")}
+                          {cell.column.id === "status"
+                            ? displayStatus(cell.value)
+                            : cell.render("Cell")}
                         </td>
                       );
                     })}
