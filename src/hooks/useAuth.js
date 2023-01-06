@@ -46,8 +46,22 @@ export const useAuth = () => {
     }
   );
 
+  const { mutateAsync: register, isLoading: registerLoading } = useMutation(
+    apiServices.register,
+    {
+      onSuccess(data) {
+        updateUser(data?.data?.user);
+        setInitiateDesignationQuery(true);
+      },
+      onError(err) {
+        apiServices.errorhandler(err);
+      },
+    }
+  );
+
   return {
     login,
-    loginLoading: loginLoading || designationLoading,
+    register,
+    isLoading: loginLoading || designationLoading || registerLoading,
   };
 };

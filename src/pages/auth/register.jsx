@@ -1,25 +1,25 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../../components/buttons/button";
 import AuthInput from "../../components/inputs/auth-input";
 import { useForm } from "react-formid";
 import validator from "validator";
 import { isValidPhoneNumber } from "react-phone-number-input";
+import { useAuth } from "../../hooks/useAuth";
 
 const Register = () => {
-  const navigate = useNavigate();
   const { inputs, handleSubmit, handleChange, errors, setFieldValue } = useForm(
     {
       defaultValues: {
         username: "",
         password: "",
-        schoolName: "",
+        name: "",
         email: "",
-        phoneNumber: "+234",
-        confirmPassword: "",
+        phoneno: "+234",
+        password_confirmation: "",
       },
       validation: {
-        schoolName: {
+        name: {
           required: (val) => !!val || "School name is required",
         },
         email: {
@@ -30,7 +30,7 @@ const Register = () => {
         username: {
           required: (val) => !!val || "Username is required",
         },
-        phoneNumber: {
+        phoneno: {
           required: (val) => !!val || "Phone number is required",
           isValid: (val) =>
             (typeof val === "string" && isValidPhoneNumber(val)) ||
@@ -41,7 +41,7 @@ const Register = () => {
           hasMoreThan6Chars: (val) =>
             val.length >= 8 || "Please enter 8 or more characters",
         },
-        confirmPassword: {
+        password_confirmation: {
           shouldMatch: (val, { password }) =>
             val === password || "Passwords do not match",
         },
@@ -49,11 +49,10 @@ const Register = () => {
     }
   );
 
-  const onSubmit = (data) => {
-    const d = new Date();
-    d.setTime(d.getTime() + 24 * 60 * 60 * 1000);
-    document.cookie = `username=${data.username}; expires=${d.toUTCString()}`;
-    navigate("/");
+  const { register, isLoading } = useAuth();
+
+  const onSubmit = async (data) => {
+    await register(data);
   };
   return (
     <div className="login-page register-page">
@@ -69,14 +68,12 @@ const Register = () => {
             <AuthInput
               type="text"
               placeholder="School Name"
-              hasError={!!errors.schoolName}
-              value={inputs.schoolName}
-              name="schoolName"
+              hasError={!!errors.name}
+              value={inputs.name}
+              name="name"
               onChange={handleChange}
             />
-            {!!errors.schoolName && (
-              <p className="error-message">{errors.schoolName}</p>
-            )}
+            {!!errors.name && <p className="error-message">{errors.name}</p>}
           </div>
           <div className="form-group">
             <AuthInput
@@ -102,12 +99,13 @@ const Register = () => {
             />
             {!!errors.email && <p className="error-message">{errors.email}</p>}
           </div>
-          <div>
+          <div className="form-group">
             <AuthInput
               isPhone
-              value={inputs.phoneNumber}
-              onChange={(value) => setFieldValue("phoneNumber", value || '')}
+              value={inputs.phoneno}
+              onChange={(value) => setFieldValue("phoneno", value || "")}
             />
+            {!!errors.phoneno && <p className="error-message">{errors.phoneno}</p>}
           </div>
           <div className="form-group">
             <AuthInput
@@ -126,13 +124,13 @@ const Register = () => {
             <AuthInput
               type="password"
               placeholder="Confirm Password"
-              hasError={!!errors.confirmPassword}
-              value={inputs.confirmPassword}
-              name="confirmPassword"
+              hasError={!!errors.password_confirmation}
+              value={inputs.password_confirmation}
+              name="password_confirmation"
               onChange={handleChange}
             />
-            {!!errors.confirmPassword && (
-              <p className="error-message">{errors.confirmPassword}</p>
+            {!!errors.password_confirmation && (
+              <p className="error-message">{errors.password_confirmation}</p>
             )}
           </div>
           <div className="form-group">
@@ -141,7 +139,12 @@ const Register = () => {
             </Link>
           </div>
           <div className="form-group">
-            <Button block type="submit">
+            <Button
+              block
+              isLoading={isLoading}
+              disabled={isLoading}
+              type="submit"
+            >
               Register
             </Button>
           </div>

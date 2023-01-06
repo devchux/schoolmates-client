@@ -19,7 +19,7 @@ const Login = () => {
     },
   });
 
-  const { login, loginLoading } = useAuth();
+  const { login, isLoading } = useAuth();
 
   const onSubmit = async (data) => {
     await login(data);
@@ -86,8 +86,8 @@ const Login = () => {
           <div className="form-group">
             <Button
               block
-              disabled={loginLoading}
-              isLoading={loginLoading}
+              disabled={isLoading}
+              isLoading={isLoading}
               type="submit"
             >
               Log In

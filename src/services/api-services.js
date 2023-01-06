@@ -21,6 +21,14 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async register(body) {
+    const { data } = await axios.post(`${backendAPI}/register`, { ...body });
+
+    super.storeToken(data?.data?.token);
+
+    return data;
+  }
+
   async getDesignation() {
     const { data } = await axios.get(`${backendAPI}/designation`, {
       headers: {

@@ -136,3 +136,9 @@ html {
     font-size: calc(100vw * 10 / 428);
   }
 }
+
+.error-message {
+  color: rgba(255, 0, 0, 0.6);
+  line-height: 1.4;
+  font-size: 1.2rem;
+}
