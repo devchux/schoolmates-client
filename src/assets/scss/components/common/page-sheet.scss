@@ -1,8 +1,12 @@
 .page-sheet {
-  padding: 3em;
+  padding: 3em 2em;
   max-width: 110rem;
   margin: auto;
   background-color: #fff;
   border-radius: 1rem;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.04);
+
+  @media only screen and (min-width: 900px) {
+    padding: 3em;
+  }
 }
