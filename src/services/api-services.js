@@ -62,7 +62,7 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async updateClass({ id, body }) {
+  async updateClass({ id, ...body }) {
     const { data } = await axios.patch(`${backendAPI}/class/${id}`, body, {
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ class APIServies extends Helpers {
 
   async deleteClass(id) {
     const { data } = await axios.delete(
-      `${backendAPI}/delete/${id}`,
+      `${backendAPI}/staff/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async updateCampus({ id, body }) {
+  async updateCampus({ id, ...body }) {
     const { data } = await axios.patch(`${backendAPI}/campus/${id}`, body, {
       headers: {
         "Content-Type": "application/json",
@@ -142,6 +142,122 @@ class APIServies extends Helpers {
         },
       }
     );
+
+    return data;
+  }
+
+  async getAllStaffs() {
+    const { data } = await axios.get(`${backendAPI}/staff`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addStaff(body) {
+    const { data } = await axios.post(`${backendAPI}/staff`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async updateStaff({ id, ...body }) {
+    const { data } = await axios.patch(`${backendAPI}/staff/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deleteStaff(id) {
+    const { data } = await axios.delete(
+      `${backendAPI}/staff/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async getStaff(id) {
+    const { data } = await axios.get(`${backendAPI}/staff/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAllStudents() {
+    const { data } = await axios.get(`${backendAPI}/student`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addStudent(body) {
+    const { data } = await axios.post(`${backendAPI}/student`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async updateStudent({ id, ...body }) {
+    const { data } = await axios.patch(`${backendAPI}/student/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deleteStudent(id) {
+    const { data } = await axios.delete(
+      `${backendAPI}/student/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async getStudent(id) {
+    const { data } = await axios.get(`${backendAPI}/student/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
 
     return data;
   }

@@ -58,7 +58,7 @@ export const useClasses = () => {
 
   const singleClass = id ? classes?.find((x) => x.id === id) : undefined;
 
-  const handleUpdateClass = async (data) => await updateClass(data);
+  const handleUpdateClass = async (data) => await updateClass({ ...data, id });
 
   const handleDeleteClass = async (data) => await deleteClass(data);
 
@@ -69,7 +69,7 @@ export const useClasses = () => {
     classes: classList,
     isEdit: !!id,
     onUpdateClass: handleUpdateClass,
-    addClass: addClass,
+    addClass,
     classData: singleClass,
     onDeleteClass: handleDeleteClass,
   };

@@ -8,6 +8,10 @@ import Campus from "../pages/dashboard/campus";
 import CampusDetail from "../pages/dashboard/campus/detail";
 import Classes from "../pages/dashboard/classes";
 import ClassDetail from "../pages/dashboard/classes/detail";
+import Staff from "../pages/dashboard/staffs";
+import StaffDetail from "../pages/dashboard/staffs/detail";
+import Student from "../pages/dashboard/students";
+import StudentDetail from "../pages/dashboard/students/detail";
 import SuperAdmin from "../pages/dashboard/super-admin";
 import Protected from "./protected";
 
@@ -29,6 +33,12 @@ const CustomRoutes = () => {
         <Route exact path="campus" element={<Campus />} />
         <Route path="campus/new" element={<CampusDetail />} />
         <Route path="campus/edit/:id" element={<CampusDetail />} />
+        <Route exact path="staffs" element={<Staff />} />
+        <Route path="staffs/new" element={<StaffDetail />} />
+        <Route path="staffs/edit/:id" element={<StaffDetail />} />
+        <Route exact path="students" element={<Student />} />
+        <Route path="students/new" element={<StudentDetail />} />
+        <Route path="students/edit/:id" element={<StudentDetail />} />
         <Route index path="*" element={<Navigate to="/app/super-admin" />} />
       </Route>
       <Route path="auth" element={<AuthLayout />}>

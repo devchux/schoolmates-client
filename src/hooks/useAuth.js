@@ -16,7 +16,6 @@ export const useAuth = () => {
     {
       enabled: initiateDesignationQuery,
       onSuccess(data) {
-        console.log(data);
         setInitiateDesignationQuery(false);
         const { designation_name } =
           data?.data?.find((item) => item.id === user.designation_id)

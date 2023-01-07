@@ -70,7 +70,7 @@ export const useCampus = () => {
   const singleCampus = id ? campusList?.find((x) => x.id === id) : undefined;
 
   const handleUpdateCampus = async (data) =>
-    await updateCampus({ id, body: { ...data } });
+    await updateCampus({ ...data, id });
 
   const isLoading =
     addCampusLoading ||
@@ -83,7 +83,7 @@ export const useCampus = () => {
     campusList,
     addCampus,
     updateCampus: handleUpdateCampus,
-    campusData: campusData || singleCampus,
+    campusData: campusData?.data?.attributes || singleCampus,
     disableCampus,
     isEdit: !!id,
   };
