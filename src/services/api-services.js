@@ -51,6 +51,42 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async addClass(body) {
+    const { data } = await axios.post(`${backendAPI}/class`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async updateClass({ id, body }) {
+    const { data } = await axios.patch(`${backendAPI}/class/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deleteClass(id) {
+    const { data } = await axios.delete(
+      `${backendAPI}/delete/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
   async getAllCampuses() {
     const { data } = await axios.get(`${backendAPI}/campus`, {
       headers: {

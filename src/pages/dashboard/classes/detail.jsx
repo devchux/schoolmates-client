@@ -18,7 +18,7 @@ const ClassDetail = () => {
   } = useForm({
     defaultValues: {
       class_name: "",
-      subclasses: [],
+      sub_class: [],
     },
     validation: {
       class_name: {
@@ -29,14 +29,18 @@ const ClassDetail = () => {
 
   const onSubmit = async (data) => {
     if (isEdit) {
-      return await onUpdateClass(data);
+      return await onUpdateClass({...data, sub_class: data.sub_class.join()});
     }
-    await addClass(data);
+    await addClass({...data, sub_class: data.sub_class.join()});
   };
 
   useEffect(() => {
     if (classData) {
-      setInputs({ ...inputs, ...classData });
+      const format = {
+        ...classData,
+        sub_class: classData.sub_class.split(',')
+      };
+      setInputs({ ...inputs, ...format });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [classData]);
@@ -62,8 +66,8 @@ const ClassDetail = () => {
           <AuthInput
             isMulti
             label="Sub Classes (Click enter after typing sub class to register)"
-            value={inputs.subclasses}
-            onChange={(value) => setFieldValue("subclasses", value)}
+            value={inputs.sub_class}
+            onChange={(value) => setFieldValue("sub_class", value)}
           />
         </Col>
       </Row>

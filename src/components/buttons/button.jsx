@@ -23,6 +23,15 @@ const Button = ({
       case "dark":
         return variant;
 
+      case "warning":
+        return variant;
+
+      case "outline-dark":
+        return variant;
+
+      case "outline-warning":
+        return variant;
+
       default:
         return null;
     }

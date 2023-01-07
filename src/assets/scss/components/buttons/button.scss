@@ -46,6 +46,10 @@
     background: #000000;
   }
 
+  &.warning {
+    background-color: #ffc107;
+  }
+
   &.outline-danger {
     border: 0.2rem solid #dc3545;
     background: transparent;
@@ -53,6 +57,28 @@
 
     &:hover {
       background: #dc3545;
+      color: #ffffff;
+    }
+  }
+
+  &.outline-warning {
+    border: 0.2rem solid #ffc107;
+    background: transparent;
+    color: #ffc107;
+
+    &:hover {
+      background: #ffc107;
+      color: #ffffff;
+    }
+  }
+
+  &.outline-dark {
+    border: 0.2rem solid #000000;
+    background: transparent;
+    color: #000000;
+
+    &:hover {
+      background: #000000;
       color: #ffffff;
     }
   }

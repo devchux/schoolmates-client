@@ -3,12 +3,13 @@ import PageView from "../../../components/views/table-view";
 import { useClasses } from "../../../hooks/useClasses";
 
 const Classes = () => {
-  const { classes, isLoading } = useClasses();
+  const { classes, isLoading, onDeleteClass } = useClasses();
 
   return (
     <PageView
       rowHasUpdate
       rowHasDelete
+      onDelete={onDeleteClass}
       isLoading={isLoading}
       columns={[
         {
@@ -18,6 +19,10 @@ const Classes = () => {
         {
           Header: "Class Name",
           accessor: "class_name",
+        },
+        {
+          Header: "Sub Classes",
+          accessor: "sub_class",
         },
       ]}
       data={classes}

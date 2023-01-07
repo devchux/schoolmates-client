@@ -120,7 +120,7 @@ const CustomTable = ({
                           variant={
                             row.original.status === "disabled"
                               ? "dark"
-                              : "danger"
+                              : "warning"
                           }
                           className="d-block mx-auto"
                           onClick={() => openModal(row, "disable")}
