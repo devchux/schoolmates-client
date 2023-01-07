@@ -6,7 +6,7 @@ import { useAppContext } from "./useAppContext";
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const { updateUser, user, apiServices, errorHandler } = useAppContext();
+  const { updateUser, user, apiServices } = useAppContext();
   const [initiateDesignationQuery, setInitiateDesignationQuery] =
     useState(false);
 
@@ -24,7 +24,7 @@ export const useAuth = () => {
         navigate("/app/classes");
       },
       onError(err) {
-        errorHandler(err);
+        apiServices.errorHandler(err);
       },
     }
   );
@@ -37,7 +37,7 @@ export const useAuth = () => {
         setInitiateDesignationQuery(true);
       },
       onError(err) {
-        errorHandler(err);
+        apiServices.errorHandler(err);
       },
     }
   );
@@ -50,7 +50,7 @@ export const useAuth = () => {
         setInitiateDesignationQuery(true);
       },
       onError(err) {
-        errorHandler(err);
+        apiServices.errorHandler(err);
       },
     }
   );
