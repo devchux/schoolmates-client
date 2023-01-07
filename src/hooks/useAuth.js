@@ -1,15 +1,12 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../context/user";
-import APIServies from "../services/api-services";
 import queryKeys from "../utils/queryKeys";
-
-const apiServices = new APIServies();
+import { useAppContext } from "./useAppContext";
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const { updateUser, user } = useContext(UserContext);
+  const { updateUser, user, apiServices, errorHandler } = useAppContext();
   const [initiateDesignationQuery, setInitiateDesignationQuery] =
     useState(false);
 
@@ -28,7 +25,7 @@ export const useAuth = () => {
         navigate("/app/classes");
       },
       onError(err) {
-        apiServices.errorhandler(err);
+        errorHandler(err);
       },
     }
   );
@@ -41,7 +38,7 @@ export const useAuth = () => {
         setInitiateDesignationQuery(true);
       },
       onError(err) {
-        apiServices.errorhandler(err);
+        errorHandler(err);
       },
     }
   );
@@ -54,7 +51,7 @@ export const useAuth = () => {
         setInitiateDesignationQuery(true);
       },
       onError(err) {
-        apiServices.errorhandler(err);
+        errorHandler(err);
       },
     }
   );

@@ -1,12 +1,11 @@
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import APIServies from "../services/api-services";
 import queryKeys from "../utils/queryKeys";
-
-const apiServices = new APIServies();
+import { useAppContext } from "./useAppContext";
 
 export const useClasses = () => {
   const { id } = useParams();
+  const { apiServices, errorHandler } = useAppContext();
 
   const { isLoading, data: classes } = useQuery(
     [queryKeys.GET_ALL_CLASSES],
@@ -14,7 +13,7 @@ export const useClasses = () => {
     {
       retry: 3,
       onError(err) {
-        apiServices.errorhandler(err);
+        errorHandler(err);
       },
       select: apiServices.formatData,
     }
@@ -30,6 +29,6 @@ export const useClasses = () => {
     isEdit: !!id,
     onUpdateClass: handleUpdateClass,
     addClass: (data) => console.log(data),
-    classData: singleClass
+    classData: singleClass,
   };
 };

@@ -1,13 +1,12 @@
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import APIServies from "../services/api-services";
 import queryKeys from "../utils/queryKeys";
-
-const apiServices = new APIServies();
+import { useAppContext } from "./useAppContext";
 
 export const useCampus = () => {
   const { id } = useParams();
+  const { apiServices, errorHandler } = useAppContext();
 
   const {
     isLoading: campusListLoading,
@@ -16,7 +15,7 @@ export const useCampus = () => {
   } = useQuery([queryKeys.GET_ALL_CAMPUSES], apiServices.getAllCampuses, {
     retry: 3,
     onError(err) {
-      apiServices.errorhandler(err);
+      errorHandler(err);
     },
     select: apiServices.formatData,
   });
@@ -27,7 +26,7 @@ export const useCampus = () => {
     {
       retry: 3,
       onError(err) {
-        apiServices.errorhandler(err);
+        errorHandler(err);
       },
       enabled: !!id,
     }
@@ -40,7 +39,7 @@ export const useCampus = () => {
         toast.success("Campus has been added successfully");
       },
       onError(err) {
-        apiServices.errorhandler(err);
+        errorHandler(err);
       },
     }
   );
@@ -51,7 +50,7 @@ export const useCampus = () => {
         toast.success("Campus has been updated successfully");
       },
       onError(err) {
-        apiServices.errorhandler(err);
+        errorHandler(err);
       },
     });
 
@@ -63,14 +62,15 @@ export const useCampus = () => {
         toast.success("Campus status updated successfully");
       },
       onError(err) {
-        apiServices.errorhandler(err);
+        errorHandler(err);
       },
     }
   );
 
   const singleCampus = id ? campusList?.find((x) => x.id === id) : undefined;
 
-  const handleUpdateCampus = async (data) => await updateCampus({ id, body: { ...data } })
+  const handleUpdateCampus = async (data) =>
+    await updateCampus({ id, body: { ...data } });
 
   const isLoading =
     addCampusLoading ||

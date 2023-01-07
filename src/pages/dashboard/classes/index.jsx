@@ -8,6 +8,7 @@ const Classes = () => {
   return (
     <PageView
       rowHasUpdate
+      rowHasDelete
       isLoading={isLoading}
       columns={[
         {

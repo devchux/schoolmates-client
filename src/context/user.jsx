@@ -8,6 +8,7 @@ const apiServices = new APIServies();
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [loginPrompt, setLoginPrompt] = useState(false);
   const navigate = useNavigate();
 
   const updateUser = (data) => {
@@ -19,16 +20,20 @@ const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
-    // document.cookie.split(";").forEach((c) => {
-    //   document.cookie = c
-    //     .replace(/^ +/, "")
-    //     .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-    // });
     apiServices.eraseToken();
     setUser({});
     localStorage.clear();
     navigate("/auth");
   };
+
+  const errorHandler = (err, message) => {
+    if (err?.response?.status === 401) {
+      setLoginPrompt(true);
+    }
+    apiServices.errorHandler(err, message);
+  };
+
+  const toggleLoginPrompt = () => setLoginPrompt(!loginPrompt);
 
   useEffect(() => {
     const userStorage = localStorage.getItem("userData");
@@ -41,7 +46,16 @@ const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, updateUser, logout }}>
+    <UserContext.Provider
+      value={{
+        user,
+        updateUser,
+        logout,
+        loginPrompt,
+        toggleLoginPrompt,
+        errorHandler,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );

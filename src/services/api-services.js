@@ -4,7 +4,7 @@ import { backendAPI } from "../utils/constants";
 import Helpers from "./helpers";
 
 class APIServies extends Helpers {
-  errorhandler(error, message) {
+  errorHandler(error, message) {
     let res = message || "An error occurred";
     if (error.response.status >= 400 && error.response.status <= 499) {
       res = error.response.data.message;

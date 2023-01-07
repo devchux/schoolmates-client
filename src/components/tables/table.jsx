@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useTable } from "react-table";
-import { Modal, ModalBody, ModalFooter, Spinner, Table } from "reactstrap";
+import { Spinner, Table } from "reactstrap";
 import Button from "../buttons/button";
-import ButtonGroup from "../buttons/button-group";
+import Prompt from "../modals/prompt";
 
 const CustomTable = ({
   columns,
@@ -147,21 +147,19 @@ const CustomTable = ({
               })}
             </tbody>
           </Table>
-          <Modal centered isOpen={modalOpen} toggle={toggleModal}>
-            <ModalBody className="p-5">
-              <p style={{ fontSize: "1.6rem" }}>
-                Are you sure you want continue?
-              </p>
-            </ModalBody>
-            <ModalFooter>
-              <ButtonGroup
-                options={[
-                  { title: "Cancel", onClick: toggleModal, variant: "outline" },
-                  { title: "Proceed", onClick: onModalContinue },
-                ]}
-              />
-            </ModalFooter>
-          </Modal>
+          <Prompt
+            hasGroupedButtons
+            groupedButtonProps={[
+              { title: "Cancel", onClick: toggleModal, variant: "outline" },
+              { title: "Proceed", onClick: onModalContinue },
+            ]}
+            isOpen={modalOpen}
+            toggle={toggleModal}
+          >
+            <p style={{ fontSize: "1.6rem" }}>
+              Are you sure you want continue?
+            </p>
+          </Prompt>
         </div>
       ) : null}
       {!memoisedData.length && !isLoading ? (
