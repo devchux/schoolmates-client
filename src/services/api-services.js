@@ -97,8 +97,8 @@ class APIServies extends Helpers {
 
   async disableCampus({ id, status }) {
     const { data } = await axios.patch(
-      `${backendAPI}/disablecampus/${id}`,
-      { status },
+      `${backendAPI}/${status === 'disabled' ? 'disablecampus' : 'enablecampus'}/${id}`,
+      {},
       {
         headers: {
           "Content-Type": "application/json",
