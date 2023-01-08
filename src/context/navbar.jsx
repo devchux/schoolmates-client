@@ -7,7 +7,12 @@ const NavbarProvider = ({ children }) => {
 
   return (
     <NavbarContext.Provider
-      value={{ isOpen, toggle: () => setIsOpen(!isOpen) }}
+      value={{
+        isOpen,
+        toggle: () => setIsOpen(!isOpen),
+        openSidebar: () => setIsOpen(true),
+        closeSidebar: () => setIsOpen(false),
+      }}
     >
       {children}
     </NavbarContext.Provider>

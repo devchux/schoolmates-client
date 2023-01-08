@@ -1,67 +1,13 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-formid";
 import { Col, Row } from "reactstrap";
-import validator from "validator";
-import { isValidPhoneNumber } from "react-phone-number-input";
 import AuthInput from "../../../components/inputs/auth-input";
 import { useStaff } from "../../../hooks/useStaff";
 import DetailView from "../../../components/views/detail-view";
 import AuthSelect from "../../../components/inputs/auth-select";
 import { roleMap } from "../../../utils/constants";
+import ImagePreview from "../../../components/common/image-preview";
 
 const StaffDetail = () => {
-  const {
-    getFieldProps,
-    inputs,
-    setFieldValue,
-    handleSubmit,
-    errors,
-    setInputs,
-    handleChange,
-  } = useForm({
-    defaultValues: {
-      designation_id: "",
-      department: "",
-      surname: "",
-      firstname: "",
-      middlename: "",
-      username: "",
-      email: "",
-      phoneno: "",
-      address: "",
-      image: "",
-      file: null,
-      password: "",
-      password_confirmation: "",
-    },
-    validation: {
-      surname: { required: true },
-      firstname: { required: true },
-      middlename: { required: true },
-      username: { required: true },
-      address: { required: true },
-      phoneno: {
-        required: (val) => !!val || "Phone number is required",
-        isValid: (val) =>
-          (typeof val === "string" && isValidPhoneNumber(val)) ||
-          "Phone number is invalid",
-      },
-      email: {
-        required: (val) => !!val || "Email address is required",
-        isValid: (val) => validator.isEmail(val) || "Email address is invalid",
-      },
-      password: {
-        required: (val) => !!val || "Password is required",
-        hasMoreThan6Chars: (val) =>
-          val.length >= 8 || "Please enter 8 or more characters",
-      },
-      password_confirmation: {
-        shouldMatch: (val, { password }) =>
-          val === password || "Passwords do not match",
-      },
-    },
-  });
-
   const {
     addStaff,
     isLoading,
@@ -69,18 +15,39 @@ const StaffDetail = () => {
     staffData,
     isEdit,
     designations,
+    getFieldProps,
+    inputs,
+    setFieldValue,
+    handleSubmit,
+    errors,
+    setInputs,
+    handleChange,
+    handleImageChange,
+    filePreview,
+    base64String,
+    resetFile,
+    fileRef,
   } = useStaff();
 
   const onSubmit = async (data) => {
+    const image = isEdit
+      ? base64String
+        ? base64String
+        : staffData.image
+      : base64String;
     if (isEdit) {
-      return await onUpdateStaff(data);
+      return await onUpdateStaff({ ...data, image });
     }
-    await addStaff(data);
+    await addStaff({ ...data, image, password: "12345678" });
   };
 
   useEffect(() => {
     if (staffData) {
-      setInputs({ ...inputs, ...staffData });
+      setInputs({
+        ...inputs,
+        ...staffData,
+        designation: staffData?.designation_id,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [staffData]);
@@ -184,45 +151,17 @@ const StaffDetail = () => {
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Role"
-            value={inputs.designation_id}
-            name="designation_id"
-            hasError={!!errors.designation_id}
+            value={inputs.designation}
+            name="designation"
+            hasError={!!errors.designation}
             onChange={handleChange}
             options={(designations?.data || []).map((x) => ({
               value: x?.id,
               title: roleMap[x?.attributes?.designation_name],
             }))}
           />
-          {!!errors.designation_id && (
-            <p className="error-message">{errors.designation_id}</p>
-          )}
-        </Col>
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            type="password"
-            label="Password"
-            hasError={!!errors.password}
-            value={inputs.password}
-            name="password"
-            onChange={handleChange}
-          />
-          {!!errors.firstname && (
-            <p className="error-message">{errors.firstname}</p>
-          )}
-        </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            type="password"
-            label="Confirm Password"
-            hasError={!!errors.password_confirmation}
-            value={inputs.password_confirmation}
-            name="password_confirmation"
-            onChange={handleChange}
-          />
-          {!!errors.password_confirmation && (
-            <p className="error-message">{errors.password_confirmation}</p>
+          {!!errors.designation && (
+            <p className="error-message">{errors.designation}</p>
           )}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
@@ -231,15 +170,17 @@ const StaffDetail = () => {
             className="px-0"
             wrapperClassName="border-0"
             label="Profile Image"
-            name="file"
-            hasError={!!errors.file}
-            onChange={({ target: { files } }) =>
-              setFieldValue("file", files[0])
-            }
+            onChange={handleImageChange}
+            ref={fileRef}
           />
-          {!!errors.file && <p className="error-message">{errors.file}</p>}
         </Col>
       </Row>
+      <ImagePreview
+        src={filePreview || staffData?.image}
+        centered
+        wrapperClassName="my-5"
+        reset={resetFile}
+      />
     </DetailView>
   );
 };

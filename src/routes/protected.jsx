@@ -1,11 +1,13 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import Helpers from "../services/helpers";
+import { useAppContext } from "../hooks/useAppContext";
 
 const Protected = ({ children }) => {
-  const helpers = new Helpers();
+  const {
+    apiServices: { getToken },
+  } = useAppContext();
 
-  if (!helpers.getToken()) {
+  if (!getToken()) {
     return <Navigate to="/auth" replace />;
   }
   return children;

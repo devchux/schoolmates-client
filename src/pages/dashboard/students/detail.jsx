@@ -1,18 +1,21 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-formid";
 import { Col, Row } from "reactstrap";
-import validator from "validator";
-import { isValidPhoneNumber } from "react-phone-number-input";
 import AuthInput from "../../../components/inputs/auth-input";
 import { useStudent } from "../../../hooks/useStudent";
 import DetailView from "../../../components/views/detail-view";
 import AuthSelect from "../../../components/inputs/auth-select";
 import { useClasses } from "../../../hooks/useClasses";
 import { countryListSelect } from "../../../utils/constants";
-import moment from "moment";
+import { useAppContext } from "../../../hooks/useAppContext";
+import ImagePreview from "../../../components/common/image-preview";
 
 const StudentDetail = () => {
   const {
+    addStudent,
+    isLoading,
+    onUpdateStudent,
+    studentData,
+    isEdit,
     getFieldProps,
     inputs,
     setFieldValue,
@@ -20,84 +23,37 @@ const StudentDetail = () => {
     errors,
     setInputs,
     handleChange,
-  } = useForm({
-    defaultValues: {
-      surname: "",
-      firstname: "",
-      middlename: "",
-      admission_number: "",
-      username: "",
-      genotype: "",
-      blood_group: "A+",
-      gender: "female",
-      dob: "",
-      nationality: "",
-      state: "",
-      session_admitted: "",
-      class: "",
-      present_class: "",
-      image: "",
-      home_address: "",
-      phone_number: "",
-      email_address: "",
-      file: null,
-      password: "",
-      password_confirmation: "",
-    },
-    validation: {
-      surname: { required: true },
-      firstname: { required: true },
-      middlename: { required: true },
-      admission_number: { required: true },
-      username: { required: true },
-      genotype: { required: true },
-      blood_group: { required: true },
-      gender: { required: true },
-      dob: { required: true },
-      nationality: { required: true },
-      state: { required: true },
-      session_admitted: { required: true },
-      class: { required: true },
-      present_class: { required: true },
-      home_address: { required: true },
-      phone_number: {
-        required: (val) => !!val || "Phone number is required",
-        isValid: (val) =>
-          (typeof val === "string" && isValidPhoneNumber(val)) ||
-          "Phone number is invalid",
-      },
-      email_address: {
-        required: (val) => !!val || "Email address is required",
-        isValid: (val) => validator.isEmail(val) || "Email address is invalid",
-      },
-      password: {
-        required: (val) => !!val || "Password is required",
-        hasMoreThan6Chars: (val) =>
-          val.length >= 8 || "Please enter 8 or more characters",
-      },
-      password_confirmation: {
-        shouldMatch: (val, { password }) =>
-          val === password || "Passwords do not match",
-      },
-    },
-  });
-
-  const { addStudent, isLoading, onUpdateStudent, studentData, isEdit } =
-    useStudent();
+    handleImageChange,
+    filePreview,
+    base64String,
+    resetFile,
+    fileRef,
+  } = useStudent();
 
   const { classes } = useClasses();
 
-  const formatDate = (date, format) =>
-    moment(date, format).format().split("T")[0];
+  const {
+    apiServices: { formatDate },
+  } = useAppContext();
 
   const onSubmit = async (data) => {
+    const image = isEdit
+      ? base64String
+        ? base64String
+        : studentData.image
+      : base64String;
     if (isEdit) {
       return await onUpdateStudent({
         ...data,
+        image,
         dob: formatDate(data.dob, "DD-MM-YYYY"),
       });
     }
-    await addStudent({ ...data, dob: formatDate(data.dob, "DD-MM-YYYY") });
+    await addStudent({
+      ...data,
+      dob: formatDate(data.dob, "DD-MM-YYYY"),
+      image,
+    });
   };
 
   useEffect(() => {
@@ -344,47 +300,21 @@ const StudentDetail = () => {
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
-            type="password"
-            label="Password"
-            hasError={!!errors.password}
-            value={inputs.password}
-            name="password"
-            onChange={handleChange}
-          />
-          {!!errors.firstname && (
-            <p className="error-message">{errors.firstname}</p>
-          )}
-        </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            type="password"
-            label="Confirm Password"
-            hasError={!!errors.password_confirmation}
-            value={inputs.password_confirmation}
-            name="password_confirmation"
-            onChange={handleChange}
-          />
-          {!!errors.password_confirmation && (
-            <p className="error-message">{errors.password_confirmation}</p>
-          )}
-        </Col>
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
             type="file"
             className="px-0"
             wrapperClassName="border-0"
             label="Profile Image"
-            name="file"
-            hasError={!!errors.file}
-            onChange={({ target: { files } }) =>
-              setFieldValue("file", files[0])
-            }
+            onChange={handleImageChange}
+            ref={fileRef}
           />
-          {!!errors.file && <p className="error-message">{errors.file}</p>}
         </Col>
       </Row>
+      <ImagePreview
+        src={filePreview || studentData?.image}
+        centered
+        wrapperClassName="my-5"
+        reset={resetFile}
+      />
     </DetailView>
   );
 };

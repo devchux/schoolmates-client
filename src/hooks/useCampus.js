@@ -1,12 +1,54 @@
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import validator from "validator";
+import { isValidPhoneNumber } from "react-phone-number-input";
 import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
+import { useForm } from "react-formid";
 
 export const useCampus = () => {
   const { id } = useParams();
   const { apiServices, errorHandler } = useAppContext();
+
+  const {
+    getFieldProps,
+    inputs,
+    setFieldValue,
+    handleSubmit,
+    errors,
+    setInputs,
+    reset,
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      phoneno: "+234",
+      address: "",
+      state: "",
+    },
+    validation: {
+      name: {
+        required: (val) => !!val || "Campus name is required",
+      },
+      email: {
+        required: (val) => !!val || "Email address is required",
+        isValid: (val) => validator.isEmail(val) || "Email address is invalid",
+      },
+      address: {
+        required: (val) => !!val || "Address is required",
+      },
+      phoneNumber: {
+        required: (val) => !!val || "Phone number is required",
+        isValid: (val) =>
+          (typeof val === "string" && isValidPhoneNumber(val)) ||
+          "Phone number is invalid",
+      },
+      state: {
+        required: (val) => !!val || "State is required",
+      },
+    },
+  });
 
   const {
     isLoading: campusListLoading,
@@ -37,6 +79,7 @@ export const useCampus = () => {
     {
       onSuccess() {
         toast.success("Campus has been added successfully");
+        reset();
       },
       onError(err) {
         errorHandler(err);
@@ -54,8 +97,8 @@ export const useCampus = () => {
       },
     });
 
-  const { mutateAsync: disableCampus } = useMutation(
-    apiServices.disableCampus,
+  const { mutateAsync: toggleCampusStatus } = useMutation(
+    apiServices.toggleCampusStatus,
     {
       onSuccess() {
         refetchCampusList();
@@ -82,9 +125,15 @@ export const useCampus = () => {
     isLoading,
     campusList,
     addCampus,
+    getFieldProps,
+    inputs,
+    setFieldValue,
+    handleSubmit,
+    errors,
+    setInputs,
     updateCampus: handleUpdateCampus,
     campusData: campusData?.data?.attributes || singleCampus,
-    disableCampus,
+    toggleCampusStatus,
     isEdit: !!id,
   };
 };

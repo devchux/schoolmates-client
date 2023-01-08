@@ -12,9 +12,9 @@ const CustomTable = ({
   centered = false,
   rowHasDelete = false,
   rowHasUpdate = false,
-  rowHasDisable = false,
+  rowHasStatusToggle = false,
   onRowDelete = () => null,
-  onRowDisable = () => null,
+  onRowStatusToggle = () => null,
   onRowUpdate = () => null,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -36,7 +36,7 @@ const CustomTable = ({
         return onRowDelete(row?.original?.id);
 
       default:
-        return onRowDisable({
+        return onRowStatusToggle({
           id: row?.original?.id,
           status: row?.original?.status === "disabled" ? "active" : "disabled",
         });
@@ -82,7 +82,7 @@ const CustomTable = ({
                     </th>
                   ))}
                   {rowHasUpdate && <th>Update</th>}
-                  {rowHasDisable && <th>Disable</th>}
+                  {rowHasStatusToggle && <th>Disable</th>}
                   {rowHasDelete && <th>Delete</th>}
                 </tr>
               ))}
@@ -114,7 +114,7 @@ const CustomTable = ({
                         </Button>
                       </td>
                     )}
-                    {rowHasDisable && (
+                    {rowHasStatusToggle && (
                       <td>
                         <Button
                           variant={

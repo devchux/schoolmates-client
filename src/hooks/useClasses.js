@@ -1,3 +1,4 @@
+import { useForm } from "react-formid";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -7,6 +8,26 @@ import { useAppContext } from "./useAppContext";
 export const useClasses = () => {
   const { id } = useParams();
   const { apiServices, errorHandler } = useAppContext();
+
+  const {
+    getFieldProps,
+    inputs,
+    setFieldValue,
+    handleSubmit,
+    errors,
+    setInputs,
+    reset,
+  } = useForm({
+    defaultValues: {
+      class_name: "",
+      sub_class: [],
+    },
+    validation: {
+      class_name: {
+        required: (val) => !!val || "Campus name is required",
+      },
+    },
+  });
 
   const { isLoading: classListLoading, data: classes } = useQuery(
     [queryKeys.GET_ALL_CLASSES],
@@ -30,6 +51,7 @@ export const useClasses = () => {
     {
       onSuccess() {
         toast.success("Class has been added successfully");
+        reset();
       },
       onError(err) {
         errorHandler(err);
@@ -66,6 +88,12 @@ export const useClasses = () => {
 
   return {
     isLoading,
+    getFieldProps,
+    inputs,
+    setFieldValue,
+    handleSubmit,
+    errors,
+    setInputs,
     classes: classList,
     isEdit: !!id,
     onUpdateClass: handleUpdateClass,

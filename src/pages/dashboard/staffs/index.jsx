@@ -3,12 +3,14 @@ import PageView from "../../../components/views/table-view";
 import { useStaff } from "../../../hooks/useStaff";
 
 const Staff = () => {
-  const { staffs, isLoading, onDeleteStaff } = useStaff();
+  const { staffs, isLoading, onDeleteStaff, toggleStaffStatus } = useStaff();
 
   return (
     <PageView
       rowHasUpdate
       rowHasDelete
+      rowHasStatusToggle
+      onStatusToggle={toggleStaffStatus}
       onDelete={onDeleteStaff}
       isLoading={isLoading}
       columns={[

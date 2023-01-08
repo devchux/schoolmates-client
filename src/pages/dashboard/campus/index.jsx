@@ -3,14 +3,14 @@ import PageView from "../../../components/views/table-view";
 import { useCampus } from "../../../hooks/useCampus";
 
 const Campus = () => {
-  const { campusList, isLoading, disableCampus } = useCampus();
+  const { campusList, isLoading, toggleCampusStatus } = useCampus();
 
   return (
     <PageView
-      rowHasDisable
+      rowHasStatusToggle
       rowHasUpdate
       isLoading={isLoading}
-      onDisable={disableCampus}
+      onDisable={toggleCampusStatus}
       columns={[
         {
           Header: "id",

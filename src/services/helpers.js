@@ -1,3 +1,5 @@
+import moment from "moment";
+
 class Helpers {
   storeToken(token) {
     const d = new Date();
@@ -26,6 +28,23 @@ class Helpers {
       id: x?.id,
     }));
   }
+
+  formatDate = (date, format) => moment(date, format).format().split("T")[0];
+
+  convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 }
 
 export default Helpers;

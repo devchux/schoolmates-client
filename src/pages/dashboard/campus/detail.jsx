@@ -1,53 +1,23 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-formid";
 import { Col, Row } from "reactstrap";
-import validator from "validator";
-import { isValidPhoneNumber } from "react-phone-number-input";
 import AuthInput from "../../../components/inputs/auth-input";
 import { useCampus } from "../../../hooks/useCampus";
 import DetailView from "../../../components/views/detail-view";
 
 const CampusDetail = () => {
   const {
+    addCampus,
+    isLoading,
+    updateCampus,
+    campusData,
+    isEdit,
     getFieldProps,
     inputs,
     setFieldValue,
     handleSubmit,
     errors,
     setInputs,
-  } = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-      phoneno: "+234",
-      address: "",
-      state: "",
-    },
-    validation: {
-      name: {
-        required: (val) => !!val || "Campus name is required",
-      },
-      email: {
-        required: (val) => !!val || "Email address is required",
-        isValid: (val) => validator.isEmail(val) || "Email address is invalid",
-      },
-      address: {
-        required: (val) => !!val || "Address is required",
-      },
-      phoneNumber: {
-        required: (val) => !!val || "Phone number is required",
-        isValid: (val) =>
-          (typeof val === "string" && isValidPhoneNumber(val)) ||
-          "Phone number is invalid",
-      },
-      state: {
-        required: (val) => !!val || "State is required",
-      },
-    },
-  });
-
-  const { addCampus, isLoading, updateCampus, campusData, isEdit } =
-    useCampus();
+  } = useCampus();
 
   const onSubmit = async (data) => {
     if (isEdit) {

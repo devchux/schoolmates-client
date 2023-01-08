@@ -75,7 +75,7 @@ class APIServies extends Helpers {
 
   async deleteClass(id) {
     const { data } = await axios.delete(
-      `${backendAPI}/staff/${id}`,
+      `${backendAPI}/class/${id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -131,7 +131,7 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async disableCampus({ id, status }) {
+  async toggleCampusStatus({ id, status }) {
     const { data } = await axios.patch(
       `${backendAPI}/${status === 'disabled' ? 'disablecampus' : 'enablecampus'}/${id}`,
       {},
@@ -200,6 +200,21 @@ class APIServies extends Helpers {
         Authorization: `Bearer ${super.getToken()}`,
       },
     });
+
+    return data;
+  }
+
+  async toggleStaffStatus({ id, status }) {
+    const { data } = await axios.patch(
+      `${backendAPI}/${status === 'disabled' ? 'disablestaff' : 'enablestaff'}/${id}`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }

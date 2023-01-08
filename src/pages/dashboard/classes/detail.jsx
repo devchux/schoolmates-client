@@ -1,44 +1,36 @@
 import React, { useEffect } from "react";
-import { useForm } from "react-formid";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
 import DetailView from "../../../components/views/detail-view";
 import { useClasses } from "../../../hooks/useClasses";
 
 const ClassDetail = () => {
-  const { isLoading, isEdit, onUpdateClass, addClass, classData } =
-    useClasses();
   const {
+    isLoading,
+    isEdit,
+    onUpdateClass,
+    addClass,
+    classData,
     getFieldProps,
     inputs,
     setFieldValue,
     handleSubmit,
     errors,
     setInputs,
-  } = useForm({
-    defaultValues: {
-      class_name: "",
-      sub_class: [],
-    },
-    validation: {
-      class_name: {
-        required: (val) => !!val || "Campus name is required",
-      },
-    },
-  });
+  } = useClasses();
 
   const onSubmit = async (data) => {
     if (isEdit) {
-      return await onUpdateClass({...data, sub_class: data.sub_class.join()});
+      return await onUpdateClass({ ...data, sub_class: data.sub_class.join() });
     }
-    await addClass({...data, sub_class: data.sub_class.join()});
+    await addClass({ ...data, sub_class: data.sub_class.join() });
   };
 
   useEffect(() => {
     if (classData) {
       const format = {
         ...classData,
-        sub_class: classData.sub_class.split(',')
+        sub_class: classData.sub_class.split(","),
       };
       setInputs({ ...inputs, ...format });
     }

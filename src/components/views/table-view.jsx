@@ -4,7 +4,7 @@ import CreateWrapper from "../common/create-wrapper";
 import PageSheet from "../common/page-sheet";
 import CustomTable from "../tables/table";
 
-const PageView = ({ onDisable, onDelete, ...rest }) => {
+const PageView = ({ onStatusToggle, onDelete, ...rest }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -14,7 +14,7 @@ const PageView = ({ onDisable, onDelete, ...rest }) => {
       <div>
         <CustomTable
           centered
-          onRowDisable={async (data) => await onDisable(data)}
+          onRowStatusToggle={async (data) => await onStatusToggle(data)}
           onRowUpdate={(id) => navigate(`${location.pathname}/edit/${id}`)}
           onRowDelete={async (data) => await onDelete(data)}
           {...rest}
