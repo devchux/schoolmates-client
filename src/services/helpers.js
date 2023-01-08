@@ -1,4 +1,5 @@
 import moment from "moment";
+import { toast } from "react-toastify";
 
 class Helpers {
   storeToken(token) {
@@ -45,6 +46,15 @@ class Helpers {
       };
     });
   };
+
+  errorHandler(error, message) {
+    let res = message || "An error occurred";
+    if (error.response.status >= 400 && error.response.status <= 499) {
+      res = error.response.data.message;
+    }
+
+    return toast.error(res);
+  }
 }
 
 export default Helpers;

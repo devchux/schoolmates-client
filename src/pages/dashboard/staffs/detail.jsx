@@ -151,17 +151,17 @@ const StaffDetail = () => {
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Role"
-            value={inputs.designation}
-            name="designation"
-            hasError={!!errors.designation}
+            value={inputs.designation_id}
+            name="designation_id"
+            hasError={!!errors.designation_id}
             onChange={handleChange}
             options={(designations?.data || []).map((x) => ({
               value: x?.id,
               title: roleMap[x?.attributes?.designation_name],
             }))}
           />
-          {!!errors.designation && (
-            <p className="error-message">{errors.designation}</p>
+          {!!errors.designation_id && (
+            <p className="error-message">{errors.designation_id}</p>
           )}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">

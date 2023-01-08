@@ -34,7 +34,7 @@ export const useStaff = () => {
     reset: resetForm,
   } = useForm({
     defaultValues: {
-      designation: "1",
+      designation_id: "1",
       department: "",
       surname: "",
       firstname: "",

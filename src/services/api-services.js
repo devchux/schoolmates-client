@@ -1,18 +1,8 @@
 import axios from "axios";
-import { toast } from "react-toastify";
 import { backendAPI } from "../utils/constants";
 import Helpers from "./helpers";
 
 class APIServies extends Helpers {
-  errorHandler(error, message) {
-    let res = message || "An error occurred";
-    if (error.response.status >= 400 && error.response.status <= 499) {
-      res = error.response.data.message;
-    }
-
-    return toast.error(res);
-  }
-
   async login(body) {
     const { data } = await axios.post(`${backendAPI}/login`, { ...body });
 
@@ -74,15 +64,12 @@ class APIServies extends Helpers {
   }
 
   async deleteClass(id) {
-    const { data } = await axios.delete(
-      `${backendAPI}/class/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${super.getToken()}`,
-        },
-      }
-    );
+    const { data } = await axios.delete(`${backendAPI}/class/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
 
     return data;
   }
@@ -133,7 +120,9 @@ class APIServies extends Helpers {
 
   async toggleCampusStatus({ id, status }) {
     const { data } = await axios.patch(
-      `${backendAPI}/${status === 'disabled' ? 'disablecampus' : 'enablecampus'}/${id}`,
+      `${backendAPI}/${
+        status === "disabled" ? "disablecampus" : "enablecampus"
+      }/${id}`,
       {},
       {
         headers: {
@@ -180,15 +169,12 @@ class APIServies extends Helpers {
   }
 
   async deleteStaff(id) {
-    const { data } = await axios.delete(
-      `${backendAPI}/staff/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${super.getToken()}`,
-        },
-      }
-    );
+    const { data } = await axios.delete(`${backendAPI}/staff/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
 
     return data;
   }
@@ -206,7 +192,9 @@ class APIServies extends Helpers {
 
   async toggleStaffStatus({ id, status }) {
     const { data } = await axios.patch(
-      `${backendAPI}/${status === 'disabled' ? 'disablestaff' : 'enablestaff'}/${id}`,
+      `${backendAPI}/${
+        status === "disabled" ? "disablestaff" : "enablestaff"
+      }/${id}`,
       {},
       {
         headers: {
@@ -253,21 +241,29 @@ class APIServies extends Helpers {
   }
 
   async deleteStudent(id) {
-    const { data } = await axios.delete(
-      `${backendAPI}/student/${id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${super.getToken()}`,
-        },
-      }
-    );
+    const { data } = await axios.delete(`${backendAPI}/student/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
 
     return data;
   }
 
   async getStudent(id) {
     const { data } = await axios.get(`${backendAPI}/student/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getStudentBySession(body) {
+    const { data } = await axios.get(`${backendAPI}/sessionsearch/`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
