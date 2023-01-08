@@ -39,7 +39,7 @@ const ClassDetail = () => {
   return (
     <DetailView
       isLoading={isLoading}
-      cancelLink="/app/campus"
+      cancelLink="/app/classes"
       pageTitle={isEdit ? "Edit Class" : "Add Class"}
       onFormSubmit={handleSubmit(onSubmit)}
     >

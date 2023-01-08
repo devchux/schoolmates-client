@@ -55,7 +55,7 @@ const StaffDetail = () => {
   return (
     <DetailView
       isLoading={isLoading}
-      cancelLink="/app/staff"
+      cancelLink="/app/staffs"
       pageTitle={isEdit ? "Edit Staff" : "Add Staff"}
       onFormSubmit={handleSubmit(onSubmit)}
     >

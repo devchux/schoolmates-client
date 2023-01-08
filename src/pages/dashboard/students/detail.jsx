@@ -51,8 +51,10 @@ const StudentDetail = () => {
     }
     await addStudent({
       ...data,
-      dob: formatDate(data.dob, "DD-MM-YYYY"),
       image,
+      password: '12345678',
+      password_confirmation: '12345678',
+      dob: formatDate(data.dob, "DD-MM-YYYY"),
     });
   };
 
@@ -70,7 +72,7 @@ const StudentDetail = () => {
   return (
     <DetailView
       isLoading={isLoading}
-      cancelLink="/app/student"
+      cancelLink="/app/students"
       pageTitle={isEdit ? "Edit Student" : "Add Student"}
       onFormSubmit={handleSubmit(onSubmit)}
     >
