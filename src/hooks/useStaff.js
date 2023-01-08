@@ -12,6 +12,7 @@ import { useFile } from "./useFile";
 
 export const useStaff = () => {
   const [staffs, setStaffs] = useState([]);
+  const [indexStatus, setIndexStatus] = useState("all");
   const { id } = useParams();
 
   const {
@@ -100,6 +101,21 @@ export const useStaff = () => {
     }
   );
 
+  const {
+    data: allStaffsByAttendance,
+    isLoading: allStaffsByAttendanceLoading,
+  } = useQuery(
+    [queryKeys.GET_ALL_STAFFS_BY_ATTENDANCE],
+    apiServices.getStaffAttendance,
+    {
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      select: apiServices.formatData,
+    }
+  );
+
   const { mutateAsync: toggleStaffStatus } = useMutation(
     apiServices.toggleStaffStatus,
     {
@@ -168,7 +184,8 @@ export const useStaff = () => {
     addStaffLoading ||
     updateStaffLoading ||
     getCampusLoading ||
-    designationLoading;
+    designationLoading ||
+    allStaffsByAttendanceLoading;
 
   return {
     isLoading,
@@ -192,5 +209,8 @@ export const useStaff = () => {
     resetFile,
     fileRef,
     toggleStaffStatus,
+    allStaffsByAttendance,
+    indexStatus,
+    setIndexStatus,
   };
 };

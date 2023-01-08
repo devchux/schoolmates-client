@@ -190,6 +190,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getStaffAttendance() {
+    const { data } = await axios.get(`${backendAPI}/staffattendance`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async toggleStaffStatus({ id, status }) {
     const { data } = await axios.patch(
       `${backendAPI}/${
