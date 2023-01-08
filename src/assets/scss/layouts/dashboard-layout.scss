@@ -31,7 +31,6 @@
       .close-nav-button-wrapper {
         display: none !important;
       }
-      
     }
 
     &.toggle-navbar {
@@ -83,6 +82,19 @@
 
     > .navbar {
       box-shadow: 0.3rem 0px 2rem rgba(0, 0, 0, 0.04);
+      position: sticky;
+      width: 100%;
+      top: 0;
+
+      @media only screen and (min-width: 900px) {
+        position: static;
+      }
+
+      .navbar-nav {
+        .dropdown-item {
+          font-size: 1.2rem;
+        }
+      }
     }
 
     > .content-inner-wrapper {
@@ -91,12 +103,6 @@
       @media only screen and (min-width: 900px) {
         padding: 3rem;
       }
-    }
-  }
-
-  .navbar-nav {
-    .dropdown-item {
-      font-size: 1.2rem;
     }
   }
 }
