@@ -31,7 +31,7 @@ export const useStaff = () => {
     errors,
     setInputs,
     handleChange,
-    reset,
+    reset: resetForm,
   } = useForm({
     defaultValues: {
       designation: "1",
@@ -62,6 +62,11 @@ export const useStaff = () => {
       },
     },
   });
+
+  const reset = () => {
+    resetFile();
+    resetForm();
+  };
 
   const { isLoading: designationLoading, data: designations } = useQuery(
     ["GET_DESIGNATIONS_STAFF"],

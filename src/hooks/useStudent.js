@@ -28,7 +28,7 @@ export const useStudent = () => {
     errors,
     setInputs,
     handleChange,
-    reset,
+    reset: resetForm,
   } = useForm({
     defaultValues: {
       surname: "",
@@ -79,6 +79,11 @@ export const useStudent = () => {
       },
     },
   });
+
+  const reset = () => {
+    resetFile();
+    resetForm();
+  };
 
   const { isLoading: studentListLoading, data: students } = useQuery(
     [queryKeys.GET_ALL_STUDENTS],
