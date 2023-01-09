@@ -13,6 +13,7 @@ import { useFile } from "./useFile";
 export const useStaff = () => {
   const [staffs, setStaffs] = useState([]);
   const [indexStatus, setIndexStatus] = useState("all");
+  const [allStaffsByAttendance, setAllStaffsByAttendance] = useState([]);
   const { id } = useParams();
 
   const {
@@ -101,14 +102,19 @@ export const useStaff = () => {
     }
   );
 
-  const {
-    data: allStaffsByAttendance,
-    isLoading: allStaffsByAttendanceLoading,
-  } = useQuery(
+  const { isLoading: allStaffsByAttendanceLoading } = useQuery(
     [queryKeys.GET_ALL_STAFFS_BY_ATTENDANCE],
     apiServices.getStaffAttendance,
     {
       retry: 3,
+      onSuccess(data) {
+        const formatAllStaffsByAttendance = data?.map((x) => ({
+          ...x,
+          staff: staffs?.find(({ id }) => id === x?.staff_id),
+        }));
+
+        setAllStaffsByAttendance(formatAllStaffsByAttendance);
+      },
       onError(err) {
         errorHandler(err);
       },

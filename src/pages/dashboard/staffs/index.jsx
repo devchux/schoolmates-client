@@ -13,11 +13,6 @@ const Staff = () => {
     setIndexStatus,
   } = useStaff();
 
-  const formatAllStaffsByAttendance = allStaffsByAttendance?.map((x) => ({
-    ...x,
-    staff: staffs?.find(({ id }) => id === x?.staff_id),
-  }));
-
   const dataMapper = {
     all: {
       columns: [
@@ -99,15 +94,15 @@ const Staff = () => {
           accessor: "time_out",
         },
       ],
-      data: formatAllStaffsByAttendance
+      data: allStaffsByAttendance,
     },
   };
 
   return (
     <PageView
-      rowHasUpdate={indexStatus === 'all'}
-      rowHasDelete={indexStatus === 'all'}
-      rowHasStatusToggle={indexStatus === 'all'}
+      rowHasUpdate={indexStatus === "all"}
+      rowHasDelete={indexStatus === "all"}
+      rowHasStatusToggle={indexStatus === "all"}
       hasSortOptions
       onStatusToggle={toggleStaffStatus}
       onDelete={onDeleteStaff}

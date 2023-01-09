@@ -68,7 +68,7 @@ export const dashboardSideBarLinks = {
       icon: faGraduationCap,
     },
     {
-      to: "/",
+      to: "/app/vehicles",
       title: "Vehicles",
       icon: faTruck,
     },

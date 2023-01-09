@@ -1,9 +1,111 @@
-import React from 'react'
+import React from "react";
+import PageView from "../../../components/views/table-view";
+import { useVehicles } from "../../../hooks/useVehicles";
 
 const Vehicles = () => {
-  return (
-    <div>Vehicles</div>
-  )
-}
+  const {
+    isLoading,
+    indexStatus,
+    setIndexStatus,
+    vehiclesList,
+    vehicleLogsList,
+    handleDeleteVehicle,
+  } = useVehicles();
 
-export default Vehicles
+  const dataMapper = {
+    all: {
+      columns: [
+        {
+          Header: "id",
+          accessor: "id",
+        },
+        {
+          Header: "Vehicle Number",
+          accessor: "number",
+        },
+        {
+          Header: "Driver",
+          accessor: "drivername",
+        },
+        {
+          Header: "Type",
+          accessor: "type",
+        },
+        {
+          Header: "Make",
+          accessor: "make",
+        },
+      ],
+      data: vehiclesList,
+    },
+    logs: {
+      columns: [
+        {
+          Header: "id",
+          accessor: "id",
+        },
+        {
+          Header: "Vehicle Number",
+          accessor: "vehicle_number",
+        },
+        {
+          Header: "Driver",
+          accessor: "driver_name",
+        },
+        {
+          Header: "Mechanic Condition",
+          accessor: "mechanic_condition",
+        },
+        {
+          Header: "Purpose",
+          accessor: "purpose",
+        },
+        {
+          Header: "Route",
+          accessor: "route",
+        },
+        {
+          Header: "Date Out",
+          accessor: "date_out",
+        },
+        {
+          Header: "Time Out",
+          accessor: "time_out",
+        },
+        {
+          Header: "Add Info",
+          accessor: "add_info",
+        },
+      ],
+      data: vehicleLogsList,
+    },
+  };
+
+  return (
+    <PageView
+      hasSortOptions
+      rowHasDelete
+      canCreate={false}
+      onDelete={handleDeleteVehicle}
+      isLoading={isLoading}
+      groupedButtonOptions={[
+        {
+          title: "All",
+          type: "button",
+          variant: indexStatus !== "all" ? "outline" : null,
+          onClick: () => setIndexStatus("all"),
+        },
+        {
+          title: "Logs",
+          type: "button",
+          variant: indexStatus !== "logs" ? "outline" : null,
+          onClick: () => setIndexStatus("logs"),
+        },
+      ]}
+      columns={dataMapper[indexStatus].columns}
+      data={dataMapper[indexStatus].data}
+    />
+  );
+};
+
+export default Vehicles;

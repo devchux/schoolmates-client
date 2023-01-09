@@ -16,6 +16,8 @@ const PageView = ({
   searchPlaceholder,
   isLoading,
   onSearchClear,
+  canCreate = true,
+  createLink,
   ...rest
 }) => {
   const navigate = useNavigate();
@@ -23,7 +25,9 @@ const PageView = ({
 
   return (
     <PageSheet>
-      <CreateWrapper link={`${location.pathname}/new`} />
+      {canCreate && (
+        <CreateWrapper link={createLink || `${location.pathname}/new`} />
+      )}
       {hasSortOptions && (
         <div className="mb-5 d-md-flex">
           {groupedButtonOptions.length ? (

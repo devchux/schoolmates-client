@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-formid";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -6,6 +7,7 @@ import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
 
 export const useVehicles = () => {
+  const [indexStatus, setIndexStatus] = useState("all");
   const { id } = useParams();
   const { apiServices, errorHandler } = useAppContext();
 
@@ -34,14 +36,25 @@ export const useVehicles = () => {
 
   const { isLoading: vehiclesListLoading, data: vehiclesList } = useQuery(
     [queryKeys.GET_ALL_VEHICLES],
-    apiServices.getCampus,
+    apiServices.getAllVehicles,
     {
       retry: 3,
       onError(err) {
         errorHandler(err);
       },
-      enabled: !!id,
-      select: apiServices.formatSingleData,
+      select: apiServices.formatData,
+    }
+  );
+
+  const { isLoading: vehicleLogsListLoading, data: vehicleLogsList } = useQuery(
+    [queryKeys.GET_ALL_VEHICLE_LOGS],
+    apiServices.getAllVehicleLogs,
+    {
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      select: apiServices.formatData,
     }
   );
 
@@ -85,7 +98,10 @@ export const useVehicles = () => {
   const handleDeleteVehicle = async (data) => await deleteVehicle(data);
 
   const isLoading =
-    addVehicleLoading || updateVehicleLoading || vehiclesListLoading;
+    addVehicleLoading ||
+    updateVehicleLoading ||
+    vehiclesListLoading ||
+    vehicleLogsListLoading;
 
   return {
     getFieldProps,
@@ -99,6 +115,9 @@ export const useVehicles = () => {
     handleUpdateVehicle,
     handleDeleteVehicle,
     vehiclesList,
+    vehicleLogsList,
+    indexStatus,
+    setIndexStatus,
     isEdit: !!id,
   };
 };

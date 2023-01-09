@@ -13,8 +13,6 @@ const Student = () => {
     setSorted,
   } = useStudent();
 
-  console.log(sortedStudents);
-
   return (
     <PageView
       rowHasUpdate
