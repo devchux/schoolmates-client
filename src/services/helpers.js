@@ -30,6 +30,10 @@ class Helpers {
     }));
   }
 
+  formatSingleData(data) {
+    return { ...data?.data?.attributes, id: data?.data?.id };
+  }
+
   formatDate = (date, format) => moment(date, format).format().split("T")[0];
 
   convertBase64 = (file) => {
@@ -55,6 +59,20 @@ class Helpers {
 
     return toast.error(res);
   }
+
+  handleSessionChange = (val, name, setFieldValue) => {
+    const value = val.replace(/\//g, "");
+    if (!value) {
+      setFieldValue(name, value);
+      return;
+    }
+    if (Number.isNaN(Number(value)) || value.length > 8) return;
+    setFieldValue(name, value);
+    if (value.length === 8) {
+      const newValue = `${value.slice(0, 4)}/${value.slice(4)}`;
+      setFieldValue(name, newValue);
+    }
+  };
 }
 
 export default Helpers;

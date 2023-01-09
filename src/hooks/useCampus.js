@@ -71,6 +71,7 @@ export const useCampus = () => {
         errorHandler(err);
       },
       enabled: !!id,
+      select: apiServices.formatSingleData,
     }
   );
 
@@ -132,7 +133,7 @@ export const useCampus = () => {
     errors,
     setInputs,
     updateCampus: handleUpdateCampus,
-    campusData: campusData?.data?.attributes || singleCampus,
+    campusData: campusData || singleCampus,
     toggleCampusStatus,
     isEdit: !!id,
   };

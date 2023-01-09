@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
 import { useStudent } from "../../../hooks/useStudent";
@@ -8,8 +8,15 @@ import { useClasses } from "../../../hooks/useClasses";
 import { countryListSelect } from "../../../utils/constants";
 import { useAppContext } from "../../../hooks/useAppContext";
 import ImagePreview from "../../../components/common/image-preview";
+import Button from "../../../components/buttons/button";
+import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Prompt from "../../../components/modals/prompt";
 
 const StudentDetail = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => setModalOpen(!modalOpen);
   const {
     addStudent,
     isLoading,
@@ -28,12 +35,13 @@ const StudentDetail = () => {
     base64String,
     resetFile,
     fileRef,
+    withdrawStudent,
   } = useStudent();
 
   const { classes } = useClasses();
 
   const {
-    apiServices: { formatDate },
+    apiServices: { formatDate, handleSessionChange },
   } = useAppContext();
 
   const onSubmit = async (data) => {
@@ -52,10 +60,32 @@ const StudentDetail = () => {
     await addStudent({
       ...data,
       image,
-      password: '12345678',
-      password_confirmation: '12345678',
+      password: "12345678",
+      password_confirmation: "12345678",
       dob: formatDate(data.dob, "DD-MM-YYYY"),
     });
+  };
+
+  const studentStatus = () => {
+    switch (studentData?.status) {
+      case "withdrawn":
+        return {
+          icon: faPlusCircle,
+          text: "Admit",
+          variant: "outline-dark",
+          action: async () =>
+            studentData?.id && (await withdrawStudent({ id: studentData.id })),
+        };
+
+      default:
+        return {
+          icon: faMinusCircle,
+          text: "Withdraw",
+          variant: "dark",
+          action: async () =>
+            studentData?.id && (await withdrawStudent({ id: studentData.id })),
+        };
+    }
   };
 
   useEffect(() => {
@@ -76,6 +106,21 @@ const StudentDetail = () => {
       pageTitle={isEdit ? "Edit Student" : "Add Student"}
       onFormSubmit={handleSubmit(onSubmit)}
     >
+      {isEdit && (
+        <div className="mb-5 d-flex justify-content-end">
+          <Button
+            type="button"
+            disabled={isLoading}
+            isLoading={isLoading}
+            variant={studentStatus().variant}
+            onClick={toggleModal}
+          >
+            <FontAwesomeIcon icon={studentStatus().icon} className="me-2" />{" "}
+            {studentStatus().text}
+          </Button>
+        </div>
+      )}
+
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
@@ -261,8 +306,12 @@ const StudentDetail = () => {
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Session Admitted"
+            placeholder="2021/2022"
             hasError={!!errors.session_admitted}
-            {...getFieldProps("session_admitted")}
+            value={inputs.session_admitted}
+            onChange={({ target: { value } }) =>
+              handleSessionChange(value, "session_admitted", setFieldValue)
+            }
           />
           {!!errors.session_admitted && (
             <p className="error-message">{errors.session_admitted}</p>
@@ -317,6 +366,27 @@ const StudentDetail = () => {
         wrapperClassName="my-5"
         reset={resetFile}
       />
+      <Prompt
+        hasGroupedButtons
+        groupedButtonProps={[
+          { title: "Cancel", onClick: toggleModal, variant: "outline" },
+          {
+            title: "Proceed",
+            onClick: async () => {
+              await studentStatus().action();
+              toggleModal();
+            },
+          },
+        ]}
+        isOpen={modalOpen}
+        toggle={toggleModal}
+      >
+        <p style={{ fontSize: "1.6rem" }}>
+          Are you sure you want{" "}
+          {studentData?.status === "withdrawn" ? "admit" : "withdraw"}{" "}
+          {studentData?.firstname} ({studentData?.username})?
+        </p>
+      </Prompt>
     </DetailView>
   );
 };

@@ -1,0 +1,35 @@
+.custom-search {
+    display: flex;
+    gap: 0.4rem;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+  
+    @media only screen and (min-width: 500px) {
+      flex-direction: row;
+      max-width: 50rem;
+    }
+
+    .custom-search-input {
+        height: 4rem;
+    }
+
+    .custom-search-buttons {
+        margin: 0;
+        display: flex;
+        width: fit-content;
+        flex-direction: column;
+        width: 100%;
+        gap: 0.4rem;
+  
+        @media only screen and (min-width: 500px) {
+          flex-direction: row;
+          width: fit-content;
+        }
+
+        > button {
+            display: block;
+            width: 100%;
+        }
+    }
+}

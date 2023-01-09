@@ -274,7 +274,84 @@ class APIServies extends Helpers {
   }
 
   async getStudentBySession(body) {
-    const { data } = await axios.get(`${backendAPI}/sessionsearch/`, body, {
+    const { data } = await axios.post(`${backendAPI}/studentsessionsearch`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async withdrawStudent({ id }) {
+    const { data } = await axios.patch(`${backendAPI}/withdrawstudent/${id}`, {}, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAllVehicles() {
+    const { data } = await axios.get(`${backendAPI}/vehicle`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addVehicle(body) {
+    const { data } = await axios.post(`${backendAPI}/vehicle`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async updateVehicle({ id, ...body }) {
+    const { data } = await axios.patch(`${backendAPI}/vehicle/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deleteVehicle(id) {
+    const { data } = await axios.delete(`${backendAPI}/vehicle/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAllVehicleLogs() {
+    const { data } = await axios.get(`${backendAPI}/vehiclelog`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addVehicleLog(body) {
+    const { data } = await axios.post(`${backendAPI}/vehiclelog`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,

@@ -48,6 +48,9 @@ const CustomTable = ({
       case "disabled":
         return <p className="text-danger">Inactive</p>;
 
+      case "withdrawn":
+        return <p className="text-danger">Withdrawn</p>;
+
       default:
         return <p className="text-success">Active</p>;
     }

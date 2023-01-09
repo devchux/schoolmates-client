@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
 
-export const useAuth = () => {
+export const useAuth = (navigateOnLogin = true) => {
   const navigate = useNavigate();
   const { updateUser, user, apiServices } = useAppContext();
   const [initiateDesignationQuery, setInitiateDesignationQuery] =
@@ -21,7 +21,7 @@ export const useAuth = () => {
           data?.data?.find((item) => item.id === user.designation_id)
             ?.attributes || {};
         updateUser({ ...user, designation_name });
-        navigate("/app/classes");
+        navigateOnLogin && navigate("/app/classes");
       },
       onError(err) {
         apiServices.errorHandler(err);

@@ -29,6 +29,10 @@
     color: #545f7d;
     height: 100%;
     padding: 0 1.25rem;
+
+    &::placeholder {
+      opacity: 0.6;
+    }
   }
 
   select {

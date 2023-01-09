@@ -3,13 +3,30 @@ import PageView from "../../../components/views/table-view";
 import { useStudent } from "../../../hooks/useStudent";
 
 const Student = () => {
-  const { students, isLoading, onDeleteStudent } = useStudent();
+  const {
+    students,
+    isLoading,
+    onDeleteStudent,
+    getStudentBySession,
+    sortedStudents,
+    sorted,
+    setSorted,
+  } = useStudent();
+
+  console.log(sortedStudents);
 
   return (
     <PageView
       rowHasUpdate
       rowHasDelete
+      hasSortOptions
+      hasSearch
+      searchPlaceholder="Sort by session (2021/2022)"
       onDelete={onDeleteStudent}
+      onSearch={async (session_admitted) =>
+        await getStudentBySession({ session_admitted })
+      }
+      onSearchClear={() => setSorted(false)}
       isLoading={isLoading}
       columns={[
         {
@@ -85,7 +102,7 @@ const Student = () => {
           accessor: "nationality",
         },
       ]}
-      data={students}
+      data={sorted ? sortedStudents : students}
     />
   );
 };

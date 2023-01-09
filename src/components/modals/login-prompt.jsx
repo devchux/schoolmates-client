@@ -16,7 +16,7 @@ const LoginPrompt = () => {
     },
   });
 
-  const { login, isLoading } = useAuth();
+  const { login, isLoading } = useAuth(false);
 
   const onSubmit = (data) => {
     login({ ...data, username: user.username }).then(() => toggleLoginPrompt());

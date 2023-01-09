@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import validator from "validator";
 import { isValidPhoneNumber } from "react-phone-number-input";
@@ -7,10 +7,14 @@ import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
 import { useForm } from "react-formid";
 import { useFile } from "./useFile";
+import { useState } from "react";
 
 export const useStudent = () => {
+  const [sortedStudents, setSortedStudents] = useState([]);
+  const [sorted, setSorted] = useState(false);
   const { id } = useParams();
   const { apiServices, errorHandler } = useAppContext();
+  const navigate = useNavigate();
 
   const {
     handleImageChange,
@@ -132,6 +136,30 @@ export const useStudent = () => {
     }
   );
 
+  const {
+    mutateAsync: getStudentBySession,
+    isLoading: getStudentBySessionLoading,
+  } = useMutation(apiServices.getStudentBySession, {
+    onError(err) {
+      errorHandler(err);
+    },
+    onSuccess(data) {
+      setSortedStudents(apiServices.formatData(data));
+      setSorted(true);
+    },
+  });
+
+  const { mutateAsync: withdrawStudent, isLoading: withdrawStudentLoading } =
+    useMutation(apiServices.withdrawStudent, {
+      onSuccess() {
+        toast.success("Student has been deleted successfully");
+        navigate("/app/students");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
   const { isLoading: getCampusLoading, data: singleStudent } = useQuery(
     [queryKeys.GET_CAMPUS, id],
     () => apiServices.getStudent(id),
@@ -141,13 +169,15 @@ export const useStudent = () => {
         errorHandler(err);
       },
       enabled: !!id,
+      select: apiServices.formatSingleData,
     }
   );
 
-  const singleCampus = id ? students?.find((x) => x.id === id) : undefined;
+  const formatSingleStudent = id
+    ? students?.find((x) => x.id === id)
+    : undefined;
 
-  const handleUpdateStudent = async (data) =>
-    await updateStudent({ ...data, id });
+  const handleUpdateStudent = async (data) => await updateStudent(data);
 
   const handleDeleteStudent = async (data) => await deleteStudent(data);
 
@@ -155,7 +185,9 @@ export const useStudent = () => {
     studentListLoading ||
     addStudentLoading ||
     updateStudentLoading ||
-    getCampusLoading;
+    getCampusLoading ||
+    getStudentBySessionLoading ||
+    withdrawStudentLoading;
 
   return {
     isLoading,
@@ -175,7 +207,12 @@ export const useStudent = () => {
     fileRef,
     onUpdateStudent: handleUpdateStudent,
     addStudent,
-    studentData: singleStudent?.data?.attributes || singleCampus,
+    getStudentBySession,
+    sortedStudents,
+    withdrawStudent,
+    sorted,
+    setSorted,
+    studentData: singleStudent || formatSingleStudent,
     onDeleteStudent: handleDeleteStudent,
   };
 };

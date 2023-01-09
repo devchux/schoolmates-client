@@ -170,10 +170,11 @@ export const useStaff = () => {
         errorHandler(err);
       },
       enabled: !!id,
+      select: apiServices.formatSingleData,
     }
   );
 
-  const singleCampus = id ? staffs?.find((x) => x.id === id) : undefined;
+  const formatSingleStaff = id ? staffs?.find((x) => x.id === id) : undefined;
 
   const handleUpdateStaff = async (data) => await updateStaff({ ...data, id });
 
@@ -194,7 +195,7 @@ export const useStaff = () => {
     isEdit: !!id,
     onUpdateStaff: handleUpdateStaff,
     addStaff,
-    staffData: singleStaff?.data?.attributes || singleCampus,
+    staffData: singleStaff || formatSingleStaff,
     onDeleteStaff: handleDeleteStaff,
     getFieldProps,
     inputs,
