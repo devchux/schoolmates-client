@@ -360,6 +360,18 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  async addCodeOfConduct(body) {
+    const { data } = await axios.post(`${backendAPI}/codeconduct`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+  
 }
 
 export default APIServies;
