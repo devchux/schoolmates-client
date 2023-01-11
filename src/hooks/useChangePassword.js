@@ -28,7 +28,7 @@ export const useChangePassword = () => {
   });
 
   const { mutateAsync: changePassword, isLoading: changePasswordLoading } = useMutation(
-    apiServices.addVehicle,
+    apiServices.changePassword,
     {
       onSuccess() {
         toast.success("Password has been changed successfully");

@@ -6,6 +6,7 @@ import {
   faFileInvoice,
   faGraduationCap,
   faHome,
+  faPaperPlane,
   faScaleBalanced,
   faSchool,
   faTape,
@@ -71,6 +72,11 @@ export const dashboardSideBarLinks = {
       to: "/app/vehicles",
       title: "Vehicles",
       icon: faTruck,
+    },
+    {
+      to: "/app/vendors",
+      title: "Vendors",
+      icon: faPaperPlane,
     },
   ],
 };

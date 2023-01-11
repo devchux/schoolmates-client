@@ -15,6 +15,7 @@ import Student from "../pages/dashboard/students";
 import StudentDetail from "../pages/dashboard/students/detail";
 import SuperAdmin from "../pages/dashboard/super-admin";
 import Vehicles from "../pages/dashboard/vehicles";
+import Vendors from "../pages/dashboard/vendors";
 import Protected from "./protected";
 
 const CustomRoutes = () => {
@@ -43,6 +44,7 @@ const CustomRoutes = () => {
         <Route path="students/edit/:id" element={<StudentDetail />} />
         <Route exact path="vehicles" element={<Vehicles />} />
         <Route exact path="change-password" element={<ChangePassword />} />
+        <Route exact path="vendors" element={<Vendors />} />
         <Route index path="*" element={<Navigate to="/app/super-admin" />} />
       </Route>
       <Route path="auth" element={<AuthLayout />}>
