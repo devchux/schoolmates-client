@@ -71,7 +71,8 @@
 
         &:hover,
         &.active {
-          background-color: rgba(#adb5bd, 0.4);
+          background-color: rgba(54, 127, 169, 0.3);
+          border-left: 0.5rem solid rgb(54, 127, 169);
         }
       }
     }
