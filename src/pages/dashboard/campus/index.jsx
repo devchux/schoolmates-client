@@ -10,7 +10,7 @@ const Campus = () => {
       rowHasStatusToggle
       rowHasUpdate
       isLoading={isLoading}
-      onDisable={toggleCampusStatus}
+      onStatusToggle={toggleCampusStatus}
       columns={[
         {
           Header: "id",
