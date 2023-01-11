@@ -72,10 +72,8 @@ export const dashboardSideBarLinks = {
       title: "Vehicles",
       icon: faTruck,
     },
-    
   ],
 };
-
 export const countryList = [
   "Afghanistan",
   "Albania",
@@ -327,12 +325,10 @@ export const countryList = [
   "Zimbabwe",
   "Åland Islands",
 ];
-
 export const countryListSelect = countryList.map((x) => ({
   title: x,
   value: x,
 }));
-
 export const roleMap = {
   Admin: "Admin",
   Superadmin: "Super Admin",
