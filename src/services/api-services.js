@@ -360,6 +360,39 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  async addCodeOfConduct(body) {
+    const { data } = await axios.post(`${backendAPI}/codeconduct`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getVendorList() {
+    const { data } = await axios.get(`${backendAPI}/vendor`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async changePassword(body) {
+    const { data } = await axios.post(`${backendAPI}/changepassword`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;
