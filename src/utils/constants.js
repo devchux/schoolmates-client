@@ -326,10 +326,12 @@ export const countryList = [
   "Zimbabwe",
   "Åland Islands",
 ];
+
 export const countryListSelect = countryList.map((x) => ({
   title: x,
   value: x,
 }));
+
 export const roleMap = {
   Admin: "Admin",
   Superadmin: "Super Admin",
