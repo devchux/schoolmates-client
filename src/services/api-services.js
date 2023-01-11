@@ -394,8 +394,8 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async getStudentDebtors(body) {
-    const { data } = await axios.post(`${backendAPI}/studentdebtors`, body, {
+  async getAllStudentDebtors() {
+    const { data } = await axios.get(`${backendAPI}/studentdebtors`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
@@ -405,8 +405,8 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async getStudentCreditors(body) {
-    const { data } = await axios.post(`${backendAPI}/studentcreditors`, body, {
+  async getAllStudentCreditors() {
+    const { data } = await axios.get(`${backendAPI}/studentcreditors`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
