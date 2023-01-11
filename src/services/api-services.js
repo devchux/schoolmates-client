@@ -393,7 +393,6 @@ class APIServies extends Helpers {
 
     return data;
   }
-  
 }
 
 export default APIServies;
