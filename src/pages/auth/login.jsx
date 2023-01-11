@@ -60,24 +60,6 @@ const Login = () => {
               <p className="error-message">{errors.password}</p>
             )}
           </div>
-          {/* <div>
-            <AuthSelect
-              value={inputs.role}
-              name="role"
-              onChange={handleChange}
-              options={[
-                { value: "super-admin", title: "Super Admin" },
-                { value: "admin", title: "Admin" },
-                { value: "principal", title: "Principal" },
-                { value: "teacher", title: "Teacher" },
-                { value: "alumni", title: "Alumni (Old Student)" },
-                { value: "student", title: "Student" },
-                { value: "accountant", title: "Accountant" },
-                { value: "store-keeper", title: "Store Keeper" },
-                { value: "manage-portal", title: "Manage Portal" },
-              ]}
-            />
-          </div> */}
           <div className="form-group">
             <Link to="/" className="forgot-password-text">
               Forgot PASSWORD?

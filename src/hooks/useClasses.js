@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-formid";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -6,6 +7,8 @@ import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
 
 export const useClasses = () => {
+  const [classes, setClasses] = useState([]);
+  const [classList, setClassList] = useState([]);
   const { id } = useParams();
   const { apiServices, errorHandler } = useAppContext();
 
@@ -29,22 +32,26 @@ export const useClasses = () => {
     },
   });
 
-  const { isLoading: classListLoading, data: classes } = useQuery(
+  const { isLoading: classListLoading } = useQuery(
     [queryKeys.GET_ALL_CLASSES],
     apiServices.getAllClasses,
     {
       retry: 3,
+      onSuccess(data) {
+        setClasses(data);
+        const formatClassList = data?.map((x) => ({
+          ...x,
+          sub_class: x.sub_class.split(",").join(", "),
+        }));
+
+        setClassList(formatClassList);
+      },
       onError(err) {
         errorHandler(err);
       },
       select: apiServices.formatData,
     }
   );
-
-  const classList = classes?.map((x) => ({
-    ...x,
-    sub_class: x.sub_class.split(",").join(", "),
-  }));
 
   const { mutateAsync: addClass, isLoading: addClassLoading } = useMutation(
     apiServices.addClass,
