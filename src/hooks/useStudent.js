@@ -12,6 +12,7 @@ import { useState } from "react";
 export const useStudent = () => {
   const [sortedStudents, setSortedStudents] = useState([]);
   const [sorted, setSorted] = useState(false);
+  const [indexStatus, setIndexStatus] = useState("all");
   const { id } = useParams();
   const { apiServices, errorHandler } = useAppContext();
   const navigate = useNavigate();
@@ -101,6 +102,45 @@ export const useStudent = () => {
     }
   );
 
+  const { isLoading: studentDebtorsListLoading, data: studentDebtors } =
+    useQuery(
+      [queryKeys.GET_ALL_STUDENTS_DEBTORS],
+      apiServices.getAllStudentDebtors,
+      {
+        retry: 3,
+        onError(err) {
+          errorHandler(err);
+        },
+        select: apiServices.formatData,
+      }
+    );
+
+  const { isLoading: studentCreditorsListLoading, data: studentCreditors } =
+    useQuery(
+      [queryKeys.GET_ALL_STUDENTS_CREDITORS],
+      apiServices.getAllStudentCreditors,
+      {
+        retry: 3,
+        onError(err) {
+          errorHandler(err);
+        },
+        select: (data) => {
+          return apiServices.formatData(data)?.map((data) => ({
+            ...data,
+            amount_due: (
+              <>&#8358;{apiServices.commaSeperatedNumber(data.amount_due)}</>
+            ),
+            amount_paid: (
+              <>&#8358;{apiServices.commaSeperatedNumber(data.amount_paid)}</>
+            ),
+            total_amount: (
+              <>&#8358;{apiServices.commaSeperatedNumber(data.total_amount)}</>
+            ),
+          }));
+        },
+      }
+    );
+
   const { mutateAsync: addStudent, isLoading: addStudentLoading } = useMutation(
     apiServices.addStudent,
     {
@@ -145,6 +185,7 @@ export const useStudent = () => {
     },
     onSuccess(data) {
       setSortedStudents(apiServices.formatData(data));
+      setIndexStatus("all");
       setSorted(true);
     },
   });
@@ -187,7 +228,9 @@ export const useStudent = () => {
     updateStudentLoading ||
     getCampusLoading ||
     getStudentBySessionLoading ||
-    withdrawStudentLoading;
+    withdrawStudentLoading ||
+    studentDebtorsListLoading ||
+    studentCreditorsListLoading;
 
   return {
     isLoading,
@@ -205,14 +248,18 @@ export const useStudent = () => {
     base64String,
     resetFile,
     fileRef,
-    onUpdateStudent: handleUpdateStudent,
     addStudent,
     getStudentBySession,
     sortedStudents,
     withdrawStudent,
     sorted,
     setSorted,
-    studentData: singleStudent || formatSingleStudent,
+    indexStatus,
+    setIndexStatus,
+    studentDebtors,
+    studentCreditors,
     onDeleteStudent: handleDeleteStudent,
+    onUpdateStudent: handleUpdateStudent,
+    studentData: singleStudent || formatSingleStudent,
   };
 };

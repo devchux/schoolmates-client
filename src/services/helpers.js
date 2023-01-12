@@ -73,6 +73,12 @@ class Helpers {
       setFieldValue(name, newValue);
     }
   };
+
+  commaSeperatedNumber = (val) => {
+    return (+val).toLocaleString(undefined, {
+      maximumFractionDigits: 2,
+    });
+  };
 }
 
 export default Helpers;

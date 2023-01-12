@@ -415,6 +415,28 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  async getAllIncomeReports(term, session) {
+    const { data } = await axios.get(`${backendAPI}/incomereport/${term}/${session}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAllExpenseReports(term, session) {
+    const { data } = await axios.get(`${backendAPI}/expensesreport/${term}/${session}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;
