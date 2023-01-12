@@ -5,8 +5,6 @@ import { useVendors } from "../../../hooks/useVendors";
 const Vendors = () => {
   const { vendorsListLoading, vendorsList } = useVendors();
 
-  console.log(vendorsList);
-
   return (
     <PageView
       canCreate={false}
