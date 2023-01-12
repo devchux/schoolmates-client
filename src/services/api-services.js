@@ -393,6 +393,28 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  async getAllStudentDebtors() {
+    const { data } = await axios.get(`${backendAPI}/studentdebtors`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAllStudentCreditors() {
+    const { data } = await axios.get(`${backendAPI}/studentcreditors`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;
