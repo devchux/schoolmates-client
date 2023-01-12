@@ -111,7 +111,20 @@ export const useStudent = () => {
         onError(err) {
           errorHandler(err);
         },
-        select: apiServices.formatData,
+        select: (data) => {
+          return apiServices.formatData(data)?.map((data) => ({
+            ...data,
+            amount_due: (
+              <>&#8358;{apiServices.commaSeperatedNumber(data.amount_due)}</>
+            ),
+            amount_paid: (
+              <>&#8358;{apiServices.commaSeperatedNumber(data.amount_paid)}</>
+            ),
+            total_amount: (
+              <>&#8358;{apiServices.commaSeperatedNumber(data.total_amount)}</>
+            ),
+          }));
+        },
       }
     );
 
