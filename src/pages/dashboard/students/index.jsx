@@ -17,8 +17,6 @@ const Student = () => {
     studentCreditors,
   } = useStudent();
 
-  console.log(studentDebtors, studentCreditors);
-
   const setVariant = (status) => {
     return indexStatus !== status ? "outline" : null;
   };
@@ -28,8 +26,8 @@ const Student = () => {
       case "all":
         return [
           {
-            Header: "id",
-            accessor: "id",
+            Header: "",
+            accessor: "image",
           },
           {
             Header: "First Name",
@@ -104,6 +102,10 @@ const Student = () => {
       default:
         return [
           {
+            Header: "id",
+            accessor: "id",
+          },
+          {
             Header: "Full Name",
             accessor: "student_fullname",
           },
@@ -162,7 +164,7 @@ const Student = () => {
       rowHasUpdate
       rowHasDelete
       hasSortOptions
-      hasSearch
+      hasSearch={indexStatus === 'all'}
       groupedButtonOptions={[
         {
           title: "All",

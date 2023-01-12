@@ -17,8 +17,8 @@ const Staff = () => {
     all: {
       columns: [
         {
-          Header: "id",
-          accessor: "id",
+          Header: "",
+          accessor: "image",
         },
         {
           Header: "First Name",
