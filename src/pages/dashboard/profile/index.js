@@ -4,7 +4,7 @@ import AuthInput from "../../../components/inputs/auth-input";
 import DetailView from "../../../components/views/detail-view";
 import { useChangePassword } from "../../../hooks/useChangePassword";
 
-const ChangePassword = () => {
+const Profile = () => {
   const {
     inputs,
     handleChange,
@@ -24,8 +24,7 @@ const ChangePassword = () => {
       pageTitle="Profile"
       onFormSubmit={handleSubmit(onSubmit)}
     >
-
-<Row className="mb-0 mb-sm-4">
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             type="firstname"
@@ -89,14 +88,11 @@ const ChangePassword = () => {
             name="email"
             onChange={handleChange}
           />
-          {!!errors.email && (
-            <p className="error-message">{errors.email}</p>
-          )}
+          {!!errors.email && <p className="error-message">{errors.email}</p>}
         </Col>
       </Row>
     </DetailView>
   );
 };
 
-export default ChangePassword;
-
+export default Profile;
