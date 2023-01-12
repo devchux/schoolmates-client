@@ -8,6 +8,7 @@ import { useAppContext } from "./useAppContext";
 import { useForm } from "react-formid";
 import { useFile } from "./useFile";
 import { useState } from "react";
+import ProfileImage from "../components/common/profile-image";
 
 export const useStudent = () => {
   const [sortedStudents, setSortedStudents] = useState([]);
@@ -98,9 +99,20 @@ export const useStudent = () => {
       onError(err) {
         errorHandler(err);
       },
-      select: apiServices.formatData,
+      select: (data) => {
+        return apiServices.formatData(data)?.map((student) => {
+          return {
+            ...student,
+            image: (
+              <ProfileImage src={student?.image} wrapperClassName="mx-auto" />
+            ),
+          };
+        });
+      },
     }
   );
+
+  console.log(students);
 
   const { isLoading: studentDebtorsListLoading, data: studentDebtors } =
     useQuery(

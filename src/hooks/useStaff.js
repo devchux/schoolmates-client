@@ -9,6 +9,7 @@ import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
 import { useForm } from "react-formid";
 import { useFile } from "./useFile";
+import ProfileImage from "../components/common/profile-image";
 
 export const useStaff = () => {
   const [staffs, setStaffs] = useState([]);
@@ -91,7 +92,13 @@ export const useStaff = () => {
             designations?.data?.find((item) => item.id === staff.designation_id)
               ?.attributes || {};
 
-          return { ...staff, designation_name: roleMap[designation_name] };
+          return {
+            ...staff,
+            designation_name: roleMap[designation_name],
+            image: (
+              <ProfileImage src={staff?.image} wrapperClassName="mx-auto" />
+            ),
+          };
         });
         setStaffs(formatStaffs);
       },

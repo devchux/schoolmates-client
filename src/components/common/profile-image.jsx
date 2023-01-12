@@ -1,9 +1,9 @@
 import React from "react";
 import defaultImage from "../../assets/images/placeholder.png";
 
-const ProfileImage = ({ src, alt }) => {
+const ProfileImage = ({ src, alt, wrapperClassName }) => {
   return (
-    <div className="profile-image-wrapper">
+    <div className={`profile-image-wrapper ${wrapperClassName || ""}`}>
       <img src={src || defaultImage} alt={alt || ""} />
     </div>
   );
