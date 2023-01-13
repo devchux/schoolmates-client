@@ -5,9 +5,11 @@ import { useAppContext } from "./useAppContext";
 export const useDepartments = () => {
   const { apiServices, errorHandler } = useAppContext();
 
+  console.log('lol')
+
   const { isLoading: departmentsListLoading, data: departmentsList } = useQuery(
     [queryKeys.GET_ALL_DEPARTMENTS],
-    apiServices.getDepartmentList,
+    apiServices.getAllDepartmentList,
     {
       retry: 3,
       onError(err) {
@@ -16,6 +18,10 @@ export const useDepartments = () => {
       select: apiServices.formatData,
     }
   );
+
+
+
+  console.log('lol', departmentsList)
   return {
     departmentsListLoading,
     departmentsList,

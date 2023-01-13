@@ -5,6 +5,8 @@ import { useDepartments } from "../../../hooks/useDepartments";
 const Departments = () => {
   const { departmentsListLoading, departmentsList } = useDepartments();
 
+  console.log(departmentsList)
+
   return (
     <PageView
       canCreate={false}

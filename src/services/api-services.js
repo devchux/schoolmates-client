@@ -438,8 +438,19 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async getAllDepartmentList() {
+  async getAllDepartmentList () {
     const { data } = await axios.get(`${backendAPI}/department`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAllOutstanding () {
+    const { data } = await axios.get(`${backendAPI}/outstanding`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
