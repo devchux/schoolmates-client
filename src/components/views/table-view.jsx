@@ -5,6 +5,8 @@ import CreateWrapper from "../common/create-wrapper";
 import PageSheet from "../common/page-sheet";
 import Search from "../inputs/search";
 import CustomTable from "../tables/table";
+import illustrationImage from "../../assets/images/illustration.png";
+import PageTitle from "../common/title";
 
 const PageView = ({
   onStatusToggle,
@@ -18,6 +20,10 @@ const PageView = ({
   onSearchClear,
   canCreate = true,
   createLink,
+  showIllustration = false,
+  hideTable = false,
+  showTableTitle = false,
+  pageTitle,
   ...rest
 }) => {
   const navigate = useNavigate();
@@ -46,16 +52,24 @@ const PageView = ({
           )}
         </div>
       )}
-      <div>
-        <CustomTable
-          centered
-          isLoading={isLoading}
-          onRowStatusToggle={async (data) => await onStatusToggle(data)}
-          onRowUpdate={(id) => navigate(`${location.pathname}/edit/${id}`)}
-          onRowDelete={async (data) => await onDelete(data)}
-          {...rest}
-        />
-      </div>
+      {showIllustration && (
+        <div className="w-50 mx-auto">
+          <img src={illustrationImage} alt="" className="w-100 h-100" />
+        </div>
+      )}
+      {!hideTable && (
+        <div>
+          {showTableTitle && <PageTitle>{pageTitle}</PageTitle>}
+          <CustomTable
+            centered
+            isLoading={isLoading}
+            onRowStatusToggle={async (data) => await onStatusToggle(data)}
+            onRowUpdate={(id) => navigate(`${location.pathname}/edit/${id}`)}
+            onRowDelete={async (data) => await onDelete(data)}
+            {...rest}
+          />
+        </div>
+      )}
     </PageSheet>
   );
 };
