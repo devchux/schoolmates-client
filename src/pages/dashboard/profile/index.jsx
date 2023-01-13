@@ -79,6 +79,8 @@ const Profile = () => {
             <p className="error-message">{errors.username}</p>
           )}
         </Col>
+      </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             type="email"

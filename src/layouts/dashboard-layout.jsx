@@ -82,7 +82,7 @@ const DashboardLayout = () => {
                 <DropdownItem href="/app/change-password" className="py-3">
                   Change Password
                 </DropdownItem>
-                <DropdownItem className="py-3">My Profile</DropdownItem>
+                <DropdownItem href="/app/profile" className="py-3">My Profile</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem className="py-3" onClick={logout}>
                   Logout

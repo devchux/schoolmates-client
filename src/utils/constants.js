@@ -44,8 +44,8 @@ export const dashboardSideBarLinks = {
     //   icon: faCode,
     // },
     {
-      to: "/app/department",
-      title: "Department",
+      to: "/app/departments",
+      title: "Departments",
       icon: faBuilding,
     },
     // {
