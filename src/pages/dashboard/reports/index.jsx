@@ -39,8 +39,6 @@ const Reports = () => {
     setIndexStatus,
   } = useReports();
 
-  console.log(expensesReports, incomeReports);
-
   const onSubmit = (data) => {
     setInputData({
       term: data.term,
@@ -77,6 +75,81 @@ const Reports = () => {
     },
   ];
 
+  const columns = {
+    income: [
+      {
+        Header: "id",
+        accessor: "id",
+      },
+      {
+        Header: "Students",
+        accessor: "student_fullname",
+      },
+      {
+        Header: "Amount Paid",
+        accessor: "amount_paid",
+      },
+      {
+        Header: "Created At",
+        accessor: "created_at",
+      },
+    ],
+    expense: [
+      {
+        Header: "id",
+        accessor: "id",
+      },
+      {
+        Header: "Transaction ID",
+        accessor: "transaction_id",
+      },
+      {
+        Header: "Account Name",
+        accessor: "account_name",
+      },
+      {
+        Header: "Amount",
+        accessor: "amount",
+      },
+      {
+        Header: "Bank Name",
+        accessor: "bank_name",
+      },
+      {
+        Header: "beneficiary",
+        accessor: "beneficiary",
+      },
+      {
+        Header: "Expense Category",
+        accessor: "expense_category",
+      },
+      {
+        Header: "Payment Type",
+        accessor: "payment_type",
+      },
+      {
+        Header: "Purpose",
+        accessor: "purpose",
+      },
+      {
+        Header: "Session",
+        accessor: "session",
+      },
+      {
+        Header: "term",
+        accessor: "term",
+      },
+      {
+        Header: "Date Created",
+        accessor: "created_at",
+      },
+      {
+        Header: "Date Updated",
+        accessor: "updated_at",
+      },
+    ],
+  };
+
   return (
     <div>
       <PageView
@@ -101,24 +174,7 @@ const Reports = () => {
         }
         canCreate={false}
         isLoading={false}
-        columns={[
-          {
-            Header: "id",
-            accessor: "id",
-          },
-          {
-            Header: "Students",
-            accessor: "student_fullname",
-          },
-          {
-            Header: "Amount Paid",
-            accessor: "amount_paid",
-          },
-          {
-            Header: "Created At",
-            accessor: "created_at",
-          },
-        ]}
+        columns={columns[indexStatus]}
         data={data[indexStatus]}
       />
       <Prompt

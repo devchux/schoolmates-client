@@ -1,3 +1,4 @@
+import moment from "moment";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import queryKeys from "../utils/queryKeys";
@@ -7,7 +8,7 @@ export const useReports = () => {
   const [enableIncomeQuery, setEnableIncomeQuery] = useState(false);
   const [enableExpensesQuery, setEnableExpensesQuery] = useState(false);
   const [openPrompt, setOpenPrompt] = useState(false);
-  const [indexStatus, setIndexStatus] = useState('');
+  const [indexStatus, setIndexStatus] = useState("");
   const [inputData, setInputData] = useState({
     term: "",
     session: "",
@@ -30,9 +31,16 @@ export const useReports = () => {
       onSuccess() {
         setEnableIncomeQuery(false);
         setOpenPrompt(false);
-        setIndexStatus('income');
+        setIndexStatus("income");
       },
-      select: apiServices.formatData,
+      select: (data) => {
+        const format = apiServices.formatData(data);
+
+        return format?.map((item) => ({
+          ...item,
+          created_at: moment(item?.created_at).format("LLL"),
+        }));
+      },
     }
   );
 
@@ -48,9 +56,14 @@ export const useReports = () => {
       onSuccess() {
         setEnableExpensesQuery(false);
         setOpenPrompt(false);
-        setIndexStatus('expense');
+        setIndexStatus("expense");
       },
-      select: apiServices.formatData,
+      select: (data) =>
+        data.data?.map((item) => ({
+          ...item,
+          created_at: moment(item?.created_at).format("LLL"),
+          updated_at: moment(item?.updated_at).format("LLL"),
+        })),
     }
   );
 
