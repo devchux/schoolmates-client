@@ -28,11 +28,51 @@ export const useHome = () => {
       }
     );
 
-  const isLoading = outstandingLoading || expectedIncomeLoading;
+  const { isLoading: discountLoading, data: discountList } = useQuery(
+    [queryKeys.GET_ALL_DISCOUNT],
+    apiServices.getAllDiscounts,
+    {
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+    }
+  );
+  const { isLoading: totalexpenseLoading, data: totalexpenseList } = useQuery(
+    [queryKeys.GET_ALL_TOTAL_EXPENSES],
+    apiServices.getAllExpenses,
+    {
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+    }
+  );
+  const { isLoading: accountbalanceLoading, data: accountbalanceList } =
+    useQuery(
+      [queryKeys.GET_ALL_ACCOUNT_BALANCE],
+      apiServices.getAllAccountBalances,
+      {
+        retry: 3,
+        onError(err) {
+          errorHandler(err);
+        },
+      }
+    );
+
+  const isLoading =
+    outstandingLoading ||
+    expectedIncomeLoading ||
+    discountLoading ||
+    totalexpenseLoading ||
+    accountbalanceLoading;
 
   return {
     isLoading,
     outstandingList,
     expectedIncomeList,
+    discountList,
+    totalexpenseList,
+    accountbalanceList,
   };
 };
