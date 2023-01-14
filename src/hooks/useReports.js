@@ -39,6 +39,9 @@ export const useReports = () => {
         return format?.map((item) => ({
           ...item,
           created_at: moment(item?.created_at).format("LLL"),
+          amount_paid: (
+            <>&#8358;{apiServices.commaSeperatedNumber(item?.amount_paid)}</>
+          ),
         }));
       },
     }
@@ -63,6 +66,9 @@ export const useReports = () => {
           ...item,
           created_at: moment(item?.created_at).format("LLL"),
           updated_at: moment(item?.updated_at).format("LLL"),
+          amount: (
+            <>&#8358;{apiServices.commaSeperatedNumber(item?.amount)}</>
+          ),
         })),
     }
   );
