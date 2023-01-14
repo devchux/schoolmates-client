@@ -60,12 +60,38 @@ export const useHome = () => {
       }
     );
 
+    const { isLoading: receivedIncomeLoading, data: receivedIncomeList } =
+      useQuery(
+        [queryKeys.GET_ALL_RECEIVED_INCOME],
+        apiServices.getAllReceivedIncome,
+        {
+          retry: 3,
+          onError(err) {
+            errorHandler(err);
+          },
+        }
+      );
+
+      const { isLoading: graduatedStudentLoading, data: graduatedStudentIncomeList } =
+        useQuery(
+          [queryKeys.GET_ALL_GRADUATED_STUDENT],
+          apiServices.getAllGraduatedStudent,
+          {
+            retry: 3,
+            onError(err) {
+              errorHandler(err);
+            },
+          }
+        );
+    
   const isLoading =
     outstandingLoading ||
     expectedIncomeLoading ||
     discountLoading ||
     totalExpenseLoading ||
-    accountBalanceLoading;
+    accountBalanceLoading ||
+    receivedIncomeLoading ||
+    graduatedStudentLoading;
 
   return {
     isLoading,
@@ -74,5 +100,7 @@ export const useHome = () => {
     discountList,
     totalExpenseList,
     accountBalanceList,
+    receivedIncomeLoading,
+    graduatedStudentLoading,
   };
 };
