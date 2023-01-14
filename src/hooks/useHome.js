@@ -38,7 +38,7 @@ export const useHome = () => {
       },
     }
   );
-  const { isLoading: totalexpenseLoading, data: totalexpenseList } = useQuery(
+  const { isLoading: totalExpenseLoading, data: totalExpenseList } = useQuery(
     [queryKeys.GET_ALL_TOTAL_EXPENSES],
     apiServices.getAllExpenses,
     {
@@ -48,7 +48,7 @@ export const useHome = () => {
       },
     }
   );
-  const { isLoading: accountbalanceLoading, data: accountbalanceList } =
+  const { isLoading: accountBalanceLoading, data: accountBalanceList } =
     useQuery(
       [queryKeys.GET_ALL_ACCOUNT_BALANCE],
       apiServices.getAllAccountBalances,
@@ -64,15 +64,15 @@ export const useHome = () => {
     outstandingLoading ||
     expectedIncomeLoading ||
     discountLoading ||
-    totalexpenseLoading ||
-    accountbalanceLoading;
+    totalExpenseLoading ||
+    accountBalanceLoading;
 
   return {
     isLoading,
     outstandingList,
     expectedIncomeList,
     discountList,
-    totalexpenseList,
-    accountbalanceList,
+    totalExpenseList,
+    accountBalanceList,
   };
 };
