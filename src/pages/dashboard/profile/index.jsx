@@ -2,7 +2,6 @@ import React from "react";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
 import DetailView from "../../../components/views/detail-view";
-
 import AuthSelect from "../../../components/inputs/auth-select";
 import { roleMap } from "../../../utils/constants";
 import { useChangePassword } from "../../../hooks/useChangePassword";
@@ -17,10 +16,7 @@ const Profile = () => {
     changePasswordLoading,
     changePassword,
   } = useChangePassword();
-  const {
-    designations,
-    getFieldProps,
-  } = useStaff();
+  const { designations, getFieldProps } = useStaff();
 
   const onSubmit = async (data) => {
     await changePassword(data);
@@ -88,9 +84,8 @@ const Profile = () => {
           )}
         </Col>
       </Row>
+      <Row className="mb-0 mb-sm-4"></Row>
       <Row className="mb-0 mb-sm-4">
-        </Row>
-        <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             type="email"
@@ -169,7 +164,6 @@ const Profile = () => {
           {!!errors.status && <p className="error-message">{errors.status}</p>}
         </Col>
       </Row>
-      
     </DetailView>
   );
 };

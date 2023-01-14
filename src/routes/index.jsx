@@ -50,7 +50,7 @@ const CustomRoutes = () => {
         <Route exact path="vendors" element={<Vendors />} />
         <Route exact path="reports" element={<Reports />} />
         <Route exact path="departments" element={<Departments />} />
-        <Route exact path="profile" element={<Profile/>} />
+        <Route exact path="profile" element={<Profile />} />
         <Route index path="*" element={<Navigate to="/app/super-admin" />} />
       </Route>
       <Route path="auth" element={<AuthLayout />}>
