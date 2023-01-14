@@ -459,6 +459,38 @@ class APIServies extends Helpers {
 
     return data;
   }
+  async getAllExpectedIncome() {
+    const { data } = await axios.get(`${backendAPI}/expectedincome`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAllReceivedIncome() {
+    const { data } = await axios.get(`${backendAPI}/receivedincome`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAllGraduatedStudent() {
+    const { data } = await axios.get(`${backendAPI}/graduatedstudent`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;
