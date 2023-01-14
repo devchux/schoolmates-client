@@ -274,23 +274,31 @@ class APIServies extends Helpers {
   }
 
   async getStudentBySession(body) {
-    const { data } = await axios.post(`${backendAPI}/studentsessionsearch`, body, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${super.getToken()}`,
-      },
-    });
+    const { data } = await axios.post(
+      `${backendAPI}/studentsessionsearch`,
+      body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }
 
   async withdrawStudent({ id }) {
-    const { data } = await axios.patch(`${backendAPI}/withdrawstudent/${id}`, {}, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${super.getToken()}`,
-      },
-    });
+    const { data } = await axios.patch(
+      `${backendAPI}/withdrawstudent/${id}`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }
@@ -417,28 +425,34 @@ class APIServies extends Helpers {
   }
 
   async getAllIncomeReports(term, session) {
-    const { data } = await axios.get(`${backendAPI}/incomereport/${term}/${session}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${super.getToken()}`,
-      },
-    });
+    const { data } = await axios.get(
+      `${backendAPI}/incomereport/${term}/${session}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }
 
   async getAllExpenseReports(term, session) {
-    const { data } = await axios.get(`${backendAPI}/expensesreport/${term}/${session}`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${super.getToken()}`,
-      },
-    });
+    const { data } = await axios.get(
+      `${backendAPI}/expensesreport/${term}/${session}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }
 
-  async getAllDepartmentList () {
+  async getAllDepartmentList() {
     const { data } = await axios.get(`${backendAPI}/department`, {
       headers: {
         "Content-Type": "application/json",
@@ -449,7 +463,7 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async getAllOutstanding () {
+  async getAllOutstanding() {
     const { data } = await axios.get(`${backendAPI}/outstanding`, {
       headers: {
         "Content-Type": "application/json",

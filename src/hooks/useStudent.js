@@ -112,8 +112,6 @@ export const useStudent = () => {
     }
   );
 
-  console.log(students);
-
   const { isLoading: studentDebtorsListLoading, data: studentDebtors } =
     useQuery(
       [queryKeys.GET_ALL_STUDENTS_DEBTORS],

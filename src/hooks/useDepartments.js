@@ -5,8 +5,6 @@ import { useAppContext } from "./useAppContext";
 export const useDepartments = () => {
   const { apiServices, errorHandler } = useAppContext();
 
-  console.log('lol')
-
   const { isLoading: departmentsListLoading, data: departmentsList } = useQuery(
     [queryKeys.GET_ALL_DEPARTMENTS],
     apiServices.getAllDepartmentList,
@@ -19,11 +17,10 @@ export const useDepartments = () => {
     }
   );
 
+  const isLoading = departmentsListLoading;
 
-
-  console.log('lol', departmentsList)
   return {
-    departmentsListLoading,
+    isLoading,
     departmentsList,
   };
 };
