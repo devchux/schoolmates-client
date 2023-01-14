@@ -505,6 +505,36 @@ class APIServies extends Helpers {
 
     return data;
   }
+  async getAllDiscounts() {
+    const { data } = await axios.get(`${backendAPI}/discount`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+  async getAllExpenses() {
+    const { data } = await axios.get(`${backendAPI}/totalexpense`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+  async getAllAccountBalances() {
+    const { data } = await axios.get(`${backendAPI}/accountbalance`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;
