@@ -6,7 +6,7 @@ import { useAppContext } from "./useAppContext";
 import { useFile } from "./useFile";
 
 export const useProfile = () => {
-  const { apiServices, errorHandler, user } = useAppContext();
+  const { apiServices, errorHandler, user, updateUser } = useAppContext();
 
   const {
     getFieldProps,
@@ -49,7 +49,8 @@ export const useProfile = () => {
 
   const { mutateAsync: updateProfile, isLoading: updateProfileLoading } =
     useMutation(apiServices.updateProfile, {
-      onSuccess() {
+      onSuccess(data) {
+        updateUser({ ...user, ...data?.data });
         toast.success("Profile has been updated successfully");
       },
       onError(err) {

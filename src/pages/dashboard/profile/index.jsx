@@ -36,7 +36,7 @@ const Profile = () => {
   return (
     <DetailView
       isLoading={isLoading}
-      pageTitle="Profile"
+      pageTitle="My Profile"
       onFormSubmit={handleSubmit(onSubmit)}
     >
       <div className="mb-4">
