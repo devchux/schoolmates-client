@@ -6,11 +6,12 @@ import DetailView from "../../../components/views/detail-view";
 import AuthSelect from "../../../components/inputs/auth-select";
 import { roleMap } from "../../../utils/constants";
 import ImagePreview from "../../../components/common/image-preview";
+import { useDepartments } from "../../../hooks/useDepartments";
 
 const StaffDetail = () => {
   const {
     addStaff,
-    isLoading,
+    isLoading: staffLoading,
     onUpdateStaff,
     staffData,
     isEdit,
@@ -28,6 +29,11 @@ const StaffDetail = () => {
     resetFile,
     fileRef,
   } = useStaff();
+
+  const { isLoading: departmentsListLoading, departmentsList } =
+    useDepartments();
+
+  const isLoading = departmentsListLoading || staffLoading;
 
   const onSubmit = async (data) => {
     const image = isEdit
@@ -137,10 +143,14 @@ const StaffDetail = () => {
           )}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
+          <AuthSelect
             label="Department"
             hasError={!!errors.department}
             {...getFieldProps("department")}
+            options={(departmentsList || []).map((x) => ({
+              value: x?.department_name,
+              title: x?.department_name,
+            }))}
           />
           {!!errors.department && (
             <p className="error-message">{errors.department}</p>

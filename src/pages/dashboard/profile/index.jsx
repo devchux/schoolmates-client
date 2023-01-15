@@ -1,33 +1,58 @@
 import React from "react";
 import { Col, Row } from "reactstrap";
+import ImagePreview from "../../../components/common/image-preview";
 import AuthInput from "../../../components/inputs/auth-input";
-import DetailView from "../../../components/views/detail-view";
 import AuthSelect from "../../../components/inputs/auth-select";
-import { roleMap } from "../../../utils/constants";
-import { useChangePassword } from "../../../hooks/useChangePassword";
-import { useStaff } from "../../../hooks/useStaff";
+import DetailView from "../../../components/views/detail-view";
+import { useDepartments } from "../../../hooks/useDepartments";
+import { useProfile } from "../../../hooks/useProfile";
 
 const Profile = () => {
   const {
+    getFieldProps,
     inputs,
-    handleChange,
     handleSubmit,
     errors,
-    changePasswordLoading,
-    changePassword,
-  } = useChangePassword();
-  const { designations, getFieldProps } = useStaff();
+    handleChange,
+    isLoading: profileLoading,
+    updateProfile,
+    handleImageChange,
+    filePreview,
+    base64String,
+    fileRef,
+    reset,
+  } = useProfile();
+
+  const { isLoading: departmentsListLoading, departmentsList } =
+    useDepartments();
+
+  const isLoading = profileLoading || departmentsListLoading;
 
   const onSubmit = async (data) => {
-    await changePassword(data);
+    const image = base64String ? base64String : inputs.image;
+    await updateProfile({ ...data, image });
   };
 
   return (
     <DetailView
-      isLoading={changePasswordLoading}
+      isLoading={isLoading}
       pageTitle="Profile"
       onFormSubmit={handleSubmit(onSubmit)}
     >
+      <div className="mb-4">
+        <ImagePreview
+          src={filePreview || inputs?.image}
+          wrapperClassName="my-5"
+          reset={reset}
+        />
+        <AuthInput
+          type="file"
+          className="px-0"
+          wrapperClassName="border-0"
+          onChange={handleImageChange}
+          ref={fileRef}
+        />
+      </div>
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
@@ -46,13 +71,13 @@ const Profile = () => {
           <AuthInput
             type="Surname"
             label="Surname"
-            hasError={!!errors.Surname}
-            value={inputs.Surname}
+            hasError={!!errors.surname}
+            value={inputs.surname}
             name="new_password"
             onChange={handleChange}
           />
-          {!!errors.Surname && (
-            <p className="error-message">{errors.Surname}</p>
+          {!!errors.surname && (
+            <p className="error-message">{errors.surname}</p>
           )}
         </Col>
       </Row>
@@ -122,46 +147,18 @@ const Profile = () => {
           )}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
+          <AuthSelect
             label="Department"
             hasError={!!errors.department}
             {...getFieldProps("department")}
+            options={(departmentsList || []).map((x) => ({
+              value: x?.department_name,
+              title: x?.department_name,
+            }))}
           />
           {!!errors.department && (
             <p className="error-message">{errors.department}</p>
           )}
-        </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthSelect
-            label="Role"
-            value={inputs.designation_id}
-            name="designation_id"
-            hasError={!!errors.designation_id}
-            onChange={handleChange}
-            options={(designations?.data || []).map((x) => ({
-              value: x?.id,
-              title: roleMap[x?.attributes?.designation_name],
-            }))}
-          />
-          {!!errors.designation_id && (
-            <p className="error-message">{errors.designation_id}</p>
-          )}
-        </Col>
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthSelect
-            label="Status"
-            value={inputs.status}
-            name="status"
-            hasError={!!errors.status}
-            onChange={handleChange}
-            options={[
-              { value: "avtive", title: "Active" },
-              { value: "probation", title: "Probation" },
-            ]}
-          />
-          {!!errors.status && <p className="error-message">{errors.status}</p>}
         </Col>
       </Row>
     </DetailView>

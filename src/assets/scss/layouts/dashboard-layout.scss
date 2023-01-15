@@ -95,10 +95,18 @@
       position: sticky;
       width: 100%;
       top: 0;
+      z-index: 2;
 
       .navbar-nav {
         .dropdown-item {
           font-size: 1.2rem;
+
+          .nav-dropdown-link {
+            display: block;
+            text-decoration: none;
+            color: #000000;
+            font-size: 1.2rem;
+          }
         }
       }
     }

@@ -1,7 +1,7 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef, useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import {
   Dropdown,
   DropdownItem,
@@ -79,10 +79,19 @@ const DashboardLayout = () => {
                 <ProfileImage src={user.image} />
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem href="/app/change-password" className="py-3">
-                  Change Password
+                <DropdownItem>
+                  <Link
+                    className="py-3 nav-dropdown-link"
+                    to="/app/change-password"
+                  >
+                    Change Password
+                  </Link>
                 </DropdownItem>
-                <DropdownItem href="/app/profile" className="py-3">My Profile</DropdownItem>
+                <DropdownItem>
+                  <Link className="py-3 nav-dropdown-link" to="/app/profile">
+                    My Profile
+                  </Link>
+                </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem className="py-3" onClick={logout}>
                   Logout

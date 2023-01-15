@@ -534,6 +534,17 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  async updateProfile({ id, ...body }) {
+    const { data } = await axios.patch(`${backendAPI}/profile/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;
