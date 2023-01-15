@@ -14,6 +14,7 @@ export const useStudent = () => {
   const [sortedStudents, setSortedStudents] = useState([]);
   const [sorted, setSorted] = useState(false);
   const [indexStatus, setIndexStatus] = useState("all");
+  const [session, setSession] = useState("");
   const { id } = useParams();
   const { apiServices, errorHandler } = useAppContext();
   const navigate = useNavigate();
@@ -199,19 +200,30 @@ export const useStudent = () => {
     }
   );
 
-  const {
-    mutateAsync: getStudentBySession,
-    isLoading: getStudentBySessionLoading,
-  } = useMutation(apiServices.getStudentBySession, {
-    onError(err) {
-      errorHandler(err);
-    },
-    onSuccess(data) {
-      setSortedStudents(apiServices.formatData(data));
-      setIndexStatus("all");
-      setSorted(true);
-    },
-  });
+  const { isLoading: getStudentBySessionLoading } = useQuery(
+    [queryKeys.GET_ALL_STUDENTS_BY_SESSION, session],
+    () => apiServices.getStudentBySession(session),
+    {
+      enabled: !!session,
+      onError(err) {
+        errorHandler(err);
+      },
+      onSuccess(data) {
+        const format = apiServices.formatData(data)?.map((student) => {
+          return {
+            ...student,
+            image: (
+              <ProfileImage src={student?.image} wrapperClassName="mx-auto" />
+            ),
+          };
+        });
+        setSession("");
+        setSortedStudents(format);
+        setIndexStatus("all");
+        setSorted(true);
+      },
+    }
+  );
 
   const { mutateAsync: withdrawStudent, isLoading: withdrawStudentLoading } =
     useMutation(apiServices.withdrawStudent, {
@@ -272,7 +284,7 @@ export const useStudent = () => {
     resetFile,
     fileRef,
     addStudent,
-    getStudentBySession,
+    setSession,
     sortedStudents,
     withdrawStudent,
     sorted,

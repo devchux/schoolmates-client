@@ -1,0 +1,69 @@
+.profile-card-wrapper {
+  display: flex;
+  gap: 3rem;
+  padding: 1rem 0 2rem 0;
+  flex-direction: column;
+
+  @media only screen and (min-width: 600px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 5rem;
+  }
+
+  .profile-card-image {
+    width: 15rem;
+    height: 15rem;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: auto;
+
+    @media only screen and (min-width: 600px) {
+        width: 25rem;
+        height: 25rem;
+        margin: initial;
+    }
+
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .profile-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+
+    @media only screen and (min-width: 600px) {
+      width: calc(100% - 25rem);
+      gap: 1.3rem;
+    }
+
+    > div {
+      display: flex;
+      gap: 0.8rem;
+      flex-direction: column;
+
+      @media only screen and (min-width: 600px) {
+        flex-direction: row;
+        gap: 1.6rem;
+      }
+
+      h3 {
+        font-weight: 600;
+
+        @media only screen and (min-width: 600px) {
+          width: 18%;
+        }
+      }
+
+      p {
+        @media only screen and (min-width: 600px) {
+          width: 82%;
+        }
+      }
+    }
+  }
+}

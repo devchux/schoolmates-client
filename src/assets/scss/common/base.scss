@@ -124,6 +124,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 html {
   font-size: calc(100vw * 10 / 1440);
   font-family: "Avenir Next";
@@ -145,4 +146,9 @@ html {
 
 label {
   font-size: 1.3rem !important;
+}
+
+.home-title {
+  font-weight: 600;
+  font-size: 1.6rem !important;
 }

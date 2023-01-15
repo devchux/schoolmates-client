@@ -76,7 +76,7 @@ const DashboardLayout = () => {
           <Nav className="ms-auto" navbar>
             <Dropdown isOpen={dropdown} toggle={() => setDropdown(!dropdown)}>
               <DropdownToggle tag="div">
-                <ProfileImage />
+                <ProfileImage src={user.image} />
               </DropdownToggle>
               <DropdownMenu>
                 <DropdownItem href="/app/change-password" className="py-3">

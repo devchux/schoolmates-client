@@ -273,10 +273,9 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async getStudentBySession(body) {
-    const { data } = await axios.post(
-      `${backendAPI}/studentsessionsearch`,
-      body,
+  async getStudentBySession(session) {
+    const { data } = await axios.get(
+      `${backendAPI}/studentsessionsearch/${session}`,
       {
         headers: {
           "Content-Type": "application/json",

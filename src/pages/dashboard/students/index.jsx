@@ -7,7 +7,7 @@ const Student = () => {
     students,
     isLoading,
     onDeleteStudent,
-    getStudentBySession,
+    setSession,
     sortedStudents,
     sorted,
     setSorted,
@@ -164,7 +164,7 @@ const Student = () => {
       rowHasUpdate
       rowHasDelete
       hasSortOptions
-      hasSearch={indexStatus === 'all'}
+      hasSearch={indexStatus === "all"}
       groupedButtonOptions={[
         {
           title: "All",
@@ -187,9 +187,7 @@ const Student = () => {
       ]}
       searchPlaceholder="Sort by session (2021/2022)"
       onDelete={onDeleteStudent}
-      onSearch={async (session_admitted) =>
-        await getStudentBySession({ session_admitted })
-      }
+      onSearch={(session_admitted) => setSession(session_admitted)}
       onSearchClear={() => setSorted(false)}
       isLoading={isLoading}
       columns={getColumns()}

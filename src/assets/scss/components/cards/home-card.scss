@@ -1,0 +1,20 @@
+.home-card-wrapper {
+  height: 20rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 0 0.01rem 0.1rem #cccccc;
+
+  @media only screen and (min-width: 600px) {
+    height: 15rem;
+  }
+
+  h3 {
+    font-size: 3rem;
+    line-height: 4.5rem;
+    font-weight: 700;
+  }
+}
