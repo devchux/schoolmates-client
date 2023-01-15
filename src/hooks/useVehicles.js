@@ -9,7 +9,7 @@ import { useAppContext } from "./useAppContext";
 export const useVehicles = () => {
   const [indexStatus, setIndexStatus] = useState("all");
   const { id } = useParams();
-  const { apiServices, errorHandler } = useAppContext();
+  const { apiServices, errorHandler, permission } = useAppContext("vehicles");
 
   const {
     getFieldProps,
@@ -38,6 +38,7 @@ export const useVehicles = () => {
     [queryKeys.GET_ALL_VEHICLES],
     apiServices.getAllVehicles,
     {
+      enabled: permission?.read || false,
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -50,6 +51,7 @@ export const useVehicles = () => {
     [queryKeys.GET_ALL_VEHICLE_LOGS],
     apiServices.getAllVehicleLogs,
     {
+      enabled: permission?.readLogs || false,
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -118,6 +120,7 @@ export const useVehicles = () => {
     vehicleLogsList,
     indexStatus,
     setIndexStatus,
+    permission,
     isEdit: !!id,
   };
 };

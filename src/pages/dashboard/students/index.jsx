@@ -15,6 +15,7 @@ const Student = () => {
     setIndexStatus,
     studentDebtors,
     studentCreditors,
+    permission,
   } = useStudent();
 
   const setVariant = (status) => {
@@ -153,6 +154,38 @@ const Student = () => {
     }
   };
 
+  const getSortButtonOptions = () => {
+    let arr = [];
+
+    if (permission.read) {
+      arr.push({
+        title: "All",
+        type: "button",
+        onClick: () => setIndexStatus("all"),
+        variant: setVariant("all"),
+      });
+    }
+    if (permission.readCreditors) {
+      arr.push({
+        title: "Creditors",
+        type: "button",
+        onClick: () => setIndexStatus("creditors"),
+        variant: setVariant("creditors"),
+      });
+    }
+
+    if (permission.readDebtors) {
+      arr.push({
+        title: "Debtors",
+        type: "button",
+        onClick: () => setIndexStatus("debtors"),
+        variant: setVariant("debtors"),
+      });
+    }
+
+    return arr.length ? arr : undefined;
+  };
+
   const data = {
     all: sorted ? sortedStudents : students,
     creditors: studentCreditors,
@@ -161,30 +194,16 @@ const Student = () => {
 
   return (
     <PageView
-      rowHasUpdate={!["creditors", "debtors"].includes(indexStatus)}
-      rowHasDelete={!["creditors", "debtors"].includes(indexStatus)}
-      hasSortOptions
-      hasSearch={indexStatus === "all"}
-      groupedButtonOptions={[
-        {
-          title: "All",
-          type: "button",
-          onClick: () => setIndexStatus("all"),
-          variant: setVariant("all"),
-        },
-        {
-          title: "Creditors",
-          type: "button",
-          onClick: () => setIndexStatus("creditors"),
-          variant: setVariant("creditors"),
-        },
-        {
-          title: "Debtors",
-          type: "button",
-          onClick: () => setIndexStatus("debtors"),
-          variant: setVariant("debtors"),
-        },
-      ]}
+      canCreate={permission?.create}
+      rowHasUpdate={
+        !["creditors", "debtors"].includes(indexStatus) && permission?.update
+      }
+      rowHasDelete={
+        !["creditors", "debtors"].includes(indexStatus) && permission?.delete
+      }
+      hasSortOptions={permission?.sort}
+      hasSearch={indexStatus === "all" && permission?.sortSession}
+      groupedButtonOptions={getSortButtonOptions()}
       searchPlaceholder="Sort by session (2021/2022)"
       onDelete={onDeleteStudent}
       onSearch={(session_admitted) => setSession(session_admitted)}

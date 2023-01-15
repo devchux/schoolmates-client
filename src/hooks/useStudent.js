@@ -17,7 +17,7 @@ export const useStudent = () => {
   const [indexStatus, setIndexStatus] = useState("all");
   const [session, setSession] = useState("");
   const { id } = useParams();
-  const { apiServices, errorHandler } = useAppContext();
+  const { apiServices, errorHandler, permission } = useAppContext("students");
   const navigate = useNavigate();
 
   const {
@@ -97,6 +97,7 @@ export const useStudent = () => {
     [queryKeys.GET_ALL_STUDENTS],
     apiServices.getAllStudents,
     {
+      enabled: permission?.read || false,
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -119,6 +120,7 @@ export const useStudent = () => {
       [queryKeys.GET_ALL_STUDENTS_DEBTORS],
       apiServices.getAllStudentDebtors,
       {
+        enabled: permission?.readDebtors || false,
         retry: 3,
         onError(err) {
           errorHandler(err);
@@ -154,6 +156,7 @@ export const useStudent = () => {
       [queryKeys.GET_ALL_STUDENTS_CREDITORS],
       apiServices.getAllStudentCreditors,
       {
+        enabled: permission?.readCreditors || false,
         retry: 3,
         onError(err) {
           errorHandler(err);
@@ -223,7 +226,7 @@ export const useStudent = () => {
     [queryKeys.GET_ALL_STUDENTS_BY_SESSION, session],
     () => apiServices.getStudentBySession(session),
     {
-      enabled: !!session,
+      enabled: !!session && (permission?.sortSession || false),
       onError(err) {
         errorHandler(err);
       },
@@ -255,15 +258,15 @@ export const useStudent = () => {
       },
     });
 
-  const { isLoading: getCampusLoading, data: singleStudent } = useQuery(
-    [queryKeys.GET_CAMPUS, id],
+  const { isLoading: getStudentLoading, data: singleStudent } = useQuery(
+    [queryKeys.GET_STUDENT, id],
     () => apiServices.getStudent(id),
     {
       retry: 3,
       onError(err) {
         errorHandler(err);
       },
-      enabled: !!id,
+      enabled: !!id && (permission?.update || false),
       select: apiServices.formatSingleData,
     }
   );
@@ -280,7 +283,7 @@ export const useStudent = () => {
     studentListLoading ||
     addStudentLoading ||
     updateStudentLoading ||
-    getCampusLoading ||
+    getStudentLoading ||
     getStudentBySessionLoading ||
     withdrawStudentLoading ||
     studentDebtorsListLoading ||
@@ -312,6 +315,7 @@ export const useStudent = () => {
     setIndexStatus,
     studentDebtors,
     studentCreditors,
+    permission,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
     studentData: singleStudent || formatSingleStudent,

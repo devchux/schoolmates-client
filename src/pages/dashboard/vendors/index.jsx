@@ -3,11 +3,11 @@ import PageView from "../../../components/views/table-view";
 import { useVendors } from "../../../hooks/useVendors";
 
 const Vendors = () => {
-  const { vendorsListLoading, vendorsList } = useVendors();
+  const { vendorsListLoading, vendorsList, permission } = useVendors();
 
   return (
     <PageView
-      canCreate={false}
+      canCreate={permission?.create}
       isLoading={vendorsListLoading}
       columns={[
         {

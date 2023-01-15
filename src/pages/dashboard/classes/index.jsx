@@ -7,6 +7,7 @@ const Classes = () => {
 
   return (
     <PageView
+      canCreate={permission?.create}
       rowHasUpdate={permission?.update}
       rowHasDelete={permission?.delete}
       onDelete={onDeleteClass}

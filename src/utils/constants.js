@@ -357,10 +357,10 @@ export const permissions = {
       statusToggle: true,
     },
     classes: {
-      create: true,
+      create: false,
       read: true,
-      update: true,
-      delete: true,
+      update: false,
+      delete: false,
       statusToggle: false,
     },
     departments: {
@@ -378,6 +378,34 @@ export const permissions = {
       delete: true,
       statusToggle: true,
       sort: true,
+    },
+    students: {
+      create: false,
+      read: true,
+      readCreditors: true,
+      readDebtors: true,
+      update: false,
+      delete: false,
+      statusToggle: false,
+      sort: true,
+      sortSession: true,
+    },
+    vehicles: {
+      create: false,
+      read: true,
+      readLogs: true,
+      update: false,
+      delete: true,
+      statusToggle: false,
+      sort: true,
+    },
+    vendors: {
+      create: false,
+      read: true,
+      update: false,
+      delete: false,
+      statusToggle: false,
+      sort: false,
     },
   }
 }

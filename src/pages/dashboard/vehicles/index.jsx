@@ -10,6 +10,7 @@ const Vehicles = () => {
     vehiclesList,
     vehicleLogsList,
     handleDeleteVehicle,
+    permission,
   } = useVehicles();
 
   const dataMapper = {
@@ -81,27 +82,38 @@ const Vehicles = () => {
     },
   };
 
+  const getSortButtonOptions = () => {
+    let arr = [];
+
+    if (permission.read) {
+      arr.push({
+        title: "All",
+        type: "button",
+        variant: indexStatus !== "all" ? "outline" : null,
+        onClick: () => setIndexStatus("all"),
+      });
+    }
+    if (permission.readLogs) {
+      arr.push({
+        title: "Logs",
+        type: "button",
+        variant: indexStatus !== "logs" ? "outline" : null,
+        onClick: () => setIndexStatus("logs"),
+      });
+    }
+
+    return arr.length ? arr : undefined;
+  };
+
   return (
     <PageView
-      hasSortOptions
-      rowHasDelete
-      canCreate={false}
+      hasSortOptions={permission?.sort}
+      rowHasDelete={permission?.delete && indexStatus !== 'logs'}
+      canCreate={permission?.create}
+      rowHasUpdate={permission?.update}
       onDelete={handleDeleteVehicle}
       isLoading={isLoading}
-      groupedButtonOptions={[
-        {
-          title: "All",
-          type: "button",
-          variant: indexStatus !== "all" ? "outline" : null,
-          onClick: () => setIndexStatus("all"),
-        },
-        {
-          title: "Logs",
-          type: "button",
-          variant: indexStatus !== "logs" ? "outline" : null,
-          onClick: () => setIndexStatus("logs"),
-        },
-      ]}
+      groupedButtonOptions={getSortButtonOptions()}
       columns={dataMapper[indexStatus].columns}
       data={dataMapper[indexStatus].data}
     />
