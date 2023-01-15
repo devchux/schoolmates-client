@@ -9,6 +9,7 @@ import { useForm } from "react-formid";
 import { useFile } from "./useFile";
 import { useState } from "react";
 import ProfileImage from "../components/common/profile-image";
+import Numeral from "react-numeral";
 
 export const useStudent = () => {
   const [sortedStudents, setSortedStudents] = useState([]);
@@ -126,13 +127,22 @@ export const useStudent = () => {
           return apiServices.formatData(data)?.map((data) => ({
             ...data,
             amount_due: (
-              <>&#8358;{apiServices.commaSeperatedNumber(data.amount_due)}</>
+              <>
+                &#8358;
+                <Numeral value={data.amount_due || "0"} format="0,0.00" />
+              </>
             ),
             amount_paid: (
-              <>&#8358;{apiServices.commaSeperatedNumber(data.amount_paid)}</>
+              <>
+                &#8358;
+                <Numeral value={data.amount_paid || "0"} format="0,0.00" />
+              </>
             ),
             total_amount: (
-              <>&#8358;{apiServices.commaSeperatedNumber(data.total_amount)}</>
+              <>
+                &#8358;
+                <Numeral value={data.total_amount || "0"} format="0,0.00" />
+              </>
             ),
           }));
         },
@@ -152,13 +162,22 @@ export const useStudent = () => {
           return apiServices.formatData(data)?.map((data) => ({
             ...data,
             amount_due: (
-              <>&#8358;{apiServices.commaSeperatedNumber(data.amount_due)}</>
+              <>
+                &#8358;
+                <Numeral value={data.amount_due || "0"} format="0,0.00" />
+              </>
             ),
             amount_paid: (
-              <>&#8358;{apiServices.commaSeperatedNumber(data.amount_paid)}</>
+              <>
+                &#8358;
+                <Numeral value={data.amount_paid || "0"} format="0,0.00" />
+              </>
             ),
             total_amount: (
-              <>&#8358;{apiServices.commaSeperatedNumber(data.total_amount)}</>
+              <>
+                &#8358;
+                <Numeral value={data.total_amount || "0"} format="0,0.00" />
+              </>
             ),
           }));
         },

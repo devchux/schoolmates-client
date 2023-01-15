@@ -1,5 +1,6 @@
 import moment from "moment";
 import { useState } from "react";
+import Numeral from "react-numeral";
 import { useQuery } from "react-query";
 import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
@@ -40,7 +41,10 @@ export const useReports = () => {
           ...item,
           created_at: moment(item?.created_at).format("LLL"),
           amount_paid: (
-            <>&#8358;{apiServices.commaSeperatedNumber(item?.amount_paid)}</>
+            <>
+              &#8358;
+              <Numeral value={data.amount_paid || "0"} format="0,0.00" />
+            </>
           ),
         }));
       },
@@ -67,7 +71,10 @@ export const useReports = () => {
           created_at: moment(item?.created_at).format("LLL"),
           updated_at: moment(item?.updated_at).format("LLL"),
           amount: (
-            <>&#8358;{apiServices.commaSeperatedNumber(item?.amount)}</>
+            <>
+              &#8358;
+              <Numeral value={data.amount || "0"} format="0,0.00" />
+            </>
           ),
         })),
     }
