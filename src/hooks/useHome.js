@@ -5,7 +5,7 @@ import { useAppContext } from "./useAppContext";
 export const useHome = () => {
   const { apiServices, errorHandler } = useAppContext();
 
-  const { isLoading: outstandingLoading, data: outstandingList } = useQuery(
+  const { isLoading: outstandingLoading, data: outstanding } = useQuery(
     [queryKeys.GET_ALL_OUTSTANDING],
     apiServices.getAllOutstanding,
     {
@@ -16,7 +16,7 @@ export const useHome = () => {
     }
   );
 
-  const { isLoading: expectedIncomeLoading, data: expectedIncomeList } =
+  const { isLoading: expectedIncomeLoading, data: expectedIncome } =
     useQuery(
       [queryKeys.GET_ALL_EXPECTED_INCOME],
       apiServices.getAllExpectedIncome,
@@ -28,7 +28,7 @@ export const useHome = () => {
       }
     );
 
-  const { isLoading: discountLoading, data: discountList } = useQuery(
+  const { isLoading: discountLoading, data: discount } = useQuery(
     [queryKeys.GET_ALL_DISCOUNT],
     apiServices.getAllDiscounts,
     {
@@ -38,7 +38,7 @@ export const useHome = () => {
       },
     }
   );
-  const { isLoading: totalExpenseLoading, data: totalExpenseList } = useQuery(
+  const { isLoading: totalExpenseLoading, data: totalExpense } = useQuery(
     [queryKeys.GET_ALL_TOTAL_EXPENSES],
     apiServices.getAllExpenses,
     {
@@ -48,7 +48,7 @@ export const useHome = () => {
       },
     }
   );
-  const { isLoading: accountBalanceLoading, data: accountBalanceList } =
+  const { isLoading: accountBalanceLoading, data: accountBalance } =
     useQuery(
       [queryKeys.GET_ALL_ACCOUNT_BALANCE],
       apiServices.getAllAccountBalances,
@@ -60,7 +60,7 @@ export const useHome = () => {
       }
     );
 
-    const { isLoading: receivedIncomeLoading, data: receivedIncomeList } =
+    const { isLoading: receivedIncomeLoading, data: receivedIncome } =
       useQuery(
         [queryKeys.GET_ALL_RECEIVED_INCOME],
         apiServices.getAllReceivedIncome,
@@ -72,7 +72,7 @@ export const useHome = () => {
         }
       );
 
-      const { isLoading: graduatedStudentLoading, data: graduatedStudentIncomeList } =
+      const { isLoading: graduatedStudentLoading, data: graduatedStudent } =
         useQuery(
           [queryKeys.GET_ALL_GRADUATED_STUDENT],
           apiServices.getAllGraduatedStudent,
@@ -95,12 +95,12 @@ export const useHome = () => {
 
   return {
     isLoading,
-    outstandingList,
-    expectedIncomeList,
-    discountList,
-    totalExpenseList,
-    accountBalanceList,
-    receivedIncomeLoading,
-    graduatedStudentLoading,
+    outstanding,
+    expectedIncome,
+    graduatedStudent,
+    discount,
+    totalExpense,
+    accountBalance,
+    receivedIncome,
   };
 };
