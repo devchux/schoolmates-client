@@ -11,6 +11,7 @@ const Staff = () => {
     allStaffsByAttendance,
     indexStatus,
     setIndexStatus,
+    permission,
   } = useStaff();
 
   const dataMapper = {
@@ -98,16 +99,9 @@ const Staff = () => {
     },
   };
 
-  return (
-    <PageView
-      rowHasUpdate={indexStatus === "all"}
-      rowHasDelete={indexStatus === "all"}
-      rowHasStatusToggle={indexStatus === "all"}
-      hasSortOptions
-      onStatusToggle={toggleStaffStatus}
-      onDelete={onDeleteStaff}
-      isLoading={isLoading}
-      groupedButtonOptions={[
+  const getSortButtonOptions = () => {
+    if (permission?.read && permission?.readAttendance) {
+      return [
         {
           title: "All",
           type: "button",
@@ -120,7 +114,42 @@ const Staff = () => {
           variant: indexStatus !== "attendance" ? "outline" : null,
           onClick: () => setIndexStatus("attendance"),
         },
-      ]}
+      ];
+    }
+
+    if (permission?.read) {
+      return [
+        {
+          title: "All",
+          type: "button",
+          variant: indexStatus !== "all" ? "outline" : null,
+          onClick: () => setIndexStatus("all"),
+        },
+      ];
+    }
+
+    if (permission?.readAttendance) {
+      return [
+        {
+          title: "Attendance List",
+          type: "button",
+          variant: indexStatus !== "attendance" ? "outline" : null,
+          onClick: () => setIndexStatus("attendance"),
+        },
+      ];
+    }
+  };
+
+  return (
+    <PageView
+      rowHasUpdate={indexStatus === "all" && permission?.update}
+      rowHasDelete={indexStatus === "all" && permission?.delete}
+      rowHasStatusToggle={indexStatus === "all" && permission?.statusToggle}
+      hasSortOptions={permission?.sort}
+      onStatusToggle={toggleStaffStatus}
+      onDelete={onDeleteStaff}
+      isLoading={isLoading}
+      groupedButtonOptions={getSortButtonOptions()}
       columns={dataMapper[indexStatus].columns}
       data={dataMapper[indexStatus].data}
     />

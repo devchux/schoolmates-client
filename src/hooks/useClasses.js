@@ -10,7 +10,7 @@ export const useClasses = () => {
   const [classes, setClasses] = useState([]);
   const [classList, setClassList] = useState([]);
   const { id } = useParams();
-  const { apiServices, errorHandler } = useAppContext();
+  const { apiServices, errorHandler, permission } = useAppContext('classes');
 
   const {
     getFieldProps,
@@ -27,7 +27,7 @@ export const useClasses = () => {
     },
     validation: {
       class_name: {
-        required: (val) => !!val || "Campus name is required",
+        required: (val) => !!val || "Class name is required",
       },
     },
   });
@@ -37,6 +37,7 @@ export const useClasses = () => {
     apiServices.getAllClasses,
     {
       retry: 3,
+      enabled: permission?.read || false,
       onSuccess(data) {
         setClasses(data);
         const formatClassList = data?.map((x) => ({
@@ -107,5 +108,6 @@ export const useClasses = () => {
     addClass,
     classData: singleClass,
     onDeleteClass: handleDeleteClass,
+    permission,
   };
 };

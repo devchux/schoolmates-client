@@ -21,7 +21,7 @@ export const useAuth = (navigateOnLogin = true) => {
           data?.data?.find((item) => item.id === user.designation_id)
             ?.attributes || {};
         updateUser({ ...user, designation_name });
-        navigateOnLogin && navigate("/app/classes");
+        navigateOnLogin && navigate("/app/super-admin");
       },
       onError(err) {
         apiServices.errorHandler(err);

@@ -3,11 +3,13 @@ import PageView from "../../../components/views/table-view";
 import { useDepartments } from "../../../hooks/useDepartments";
 
 const Departments = () => {
-  const { isLoading, departmentsList } = useDepartments();
+  const { isLoading, departmentsList, permission } = useDepartments();
 
   return (
     <PageView
-      canCreate={false}
+      canCreate={permission?.create}
+      rowHasUpdate={permission?.update}
+      rowHasDelete={permission?.delete}
       isLoading={isLoading}
       columns={[
         {

@@ -346,3 +346,38 @@ export const roleMap = {
   Teacher: "Teacher",
   Student: "Student",
 };
+
+export const permissions = {
+  Superadmin: {
+    campus: {
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
+      statusToggle: true,
+    },
+    classes: {
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
+      statusToggle: false,
+    },
+    departments: {
+      create: false,
+      read: true,
+      update: false,
+      delete: false,
+      statusToggle: false,
+    },
+    staffs: {
+      create: true,
+      read: true,
+      readAttendance: true,
+      update: true,
+      delete: true,
+      statusToggle: true,
+      sort: true,
+    },
+  }
+}

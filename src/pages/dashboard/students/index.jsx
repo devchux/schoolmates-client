@@ -161,8 +161,8 @@ const Student = () => {
 
   return (
     <PageView
-      rowHasUpdate
-      rowHasDelete
+      rowHasUpdate={!["creditors", "debtors"].includes(indexStatus)}
+      rowHasDelete={!["creditors", "debtors"].includes(indexStatus)}
       hasSortOptions
       hasSearch={indexStatus === "all"}
       groupedButtonOptions={[

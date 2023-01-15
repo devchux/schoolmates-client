@@ -24,7 +24,7 @@ export const useStaff = () => {
     reset: resetFile,
     fileRef,
   } = useFile();
-  const { apiServices, errorHandler } = useAppContext();
+  const { apiServices, errorHandler, permission } = useAppContext("staffs");
 
   const {
     getFieldProps,
@@ -75,6 +75,7 @@ export const useStaff = () => {
     ["GET_DESIGNATIONS_STAFF"],
     apiServices.getDesignation,
     {
+      enabled: permission?.read || false,
       onError(err) {
         errorHandler(err);
       },
@@ -85,6 +86,7 @@ export const useStaff = () => {
     [queryKeys.GET_ALL_STAFFS],
     apiServices.getAllStaffs,
     {
+      enabled: permission?.read || false,
       retry: 3,
       onSuccess(data) {
         const formatStaffs = data.map((staff) => {
@@ -113,6 +115,7 @@ export const useStaff = () => {
     [queryKeys.GET_ALL_STAFFS_BY_ATTENDANCE],
     apiServices.getStaffAttendance,
     {
+      enabled: permission?.readAttendance || false,
       retry: 3,
       onSuccess(data) {
         const formatAllStaffsByAttendance = data?.map((x) => ({
@@ -226,5 +229,6 @@ export const useStaff = () => {
     allStaffsByAttendance,
     indexStatus,
     setIndexStatus,
+    permission,
   };
 };

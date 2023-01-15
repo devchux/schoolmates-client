@@ -9,7 +9,7 @@ import { useForm } from "react-formid";
 
 export const useCampus = () => {
   const { id } = useParams();
-  const { apiServices, errorHandler } = useAppContext();
+  const { apiServices, errorHandler, permission } = useAppContext('campus');
 
   const {
     getFieldProps,
@@ -55,6 +55,7 @@ export const useCampus = () => {
     data: campusList,
     refetch: refetchCampusList,
   } = useQuery([queryKeys.GET_ALL_CAMPUSES], apiServices.getAllCampuses, {
+    enabled: permission?.read || false,
     retry: 3,
     onError(err) {
       errorHandler(err);
@@ -70,7 +71,7 @@ export const useCampus = () => {
       onError(err) {
         errorHandler(err);
       },
-      enabled: !!id,
+      enabled: !!id && (permission?.update || false),
       select: apiServices.formatSingleData,
     }
   );
@@ -123,6 +124,7 @@ export const useCampus = () => {
     getCampusLoading;
 
   return {
+    permission,
     isLoading,
     campusList,
     addCampus,
