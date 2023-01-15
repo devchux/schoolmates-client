@@ -19,6 +19,7 @@ import StudentDetail from "../pages/dashboard/students/detail";
 import SuperAdmin from "../pages/dashboard/super-admin";
 import Vehicles from "../pages/dashboard/vehicles";
 import Vendors from "../pages/dashboard/vendors";
+import Guard from "./guard";
 import Protected from "./protected";
 
 const CustomRoutes = () => {
@@ -34,21 +35,93 @@ const CustomRoutes = () => {
       >
         <Route path="super-admin" element={<SuperAdmin />} />
         <Route exact path="classes" element={<Classes />} />
-        <Route path="classes/new" element={<ClassDetail />} />
-        <Route path="classes/edit/:id" element={<ClassDetail />} />
+        <Route
+          path="classes/new"
+          element={
+            <Guard routeName="classes" action={["create"]}>
+              <ClassDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="classes/edit/:id"
+          element={
+            <Guard routeName="classes" action={["update"]}>
+              <ClassDetail />
+            </Guard>
+          }
+        />
         <Route exact path="campus" element={<Campus />} />
-        <Route path="campus/new" element={<CampusDetail />} />
-        <Route path="campus/edit/:id" element={<CampusDetail />} />
+        <Route
+          path="campus/new"
+          element={
+            <Guard routeName="campus" action={["create"]}>
+              <CampusDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="campus/edit/:id"
+          element={
+            <Guard routeName="campus" action={["update"]}>
+              <CampusDetail />
+            </Guard>
+          }
+        />
         <Route exact path="staffs" element={<Staff />} />
-        <Route path="staffs/new" element={<StaffDetail />} />
-        <Route path="staffs/edit/:id" element={<StaffDetail />} />
+        <Route
+          path="staffs/new"
+          element={
+            <Guard routeName="staffs" action={["create"]}>
+              <StaffDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="staffs/edit/:id"
+          element={
+            <Guard routeName="staffs" action={["update"]}>
+              <StaffDetail />
+            </Guard>
+          }
+        />
         <Route exact path="students" element={<Student />} />
-        <Route path="students/new" element={<StudentDetail />} />
-        <Route path="students/edit/:id" element={<StudentDetail />} />
+        <Route
+          path="students/new"
+          element={
+            <Guard routeName="students" action={["create"]}>
+              <StudentDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="students/edit/:id"
+          element={
+            <Guard routeName="students" action={["update"]}>
+              <StudentDetail />
+            </Guard>
+          }
+        />
         <Route exact path="vehicles" element={<Vehicles />} />
         <Route exact path="change-password" element={<ChangePassword />} />
-        <Route exact path="vendors" element={<Vendors />} />
-        <Route exact path="reports" element={<Reports />} />
+        <Route
+          exact
+          path="vendors"
+          element={
+            <Guard routeName="vendors" action={["read"]}>
+              <Vendors />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="reports"
+          element={
+            <Guard routeName="reports" action={["read"]}>
+              <Reports />
+            </Guard>
+          }
+        />
         <Route exact path="departments" element={<Departments />} />
         <Route exact path="profile" element={<Profile />} />
         <Route index path="*" element={<Navigate to="/app/super-admin" />} />

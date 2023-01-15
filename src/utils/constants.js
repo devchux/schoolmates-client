@@ -390,6 +390,9 @@ export const permissions = {
       sort: true,
       sortSession: true,
     },
+    reports: {
+      read: true,
+    },
     vehicles: {
       create: false,
       read: true,
@@ -407,5 +410,5 @@ export const permissions = {
       statusToggle: false,
       sort: false,
     },
-  }
-}
+  },
+};
