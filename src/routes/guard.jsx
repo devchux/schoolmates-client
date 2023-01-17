@@ -9,6 +9,8 @@ const Guard = ({ children, routeName, action = [] }) => {
   const isPermitted = () => {
     let x = true;
 
+    if (Object.keys(permission).length === 0) return false;
+
     action?.forEach((str) => {
       if (!permission[str]) {
         x = false;
