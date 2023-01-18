@@ -6,6 +6,7 @@ import { isValidPhoneNumber } from "react-phone-number-input";
 import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
 import { useForm } from "react-formid";
+import { useFile } from "./useFile";
 
 export const useCampus = () => {
   const { id } = useParams();
@@ -26,6 +27,7 @@ export const useCampus = () => {
       phoneno: "+234",
       address: "",
       state: "",
+      image: "",
     },
     validation: {
       name: {
@@ -49,6 +51,16 @@ export const useCampus = () => {
       },
     },
   });
+
+
+
+  const {
+    handleImageChange,
+    filePreview,
+    base64String,
+    reset: resetFile,
+    fileRef,
+  } = useFile();
 
   const {
     isLoading: campusListLoading,
@@ -81,6 +93,7 @@ export const useCampus = () => {
     {
       onSuccess() {
         toast.success("Campus has been added successfully");
+        resetFile()
         reset();
       },
       onError(err) {
@@ -134,6 +147,11 @@ export const useCampus = () => {
     handleSubmit,
     errors,
     setInputs,
+    handleImageChange,
+    filePreview,
+    base64String,
+    resetFile,
+    fileRef,
     updateCampus: handleUpdateCampus,
     campusData: campusData || singleCampus,
     toggleCampusStatus,

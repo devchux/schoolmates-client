@@ -2,13 +2,13 @@ export const permissions = {
     Superadmin: {
       campus: {
         create: false,
-        read: false,
+        read: true,
         update: true,
         delete: true,
         statusToggle: true,
       },
       classes: {
-        create: true,
+        create: false,
         read: true,
         update: false,
         delete: false,

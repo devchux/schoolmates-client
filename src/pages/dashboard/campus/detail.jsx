@@ -3,6 +3,7 @@ import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
 import { useCampus } from "../../../hooks/useCampus";
 import DetailView from "../../../components/views/detail-view";
+import ImagePreview from "../../../components/common/image-preview";
 
 const CampusDetail = () => {
   const {
@@ -17,13 +18,23 @@ const CampusDetail = () => {
     handleSubmit,
     errors,
     setInputs,
+    handleImageChange,
+    filePreview,
+    resetFile,
+    base64String,
+    fileRef,
   } = useCampus();
 
   const onSubmit = async (data) => {
+    const image = isEdit
+      ? base64String
+        ? base64String
+        : campusData.image
+      : base64String;
     if (isEdit) {
-      return await updateCampus(data);
+      return await updateCampus({ ...data, image });
     }
-    await addCampus(data);
+    await addCampus({ ...data, image });
   };
 
   useEffect(() => {
@@ -91,7 +102,23 @@ const CampusDetail = () => {
           />
           {!!errors.state && <p className="error-message">{errors.state}</p>}
         </Col>
+        <Col sm="6" className="mb-4 mb-sm-0">
+          <AuthInput
+            type="file"
+            className="px-0"
+            wrapperClassName="border-0"
+            label="Profile Image"
+            onChange={handleImageChange}
+            ref={fileRef}
+          />
+        </Col>
       </Row>
+      <ImagePreview
+        src={filePreview || campusData?.image}
+        centered
+        wrapperClassName="my-5"
+        reset={resetFile}
+      />
     </DetailView>
   );
 };
