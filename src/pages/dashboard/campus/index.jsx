@@ -7,6 +7,7 @@ const Campus = () => {
 
   return (
     <PageView
+      canCreate={permission?.create}
       rowHasStatusToggle={permission?.statusToggle}
       rowHasUpdate={permission?.update}
       rowHasDelete={permission?.delete}
