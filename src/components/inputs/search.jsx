@@ -1,3 +1,5 @@
+import { faRemove, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useAppContext } from "../../hooks/useAppContext";
 import ButtonGroup from "../buttons/button-group";
@@ -8,6 +10,7 @@ const Search = ({
   placeholder,
   onClear = () => null,
   isLoading = false,
+  isSessionSearch = false,
 }) => {
   const [inputs, setinputs] = useState({ text: "" });
   const {
@@ -24,22 +27,26 @@ const Search = ({
         wrapperClassName="custom-search-input"
         placeholder={placeholder}
         value={inputs.text}
-        onChange={({ target: { value } }) =>
-          handleSessionChange(value, "text", setText)
-        }
+        onChange={({ target: { value } }) => {
+          if (isSessionSearch) {
+            handleSessionChange(value, "text", setText);
+          } else {
+            setText("text", value);
+          }
+        }}
       />
       <ButtonGroup
         wrapperClassName="custom-search-buttons"
         options={[
           {
             isLoading,
-            title: "Search",
+            title: <FontAwesomeIcon icon={faSearch} />,
             onClick: () => onSearch(inputs.text),
             disabled: !inputs.text || isLoading,
           },
           {
             isLoading,
-            title: "Clear",
+            title: <FontAwesomeIcon icon={faRemove} />,
             variant: "dark",
             onClick: () => {
               setText("text", "");

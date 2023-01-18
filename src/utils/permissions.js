@@ -8,7 +8,7 @@ export const permissions = {
         statusToggle: true,
       },
       classes: {
-        create: false,
+        create: true,
         read: true,
         update: false,
         delete: false,
@@ -40,6 +40,7 @@ export const permissions = {
         statusToggle: false,
         sort: true,
         sortSession: true,
+        sortAdmissionNumber: true,
       },
       reports: {
         read: true,

@@ -16,6 +16,10 @@ const Student = () => {
     studentDebtors,
     studentCreditors,
     permission,
+    handleSortBy,
+    sortBy,
+    setAdmissionNumber,
+    setSortBy,
   } = useStudent();
 
   const setVariant = (status) => {
@@ -194,6 +198,14 @@ const Student = () => {
 
   return (
     <PageView
+      hasSelect={indexStatus === "all" && permission?.sortSession}
+      selectOptions={[
+        { value: "admission-number", title: "Admission Number" },
+        { value: "session", title: "Session" },
+      ]}
+      isSessionSearch={sortBy === "session"}
+      onSelectChange={handleSortBy}
+      selectValue={sortBy}
       canCreate={permission?.create}
       rowHasUpdate={
         !["creditors", "debtors"].includes(indexStatus) && permission?.update
@@ -204,10 +216,19 @@ const Student = () => {
       hasSortOptions={permission?.sort}
       hasSearch={indexStatus === "all" && permission?.sortSession}
       groupedButtonOptions={getSortButtonOptions()}
-      searchPlaceholder="Sort by session (2021/2022)"
+      searchPlaceholder={
+        sortBy === "session"
+          ? "Sort by session (2021/2022)"
+          : "Enter Admission Number"
+      }
       onDelete={onDeleteStudent}
-      onSearch={(session_admitted) => setSession(session_admitted)}
-      onSearchClear={() => setSorted(false)}
+      onSearch={(value) =>
+        sortBy === "session" ? setSession(value) : setAdmissionNumber(value)
+      }
+      onSearchClear={() => {
+        setSorted(false);
+        setSortBy("");
+      }}
       isLoading={isLoading}
       columns={getColumns()}
       data={data[indexStatus]}

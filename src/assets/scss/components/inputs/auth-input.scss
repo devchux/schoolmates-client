@@ -6,6 +6,10 @@
   display: flex;
   background-color: #ffffff;
 
+  &.is-sort {
+    height: 4rem;
+  }
+
   &.has-error {
     border: 0.2rem solid rgba(255, 0, 0, 0.3);
   }
@@ -26,9 +30,9 @@
     font-weight: 400;
     font-size: 1.4rem;
     line-height: 1.9rem;
-    color: #545f7d;
     height: 100%;
     padding: 0 1.25rem;
+    color: #000000;
 
     &::placeholder {
       opacity: 0.6;
@@ -39,6 +43,14 @@
     -moz-appearance: none;
     --webkit-appearance: none;
     appearance: none;
+
+    &.no-value {
+      color: #545f7d;
+    }
+
+    > .disabled {
+      opacity: 0.3;
+    }
   }
 
   .react-tagsinput {

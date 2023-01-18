@@ -4,9 +4,9 @@ import Button from "./button";
 const ButtonGroup = ({ options = [], wrapperClassName }) => {
   return (
     <div className={`my-3 ${wrapperClassName || ""}`}>
-      {options?.map((obj, key) => (
+      {options?.map(({ title, ...obj}, key) => (
         <Button key={key} {...obj} className="me-2">
-          {obj?.title}
+          {title}
         </Button>
       ))}
     </div>

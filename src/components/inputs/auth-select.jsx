@@ -7,6 +7,9 @@ const AuthSelect = ({
   label,
   options = [],
   advanced = false,
+  sort = false,
+  value,
+  noPlaceholder = false,
   ...rest
 }) => {
   return (
@@ -14,6 +17,7 @@ const AuthSelect = ({
       {label && <label className="mb-2">{label}</label>}
       {advanced ? (
         <Select
+          value={value}
           options={options?.map((opt) => ({
             label: opt?.title,
             value: opt?.value,
@@ -36,12 +40,16 @@ const AuthSelect = ({
         />
       ) : (
         <div
-          className={`auth-input-wrapper ${hasError ? "has-error" : ""} ${
-            wrapperClassName || ""
-          }`}
+          className={`auth-input-wrapper ${sort ? "is-sort" : ""} ${
+            hasError ? "has-error" : ""
+          } ${wrapperClassName || ""}`}
         >
-          <select {...rest}>
-            <option value="">Select...</option>
+          <select {...rest} value={value} className={!value ? "no-value" : ""}>
+            {!noPlaceholder && (
+              <option className="disabled" value="">
+                {sort ? "Sort By" : "Select..."}
+              </option>
+            )}
             {options?.map((opt, key) => (
               <option key={key} value={opt?.value}>
                 {opt?.title}

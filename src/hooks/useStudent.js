@@ -16,6 +16,8 @@ export const useStudent = () => {
   const [sorted, setSorted] = useState(false);
   const [indexStatus, setIndexStatus] = useState("all");
   const [session, setSession] = useState("");
+  const [admissionNumber, setAdmissionNumber] = useState("");
+  const [sortBy, setSortBy] = useState("");
   const { id } = useParams();
   const { apiServices, errorHandler, permission } = useAppContext("students");
   const navigate = useNavigate();
@@ -91,6 +93,10 @@ export const useStudent = () => {
   const reset = () => {
     resetFile();
     resetForm();
+  };
+
+  const handleSortBy = ({ target: { value } }) => {
+    setSortBy(value);
   };
 
   const { isLoading: studentListLoading, data: students } = useQuery(
@@ -229,6 +235,7 @@ export const useStudent = () => {
       enabled: !!session && (permission?.sortSession || false),
       onError(err) {
         errorHandler(err);
+        setSession("");
       },
       onSuccess(data) {
         const format = apiServices.formatData(data)?.map((student) => {
@@ -240,6 +247,32 @@ export const useStudent = () => {
           };
         });
         setSession("");
+        setSortedStudents(format);
+        setIndexStatus("all");
+        setSorted(true);
+      },
+    }
+  );
+
+  const { isLoading: getStudentByAdmissionNumberLoading } = useQuery(
+    [queryKeys.GET_ALL_STUDENTS_BY_ADMISSION_NUMBER, admissionNumber],
+    () => apiServices.getStudentByAdmissionNumber(admissionNumber),
+    {
+      enabled: !!admissionNumber && (permission?.sortAdmissionNumber || false),
+      onError(err) {
+        errorHandler(err);
+        setAdmissionNumber("");
+      },
+      onSuccess(data) {
+        const format = apiServices.formatData(data)?.map((student) => {
+          return {
+            ...student,
+            image: (
+              <ProfileImage src={student?.image} wrapperClassName="mx-auto" />
+            ),
+          };
+        });
+        setAdmissionNumber("");
         setSortedStudents(format);
         setIndexStatus("all");
         setSorted(true);
@@ -287,7 +320,8 @@ export const useStudent = () => {
     getStudentBySessionLoading ||
     withdrawStudentLoading ||
     studentDebtorsListLoading ||
-    studentCreditorsListLoading;
+    studentCreditorsListLoading ||
+    getStudentByAdmissionNumberLoading;
 
   return {
     isLoading,
@@ -316,6 +350,10 @@ export const useStudent = () => {
     studentDebtors,
     studentCreditors,
     permission,
+    handleSortBy,
+    sortBy,
+    setSortBy,
+    setAdmissionNumber,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
     studentData: singleStudent || formatSingleStudent,

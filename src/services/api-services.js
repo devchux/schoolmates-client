@@ -287,6 +287,20 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getStudentByAdmissionNumber(admission_number) {
+    const { data } = await axios.get(
+      `${backendAPI}/admissionnumbersearch/${admission_number}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
   async withdrawStudent({ id }) {
     const { data } = await axios.patch(
       `${backendAPI}/withdrawstudent/${id}`,

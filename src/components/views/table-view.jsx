@@ -7,6 +7,7 @@ import Search from "../inputs/search";
 import CustomTable from "../tables/table";
 import illustrationImage from "../../assets/images/illustration.png";
 import PageTitle from "../common/title";
+import AuthSelect from "../inputs/auth-select";
 
 const PageView = ({
   onStatusToggle,
@@ -24,6 +25,11 @@ const PageView = ({
   hideTable = false,
   showTableTitle = false,
   pageTitle,
+  selectOptions,
+  selectValue,
+  onSelectChange,
+  hasSelect = false,
+  isSessionSearch = false,
   ...rest
 }) => {
   const navigate = useNavigate();
@@ -42,11 +48,23 @@ const PageView = ({
             </div>
           ) : null}
 
+          {hasSelect && (
+            <div className="me-2 d-flex align-items-center mb-3 mb-sm-0">
+              <AuthSelect
+                sort
+                options={selectOptions}
+                value={selectValue}
+                onChange={onSelectChange}
+              />
+            </div>
+          )}
+
           {hasSearch && (
             <Search
               isLoading={isLoading}
               placeholder={searchPlaceholder}
               onSearch={onSearch}
+              isSessionSearch={isSessionSearch}
               onClear={onSearchClear}
             />
           )}
