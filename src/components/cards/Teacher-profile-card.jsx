@@ -14,36 +14,28 @@ const TeacherProfileCard = () => {
         <div>
           <h3>Full Name:</h3>
           <p>
-            teacher
+            okere christian
           </p>
         </div>
         <div>
-          <h3>Username:</h3>
-          <p>teacher</p>
+          <h3>Assigned Class:</h3>
+          <p>Basic 3 </p>
         </div>
         <div>
-          <h3>Email:</h3>
-          <p>email</p>
+          <h3>Sub-Class:</h3>
+          <p>Ruby</p>
         </div>
         <div>
-          <h3>Designation Name:</h3>
-          <p>name</p>
+          <h3>Class Population:</h3>
+          <p>25</p>
         </div>
         <div>
-          <h3>Phone Number:</h3>
-          <p>phone</p>
+          <h3>Campus:</h3>
+          <p>Penny International College</p>
         </div>
         <div>
-          <h3>Status:</h3>
-          <p>status</p>
-        </div>
-        <div>
-          <h3>Department:</h3>
-          <p>department</p>
-        </div>
-        <div>
-          <h3>Address:</h3>
-          <p>address</p>
+          <h3>Period:</h3>
+          <p>Second Half/Second Term 2022/2023</p>
         </div>
       </div>
     </div>

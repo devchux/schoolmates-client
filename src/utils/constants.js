@@ -81,7 +81,7 @@ export const dashboardSideBarLinks = {
   ],
   Teacher: [
     {
-      to: "/app/teacher",
+      to: "/app/teachers",
       title: "Teachers",
       icon: faHome,
     },

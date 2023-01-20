@@ -132,7 +132,8 @@ const CustomRoutes = () => {
         <Route path="register" element={<Register />} />
       </Route>
       <Route path="*" element={<Navigate to="/app" />} />
-      <Route path="teacher" element={<Teacher />} />
+      <Route path="teacher" element={<Teacher />} /> 
+      <Route path="*" element={<Navigate to="/app" />} />
     </Routes>
   );
 };
