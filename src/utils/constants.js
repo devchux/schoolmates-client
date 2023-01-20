@@ -79,6 +79,23 @@ export const dashboardSideBarLinks = {
       icon: faPaperPlane,
     },
   ],
+  Teacher: [
+    {
+      to: "/app/teacher",
+      title: "Teachers",
+      icon: faHome,
+    },
+    {
+      to: "/app/result",
+      title: "Result",
+      icon: faBuildingColumns,
+    },
+    {
+      to: "/app/students",
+      title: "Students",
+      icon: faGraduationCap,
+    },
+  ],
 };
 
 export const countryList = [

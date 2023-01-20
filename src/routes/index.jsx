@@ -21,6 +21,7 @@ import Vehicles from "../pages/dashboard/vehicles";
 import Vendors from "../pages/dashboard/vendors";
 import Guard from "./guard";
 import Protected from "./protected";
+import Teacher from "../pages/dashboard/teachers";
 
 const CustomRoutes = () => {
   return (
@@ -131,6 +132,7 @@ const CustomRoutes = () => {
         <Route path="register" element={<Register />} />
       </Route>
       <Route path="*" element={<Navigate to="/app" />} />
+      <Route path="teacher" element={<Teacher />} />
     </Routes>
   );
 };
