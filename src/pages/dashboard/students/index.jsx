@@ -161,7 +161,7 @@ const Student = () => {
   const getSortButtonOptions = () => {
     let arr = [];
 
-    if (permission.read) {
+    if (permission?.read) {
       arr.push({
         title: "All",
         type: "button",
@@ -169,7 +169,7 @@ const Student = () => {
         variant: setVariant("all"),
       });
     }
-    if (permission.readCreditors) {
+    if (permission?.readCreditors) {
       arr.push({
         title: "Creditors",
         type: "button",
@@ -178,7 +178,7 @@ const Student = () => {
       });
     }
 
-    if (permission.readDebtors) {
+    if (permission?.readDebtors) {
       arr.push({
         title: "Debtors",
         type: "button",

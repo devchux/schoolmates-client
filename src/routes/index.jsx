@@ -22,6 +22,7 @@ import Vendors from "../pages/dashboard/vendors";
 import Guard from "./guard";
 import Protected from "./protected";
 import Teacher from "../pages/dashboard/teachers";
+import NotFound from "../pages/dashboard/not-found";
 
 const CustomRoutes = () => {
   return (
@@ -34,7 +35,14 @@ const CustomRoutes = () => {
           </Protected>
         }
       >
-        <Route path="super-admin" element={<SuperAdmin />} />
+        <Route
+          path="super-admin"
+          element={
+            <Guard routeName="superAdmin">
+              <SuperAdmin />
+            </Guard>
+          }
+        />
         <Route exact path="classes" element={<Classes />} />
         <Route
           path="classes/new"
@@ -52,7 +60,15 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
-        <Route exact path="campus" element={<Campus />} />
+        <Route
+          exact
+          path="campus"
+          element={
+            <Guard routeName="campus">
+              <Campus />
+            </Guard>
+          }
+        />
         <Route
           path="campus/new"
           element={
@@ -69,7 +85,15 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
-        <Route exact path="staffs" element={<Staff />} />
+        <Route
+          exact
+          path="staffs"
+          element={
+            <Guard routeName="staffs">
+              <Staff />
+            </Guard>
+          }
+        />
         <Route
           path="staffs/new"
           element={
@@ -86,7 +110,15 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
-        <Route exact path="students" element={<Student />} />
+        <Route
+          exact
+          path="students"
+          element={
+            <Guard routeName="students">
+              <Student />
+            </Guard>
+          }
+        />
         <Route
           path="students/new"
           element={
@@ -103,13 +135,20 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
-        <Route exact path="vehicles" element={<Vehicles />} />
-        <Route exact path="change-password" element={<ChangePassword />} />
+        <Route
+          exact
+          path="vehicles"
+          element={
+            <Guard routeName="vehicles">
+              <Vehicles />
+            </Guard>
+          }
+        />
         <Route
           exact
           path="vendors"
           element={
-            <Guard routeName="vendors" action={["read"]}>
+            <Guard routeName="vendors">
               <Vendors />
             </Guard>
           }
@@ -118,21 +157,37 @@ const CustomRoutes = () => {
           exact
           path="reports"
           element={
-            <Guard routeName="reports" action={["read"]}>
+            <Guard routeName="reports">
               <Reports />
             </Guard>
           }
         />
-        <Route exact path="departments" element={<Departments />} />
+        <Route
+          exact
+          path="departments"
+          element={
+            <Guard routeName="departments">
+              <Departments />
+            </Guard>
+          }
+        />
+        <Route
+          path="teachers"
+          element={
+            <Guard routeName="teacher">
+              <Teacher />
+            </Guard>
+          }
+        />
         <Route exact path="profile" element={<Profile />} />
-        <Route index path="*" element={<Navigate to="/app/super-admin" />} />
+        <Route exact path="not-found" element={<NotFound />} />
+        <Route exact path="change-password" element={<ChangePassword />} />
+        <Route index path="*" element={<Navigate to="/app/not-found" />} />
       </Route>
       <Route path="auth" element={<AuthLayout />}>
         <Route index element={<Login />} />
         <Route path="register" element={<Register />} />
       </Route>
-      <Route path="*" element={<Navigate to="/app" />} />
-      <Route path="teacher" element={<Teacher />} /> 
       <Route path="*" element={<Navigate to="/app" />} />
     </Routes>
   );

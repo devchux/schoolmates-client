@@ -4,28 +4,35 @@ import { useAppContext } from "../hooks/useAppContext";
 
 const Guard = ({ children, routeName, action = [] }) => {
   const { permission } = useAppContext(routeName);
-  const [canAccess, setCanAccess] = useState(true);
+  const [canAccess, setCanAccess] = useState(null);
 
   const isPermitted = () => {
     let x = true;
 
-    if (Object.keys(permission).length === 0) return false;
+    if (!permission || Object.keys(permission).length === 0) return false;
 
-    action?.forEach((str) => {
-      if (!permission[str]) {
-        x = false;
+    if (action) {
+      if (action.length > 0) {
+        action?.forEach((str) => {
+          if (!permission[str]) {
+            x = false;
+          }
+        });
       }
-    });
+    }
 
     return x;
   };
 
   useEffect(() => {
-    setCanAccess(isPermitted());
+    const permitted = isPermitted()
+    setCanAccess(permitted);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [routeName]);
 
-  if (!canAccess) return <Navigate to="/app" replace />;
+  if (canAccess === null) return <div />
+
+  if (!canAccess) return <Navigate to="/app/not-found" replace />;
 
   return children;
 };
