@@ -1,7 +1,6 @@
 import React from "react";
 import { useAppContext } from "../../hooks/useAppContext";
 import defaultImage from "../../assets/images/placeholder.png";
-import { roleMap } from "../../utils/constants";
 
 const TeacherProfileCard = () => {
   const { user } = useAppContext();
