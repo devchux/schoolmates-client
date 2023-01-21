@@ -86,8 +86,8 @@ export const dashboardSideBarLinks = {
       icon: faHome,
     },
     {
-      to: "/app/result",
-      title: "Result",
+      to: "/app/results",
+      title: "Results",
       icon: faBuildingColumns,
     },
     {
