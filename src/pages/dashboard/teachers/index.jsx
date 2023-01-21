@@ -1,7 +1,6 @@
 import React from "react";
 import { Spinner } from "reactstrap";
-// import Button from "../../../components/buttons/button";
-import TeacherProfileCard from "../../../components/cards/Teacher-profile-card";
+import ProfileCard from "../../../components/cards/profile-card";
 import PageTitle from "../../../components/common/title";
 import { useHome } from "../../../hooks/useHome";
 
@@ -11,7 +10,7 @@ const Teacher = () => {
   return (
     <div>
       <PageTitle> Teacher {isLoading && <Spinner />}</PageTitle>
-      <TeacherProfileCard />
+      <ProfileCard type="teacher" />
     </div>
   );
 };
