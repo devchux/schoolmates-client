@@ -7,6 +7,7 @@ import {
   faGraduationCap,
   faHome,
   faPaperPlane,
+  faPeopleGroup,
   // faScaleBalanced,
   faSchool,
   // faTape,
@@ -84,6 +85,11 @@ export const dashboardSideBarLinks = {
       to: "/app/teachers",
       title: "Home",
       icon: faHome,
+    },
+    {
+      to: "/app/attendance",
+      title: "Attendance",
+      icon: faPeopleGroup,
     },
     {
       to: "/app/results",
