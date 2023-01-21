@@ -5,16 +5,13 @@ import TeacherProfileCard from "../../../components/cards/teacher-profile-card";
 import { useHome } from "../../../hooks/useHome";
 
 const Teacher = () => {
-  const {
-    isLoading,
-  } = useHome();
+  const { isLoading } = useHome();
 
   return (
     <div>
       <PageTitle> Teacher {isLoading && <Spinner />}</PageTitle>
       <TeacherProfileCard />
       <button></button>
-      
     </div>
   );
 };
