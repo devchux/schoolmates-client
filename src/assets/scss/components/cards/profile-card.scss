@@ -1,8 +1,10 @@
 .profile-card-wrapper {
   display: flex;
   gap: 3rem;
-  padding: 1rem 0 2rem 0;
+  padding: 3rem 2rem;
   flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 1rem;
 
   @media only screen and (min-width: 600px) {
     flex-direction: row;

@@ -6,7 +6,7 @@
   justify-content: center;
   padding: 2.5rem;
   background-color: #ffffff;
-  box-shadow: 0 0 0.01rem 0.1rem #cccccc;
+  cursor: pointer;
 
   @media only screen and (min-width: 600px) {
     height: 15rem;
@@ -16,5 +16,25 @@
     font-size: 3rem;
     line-height: 4.5rem;
     font-weight: 700;
+  }
+
+  &.is-badge {
+    max-width: 25rem;
+    width: 100%;
+
+    > svg {
+      font-size: 3rem;
+    }
+
+    p {
+      margin-top: 2rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    &:hover {
+      background-color: #367fa9;
+      color: #ffffff;
+    }
   }
 }
