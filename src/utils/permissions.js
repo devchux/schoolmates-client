@@ -82,5 +82,10 @@ export const permissions = {
       sortSession: true,
       sortAdmissionNumber: true,
     },
+    results: {
+      compute: true,
+      view: true,
+      preSchool: true,
+    },
   },
 };

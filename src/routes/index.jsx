@@ -23,6 +23,7 @@ import Guard from "./guard";
 import Protected from "./protected";
 import Teacher from "../pages/dashboard/teachers";
 import NotFound from "../pages/dashboard/not-found";
+import Results from "../pages/dashboard/results";
 
 const CustomRoutes = () => {
   return (
@@ -159,6 +160,15 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="reports">
               <Reports />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="results"
+          element={
+            <Guard routeName="results">
+              <Results />
             </Guard>
           }
         />

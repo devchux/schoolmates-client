@@ -30,6 +30,8 @@ const PageView = ({
   onSelectChange,
   hasSelect = false,
   isSessionSearch = false,
+  illustrationBanner,
+  svgIllustrationBanner: SvgIllustrationBanner,
   ...rest
 }) => {
   const navigate = useNavigate();
@@ -70,11 +72,21 @@ const PageView = ({
           )}
         </div>
       )}
-      {showIllustration && (
-        <div className="w-50 mx-auto">
-          <img src={illustrationImage} alt="" className="w-100 h-100" />
-        </div>
-      )}
+      {showIllustration ? (
+        SvgIllustrationBanner ? (
+          <div className="svg-banner w-25 mx-auto my-5">
+            <SvgIllustrationBanner className="w-100 h-100" />
+          </div>
+        ) : (
+          <div className="w-50 mx-auto">
+            <img
+              src={illustrationBanner || illustrationImage}
+              alt=""
+              className="w-100 h-100"
+            />
+          </div>
+        )
+      ) : null}
       {!hideTable && (
         <div>
           {showTableTitle && <PageTitle>{pageTitle}</PageTitle>}
