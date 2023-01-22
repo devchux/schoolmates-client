@@ -19,8 +19,12 @@
   }
 
   &.is-badge {
-    max-width: 25rem;
     width: 100%;
+    max-width: 45%;
+
+    @media only screen and (min-width: 768px) {
+      max-width: 25rem;
+    }
 
     > svg {
       font-size: 3rem;
