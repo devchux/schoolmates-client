@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useTable } from "react-table";
-import { Spinner, Table } from "reactstrap";
+import { Input, Spinner, Table } from "reactstrap";
 import Button from "../buttons/button";
 import Prompt from "../modals/prompt";
 
@@ -16,6 +16,9 @@ const CustomTable = ({
   onRowDelete = () => null,
   onRowStatusToggle = () => null,
   onRowUpdate = () => null,
+  hasCheckBox = false,
+  checkedRows = [],
+  setCheckedRows = () => null,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalStatus, setModalStatus] = useState("disable");
@@ -56,6 +59,24 @@ const CustomTable = ({
     }
   };
 
+  const checkAllBoxes = () => {
+    if (checkedRows.length === data.length) {
+      setCheckedRows([]);
+    } else {
+      const dataIds = data.map((x) => x.id);
+      setCheckedRows(dataIds);
+    }
+  };
+
+  const checkSingleRow = (id) => {
+    if (checkedRows.includes(id)) {
+      const filter = checkedRows.filter((r) => r !== id);
+      setCheckedRows(filter);
+    } else {
+      setCheckedRows([...checkedRows, id]);
+    }
+  };
+
   const memoisedData = React.useMemo(() => data || [], [data]);
 
   const memoisedColumns = React.useMemo(() => columns, [columns]);
@@ -79,6 +100,15 @@ const CustomTable = ({
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
+                  {hasCheckBox && (
+                    <th>
+                      <Input
+                        type="checkbox"
+                        checked={checkedRows.length === memoisedData.length}
+                        onChange={checkAllBoxes}
+                      />
+                    </th>
+                  )}
                   {headerGroup.headers.map((column) => (
                     <th {...column.getHeaderProps()}>
                       {column.render("Header")}
@@ -95,6 +125,15 @@ const CustomTable = ({
                 prepareRow(row);
                 return (
                   <tr {...row.getRowProps()}>
+                    {hasCheckBox && (
+                      <td>
+                        <Input
+                          type="checkbox"
+                          checked={checkedRows.includes(row.original.id)}
+                          onChange={() => checkSingleRow(row.original.id)}
+                        />
+                      </td>
+                    )}
                     {row.cells.map((cell) => {
                       return (
                         <td
