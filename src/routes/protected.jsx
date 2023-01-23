@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { useAppContext } from "../hooks/useAppContext";
 
 const Protected = ({ children }) => {
   const {
+    setLoginPrompt,
+    user,
     apiServices: { getToken },
   } = useAppContext();
+  const [canAccess, setCanAccess] = useState(null);
 
-  if (!getToken()) {
-    return <Navigate to="/auth" replace />;
-  }
+  useEffect(() => {
+    if (!getToken()) {
+      if (Object.keys(user).length > 0) {
+        setLoginPrompt(true);
+      } else {
+        setCanAccess(false);
+      }
+    }
+  }, [user, getToken, setLoginPrompt]);
+
+  if (canAccess === null) return <div />;
+
+  if (!canAccess) return <Navigate to="/auth" replace />;
+
   return children;
 };
 export default Protected;

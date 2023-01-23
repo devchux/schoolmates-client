@@ -52,6 +52,7 @@ const UserProvider = ({ children }) => {
         updateUser,
         logout,
         loginPrompt,
+        setLoginPrompt,
         toggleLoginPrompt,
         errorHandler,
       }}

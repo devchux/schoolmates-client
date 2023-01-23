@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import { homeUrl } from "../utils/constants";
 import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
 
@@ -21,7 +22,7 @@ export const useAuth = (navigateOnLogin = true) => {
           data?.data?.find((item) => item.id === user.designation_id)
             ?.attributes || {};
         updateUser({ ...user, designation_name });
-        navigateOnLogin && navigate("/app/super-admin");
+        navigateOnLogin && navigate(homeUrl[designation_name]);
       },
       onError(err) {
         apiServices.errorHandler(err);
