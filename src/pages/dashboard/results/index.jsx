@@ -1,12 +1,38 @@
 import { faEye, faPen, faSchool } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
 import PageView from "../../../components/views/table-view";
-import { ResultIcon } from "../../../assets/svgs"
+import { ResultIcon } from "../../../assets/svgs";
 import Prompt from "../../../components/modals/prompt";
 import AuthSelect from "../../../components/inputs/auth-select";
+import { useForm } from "react-formid";
 
 const Results = () => {
+  const [promptStatus, setPromptStatus] = useState("compute");
+  const [loginPrompt, setLoginPrompt] = useState(false);
+  const { inputs, errors, handleChange } = useForm({
+    defaultValues: {
+      period: "",
+      term: "",
+      session: "",
+    },
+  });
+
+  const promptMapper = {
+    compute: {
+      title: "Compute Result",
+      onFormSubmit: () => null,
+    },
+    view: {
+      title: "View Result",
+      onFormSubmit: () => null,
+    },
+  };
+
+  const displayPrompt = (status) => {
+    setPromptStatus(status);
+    setLoginPrompt(true);
+  };
   return (
     <div>
       <PageView
@@ -23,7 +49,7 @@ const Results = () => {
             ),
             variant: "outline",
             type: "button",
-            onClick: null,
+            onClick: () => displayPrompt('compute'),
           },
           {
             title: (
@@ -33,7 +59,7 @@ const Results = () => {
             ),
             variant: "outline",
             type: "button",
-            onClick: null,
+            onClick: () => displayPrompt('view'),
           },
           {
             title: (
@@ -50,45 +76,62 @@ const Results = () => {
         isLoading={false}
       />
       <Prompt
-        isOpen={false}
-        toggle={() => null}
+        isOpen={loginPrompt}
+        toggle={() => setLoginPrompt(!loginPrompt)}
         singleButtonProps={{
           type: "button",
           isLoading: false,
           disabled: false,
-          onClick: null,
+          onClick: promptMapper[promptStatus].onFormSubmit,
         }}
         singleButtonText="Continue"
-        promptHeader="Generate Report"
+        promptHeader={promptMapper[promptStatus].title}
       >
         <div className="form-group mb-4">
           <AuthSelect
-            label="Type"
-            // value={inputs.type}
-            name="type"
-            // hasError={!!errors.type}
-            // onChange={handleChange}
+            label="Period"
+            value={inputs.period}
+            name="period"
+            hasError={!!errors.period}
+            onChange={handleChange}
             options={[
               { value: "income", title: "Income Report" },
               { value: "expense", title: "Expenses Report" },
             ]}
           />
-          {/* {!!errors.term && <p className="error-message">{errors.term}</p>} */}
+          {!!errors.period && <p className="error-message">{errors.period}</p>}
         </div>
         <div className="form-group mb-4">
           <AuthSelect
             label="Term"
-            // value={inputs.term}
+            value={inputs.term}
             name="term"
-            // hasError={!!errors.term}
-            // onChange={handleChange}
+            hasError={!!errors.term}
+            onChange={handleChange}
             options={[
               { value: "First Term", title: "First Term" },
               { value: "Second Term", title: "Second Term" },
               { value: "Third Term", title: "Third Term" },
             ]}
           />
-          {/* {!!errors.term && <p className="error-message">{errors.term}</p>} */}
+          {!!errors.term && <p className="error-message">{errors.term}</p>}
+        </div>
+        <div className="form-group mb-4">
+          <AuthSelect
+            label="Session"
+            value={inputs.session}
+            name="session"
+            hasError={!!errors.session}
+            onChange={handleChange}
+            options={[
+              { value: "2020/2021", title: "2020/2021" },
+              { value: "2021/2022", title: "2021/2022" },
+              { value: "2022/2023", title: "2022/2023" },
+            ]}
+          />
+          {!!errors.session && (
+            <p className="error-message">{errors.session}</p>
+          )}
         </div>
       </Prompt>
     </div>
