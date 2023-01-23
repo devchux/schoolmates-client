@@ -9,16 +9,19 @@ const Protected = ({ children }) => {
     apiServices: { getToken },
   } = useAppContext();
   const [canAccess, setCanAccess] = useState(null);
+  const token = getToken()
 
   useEffect(() => {
-    if (!getToken()) {
+    if (!token) {
       if (Object.keys(user).length > 0) {
         setLoginPrompt(true);
       } else {
         setCanAccess(false);
       }
+    } else {
+      setCanAccess(true)
     }
-  }, [user, getToken, setLoginPrompt]);
+  }, [user, token, setLoginPrompt]);
 
   if (canAccess === null) return <div />;
 
