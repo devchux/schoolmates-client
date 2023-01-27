@@ -87,5 +87,10 @@ export const permissions = {
       view: true,
       preSchool: true,
     },
+    attendance: {
+      compute: true,
+      view: true,
+      preSchool: true,
+    },
   },
 };
