@@ -5,7 +5,7 @@ import { useStudent } from "../../../hooks/useStudent";
 import PageSheet from "../../../components/common/page-sheet";
 
 const Attendance = () => {
-  const [checkedRows, setCheckedRows] = React.useState([]);
+  const [checkedRows, setCheckedRows] = React.useState([]); 
   const {
     students,
     isLoading,
@@ -73,6 +73,7 @@ const Attendance = () => {
       <AuthInput type="date"></AuthInput>
       <CustomTable
         hasCheckBox
+        checkedRows={checkedRows}
         centered
         setCheckedRows={setCheckedRows}
         isLoading={isLoading}
