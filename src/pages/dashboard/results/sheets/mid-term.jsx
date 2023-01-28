@@ -3,11 +3,32 @@ import { Col, Row } from "reactstrap";
 import Button from "../../../../components/buttons/button";
 import PageSheet from "../../../../components/common/page-sheet";
 import logoImage from "../../../../assets/images/logo.jpeg";
+import { useReactToPrint } from "react-to-print";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPrint } from "@fortawesome/free-solid-svg-icons";
 
 const MidTerm = ({ isCompute = false }) => {
+  const pdfExportComponent = React.useRef(null);
+  const handlePrint = useReactToPrint({
+    content: () => pdfExportComponent.current,
+  });
   return (
     <PageSheet>
-      <div className="first-level-results-sheet">
+      {!isCompute && (
+        <div className="mb-3">
+          <Button
+            onClick={() => {
+              if (pdfExportComponent.current) {
+                handlePrint();
+              }
+            }}
+          >
+            <FontAwesomeIcon icon={faPrint} /> Print
+          </Button>
+        </div>
+      )}
+
+      <div ref={pdfExportComponent} className="first-level-results-sheet">
         <div className="school-details">
           <div className="image">
             <img src={logoImage} alt="school" />
@@ -102,6 +123,312 @@ const MidTerm = ({ isCompute = false }) => {
                   <input
                     type="text"
                     value="35"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
+                    className="form-control"
+                    disabled={!isCompute}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {isCompute && (
+                    <Button variant="danger" className="me-3 me-md-5">
+                      &#8722;
+                    </Button>
+                  )}
+                  BASIC SCIENCE AND TECHNOLOGY
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value="40"
                     className="form-control"
                     disabled={!isCompute}
                   />

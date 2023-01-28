@@ -2,6 +2,7 @@
   border: 0.4rem solid midnightblue;
   border-radius: 0.3rem;
   padding: 2em;
+  font-family: "Avenir Next";
 
   .school-details {
     text-align: center;
@@ -23,6 +24,7 @@
       color: midnightblue;
       font-size: 2rem;
       line-height: 1em;
+      font-family: "Avenir Next";
 
       @media only screen and (min-width: 428px) {
         font-size: 2.8rem;
@@ -129,12 +131,8 @@
     overflow-x: auto;
 
     table {
-      width: 200%;
-
-      @media only screen and (min-width: 428px) {
-        max-width: 100%;
-        width: 100%;
-      }
+      width: 100%;
+      height: 100%;
 
       &,
       td,
@@ -173,7 +171,8 @@
 
       td {
         input {
-            &:disabled, &.form-control:disabled {
+          &:disabled,
+          &.form-control:disabled {
             background-color: transparent;
             border: none;
             outline: none;
@@ -187,12 +186,8 @@
 
   .results-remark {
     table {
-      width: 200%;
-
-      @media only screen and (min-width: 428px) {
-        max-width: 100%;
-        width: 100%;
-      }
+      width: 100%;
+      height: 100%;
 
       &,
       td {
