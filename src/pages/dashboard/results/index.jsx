@@ -6,10 +6,12 @@ import { ResultIcon } from "../../../assets/svgs";
 import Prompt from "../../../components/modals/prompt";
 import AuthSelect from "../../../components/inputs/auth-select";
 import { useForm } from "react-formid";
+import { useNavigate } from "react-router-dom";
 
 const Results = () => {
   const [promptStatus, setPromptStatus] = useState("compute");
   const [loginPrompt, setLoginPrompt] = useState(false);
+  const navigate = useNavigate();
   const { inputs, errors, handleChange } = useForm({
     defaultValues: {
       period: "",
@@ -21,11 +23,11 @@ const Results = () => {
   const promptMapper = {
     compute: {
       title: "Compute Result",
-      onFormSubmit: () => null,
+      onFormSubmit: () => navigate("/app/results/mid/compute"),
     },
     view: {
       title: "View Result",
-      onFormSubmit: () => null,
+      onFormSubmit: () => navigate("/app/results/mid"),
     },
   };
 
@@ -49,7 +51,7 @@ const Results = () => {
             ),
             variant: "outline",
             type: "button",
-            onClick: () => displayPrompt('compute'),
+            onClick: () => displayPrompt("compute"),
           },
           {
             title: (
@@ -59,7 +61,7 @@ const Results = () => {
             ),
             variant: "outline",
             type: "button",
-            onClick: () => displayPrompt('view'),
+            onClick: () => displayPrompt("view"),
           },
           {
             title: (

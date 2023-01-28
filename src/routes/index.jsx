@@ -25,6 +25,7 @@ import Teacher from "../pages/dashboard/teachers";
 import NotFound from "../pages/dashboard/not-found";
 import Results from "../pages/dashboard/results";
 import Attendance from "../pages/dashboard/attendance";
+import MidTerm from "../pages/dashboard/results/sheets/mid-term";
 
 const CustomRoutes = () => {
   return (
@@ -170,6 +171,24 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="results">
               <Results />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="results/mid"
+          element={
+            <Guard routeName="results">
+              <MidTerm />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="results/mid/compute"
+          element={
+            <Guard routeName="results">
+              <MidTerm isCompute />
             </Guard>
           }
         />
