@@ -486,6 +486,7 @@ class APIServies extends Helpers {
 
     return data;
   }
+
   async getAllExpectedIncome() {
     const { data } = await axios.get(`${backendAPI}/expectedincome`, {
       headers: {
@@ -518,6 +519,7 @@ class APIServies extends Helpers {
 
     return data;
   }
+
   async getAllDiscounts() {
     const { data } = await axios.get(`${backendAPI}/discount`, {
       headers: {
@@ -528,6 +530,7 @@ class APIServies extends Helpers {
 
     return data;
   }
+
   async getAllExpenses() {
     const { data } = await axios.get(`${backendAPI}/totalexpense`, {
       headers: {
@@ -538,6 +541,7 @@ class APIServies extends Helpers {
 
     return data;
   }
+
   async getAllAccountBalances() {
     const { data } = await axios.get(`${backendAPI}/accountbalance`, {
       headers: {
@@ -551,6 +555,105 @@ class APIServies extends Helpers {
 
   async updateProfile({ id, ...body }) {
     const { data } = await axios.patch(`${backendAPI}/profile/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getDressCode() {
+    const { data } = await axios.get(`${backendAPI}/dresscode`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addStudentAttendance(body) {
+    const { data } = await axios.post(`${backendAPI}/studentattendance`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getStudentAttendance() {
+    const { data } = await axios.get(`${backendAPI}/studentattendance`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAllSubjects() {
+    const { data } = await axios.get(`${backendAPI}/subjects`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addAcademicCalender(body) {
+    const { data } = await axios.post(`${backendAPI}/academiccalender`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAcademicCalender() {
+    const { data } = await axios.get(`${backendAPI}/academiccalender`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getTimeTable() {
+    const { data } = await axios.get(`${backendAPI}/timetable`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addResult(body) {
+    const { data } = await axios.post(`${backendAPI}/result`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addSubjectToStudent(body) {
+    const { data } = await axios.post(`${backendAPI}/studentsubject`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,

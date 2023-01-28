@@ -280,6 +280,27 @@ export const useStudent = () => {
     }
   );
 
+  // const { isLoading: allStudentsByAttendanceLoading } = useQuery(
+  //   [queryKeys.GET_ALL_STUDENTS_BY_ATTENDANCE],
+  //   apiServices.getStudentAttendance,
+  //   {
+  //     enabled: permission?.readAttendance || false,
+  //     retry: 3,
+  //     onSuccess(data) {
+  //       const formatAllStudentsByAttendance = data?.map((x) => ({
+  //         ...x,
+  //         student: students?.find(({ id }) => id === x?.student_id),
+  //       }));
+
+  //       setAllStudentsByAttendance(formatAllStudentsByAttendance);
+  //     },
+  //     onError(err) {
+  //       errorHandler(err);
+  //     },
+  //     select: apiServices.formatData,
+  //   }
+  // );
+
   const { mutateAsync: withdrawStudent, isLoading: withdrawStudentLoading } =
     useMutation(apiServices.withdrawStudent, {
       onSuccess() {
