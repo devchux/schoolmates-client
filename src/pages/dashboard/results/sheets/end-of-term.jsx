@@ -53,7 +53,7 @@ const AffectiveDispositionTableRow = ({ isCompute, title }) => {
   );
 };
 
-const EndOfTerm = ({ isCompute = true }) => {
+const EndOfTerm = ({ isCompute = false }) => {
   const navigate = useNavigate();
   const [openPrompt, setOpenPrompt] = useState(false);
   const [selectedComment, setSelectedComment] = useState("");
