@@ -1,13 +1,14 @@
 import { faCheck, faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
 import Button from "../../../../components/buttons/button";
 import PageSheet from "../../../../components/common/page-sheet";
 import logoImage from "../../../../assets/images/logo.jpeg";
-import { Col, Input, Row, Table } from "reactstrap";
+import { Col, Row, Table } from "reactstrap";
 import ButtonGroup from "../../../../components/buttons/button-group";
+import Prompt from "../../../../components/modals/prompt";
 
 const AffectiveDispositionTableRow = ({ isCompute, title }) => {
   return (
@@ -52,9 +53,14 @@ const AffectiveDispositionTableRow = ({ isCompute, title }) => {
   );
 };
 
-const EndOfTerm = ({ isCompute = false }) => {
+const EndOfTerm = ({ isCompute = true }) => {
   const navigate = useNavigate();
-  const pdfExportComponent = React.useRef(null);
+  const [openPrompt, setOpenPrompt] = useState(false);
+  const [selectedComment, setSelectedComment] = useState("");
+  const [teacherComment, setTeacherComment] = useState("");
+  const [hosComment, setHosComment] = useState("");
+  const [comment, setComment] = useState("teacher");
+  const pdfExportComponent = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => pdfExportComponent.current,
   });
@@ -415,11 +421,26 @@ const EndOfTerm = ({ isCompute = false }) => {
                 <td colspan="6">
                   {isCompute ? (
                     <>
-                      <Input type="text" value="A very good result." />
-                      <button className="btn btn-primary">suggest</button>
+                      <textarea
+                        className="form-control"
+                        type="text"
+                        value={teacherComment}
+                        onChange={({ target: { value } }) =>
+                          setTeacherComment(value)
+                        }
+                      />
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                          setComment("teacher");
+                          setOpenPrompt(true);
+                        }}
+                      >
+                        suggest
+                      </button>
                     </>
                   ) : (
-                    "A very good result."
+                    teacherComment
                   )}
                 </td>
               </tr>
@@ -441,11 +462,25 @@ const EndOfTerm = ({ isCompute = false }) => {
                 <td colspan="6">
                   {isCompute ? (
                     <>
-                      <Input type="text" value="A very good result." />
-                      <button className="btn btn-primary">suggest</button>
+                      <textarea
+                        className="form-control"
+                        value={hosComment}
+                        onChange={({ target: { value } }) =>
+                          setHosComment(value)
+                        }
+                      />
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                          setComment("hos");
+                          setOpenPrompt(true);
+                        }}
+                      >
+                        suggest
+                      </button>
                     </>
                   ) : (
-                    "A very good result."
+                    hosComment
                   )}
                 </td>
               </tr>
@@ -479,6 +514,80 @@ const EndOfTerm = ({ isCompute = false }) => {
             />
           </div>
         )}
+        <Prompt
+          isOpen={openPrompt}
+          toggle={() => setOpenPrompt(!openPrompt)}
+          singleButtonProps={{
+            type: "button",
+            isLoading: false,
+            disabled: false,
+            onClick: () => {
+              if (comment === "teacher") {
+                setTeacherComment(selectedComment);
+              }
+              if (comment === "hos") {
+                setHosComment(selectedComment);
+              }
+              setOpenPrompt(false);
+              setSelectedComment("");
+            },
+          }}
+          singleButtonText="Continue"
+          promptHeader="Select Comment"
+        >
+          <div className="modal-result-comment-select-options">
+            <input
+              type="radio"
+              name="selectedComment"
+              onChange={({ target: { value } }) => setSelectedComment(value)}
+              value="Although Kene's academic performance is quite commendable, however, she still lacks the basic life skills to make expected progress in the future. More support from the home front is required."
+            />
+            <p>
+              Although Kene's academic performance is quite commendable,
+              however, she still lacks the basic life skills to make expected
+              progress in the future. More support from the home front is
+              required.
+            </p>
+          </div>
+          <div className="modal-result-comment-select-options">
+            <input
+              type="radio"
+              name="selectedComment"
+              onChange={({ target: { value } }) => setSelectedComment(value)}
+              value="Lekan was not able to prove himself in this academic session. It is hoped that in the next class, he will put in more effort. Promoted on trial."
+            />
+            <p>
+              Lekan was not able to prove himself in this academic session. It
+              is hoped that in the next class, he will put in more effort.
+              Promoted on trial.
+            </p>
+          </div>
+          <div className="modal-result-comment-select-options">
+            <input
+              type="radio"
+              name="selectedComment"
+              onChange={({ target: { value } }) => setSelectedComment(value)}
+              value="Chioma's outstanding performance has earned her this move to the next class. promoted. Congratulations!"
+            />
+            <p>
+              Chioma's outstanding performance has earned her this move to the
+              next class. promoted. Congratulations!
+            </p>
+          </div>
+          <div className="modal-result-comment-select-options">
+            <input
+              type="radio"
+              name="selectedComment"
+              onChange={({ target: { value } }) => setSelectedComment(value)}
+              value="....has progressed nicely in all learning areas. I have no doubt that he is ready for the next level. promoted to the next class. Congratulations."
+            />
+            <p>
+              ....has progressed nicely in all learning areas. I have no doubt
+              that he is ready for the next level. promoted to the next class.
+              Congratulations.
+            </p>
+          </div>
+        </Prompt>
       </div>
     </PageSheet>
   );

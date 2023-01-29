@@ -358,3 +358,14 @@
     }
   }
 }
+
+.modal-result-comment-select-options {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+
+  p {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+  }
+}
