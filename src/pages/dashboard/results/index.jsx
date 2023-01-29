@@ -97,8 +97,8 @@ const Results = () => {
             hasError={!!errors.period}
             onChange={handleChange}
             options={[
-              { value: "income", title: "Income Report" },
-              { value: "expense", title: "Expenses Report" },
+              { value: "first-half", title: "First Half/Mid Term" },
+              { value: "second-half", title: "Second Half/End of Term" },
             ]}
           />
           {!!errors.period && <p className="error-message">{errors.period}</p>}
