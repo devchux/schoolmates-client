@@ -14,27 +14,31 @@ const ProfileCard = ({ type = "super-admin" }) => {
         <div className="profile-card-content">
           <div>
             <h3>Full Name:</h3>
-            <p>okere christian</p>
+            <p>
+              {user?.firstname} {user?.surname} {user?.middlename}
+            </p>
           </div>
           <div>
             <h3>Assigned Class:</h3>
-            <p>Basic 3 </p>
+            <p>{user?.class_assigned}</p>
           </div>
           <div>
             <h3>Sub-Class:</h3>
-            <p>Ruby</p>
+            <p>{user?.sub_class}</p>
           </div>
           <div>
             <h3>Class Population:</h3>
-            <p>25</p>
+            <p>{user?.class_population}</p>
           </div>
           <div>
             <h3>Campus:</h3>
-            <p>Penny International College</p>
+            <p>{user?.school?.schname}</p>
           </div>
           <div>
             <h3>Period:</h3>
-            <p>Second Half/Second Term 2022/2023</p>
+            <p>
+              {user?.period}/{user?.term} {user?.session}
+            </p>
           </div>
         </div>
       )}

@@ -586,8 +586,8 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async getStudentAttendance() {
-    const { data } = await axios.get(`${backendAPI}/studentattendance`, {
+  async getStudentAttendance(date) {
+    const { data } = await axios.get(`${backendAPI}/attendance/${date}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
@@ -659,6 +659,117 @@ class APIServies extends Helpers {
         Authorization: `Bearer ${super.getToken()}`,
       },
     });
+
+    return data;
+  }
+
+  async getSchool() {
+    const { data } = await axios.get(`${backendAPI}/school`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getStudentById(id) {
+    const { data } = await axios.get(`${backendAPI}/student/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getSubjectByClass(className) {
+    const { data } = await axios.get(`${backendAPI}/subject/${className}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getStudentByClassAndSession(className, session) {
+    const { data } = await axios.get(
+      `${backendAPI}/student/${session}/${className}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async getMaxScores() {
+    const { data } = await axios.get(`${backendAPI}/maximumscores`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getResumptionDate() {
+    const { data } = await axios.get(`${backendAPI}/closingresumption`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getMidResults(term, session) {
+    const { data } = await axios.get(
+      `${backendAPI}/midtermresult/${term}/${session}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async getAcademicPeriod() {
+    const { data } = await axios.get(
+      `${backendAPI}/getacademicperiod`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async getClassPopulation() {
+    const { data } = await axios.get(
+      `${backendAPI}/classpopulation`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }

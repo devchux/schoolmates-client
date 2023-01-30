@@ -81,6 +81,7 @@ export const permissions = {
       sort: true,
       sortSession: true,
       sortAdmissionNumber: true,
+      myStudents: true,
     },
     results: {
       compute: true,
@@ -88,9 +89,8 @@ export const permissions = {
       preSchool: true,
     },
     attendance: {
-      compute: true,
-      view: true,
-      preSchool: true,
+      retrieve: true,
+      save: true,
     },
   },
 };

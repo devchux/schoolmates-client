@@ -1,4 +1,4 @@
-import { faEye, faPen, faSchool } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import PageView from "../../../components/views/table-view";
@@ -14,20 +14,28 @@ const Results = () => {
   const navigate = useNavigate();
   const { inputs, errors, handleChange } = useForm({
     defaultValues: {
-      period: "",
-      term: "",
-      session: "",
+      period: "first-half",
+      term: "First Term",
+      session: "2020/2021",
     },
   });
 
   const promptMapper = {
     compute: {
       title: "Compute Result",
-      onFormSubmit: () => navigate("/app/results/mid/compute"),
+      onFormSubmit: () =>
+        navigate(
+          `/app/results/${
+            inputs.period === "first-half" ? "mid" : "end"
+          }/compute`
+        ),
     },
     view: {
       title: "View Result",
-      onFormSubmit: () => navigate("/app/results/mid"),
+      onFormSubmit: () =>
+        navigate(
+          `/app/results/${inputs.period === "first-half" ? "mid" : "end"}`
+        ),
     },
   };
 
@@ -63,16 +71,16 @@ const Results = () => {
             type: "button",
             onClick: () => displayPrompt("view"),
           },
-          {
-            title: (
-              <>
-                <FontAwesomeIcon icon={faSchool} /> Pre School
-              </>
-            ),
-            variant: "outline",
-            type: "button",
-            onClick: null,
-          },
+          // {
+          //   title: (
+          //     <>
+          //       <FontAwesomeIcon icon={faSchool} /> Pre School
+          //     </>
+          //   ),
+          //   variant: "outline",
+          //   type: "button",
+          //   onClick: null,
+          // },
         ]}
         canCreate={false}
         isLoading={false}

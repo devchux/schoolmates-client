@@ -20,6 +20,7 @@ const Student = () => {
     sortBy,
     setAdmissionNumber,
     setSortBy,
+    studentByClassAndSession,
   } = useStudent();
 
   const setVariant = (status) => {
@@ -33,6 +34,86 @@ const Student = () => {
           {
             Header: "",
             accessor: "image",
+          },
+          {
+            Header: "id",
+            accessor: "id",
+          },
+          {
+            Header: "First Name",
+            accessor: "firstname",
+          },
+          {
+            Header: "Surname",
+            accessor: "surname",
+          },
+          {
+            Header: "Middle Name",
+            accessor: "middlename",
+          },
+          {
+            Header: "Username",
+            accessor: "username",
+          },
+          {
+            Header: "Phone Number",
+            accessor: "phone_number",
+          },
+          {
+            Header: "Status",
+            accessor: "status",
+          },
+          {
+            Header: "Admission Number",
+            accessor: "admission_number",
+          },
+          {
+            Header: "Class",
+            accessor: "class",
+          },
+          {
+            Header: "Present Class",
+            accessor: "present_class",
+          },
+          {
+            Header: "Session Admitted",
+            accessor: "session_admitted",
+          },
+          {
+            Header: "Email Address",
+            accessor: "email_address",
+          },
+          {
+            Header: "Home Address",
+            accessor: "home_address",
+          },
+          {
+            Header: "Gender",
+            accessor: "gender",
+          },
+          {
+            Header: "Blood Group",
+            accessor: "blood_group",
+          },
+          {
+            Header: "Genotype",
+            accessor: "genotype",
+          },
+          {
+            Header: "State",
+            accessor: "state",
+          },
+          {
+            Header: "Nationality",
+            accessor: "nationality",
+          },
+        ];
+
+      case "myStudents":
+        return [
+          {
+            Header: "id",
+            accessor: "id",
           },
           {
             Header: "First Name",
@@ -187,6 +268,15 @@ const Student = () => {
       });
     }
 
+    if (permission?.myStudents) {
+      arr.push({
+        title: "My Students",
+        type: "button",
+        onClick: () => setIndexStatus("myStudents"),
+        variant: setVariant("myStudents"),
+      });
+    }
+
     return arr.length ? arr : undefined;
   };
 
@@ -194,6 +284,7 @@ const Student = () => {
     all: sorted ? sortedStudents : students,
     creditors: studentCreditors,
     debtors: studentDebtors,
+    myStudents: studentByClassAndSession,
   };
 
   return (

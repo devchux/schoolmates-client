@@ -1,84 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import AuthInput from "../../../components/inputs/auth-input";
 import CustomTable from "../../../components/tables/table";
-import { useStudent } from "../../../hooks/useStudent";
 import PageSheet from "../../../components/common/page-sheet";
+import Button from "../../../components/buttons/button";
+import { useStudentAttendance } from "../../../hooks/useStudentAttendance";
 
 const Attendance = () => {
-  const [checkedRows, setCheckedRows] = React.useState([]); 
+  const [checkedRows, setCheckedRows] = useState([]);
   const {
-    students,
     isLoading,
-    sortedStudents,
-    sorted,
-    indexStatus,
-    studentDebtors,
-    studentCreditors,
-  } = useStudent();
-  const getColumns = () => {
-    switch (indexStatus) {
-      case "all":
-        return [
-          {
-            Header: "First Name",
-            accessor: "firstname",
-          },
-          {
-            Header: "Surname",
-            accessor: "surname",
-          },
-          {
-            Header: "Middle Name",
-            accessor: "middlename",
-          },
-          {
-            Header: "Admission Number",
-            accessor: "admission_number",
-          },
-        ];
-
-      default:
-        return [
-          {
-            Header: "Full Name",
-            accessor: "student_fullname",
-          },
-          {
-            Header: "Amount Due",
-            accessor: "amount_due",
-          },
-          {
-            Header: "Amount Paid",
-            accessor: "amount_paid",
-          },
-          {
-            Header: "Total Amount",
-            accessor: "total_amount",
-          },
-          {
-            Header: "Session",
-            accessor: "session",
-          },
-        ];
-    }
-  };
-  const data = {
-    all: sorted ? sortedStudents : students,
-    creditors: studentCreditors,
-    debtors: studentDebtors,
-  };
+    date,
+    setDate,
+    studentAttendance,
+    setRetrieveAttendance,
+    todayDate,
+    permission,
+  } = useStudentAttendance();
 
   return (
     <PageSheet>
-      <AuthInput type="date"></AuthInput>
+      <div className="d-flex align-items-center custom-search">
+        {permission?.retrieve && (
+          <AuthInput
+            type="date"
+            wrapperClassName="custom-search-input"
+            value={date}
+            max={todayDate}
+            onChange={({ target: { value } }) => setDate(value)}
+          />
+        )}
+        <div className="custom-search-buttons">
+          {permission?.retrieve && (
+            <Button
+              variant="outline"
+              className="ms-2"
+              onClick={() => setRetrieveAttendance(true)}
+            >
+              Retrieve
+            </Button>
+          )}
+          {permission?.save && (
+            <Button className="ms-2" onClick={() => {}}>
+              Save
+            </Button>
+          )}
+        </div>
+      </div>
       <CustomTable
         hasCheckBox
         checkedRows={checkedRows}
         centered
         setCheckedRows={setCheckedRows}
         isLoading={isLoading}
-        columns={getColumns()}
-        data={data[indexStatus]}
+        columns={[
+          {
+            Header: "Full Name",
+            accessor: "student_fullname",
+          },
+          {
+            Header: "Admission Number",
+            accessor: "admission_number",
+          },
+          {
+            Header: "Class",
+            accessor: "class",
+          },
+          {
+            Header: "Sub Class",
+            accessor: "sub_class",
+          },
+        ]}
+        data={studentAttendance}
       />
     </PageSheet>
   );

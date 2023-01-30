@@ -12,6 +12,8 @@ import ProfileImage from "../components/common/profile-image";
 import Numeral from "react-numeral";
 
 export const useStudent = () => {
+  const { apiServices, errorHandler, permission, user } =
+    useAppContext("students");
   const [sortedStudents, setSortedStudents] = useState([]);
   const [sorted, setSorted] = useState(false);
   const [indexStatus, setIndexStatus] = useState("all");
@@ -19,7 +21,6 @@ export const useStudent = () => {
   const [admissionNumber, setAdmissionNumber] = useState("");
   const [sortBy, setSortBy] = useState("");
   const { id } = useParams();
-  const { apiServices, errorHandler, permission } = useAppContext("students");
   const navigate = useNavigate();
 
   const {
@@ -120,6 +121,25 @@ export const useStudent = () => {
       },
     }
   );
+
+  const { data: studentByClassAndSession, isLoading: studentByClassLoading } =
+    useQuery(
+      [
+        queryKeys.GET_STUDENTS_BY_ATTENDANCE,
+        user?.class_assigned,
+        user?.session,
+      ],
+      () =>
+        apiServices.getStudentByClassAndSession(
+          user?.class_assigned,
+          user?.session
+        ),
+      {
+        enabled:
+          permission?.myStudents && !!user?.class_assigned && !!user?.session,
+        select: apiServices.formatData,
+      }
+    );
 
   const { isLoading: studentDebtorsListLoading, data: studentDebtors } =
     useQuery(
@@ -280,27 +300,6 @@ export const useStudent = () => {
     }
   );
 
-  // const { isLoading: allStudentsByAttendanceLoading } = useQuery(
-  //   [queryKeys.GET_ALL_STUDENTS_BY_ATTENDANCE],
-  //   apiServices.getStudentAttendance,
-  //   {
-  //     enabled: permission?.readAttendance || false,
-  //     retry: 3,
-  //     onSuccess(data) {
-  //       const formatAllStudentsByAttendance = data?.map((x) => ({
-  //         ...x,
-  //         student: students?.find(({ id }) => id === x?.student_id),
-  //       }));
-
-  //       setAllStudentsByAttendance(formatAllStudentsByAttendance);
-  //     },
-  //     onError(err) {
-  //       errorHandler(err);
-  //     },
-  //     select: apiServices.formatData,
-  //   }
-  // );
-
   const { mutateAsync: withdrawStudent, isLoading: withdrawStudentLoading } =
     useMutation(apiServices.withdrawStudent, {
       onSuccess() {
@@ -342,7 +341,8 @@ export const useStudent = () => {
     withdrawStudentLoading ||
     studentDebtorsListLoading ||
     studentCreditorsListLoading ||
-    getStudentByAdmissionNumberLoading;
+    getStudentByAdmissionNumberLoading ||
+    studentByClassLoading;
 
   return {
     isLoading,
@@ -375,6 +375,7 @@ export const useStudent = () => {
     sortBy,
     setSortBy,
     setAdmissionNumber,
+    studentByClassAndSession,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
     studentData: singleStudent || formatSingleStudent,

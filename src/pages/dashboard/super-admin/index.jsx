@@ -21,7 +21,7 @@ const SuperAdmin = () => {
     <div>
       <PageTitle>Super Admin {isLoading && <Spinner />}</PageTitle>
       <ProfileCard />
-      <Row>
+      <Row className="mt-5">
         <Col sm="6" md="4" className="mb-4">
           <HomeCard
             title="Account Balance"

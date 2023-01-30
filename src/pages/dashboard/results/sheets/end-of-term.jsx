@@ -1,14 +1,14 @@
 import { faCheck, faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useRef, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useReactToPrint } from "react-to-print";
 import Button from "../../../../components/buttons/button";
 import PageSheet from "../../../../components/common/page-sheet";
 import logoImage from "../../../../assets/images/logo.jpeg";
 import { Col, Row, Table } from "reactstrap";
 import ButtonGroup from "../../../../components/buttons/button-group";
 import Prompt from "../../../../components/modals/prompt";
+import { useResults } from "../../../../hooks/useResults";
 
 const AffectiveDispositionTableRow = ({ isCompute, title }) => {
   return (
@@ -55,15 +55,25 @@ const AffectiveDispositionTableRow = ({ isCompute, title }) => {
 
 const EndOfTerm = ({ isCompute = false }) => {
   const navigate = useNavigate();
-  const [openPrompt, setOpenPrompt] = useState(false);
-  const [selectedComment, setSelectedComment] = useState("");
-  const [teacherComment, setTeacherComment] = useState("");
-  const [hosComment, setHosComment] = useState("");
-  const [comment, setComment] = useState("teacher");
-  const pdfExportComponent = useRef(null);
-  const handlePrint = useReactToPrint({
-    content: () => pdfExportComponent.current,
-  });
+  const {
+    // isLoading,
+    academicDate,
+    // permission,
+    openPrompt,
+    setOpenPrompt,
+    selectedComment,
+    setSelectedComment,
+    teacherComment,
+    setTeacherComment,
+    hosComment,
+    setHosComment,
+    comment,
+    setComment,
+    pdfExportComponent,
+    handlePrint,
+    maxScores,
+  } = useResults();
+
   return (
     <PageSheet>
       {!isCompute && (
@@ -186,11 +196,11 @@ const EndOfTerm = ({ isCompute = false }) => {
                   <tbody>
                     <tr>
                       <td>First Term 2021/2022 Academic Session Ends:</td>
-                      <td> 15 Dec 2021</td>
+                      <td>{academicDate?.session_ends}</td>
                     </tr>
                     <tr>
                       <td>Second Term 2021/2022 Academic Session Resumes:</td>
-                      <td> 15 Dec 2021</td>
+                      <td>{academicDate?.session_resumes}</td>
                     </tr>
                   </tbody>
                 </Table>
@@ -216,9 +226,9 @@ const EndOfTerm = ({ isCompute = false }) => {
               </tr>
               <tr>
                 <th>MAXIMUM SCORES</th>
-                <th>40</th>
-                <th>60</th>
-                <th>100</th>
+                <th>{maxScores?.midterm}</th>
+                <th>{maxScores?.exam}</th>
+                <th>{maxScores?.total}</th>
                 <th>EXCELLENT</th>
               </tr>
               <tr>
@@ -415,10 +425,10 @@ const EndOfTerm = ({ isCompute = false }) => {
           <table>
             <tbody>
               <tr>
-                <td colspan="6">Teacher's Comment</td>
+                <td colSpan="6">Teacher's Comment</td>
               </tr>
               <tr>
-                <td colspan="6">
+                <td colSpan="6">
                   {isCompute ? (
                     <>
                       <textarea
@@ -453,13 +463,13 @@ const EndOfTerm = ({ isCompute = false }) => {
                 <td>28/10/2021</td>
               </tr>
               <tr>
-                <td colspan="6" />
+                <td colSpan="6" />
               </tr>
               <tr>
-                <td colspan="6">HOS's Comment</td>
+                <td colSpan="6">HOS's Comment</td>
               </tr>
               <tr>
-                <td colspan="6">
+                <td colSpan="6">
                   {isCompute ? (
                     <>
                       <textarea

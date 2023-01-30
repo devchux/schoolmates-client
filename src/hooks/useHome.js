@@ -3,7 +3,7 @@ import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
 
 export const useHome = () => {
-  const { apiServices, errorHandler, user } = useAppContext();
+  const { apiServices, errorHandler, user, updateUser } = useAppContext();
 
   const { isLoading: outstandingLoading, data: outstanding } = useQuery(
     [queryKeys.GET_ALL_OUTSTANDING],
@@ -88,6 +88,65 @@ export const useHome = () => {
       }
     );
 
+  const { isLoading: schoolLoading } = useQuery(
+    [queryKeys.GET_SCHOOL],
+    apiServices.getSchool,
+    {
+      enabled: ["Teacher"].includes(user?.designation_name),
+      retry: 3,
+      onSuccess(data) {
+        updateUser({
+          ...user,
+          school: { ...data },
+        });
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) => data?.data[0].attributes,
+    }
+  );
+
+  const { isLoading: academicPeriodLoading } = useQuery(
+    [queryKeys.GET_ALL_GRADUATED_STUDENT],
+    apiServices.getAcademicPeriod,
+    {
+      enabled: ["Teacher"].includes(user?.designation_name),
+      retry: 3,
+      onSuccess(data) {
+        updateUser({
+          ...user,
+          term: data?.term,
+          session: data?.session,
+          period: data?.period,
+        });
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) => data?.data[0],
+    }
+  );
+
+  const { isLoading: classPopulationLoading } = useQuery(
+    [queryKeys.GET_CLASS_POPULATION],
+    apiServices.getClassPopulation,
+    {
+      enabled: ["Teacher"].includes(user?.designation_name),
+      retry: 3,
+      onSuccess(data) {
+        updateUser({
+          ...user,
+          class_population: data,
+        });
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) => data?.data,
+    }
+  );
+
   const isLoading =
     outstandingLoading ||
     expectedIncomeLoading ||
@@ -95,7 +154,10 @@ export const useHome = () => {
     totalExpenseLoading ||
     accountBalanceLoading ||
     receivedIncomeLoading ||
-    graduatedStudentLoading;
+    graduatedStudentLoading ||
+    academicPeriodLoading ||
+    schoolLoading ||
+    classPopulationLoading;
 
   return {
     isLoading,

@@ -1,5 +1,5 @@
 import {
-  faBookmark,
+  // faBookmark,
   faBuilding,
   faBuildingColumns,
   faClipboardUser,
@@ -102,11 +102,11 @@ export const dashboardSideBarLinks = {
       title: "Results",
       icon: faBuildingColumns,
     },
-    {
-      to: "/app/subjects",
-      title: "Subjects",
-      icon: faBookmark,
-    },
+    // {
+    //   to: "/app/subjects",
+    //   title: "Subjects",
+    //   icon: faBookmark,
+    // },
     {
       to: "/app/students",
       title: "Students",
