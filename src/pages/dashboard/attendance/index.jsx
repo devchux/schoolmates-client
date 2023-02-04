@@ -21,8 +21,6 @@ const Attendance = () => {
     addStudentAttendanceLoading,
   } = useStudentAttendance();
 
-  console.log(studentAttendance, students)
-
   return (
     <PageSheet>
       <div className="d-flex align-items-center custom-search">

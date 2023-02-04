@@ -24,7 +24,7 @@ export const useStudentAttendance = () => {
         enabled: retrieveAttendance && permission?.retrieve,
         onSuccess(data) {
           const ids = [];
-          data.forEach((x) => {
+          data?.forEach((x) => {
             if (x?.status === "Present") {
               ids.push(x?.student_id);
             }
@@ -63,7 +63,7 @@ export const useStudentAttendance = () => {
         return apiServices.formatData(data)?.map((student) => ({
           ...student,
           student_fullname: `${student.firstname} ${student.surname} ${student.middlename}`,
-          class: `${student.class} ${student.sub_class}`,
+          class: `${student.present_class} ${student.sub_class}`,
         }));
       },
     }
