@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import AuthInput from "../../../components/inputs/auth-input";
 import CustomTable from "../../../components/tables/table";
 import PageSheet from "../../../components/common/page-sheet";
@@ -6,7 +6,6 @@ import Button from "../../../components/buttons/button";
 import { useStudentAttendance } from "../../../hooks/useStudentAttendance";
 
 const Attendance = () => {
-  const [checkedRows, setCheckedRows] = useState([]);
   const {
     isLoading,
     date,
@@ -15,7 +14,14 @@ const Attendance = () => {
     setRetrieveAttendance,
     todayDate,
     permission,
+    students,
+    checkedRows,
+    setCheckedRows,
+    addStudentAttendance,
+    addStudentAttendanceLoading,
   } = useStudentAttendance();
+
+  console.log(studentAttendance, students)
 
   return (
     <PageSheet>
@@ -34,13 +40,19 @@ const Attendance = () => {
             <Button
               variant="outline"
               className="ms-2"
+              disabled={!date}
               onClick={() => setRetrieveAttendance(true)}
             >
               Retrieve
             </Button>
           )}
           {permission?.save && (
-            <Button className="ms-2" onClick={() => {}}>
+            <Button
+              className="ms-2"
+              isLoading={addStudentAttendanceLoading}
+              disabled={addStudentAttendanceLoading}
+              onClick={addStudentAttendance}
+            >
               Save
             </Button>
           )}
@@ -64,13 +76,13 @@ const Attendance = () => {
           {
             Header: "Class",
             accessor: "class",
-          },
-          {
-            Header: "Sub Class",
-            accessor: "sub_class",
-          },
+          }
         ]}
-        data={studentAttendance}
+        data={
+          !studentAttendance || studentAttendance?.length === 0
+            ? students
+            : studentAttendance
+        }
       />
     </PageSheet>
   );
