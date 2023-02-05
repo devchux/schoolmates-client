@@ -27,14 +27,16 @@ const Results = () => {
         navigate(
           `/app/results/${
             inputs.period === "first-half" ? "mid" : "end"
-          }/compute`
+          }/compute`,
+          { state: { creds: inputs } }
         ),
     },
     view: {
       title: "View Result",
       onFormSubmit: () =>
         navigate(
-          `/app/results/${inputs.period === "first-half" ? "mid" : "end"}`
+          `/app/results/${inputs.period === "first-half" ? "mid" : "end"}`,
+          { creds: inputs }
         ),
     },
   };

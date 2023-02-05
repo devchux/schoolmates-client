@@ -1,16 +1,22 @@
 import { useRef, useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
+import { useLocation } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
+import { toast } from "react-toastify";
 import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
 
 export const useResults = () => {
-  const { apiServices, errorHandler, permission } = useAppContext("results");
+  const { apiServices, errorHandler, permission, user } =
+    useAppContext("results");
   const [openPrompt, setOpenPrompt] = useState(false);
   const [selectedComment, setSelectedComment] = useState("");
   const [teacherComment, setTeacherComment] = useState("");
   const [hosComment, setHosComment] = useState("");
   const [comment, setComment] = useState("teacher");
+  const [studentData, setStudentData] = useState("");
+  const [subjects, setSubjects] = useState([]);
+  const { state } = useLocation();
   const pdfExportComponent = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => pdfExportComponent.current,
@@ -37,8 +43,97 @@ export const useResults = () => {
       select: (data) => data?.data[0]?.attributes,
     }
   );
+  const { data: studentByClassAndSession, isLoading: studentByClassLoading } =
+    useQuery(
+      [
+        queryKeys.GET_STUDENTS_BY_ATTENDANCE,
+        user?.class_assigned,
+        state?.creds?.session,
+      ],
+      () =>
+        apiServices.getStudentByClassAndSession(
+          user?.class_assigned,
+          state?.creds?.session
+        ),
+      {
+        select: apiServices.formatData,
+        onSuccess(data) {
+          setStudentData(data[0]);
+        },
+      }
+    );
 
-  const isLoading = academicDateLoading || maxScoresLoading;
+  const { data: midResults, isLoading: midResultsLoading } = useQuery(
+    [queryKeys.GET_MID_RESULTS, state?.creds?.term, state?.creds?.session],
+    () => apiServices.getMidResults(state?.creds?.term, state?.creds?.session),
+    {
+      select: apiServices.formatData,
+    }
+  );
+
+  const { data: subjectsByClass, isLoading: subjectsByClassLoading } = useQuery(
+    [queryKeys.GET_SUBJECTS_BY_CLASS, user?.class_assigned],
+    () => apiServices.getSubjectByClass(user?.class_assigned),
+    {
+      select: apiServices.formatData,
+      onSuccess(data) {
+        const subjectsWithGrade =
+          subjects?.length === 0
+            ? data?.map((x) => ({ ...x, grade: "0" }))
+            : subjects;
+        setSubjects(subjectsWithGrade);
+      },
+    }
+  );
+
+  const { mutateAsync: addResult, isLoading: addResultLoading } = useMutation(
+    apiServices.addResult,
+    {
+      onSuccess() {
+        toast.success("Result has been computed successfully");
+      },
+      onError(err) {
+        apiServices.errorHandler(err);
+      },
+    }
+  );
+
+  const getTotalScores = () => {
+    return subjects?.reduce((a, item) => {
+      return a + Number(item.grade);
+    }, 0);
+  };
+
+  const removeSubject = (id) => {
+    const fd = subjects.filter((x) => x.id !== id);
+
+    setSubjects(fd);
+  };
+
+  const createMidTermResult = () => {
+    const dataToSend = {
+      student_fullname: `${studentData?.firstname} ${studentData?.surname} ${studentData?.middlename}`,
+      admission_number: studentData.admission_number,
+      class_name: `${studentData?.present_class} ${studentData?.sub_class}`,
+      period: "First Half",
+      term: state?.creds?.term,
+      session: state?.creds?.session,
+      results: subjects.map((x) => ({
+        subject: x.subject,
+        score: x.grade,
+      })),
+    };
+
+    addResult(dataToSend);
+  };
+
+  const isLoading =
+    academicDateLoading ||
+    maxScoresLoading ||
+    studentByClassLoading ||
+    midResultsLoading ||
+    subjectsByClassLoading ||
+    addResultLoading;
 
   return {
     isLoading,
@@ -57,5 +152,17 @@ export const useResults = () => {
     maxScores,
     pdfExportComponent,
     handlePrint,
+    user,
+    studentData,
+    setStudentData,
+    midResults,
+    subjects,
+    subjectsByClass,
+    setSubjects,
+    getTotalScores,
+    removeSubject,
+    createMidTermResult,
+    studentByClassAndSession,
+    locationState: state,
   };
 };
