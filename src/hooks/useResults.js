@@ -18,12 +18,14 @@ export const useResults = () => {
   const [subjects, setSubjects] = useState([]);
   const [initGetStudentsByClass, setInitGetStudentsByClass] = useState(false);
   const [initGetStudentData, setInitGetStudentData] = useState(true);
-  const [initGetExistingResult, setInitGetExistingResult] = useState(true);
+  const [initGetExistingResult, setInitGetExistingResult] = useState(false);
   const { state } = useLocation();
   const pdfExportComponent = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => pdfExportComponent.current,
   });
+
+  console.log(state)
 
   const { data: academicDate, isLoading: academicDateLoading } = useQuery(
     [queryKeys.GET_ACADEMIC_DATE],
@@ -64,6 +66,7 @@ export const useResults = () => {
         onSuccess(data) {
           setInitGetStudentData(false);
           setStudentData(data[0]);
+          setInitGetExistingResult(true);
         },
       }
     );
@@ -119,7 +122,7 @@ export const useResults = () => {
       enabled: initGetStudentsByClass,
       select: apiServices.formatData,
       onSuccess(data) {
-        const subjectsWithGrade = data?.map((x) => ({ ...x, grade: "0" }))
+        const subjectsWithGrade = data?.map((x) => ({ ...x, grade: "0" }));
         setSubjects(subjectsWithGrade);
         setInitGetStudentsByClass(false);
       },

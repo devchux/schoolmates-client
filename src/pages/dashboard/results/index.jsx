@@ -36,7 +36,7 @@ const Results = () => {
       onFormSubmit: () =>
         navigate(
           `/app/results/${inputs.period === "First Half" ? "mid" : "end"}`,
-          { creds: inputs }
+          { state: { creds: inputs } }
         ),
     },
   };

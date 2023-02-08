@@ -27,6 +27,7 @@ import Results from "../pages/dashboard/results";
 import Attendance from "../pages/dashboard/attendance";
 import MidTerm from "../pages/dashboard/results/sheets/mid-term";
 import EndOfTerm from "../pages/dashboard/results/sheets/end-of-term";
+import DressCode from "../pages/dashboard/dress-code";
 
 const CustomRoutes = () => {
   return (
@@ -177,6 +178,15 @@ const CustomRoutes = () => {
         />
         <Route
           exact
+          path="dress-code"
+          element={
+            <Guard routeName="dress-code">
+              <DressCode />
+            </Guard>
+          }
+        />
+        <Route
+          exact
           path="results/mid"
           element={
             <Guard routeName="results">
@@ -216,7 +226,7 @@ const CustomRoutes = () => {
           path="attendance"
           element={
             <Guard routeName="attendance">
-              <Attendance/>
+              <Attendance />
             </Guard>
           }
         />
