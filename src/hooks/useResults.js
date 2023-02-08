@@ -16,6 +16,9 @@ export const useResults = () => {
   const [comment, setComment] = useState("teacher");
   const [studentData, setStudentData] = useState("");
   const [subjects, setSubjects] = useState([]);
+  const [initGetStudentsByClass, setInitGetStudentsByClass] = useState(false);
+  const [initGetStudentData, setInitGetStudentData] = useState(true);
+  const [initGetExistingResult, setInitGetExistingResult] = useState(true);
   const { state } = useLocation();
   const pdfExportComponent = useRef(null);
   const handlePrint = useReactToPrint({
@@ -56,18 +59,55 @@ export const useResults = () => {
           state?.creds?.session
         ),
       {
+        enabled: initGetStudentData,
         select: apiServices.formatData,
         onSuccess(data) {
+          setInitGetStudentData(false);
           setStudentData(data[0]);
         },
       }
     );
 
-  const { data: midResults, isLoading: midResultsLoading } = useQuery(
-    [queryKeys.GET_MID_RESULTS, state?.creds?.term, state?.creds?.session],
-    () => apiServices.getMidResults(state?.creds?.term, state?.creds?.session),
+  const { data: studentResult, isLoading: studentResultLoading } = useQuery(
+    [
+      queryKeys.GET_STUDENT_RESULTS,
+      studentData?.id,
+      state?.creds?.term,
+      state?.creds?.session,
+    ],
+    () =>
+      apiServices.getStudentResult(
+        studentData?.id,
+        state?.creds?.term,
+        state?.creds?.session
+      ),
     {
+      cacheTime: 0,
+      enabled: initGetExistingResult,
       select: apiServices.formatData,
+      onSuccess(data) {
+        setInitGetExistingResult(false);
+        if (data.length > 0) {
+          const studentResult = data?.find(
+            (x) =>
+              x.student_id === studentData?.id &&
+              x.term === state?.creds?.term &&
+              state?.creds?.session === x.session &&
+              state?.creds?.period === x.period
+          );
+          if (studentResult) {
+            const subjectsWithGrade = studentResult?.results?.map((x) => ({
+              ...x,
+              grade: x.score,
+            }));
+            setSubjects(subjectsWithGrade);
+          } else {
+            setInitGetStudentsByClass(true);
+          }
+        } else {
+          setInitGetStudentsByClass(true);
+        }
+      },
     }
   );
 
@@ -75,13 +115,13 @@ export const useResults = () => {
     [queryKeys.GET_SUBJECTS_BY_CLASS, user?.class_assigned],
     () => apiServices.getSubjectByClass(user?.class_assigned),
     {
+      cacheTime: 0,
+      enabled: initGetStudentsByClass,
       select: apiServices.formatData,
       onSuccess(data) {
-        const subjectsWithGrade =
-          subjects?.length === 0
-            ? data?.map((x) => ({ ...x, grade: "0" }))
-            : subjects;
+        const subjectsWithGrade = data?.map((x) => ({ ...x, grade: "0" }))
         setSubjects(subjectsWithGrade);
+        setInitGetStudentsByClass(false);
       },
     }
   );
@@ -112,10 +152,11 @@ export const useResults = () => {
 
   const createMidTermResult = () => {
     const dataToSend = {
+      student_id: studentData?.id,
       student_fullname: `${studentData?.firstname} ${studentData?.surname} ${studentData?.middlename}`,
       admission_number: studentData.admission_number,
       class_name: `${studentData?.present_class} ${studentData?.sub_class}`,
-      period: "First Half",
+      period: state?.creds?.period,
       term: state?.creds?.term,
       session: state?.creds?.session,
       results: subjects.map((x) => ({
@@ -131,7 +172,7 @@ export const useResults = () => {
     academicDateLoading ||
     maxScoresLoading ||
     studentByClassLoading ||
-    midResultsLoading ||
+    studentResultLoading ||
     subjectsByClassLoading ||
     addResultLoading;
 
@@ -155,7 +196,8 @@ export const useResults = () => {
     user,
     studentData,
     setStudentData,
-    midResults,
+    setInitGetExistingResult,
+    studentResult,
     subjects,
     subjectsByClass,
     setSubjects,

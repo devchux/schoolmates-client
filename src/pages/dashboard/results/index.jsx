@@ -14,7 +14,7 @@ const Results = () => {
   const navigate = useNavigate();
   const { inputs, errors, handleChange } = useForm({
     defaultValues: {
-      period: "first-half",
+      period: "First Half",
       term: "First Term",
       session: "2020/2021",
     },
@@ -26,7 +26,7 @@ const Results = () => {
       onFormSubmit: () =>
         navigate(
           `/app/results/${
-            inputs.period === "first-half" ? "mid" : "end"
+            inputs.period === "First Half" ? "mid" : "end"
           }/compute`,
           { state: { creds: inputs } }
         ),
@@ -35,7 +35,7 @@ const Results = () => {
       title: "View Result",
       onFormSubmit: () =>
         navigate(
-          `/app/results/${inputs.period === "first-half" ? "mid" : "end"}`,
+          `/app/results/${inputs.period === "First Half" ? "mid" : "end"}`,
           { creds: inputs }
         ),
     },
@@ -107,8 +107,8 @@ const Results = () => {
             hasError={!!errors.period}
             onChange={handleChange}
             options={[
-              { value: "first-half", title: "First Half/Mid Term" },
-              { value: "second-half", title: "Second Half/End of Term" },
+              { value: "First Half", title: "First Half/Mid Term" },
+              { value: "Second Half", title: "Second Half/End of Term" },
             ]}
           />
           {!!errors.period && <p className="error-message">{errors.period}</p>}

@@ -26,7 +26,6 @@ const MidTerm = ({ isCompute = false }) => {
     user,
     studentData,
     setStudentData,
-    // midResults,
     locationState,
     subjects,
     subjectsByClass,
@@ -35,16 +34,24 @@ const MidTerm = ({ isCompute = false }) => {
     removeSubject,
     studentByClassAndSession,
     createMidTermResult,
+    setInitGetExistingResult,
   } = useResults();
 
   return (
     <div className="results-sheet">
       <div className="students-wrapper">
         {studentByClassAndSession?.map((x) => (
-          <div key={x.id} onClick={() => setStudentData(x)} className="student">
+          <div
+            key={x.id}
+            onClick={() => {
+              setStudentData(x);
+              setInitGetExistingResult(true)
+            }}
+            className="student"
+          >
             <div
               className={`loader ${isLoading ? "is-loading" : ""} ${
-                studentData?.id === x.id ? "active" : ""
+                studentData.id === x.id ? "active" : ""
               }`}
             >
               <ProfileImage src={x?.image} alt={x.firstname} />
@@ -220,7 +227,7 @@ const MidTerm = ({ isCompute = false }) => {
                   <td>Sign:</td>
                   <td></td>
                   <td>Date:</td>
-                  <td>28/10/2021</td>
+                  <td>{moment(new Date()).format("DD/MM/YYYY")}</td>
                 </tr>
                 <tr>
                   <td />
@@ -233,7 +240,7 @@ const MidTerm = ({ isCompute = false }) => {
                   <td>Sign:</td>
                   <td></td>
                   <td>Date:</td>
-                  <td>28/10/2021</td>
+                  <td>{moment(new Date()).format("DD/MM/YYYY")}</td>
                 </tr>
               </tbody>
             </table>
