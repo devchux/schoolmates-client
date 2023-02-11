@@ -25,8 +25,6 @@ export const useResults = () => {
     content: () => pdfExportComponent.current,
   });
 
-  console.log(state)
-
   const { data: academicDate, isLoading: academicDateLoading } = useQuery(
     [queryKeys.GET_ACADEMIC_DATE],
     apiServices.getResumptionDate,
@@ -85,7 +83,6 @@ export const useResults = () => {
         state?.creds?.session
       ),
     {
-      cacheTime: 0,
       enabled: initGetExistingResult,
       select: apiServices.formatData,
       onSuccess(data) {
@@ -118,13 +115,13 @@ export const useResults = () => {
     [queryKeys.GET_SUBJECTS_BY_CLASS, user?.class_assigned],
     () => apiServices.getSubjectByClass(user?.class_assigned),
     {
-      cacheTime: 0,
-      enabled: initGetStudentsByClass,
       select: apiServices.formatData,
       onSuccess(data) {
-        const subjectsWithGrade = data?.map((x) => ({ ...x, grade: "0" }));
-        setSubjects(subjectsWithGrade);
-        setInitGetStudentsByClass(false);
+        if (initGetStudentsByClass) {
+          const subjectsWithGrade = data?.map((x) => ({ ...x, grade: "0" }));
+          setSubjects(subjectsWithGrade);
+          setInitGetStudentsByClass(false);
+        }
       },
     }
   );
@@ -147,8 +144,8 @@ export const useResults = () => {
     }, 0);
   };
 
-  const removeSubject = (id) => {
-    const fd = subjects.filter((x) => x.id !== id);
+  const removeSubject = (subject) => {
+    const fd = subjects.filter((x) => x.subject !== subject);
 
     setSubjects(fd);
   };

@@ -37,6 +37,19 @@ const MidTerm = ({ isCompute = false }) => {
     setInitGetExistingResult,
   } = useResults();
 
+  const getAddSubjectSelectOptions = () => {
+    const mapSubjects = subjectsByClass?.map((x) => ({
+      title: x.subject,
+      value: { ...x, grade: "0" },
+    }));
+
+    const options = mapSubjects.filter((x) =>
+      !subjects.some((s) => s.subject === x.title)
+    );
+
+    return options;
+  };
+
   return (
     <div className="results-sheet">
       <div className="students-wrapper">
@@ -45,7 +58,7 @@ const MidTerm = ({ isCompute = false }) => {
             key={x.id}
             onClick={() => {
               setStudentData(x);
-              setInitGetExistingResult(true)
+              setInitGetExistingResult(true);
             }}
             className="student"
           >
@@ -178,7 +191,7 @@ const MidTerm = ({ isCompute = false }) => {
                           <Button
                             variant="danger"
                             className="me-3"
-                            onClick={() => removeSubject(x.id)}
+                            onClick={() => removeSubject(x.subject)}
                           >
                             &#8722;
                           </Button>
@@ -281,10 +294,7 @@ const MidTerm = ({ isCompute = false }) => {
           <AuthSelect
             advanced
             isMulti
-            options={subjectsByClass?.map((x) => ({
-              title: x.subject,
-              value: { ...x, grade: "0" },
-            }))}
+            options={getAddSubjectSelectOptions()}
             onChange={(item) => {
               const fd = item?.map((x) => ({ ...x.value }));
 
