@@ -43,8 +43,8 @@ const MidTerm = ({ isCompute = false }) => {
       value: { ...x, grade: "0" },
     }));
 
-    const options = mapSubjects.filter((x) =>
-      !subjects.some((s) => s.subject === x.title)
+    const options = mapSubjects?.filter((x) =>
+      !subjects?.some((s) => s.subject === x.title)
     );
 
     return options;
@@ -213,7 +213,7 @@ const MidTerm = ({ isCompute = false }) => {
 
                           const fd = subjects.map((s) => ({
                             ...s,
-                            grade: s.id === x.id ? value : s.grade,
+                            grade: s.subject === x.subject ? value : s.grade,
                           }));
 
                           setSubjects(fd);

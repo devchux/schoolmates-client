@@ -69,6 +69,25 @@ export const useResults = () => {
       }
     );
 
+  const {
+    data: subjectsByClass,
+    isLoading: subjectsByClassLoading,
+    refetch: refetchStudentsByClass,
+  } = useQuery(
+    [queryKeys.GET_SUBJECTS_BY_CLASS, user?.class_assigned],
+    () => apiServices.getSubjectByClass(user?.class_assigned),
+    {
+      select: apiServices.formatData,
+      onSuccess(data) {
+        if (initGetStudentsByClass) {
+          const subjectsWithGrade = data?.map((x) => ({ ...x, grade: "0" }));
+          setSubjects(subjectsWithGrade);
+          setInitGetStudentsByClass(false);
+        }
+      },
+    }
+  );
+
   const { data: studentResult, isLoading: studentResultLoading } = useQuery(
     [
       queryKeys.GET_STUDENT_RESULTS,
@@ -103,24 +122,11 @@ export const useResults = () => {
             setSubjects(subjectsWithGrade);
           } else {
             setInitGetStudentsByClass(true);
+            refetchStudentsByClass();
           }
         } else {
           setInitGetStudentsByClass(true);
-        }
-      },
-    }
-  );
-
-  const { data: subjectsByClass, isLoading: subjectsByClassLoading } = useQuery(
-    [queryKeys.GET_SUBJECTS_BY_CLASS, user?.class_assigned],
-    () => apiServices.getSubjectByClass(user?.class_assigned),
-    {
-      select: apiServices.formatData,
-      onSuccess(data) {
-        if (initGetStudentsByClass) {
-          const subjectsWithGrade = data?.map((x) => ({ ...x, grade: "0" }));
-          setSubjects(subjectsWithGrade);
-          setInitGetStudentsByClass(false);
+          refetchStudentsByClass();
         }
       },
     }
