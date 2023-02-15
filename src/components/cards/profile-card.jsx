@@ -42,7 +42,7 @@ const ProfileCard = ({ type = "super-admin" }) => {
           </div>
         </div>
       )}
-      {type === "super-admin" && (
+      {type === "" && (
         <div className="profile-card-content">
           <div>
             <h3>Full Name:</h3>
@@ -77,6 +77,75 @@ const ProfileCard = ({ type = "super-admin" }) => {
           <div>
             <h3>Address:</h3>
             <p>{user.address}</p>
+          </div>
+        </div>
+      )}
+
+      {type === "student-home" && (
+        <div className="profile-card-content">
+          <div>
+            <h3>Full Name:</h3>
+            <p>
+              {user?.firstname} {user?.surname} {user?.middlename}
+            </p>
+          </div>
+          <div>
+            <h3>Assigned Class:</h3>
+            <p>{user?.present_class}</p>
+          </div>
+          <div>
+            <h3>State:</h3>
+            <p>{user?.state}</p>
+          </div>
+          <div>
+            <h3>Admission Number:</h3>
+            <p>{user?.admission_number}</p>
+          </div>
+          <div>
+            <h3>Gender:</h3>
+            <p>{user?.gender}</p>
+          </div>
+          <div>
+            <h3>Session:</h3>
+            <p>{user?.session_admitted}</p>
+          </div>
+        </div>
+      )}
+      {type === "" && (
+        <div className="profile-card-content">
+          <div>
+            <h3>Full Name:</h3>
+            <p>
+              {user.firstname} {user.surname} {user.middlename}
+            </p>
+          </div>
+          <div>
+            <h3>Username:</h3>
+            <p>{user.username}</p>
+          </div>
+          <div>
+            <h3>Email:</h3>
+            <p>{user.email}</p>
+          </div>
+          <div>
+            <h3>Designation Name:</h3>
+            <p>{roleMap[user.designation_name]}</p>
+          </div>
+          <div>
+            <h3>Phone Number:</h3>
+            <p>{user.phone_number}</p>
+          </div>
+          <div>
+            <h3>Status:</h3>
+            <p>{user.status}</p>
+          </div>
+          <div>
+            <h3>Department:</h3>
+            <p>{user.department}</p>
+          </div>
+          <div>
+            <h3>Address:</h3>
+            <p>{user.email_address}</p>
           </div>
         </div>
       )}

@@ -747,29 +747,23 @@ class APIServies extends Helpers {
   }
 
   async getAcademicPeriod() {
-    const { data } = await axios.get(
-      `${backendAPI}/getacademicperiod`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${super.getToken()}`,
-        },
-      }
-    );
+    const { data } = await axios.get(`${backendAPI}/getacademicperiod`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
 
     return data;
   }
 
   async getClassPopulation() {
-    const { data } = await axios.get(
-      `${backendAPI}/classpopulation`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${super.getToken()}`,
-        },
-      }
-    );
+    const { data } = await axios.get(`${backendAPI}/classpopulation`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
 
     return data;
   }
