@@ -113,6 +113,33 @@ export const dashboardSideBarLinks = {
       icon: faGraduationCap,
     },
   ],
+  Principal: [
+    {
+      to: "/app/principal",
+      title: "Home",
+      icon: faHome,
+    },
+    {
+      to: "/app/student",
+      title: "Student",
+      icon: faGraduationCap,
+    },
+    {
+      to: "/app/reports",
+      title: "Reports",
+      icon: faFileInvoice,
+    },
+    {
+      to: "/app/vehicles",
+      title: "Vehicles",
+      icon: faTruck,
+    },
+    {
+      to: "/app/alumni",
+      title: "Alumni",
+      icon: faPeopleGroup,
+    },
+  ],
 };
 
 export const countryList = [

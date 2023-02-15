@@ -95,5 +95,25 @@ export const permissions = {
     "dress-code": {
       read: true,
     },
+    Principal: {
+      principal: {
+        read: true,
+      },
+      reports: {
+        read: true,
+      },
+      vehicles: {
+        create: false,
+        read: true,
+        readLogs: true,
+        update: false,
+        delete: true,
+        statusToggle: false,
+        sort: true,
+      },
+      "dress-code": {
+        read: true,
+      },
+    },
   },
 };
