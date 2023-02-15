@@ -19,7 +19,8 @@ export const backendAPI = "https://schoolmate.powershellerp.com/api";
 
 export const homeUrl = {
   Superadmin: '/app/super-admin',
-  Teacher: '/app/teachers'
+  Teacher: '/app/teachers',
+  Principal: '/app/principal'
 }
 
 export const dashboardSideBarLinks = {
