@@ -19,6 +19,12 @@ export const useResults = () => {
   const [initGetStudentsByClass, setInitGetStudentsByClass] = useState(false);
   const [initGetStudentData, setInitGetStudentData] = useState(true);
   const [initGetExistingResult, setInitGetExistingResult] = useState(false);
+  const [studentMidResult, setStudentMidResult] = useState([]);
+  const [additionalCreds, setAdditionalCreds] = useState({
+    school_opened: "0",
+    times_present: "0",
+    times_absent: "0",
+  });
   const { state } = useLocation();
   const pdfExportComponent = useRef(null);
   const handlePrint = useReactToPrint({
@@ -107,6 +113,27 @@ export const useResults = () => {
       onSuccess(data) {
         setInitGetExistingResult(false);
         if (data.length > 0) {
+          const studentDataWithoutPeriodCheck = data?.find(
+            (x) =>
+              x.student_id === studentData?.id &&
+              x.term === state?.creds?.term &&
+              state?.creds?.session === x.session
+          );
+          setAdditionalCreds({
+            ...additionalCreds,
+            ...studentDataWithoutPeriodCheck,
+            school_opened: studentDataWithoutPeriodCheck?.school_opened ?? "0",
+            times_present: studentDataWithoutPeriodCheck?.times_present ?? "0",
+            times_absent: studentDataWithoutPeriodCheck?.times_absent ?? "0",
+          });
+          const studentMidTermResult = data?.find(
+            (x) =>
+              x.student_id === studentData?.id &&
+              x.term === state?.creds?.term &&
+              state?.creds?.session === x.session &&
+              x.period === "First Half"
+          );
+          setStudentMidResult(studentMidTermResult?.results ?? []);
           const studentResult = data?.find(
             (x) =>
               x.student_id === studentData?.id &&
@@ -125,6 +152,7 @@ export const useResults = () => {
             refetchStudentsByClass();
           }
         } else {
+          setStudentMidResult([])
           setInitGetStudentsByClass(true);
           refetchStudentsByClass();
         }
@@ -147,6 +175,12 @@ export const useResults = () => {
   const getTotalScores = () => {
     return subjects?.reduce((a, item) => {
       return a + Number(item.grade);
+    }, 0);
+  };
+
+  const getTotalMidScores = () => {
+    return studentMidResult?.reduce((a, item) => {
+      return a + Number(item.score);
     }, 0);
   };
 
@@ -210,7 +244,11 @@ export const useResults = () => {
     getTotalScores,
     removeSubject,
     createMidTermResult,
+    additionalCreds,
+    setAdditionalCreds,
     studentByClassAndSession,
     locationState: state,
+    studentMidResult,
+    getTotalMidScores,
   };
 };
