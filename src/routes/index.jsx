@@ -199,7 +199,7 @@ const CustomRoutes = () => {
           exact
           path="results/mid/compute"
           element={
-            <Guard routeName="results">
+            <Guard routeName="results" action={["compute"]}>
               <MidTerm isCompute />
             </Guard>
           }
@@ -217,7 +217,7 @@ const CustomRoutes = () => {
           exact
           path="results/end/compute"
           element={
-            <Guard routeName="results">
+            <Guard routeName="results" action={["compute"]}>
               <EndOfTerm isCompute />
             </Guard>
           }

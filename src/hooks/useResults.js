@@ -14,7 +14,7 @@ export const useResults = () => {
   const [teacherComment, setTeacherComment] = useState("");
   const [hosComment, setHosComment] = useState("");
   const [comment, setComment] = useState("teacher");
-  const [studentData, setStudentData] = useState("");
+  const [studentData, setStudentData] = useState({});
   const [subjects, setSubjects] = useState([]);
   const [initGetStudentsByClass, setInitGetStudentsByClass] = useState(false);
   const [initGetStudentData, setInitGetStudentData] = useState(true);
@@ -79,7 +79,11 @@ export const useResults = () => {
         select: apiServices.formatData,
         onSuccess(data) {
           setInitGetStudentData(false);
-          setStudentData(data[0]);
+          const studentInfo =
+            user?.designation_name === "Student"
+              ? data?.find((x) => x.id === user?.id)
+              : data[0];
+          setStudentData(studentInfo);
           state?.creds?.period === "First Half"
             ? setInitGetExistingResult(true)
             : setInitGetExistingSecondHalfResult(true);
@@ -104,11 +108,11 @@ export const useResults = () => {
       enabled: initGetExistingSecondHalfResult,
       select: apiServices.formatData,
       onSuccess(data) {
-        console.log('data', data)
+        console.log("data", data);
         setInitGetExistingSecondHalfResult(false);
         setAdditionalCreds({});
-        setTeacherComment('');
-        setHosComment('');
+        setTeacherComment("");
+        setHosComment("");
 
         if (data?.length > 0) {
           const studentResult = data?.find(

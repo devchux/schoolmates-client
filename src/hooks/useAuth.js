@@ -21,7 +21,11 @@ export const useAuth = (navigateOnLogin = true) => {
         const { designation_name } =
           data?.data?.find((item) => item.id === user.designation_id)
             ?.attributes || {};
-        updateUser({ ...user, designation_name });
+        const userObj =
+          designation_name === "Student"
+            ? { ...user, class_assigned: user?.present_class, designation_name }
+            : { ...user, designation_name };
+        updateUser(userObj);
         navigateOnLogin && navigate(homeUrl[designation_name]);
       },
       onError(err) {

@@ -108,7 +108,7 @@ export const useHome = () => {
   );
 
   const { isLoading: academicPeriodLoading } = useQuery(
-    [queryKeys.GET_ALL_GRADUATED_STUDENT],
+    [queryKeys.GET_ACADEMIC_PERIOD],
     apiServices.getAcademicPeriod,
     {
       enabled: ["Teacher"].includes(user?.designation_name),
@@ -151,7 +151,7 @@ export const useHome = () => {
     [queryKeys.GET_TIME_TABLE],
     apiServices.getTimeTable,
     {
-      enabled: ["Teacher"].includes(user?.designation_name),
+      enabled: ["Teacher", "Student"].includes(user?.designation_name),
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -167,7 +167,7 @@ export const useHome = () => {
     [queryKeys.GET_ACADEMIC_CALENDER],
     apiServices.getAcademicCalender,
     {
-      enabled: ["Teacher"].includes(user?.designation_name),
+      enabled: ["Teacher", "Student"].includes(user?.designation_name),
       retry: 3,
       onError(err) {
         errorHandler(err);

@@ -104,16 +104,17 @@ export const permissions = {
     vehicles: {
       create: false,
       read: true,
-      readLogs: true,
+      readLogs: false,
       update: false,
-      delete: true,
-      statusToggle: false,
-      sort: true,
+      delete: false,
     },
     results: {
       compute: false,
       view: true,
       preSchool: true,
+    },
+    "dress-code": {
+      read: true,
     },
   },
 };
