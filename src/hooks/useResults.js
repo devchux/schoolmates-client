@@ -138,12 +138,13 @@ export const useResults = () => {
             }));
             setSubjects(subjectsWithGrade);
             setInitGetExistingResult(true);
-            setAddMidResultAsLast(true);
           } else {
             setInitGetExistingResult(true);
+            setAddMidResultAsLast(true);
           }
         } else {
           setInitGetExistingResult(true);
+          setAddMidResultAsLast(true);
         }
       },
     }
