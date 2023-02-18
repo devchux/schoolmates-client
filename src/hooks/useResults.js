@@ -202,7 +202,7 @@ export const useResults = () => {
             ) {
               const subjectsWithGrade = studentResult?.results?.map((x) => ({
                 ...x,
-                grade: x.score,
+                grade: state?.creds?.period === "Second Half" ? "0" : x.score,
               }));
               setSubjects(subjectsWithGrade);
               setAddMidResultAsLast(false);

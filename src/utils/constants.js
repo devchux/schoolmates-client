@@ -121,7 +121,7 @@ export const dashboardSideBarLinks = {
       icon: faHome,
     },
     {
-      to: "/app/classes",
+      to: "/app/accounts",
       title: "Accounts",
       icon: faSchool,
     },

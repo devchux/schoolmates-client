@@ -29,6 +29,7 @@ import MidTerm from "../pages/dashboard/results/sheets/mid-term";
 import EndOfTerm from "../pages/dashboard/results/sheets/end-of-term";
 import StudentsHome from "../pages/dashboard/students/home";
 import DressCode from "../pages/dashboard/dress-code";
+import Accounts from "../pages/dashboard/accounts";
 
 const CustomRoutes = () => {
   return (
@@ -253,6 +254,14 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="student-home">
               <StudentsHome />
+            </Guard>
+          }
+        />
+        <Route
+          path="accounts"
+          element={
+            <Guard routeName="accounts">
+              <Accounts />
             </Guard>
           }
         />

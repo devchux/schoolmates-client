@@ -129,5 +129,11 @@ export const permissions = {
     "dress-code": {
       read: true,
     },
+    accounts: {
+      feeHistory: true,
+      paymentReciept: true,
+      myInvoice: true,
+      previousInvoice: true,
+    }
   },
 };

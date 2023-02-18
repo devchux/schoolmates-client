@@ -438,9 +438,19 @@ const EndOfTerm = ({ isCompute = false }) => {
                 {!isCompute && (
                   <tr>
                     <th>STUDENT’S OVERALL AVERAGE</th>
-                    <th>91.2</th>
+                    <th>
+                      {(getTotalMidScores() + getTotalScores()) /
+                        subjects?.length}
+                    </th>
                     <th>STUDENT’S OVERALL GRADE POINT </th>
-                    <th>A</th>
+                    <th>
+                      {
+                        getScoreRemark(
+                          (getTotalMidScores() + getTotalScores()) /
+                            subjects?.length
+                        )?.remark
+                      }
+                    </th>
                   </tr>
                 )}
               </tfoot>
