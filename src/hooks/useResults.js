@@ -108,7 +108,6 @@ export const useResults = () => {
       enabled: initGetExistingSecondHalfResult,
       select: apiServices.formatData,
       onSuccess(data) {
-        console.log("data", data);
         setInitGetExistingSecondHalfResult(false);
         setAdditionalCreds({});
         setTeacherComment("");
@@ -205,7 +204,6 @@ export const useResults = () => {
                 grade: state?.creds?.period === "Second Half" ? "0" : x.score,
               }));
               setSubjects(subjectsWithGrade);
-              setAddMidResultAsLast(false);
             }
           } else {
             setInitGetStudentsByClass(true);
@@ -216,6 +214,7 @@ export const useResults = () => {
           setInitGetStudentsByClass(true);
           refetchStudentsByClass();
         }
+        setAddMidResultAsLast(false);
       },
     }
   );
