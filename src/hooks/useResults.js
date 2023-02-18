@@ -203,6 +203,12 @@ export const useResults = () => {
                 ...x,
                 grade: state?.creds?.period === "Second Half" ? "0" : x.score,
               }));
+              if (state?.creds?.period === "First Half") {
+                setAdditionalCreds({
+                  ...additionalCreds,
+                  ...studentResult,
+                });
+              }
               setSubjects(subjectsWithGrade);
             }
           } else {

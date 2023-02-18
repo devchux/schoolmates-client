@@ -146,6 +146,9 @@ const EndOfTerm = ({ isCompute = false }) => {
                 }`}
               >
                 <ProfileImage src={x?.image} alt={x.firstname} />
+                {additionalCreds?.computed_endterm && (
+                  <div className="computed" />
+                )}
               </div>
               <div>
                 <p>{x.firstname}</p>

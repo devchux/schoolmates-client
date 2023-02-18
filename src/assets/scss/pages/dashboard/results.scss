@@ -403,6 +403,18 @@
           height: fit-content;
           border-radius: 50%;
           padding: 0.2em;
+          position: relative;
+
+
+          > .computed {
+            width: 1rem;
+            height: 1rem;
+            background-color: green;
+            border-radius: 50%;
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+          }
 
           &.is-loading,
           &.active,

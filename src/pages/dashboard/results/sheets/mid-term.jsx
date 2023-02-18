@@ -17,6 +17,7 @@ const MidTerm = ({ isCompute = false }) => {
 
   const {
     isLoading,
+    additionalCreds,
     // permission,
     openPrompt,
     setOpenPrompt,
@@ -69,6 +70,9 @@ const MidTerm = ({ isCompute = false }) => {
                 }`}
               >
                 <ProfileImage src={x?.image} alt={x.firstname} />
+                {additionalCreds?.computed_midterm && (
+                  <div className="computed" />
+                )}
               </div>
               <div>
                 <p>{x.firstname}</p>
