@@ -84,6 +84,7 @@ const EndOfTerm = ({ isCompute = false }) => {
     subjectsByClass,
     removeSubject,
     createEndOfTermResult,
+    getScoreRemark,
   } = useResults();
 
   const getAddSubjectSelectOptions = () => {
@@ -403,7 +404,19 @@ const EndOfTerm = ({ isCompute = false }) => {
                           ?.score || 0
                       ) + Number(s.grade)}
                     </td>
-                    {!isCompute && <td>VERY GOOD</td>}
+                    {!isCompute && (
+                      <td>
+                        {
+                          getScoreRemark(
+                            Number(
+                              studentMidResult?.find(
+                                (x) => x.subject === s.subject
+                              )?.score || 0
+                            ) + Number(s.grade)
+                          )?.remark
+                        }
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>

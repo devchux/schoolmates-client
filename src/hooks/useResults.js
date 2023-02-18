@@ -219,6 +219,17 @@ export const useResults = () => {
     }
   );
 
+  const { data: grading, isLoading: gradingLoading } = useQuery(
+    [queryKeys.GET_GRADING],
+    apiServices.getGrading,
+    {
+      select: apiServices.formatData,
+      onError(err) {
+        apiServices.errorHandler(err);
+      },
+    }
+  );
+
   const { mutateAsync: addResult, isLoading: addResultLoading } = useMutation(
     apiServices.addResult,
     {
@@ -230,6 +241,14 @@ export const useResults = () => {
       },
     }
   );
+
+  const getScoreRemark = (score) => {
+    const res = grading?.find(
+      (x) => score >= Number(x?.score_from) && score <= Number(x?.score_to)
+    );
+
+    return res;
+  };
 
   const getTotalScores = () => {
     return subjects?.reduce((a, item) => {
@@ -302,7 +321,8 @@ export const useResults = () => {
     subjectsByClassLoading ||
     addResultLoading ||
     commentsLoading ||
-    endOfTermResultsLoading;
+    endOfTermResultsLoading ||
+    gradingLoading;
 
   return {
     isLoading,
@@ -340,6 +360,7 @@ export const useResults = () => {
     getTotalMidScores,
     comments,
     createEndOfTermResult,
+    getScoreRemark,
     setInitGetExistingSecondHalfResult,
   };
 };

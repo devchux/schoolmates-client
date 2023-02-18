@@ -792,6 +792,17 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  async getGrading() {
+    const { data } = await axios.get(`${backendAPI}/grading`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;
