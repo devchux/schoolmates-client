@@ -80,6 +80,37 @@ const ProfileCard = ({ type = "super-admin" }) => {
           </div>
         </div>
       )}
+
+      {type === "student-home" && (
+        <div className="profile-card-content">
+          <div>
+            <h3>Full Name:</h3>
+            <p>
+              {user?.firstname} {user?.surname} {user?.middlename}
+            </p>
+          </div>
+          <div>
+            <h3>Assigned Class:</h3>
+            <p>{user?.present_class}</p>
+          </div>
+          <div>
+            <h3>State:</h3>
+            <p>{user?.state}</p>
+          </div>
+          <div>
+            <h3>Admission Number:</h3>
+            <p>{user?.admission_number}</p>
+          </div>
+          <div>
+            <h3>Gender:</h3>
+            <p>{user?.gender}</p>
+          </div>
+          <div>
+            <h3>Session:</h3>
+            <p>{user?.session_admitted}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

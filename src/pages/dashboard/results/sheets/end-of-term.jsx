@@ -128,30 +128,32 @@ const EndOfTerm = ({ isCompute = false }) => {
 
   return (
     <div className="results-sheet">
-      <div className="students-wrapper">
-        {studentByClassAndSession?.map((x) => (
-          <div
-            key={x.id}
-            onClick={() => {
-              setStudentData(x);
-              setInitGetExistingSecondHalfResult(true);
-            }}
-            className="student"
-          >
+      {user?.designation_name !== "Student" && (
+        <div className="students-wrapper">
+          {studentByClassAndSession?.map((x) => (
             <div
-              className={`loader ${isLoading ? "is-loading" : ""} ${
-                studentData.id === x.id ? "active" : ""
-              }`}
+              key={x.id}
+              onClick={() => {
+                setStudentData(x);
+                setInitGetExistingSecondHalfResult(true);
+              }}
+              className="student"
             >
-              <ProfileImage src={x?.image} alt={x.firstname} />
+              <div
+                className={`loader ${isLoading ? "is-loading" : ""} ${
+                  studentData.id === x.id ? "active" : ""
+                }`}
+              >
+                <ProfileImage src={x?.image} alt={x.firstname} />
+              </div>
+              <div>
+                <p>{x.firstname}</p>
+                <p>{x.surname}</p>
+              </div>
             </div>
-            <div>
-              <p>{x.firstname}</p>
-              <p>{x.surname}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
       <PageSheet>
         {!isCompute && (
           <div className="mb-3">

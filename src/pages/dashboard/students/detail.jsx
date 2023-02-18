@@ -360,6 +360,24 @@ const StudentDetail = () => {
           />
         </Col>
       </Row>
+      <Row>
+        <Col sm="6" className="mb-4 mb-sm-0">
+          <AuthSelect
+            label="Sub_class"
+            value={inputs.sub_class}
+            name="sub_class"
+            hasError={!!errors.sub_class}
+            onChange={handleChange}
+            options={[
+              { value: "female", title: "Female" },
+              { value: "male", title: "Male" },
+            ]}
+          />
+          {!!errors.sub_class && (
+            <p className="error-message">{errors.sub_class}</p>
+          )}
+        </Col>
+      </Row>
       <ImagePreview
         src={filePreview || studentData?.image}
         centered

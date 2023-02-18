@@ -11,7 +11,7 @@ const DressCode = () => {
     [queryKeys.GET_DRESS_CODE],
     apiServices.getDressCode,
     {
-      enabled: ["Teacher"].includes(user?.designation_name),
+      enabled: ["Teacher", "Student"].includes(user?.designation_name),
       retry: 3,
       onError(err) {
         errorHandler(err);

@@ -7,8 +7,10 @@ import Prompt from "../../../components/modals/prompt";
 import AuthSelect from "../../../components/inputs/auth-select";
 import { useForm } from "react-formid";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../../../hooks/useAppContext";
 
 const Results = () => {
+  const { permission } = useAppContext('results');
   const [promptStatus, setPromptStatus] = useState("compute");
   const [loginPrompt, setLoginPrompt] = useState(false);
   const navigate = useNavigate();
@@ -45,6 +47,38 @@ const Results = () => {
     setPromptStatus(status);
     setLoginPrompt(true);
   };
+
+  const getToggleButtons = () => {
+    let arr = [];
+
+    if (permission?.compute) {
+      arr.push({
+        title: (
+          <>
+            <FontAwesomeIcon icon={faPen} /> Compute
+          </>
+        ),
+        variant: "outline",
+        type: "button",
+        onClick: () => displayPrompt("compute"),
+      });
+    }
+
+    if (permission?.view) {
+      arr.push({
+        title: (
+          <>
+            <FontAwesomeIcon icon={faEye} /> View
+          </>
+        ),
+        variant: "outline",
+        type: "button",
+        onClick: () => displayPrompt("view"),
+      });
+    }
+
+    return arr
+  };
   return (
     <div>
       <PageView
@@ -52,38 +86,7 @@ const Results = () => {
         showIllustration
         svgIllustrationBanner={ResultIcon}
         hideTable
-        groupedButtonOptions={[
-          {
-            title: (
-              <>
-                <FontAwesomeIcon icon={faPen} /> Compute
-              </>
-            ),
-            variant: "outline",
-            type: "button",
-            onClick: () => displayPrompt("compute"),
-          },
-          {
-            title: (
-              <>
-                <FontAwesomeIcon icon={faEye} /> View
-              </>
-            ),
-            variant: "outline",
-            type: "button",
-            onClick: () => displayPrompt("view"),
-          },
-          // {
-          //   title: (
-          //     <>
-          //       <FontAwesomeIcon icon={faSchool} /> Pre School
-          //     </>
-          //   ),
-          //   variant: "outline",
-          //   type: "button",
-          //   onClick: null,
-          // },
-        ]}
+        groupedButtonOptions={getToggleButtons()}
         canCreate={false}
         isLoading={false}
       />
