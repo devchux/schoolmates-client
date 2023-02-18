@@ -10,6 +10,9 @@ import Prompt from "../../../../components/modals/prompt";
 import { useResults } from "../../../../hooks/useResults";
 import ProfileImage from "../../../../components/common/profile-image";
 import { useAppContext } from "../../../../hooks/useAppContext";
+import moment from "moment";
+import AuthSelect from "../../../../components/inputs/auth-select";
+import { useState } from "react";
 
 const AffectiveDispositionTableRow = ({
   isCompute,
@@ -23,7 +26,7 @@ const AffectiveDispositionTableRow = ({
       {Array(5)
         .fill(null)
         .map((_, i) => {
-          const index = i + 1;
+          const index = 5 - i;
 
           return (
             <td key={index}>
@@ -44,6 +47,7 @@ const AffectiveDispositionTableRow = ({
 };
 
 const EndOfTerm = ({ isCompute = false }) => {
+  const [openSubjectPrompt, setOpenSubjectPrompt] = useState(false);
   const navigate = useNavigate();
   const { user } = useAppContext("results");
   const {
@@ -66,7 +70,7 @@ const EndOfTerm = ({ isCompute = false }) => {
     isLoading,
     setStudentData,
     studentByClassAndSession,
-    setInitGetExistingResult,
+    setInitGetExistingSecondHalfResult,
     studentData,
     locationState,
     subjects,
@@ -76,7 +80,24 @@ const EndOfTerm = ({ isCompute = false }) => {
     studentMidResult,
     getTotalScores,
     getTotalMidScores,
+    comments,
+    subjectsByClass,
+    removeSubject,
+    createEndOfTermResult,
   } = useResults();
+
+  const getAddSubjectSelectOptions = () => {
+    const mapSubjects = subjectsByClass?.map((x) => ({
+      title: x.subject,
+      value: { ...x, grade: "0" },
+    }));
+
+    const options = mapSubjects?.filter(
+      (x) => !subjects?.some((s) => s.subject === x.title)
+    );
+
+    return options;
+  };
 
   const handleSocialChecks = (property, type, value) => {
     if (additionalCreds[property]) {
@@ -113,7 +134,7 @@ const EndOfTerm = ({ isCompute = false }) => {
             key={x.id}
             onClick={() => {
               setStudentData(x);
-              setInitGetExistingResult(true);
+              setInitGetExistingSecondHalfResult(true);
             }}
             className="student"
           >
@@ -226,7 +247,7 @@ const EndOfTerm = ({ isCompute = false }) => {
                         <td>
                           <input
                             type="text"
-                            value={additionalCreds?.school_opened}
+                            value={additionalCreds?.school_opened ?? "0"}
                             className="form-control"
                             disabled={!isCompute}
                             onChange={({ target: { value } }) => {
@@ -244,7 +265,7 @@ const EndOfTerm = ({ isCompute = false }) => {
                         <td>
                           <input
                             type="text"
-                            value={additionalCreds?.times_present}
+                            value={additionalCreds?.times_present ?? "0"}
                             className="form-control"
                             disabled={!isCompute}
                             onChange={({ target: { value } }) => {
@@ -262,7 +283,7 @@ const EndOfTerm = ({ isCompute = false }) => {
                         <td>
                           <input
                             type="text"
-                            value={additionalCreds?.times_absent}
+                            value={additionalCreds?.times_absent ?? "0"}
                             className="form-control"
                             disabled={!isCompute}
                             onChange={({ target: { value } }) => {
@@ -303,7 +324,14 @@ const EndOfTerm = ({ isCompute = false }) => {
                   <th>
                     <div className="d-flex align-items-center">
                       SUBJECTS
-                      {isCompute && <Button className="ms-3">&#43; Add</Button>}
+                      {isCompute && (
+                        <Button
+                          className="ms-3"
+                          onClick={() => setOpenSubjectPrompt(true)}
+                        >
+                          &#43; Add
+                        </Button>
+                      )}
                     </div>
                   </th>
                   <th>MID TERM TEST</th>
@@ -327,12 +355,16 @@ const EndOfTerm = ({ isCompute = false }) => {
                 </tr>
               </thead>
               <tbody>
-                {subjects?.map((s) => (
-                  <tr>
+                {subjects?.map((s, index) => (
+                  <tr key={index}>
                     <td>
                       <div className="d-flex align-items-center">
                         {isCompute && (
-                          <Button variant="danger" className="me-3">
+                          <Button
+                            variant="danger"
+                            className="me-3"
+                            onClick={() => removeSubject(s.subject)}
+                          >
                             &#8722;
                           </Button>
                         )}
@@ -604,13 +636,13 @@ const EndOfTerm = ({ isCompute = false }) => {
                       isCompute={isCompute}
                       title="Handling Tools"
                       value={
-                        additionalCreds?.psychomotorSkills?.find((x) =>
+                        additionalCreds?.psychomotor_skills?.find((x) =>
                           Object.keys(x).includes("handlingTools")
                         )?.handlingTools
                       }
                       onChange={(value) => {
                         handleSocialChecks(
-                          "psychomotorSkills",
+                          "psychomotor_skills",
                           "handlingTools",
                           value
                         );
@@ -620,13 +652,13 @@ const EndOfTerm = ({ isCompute = false }) => {
                       isCompute={isCompute}
                       title="Games"
                       value={
-                        additionalCreds?.psychomotorSkills?.find((x) =>
+                        additionalCreds?.psychomotor_skills?.find((x) =>
                           Object.keys(x).includes("games")
                         )?.games
                       }
                       onChange={(value) => {
                         handleSocialChecks(
-                          "psychomotorSkills",
+                          "psychomotor_skills",
                           "games",
                           value
                         );
@@ -636,13 +668,13 @@ const EndOfTerm = ({ isCompute = false }) => {
                       isCompute={isCompute}
                       title="Music"
                       value={
-                        additionalCreds?.psychomotorSkills?.find((x) =>
+                        additionalCreds?.psychomotor_skills?.find((x) =>
                           Object.keys(x).includes("music")
                         )?.music
                       }
                       onChange={(value) => {
                         handleSocialChecks(
-                          "psychomotorSkills",
+                          "psychomotor_skills",
                           "music",
                           value
                         );
@@ -652,13 +684,13 @@ const EndOfTerm = ({ isCompute = false }) => {
                       isCompute={isCompute}
                       title="Sports"
                       value={
-                        additionalCreds?.psychomotorSkills?.find((x) =>
+                        additionalCreds?.psychomotor_skills?.find((x) =>
                           Object.keys(x).includes("sports")
                         )?.sports
                       }
                       onChange={(value) => {
                         handleSocialChecks(
-                          "psychomotorSkills",
+                          "psychomotor_skills",
                           "sports",
                           value
                         );
@@ -668,13 +700,13 @@ const EndOfTerm = ({ isCompute = false }) => {
                       isCompute={isCompute}
                       title="Verbal Fluency"
                       value={
-                        additionalCreds?.psychomotorSkills?.find((x) =>
+                        additionalCreds?.psychomotor_skills?.find((x) =>
                           Object.keys(x).includes("verbalFluency")
                         )?.verbalFluency
                       }
                       onChange={(value) => {
                         handleSocialChecks(
-                          "psychomotorSkills",
+                          "psychomotor_skills",
                           "verbalFluency",
                           value
                         );
@@ -723,11 +755,11 @@ const EndOfTerm = ({ isCompute = false }) => {
                 </tr>
                 <tr>
                   <td>Name:</td>
-                  <td>Ogene Onyinye</td>
+                  <td className="text-capitalize">Ogene Onyinye</td>
                   <td>Sign:</td>
                   <td></td>
                   <td>Date:</td>
-                  <td>28/10/2021</td>
+                  <td>{moment(new Date()).format("DD/MM/YYYY")}</td>
                 </tr>
                 <tr>
                   <td colSpan="6" />
@@ -763,11 +795,13 @@ const EndOfTerm = ({ isCompute = false }) => {
                 </tr>
                 <tr>
                   <td>Name:</td>
-                  <td>Ogene Onyinye</td>
+                  <td className="text-capitalize">
+                    {user?.firstname} {user?.surname}
+                  </td>
                   <td>Sign:</td>
                   <td></td>
                   <td>Date:</td>
-                  <td>28/10/2021</td>
+                  <td>{moment(new Date()).format("DD/MM/YYYY")}</td>
                 </tr>
               </tbody>
             </table>
@@ -784,8 +818,9 @@ const EndOfTerm = ({ isCompute = false }) => {
                   {
                     title: "Save",
                     type: "submit",
-                    isLoading: false,
-                    disabled: false,
+                    isLoading: isLoading,
+                    disabled: isLoading,
+                    onClick: createEndOfTermResult,
                   },
                 ]}
               />
@@ -812,58 +847,42 @@ const EndOfTerm = ({ isCompute = false }) => {
             singleButtonText="Continue"
             promptHeader="Select Comment"
           >
-            <div className="modal-result-comment-select-options">
-              <input
-                type="radio"
-                name="selectedComment"
-                onChange={({ target: { value } }) => setSelectedComment(value)}
-                value="Although Kene's academic performance is quite commendable, however, she still lacks the basic life skills to make expected progress in the future. More support from the home front is required."
-              />
-              <p>
-                Although Kene's academic performance is quite commendable,
-                however, she still lacks the basic life skills to make expected
-                progress in the future. More support from the home front is
-                required.
-              </p>
-            </div>
-            <div className="modal-result-comment-select-options">
-              <input
-                type="radio"
-                name="selectedComment"
-                onChange={({ target: { value } }) => setSelectedComment(value)}
-                value="Lekan was not able to prove himself in this academic session. It is hoped that in the next class, he will put in more effort. Promoted on trial."
-              />
-              <p>
-                Lekan was not able to prove himself in this academic session. It
-                is hoped that in the next class, he will put in more effort.
-                Promoted on trial.
-              </p>
-            </div>
-            <div className="modal-result-comment-select-options">
-              <input
-                type="radio"
-                name="selectedComment"
-                onChange={({ target: { value } }) => setSelectedComment(value)}
-                value="Chioma's outstanding performance has earned her this move to the next class. promoted. Congratulations!"
-              />
-              <p>
-                Chioma's outstanding performance has earned her this move to the
-                next class. promoted. Congratulations!
-              </p>
-            </div>
-            <div className="modal-result-comment-select-options">
-              <input
-                type="radio"
-                name="selectedComment"
-                onChange={({ target: { value } }) => setSelectedComment(value)}
-                value="....has progressed nicely in all learning areas. I have no doubt that he is ready for the next level. promoted to the next class. Congratulations."
-              />
-              <p>
-                ....has progressed nicely in all learning areas. I have no doubt
-                that he is ready for the next level. promoted to the next class.
-                Congratulations.
-              </p>
-            </div>
+            {comments?.map((x, index) => (
+              <div key={index} className="modal-result-comment-select-options">
+                <input
+                  type="radio"
+                  name="selectedComment"
+                  onChange={({ target: { value } }) =>
+                    setSelectedComment(value)
+                  }
+                  value={x?.hos_comment}
+                />
+                <p>{x?.hos_comment}</p>
+              </div>
+            ))}
+          </Prompt>
+          <Prompt
+            isOpen={openSubjectPrompt}
+            toggle={() => setOpenSubjectPrompt(!openSubjectPrompt)}
+            singleButtonProps={{
+              type: "button",
+              isLoading: false,
+              disabled: false,
+              onClick: () => setOpenSubjectPrompt(false),
+            }}
+            singleButtonText="OK"
+            promptHeader="Add Subject"
+          >
+            <AuthSelect
+              advanced
+              isMulti
+              options={getAddSubjectSelectOptions()}
+              onChange={(item) => {
+                const fd = item?.map((x) => ({ ...x.value }));
+
+                setSubjects([...subjects, ...fd]);
+              }}
+            />
           </Prompt>
         </div>
       </PageSheet>

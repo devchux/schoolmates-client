@@ -747,22 +747,41 @@ class APIServies extends Helpers {
   }
 
   async getAcademicPeriod() {
-    const { data } = await axios.get(
-      `${backendAPI}/getacademicperiod`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${super.getToken()}`,
-        },
-      }
-    );
+    const { data } = await axios.get(`${backendAPI}/getacademicperiod`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
 
     return data;
   }
 
   async getClassPopulation() {
+    const { data } = await axios.get(`${backendAPI}/classpopulation`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getPrincipalComments() {
+    const { data } = await axios.get(`${backendAPI}/principalcomment`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getEndOfTermResults(student_id, term, session) {
     const { data } = await axios.get(
-      `${backendAPI}/classpopulation`,
+      `${backendAPI}/endtermresult/${student_id}/${term}/${session}`,
       {
         headers: {
           "Content-Type": "application/json",
