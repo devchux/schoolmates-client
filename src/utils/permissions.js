@@ -130,6 +130,8 @@ export const permissions = {
       read: true,
     },
     accounts: {
+      canCreate: false,
+      sort: true,
       feeHistory: true,
       paymentReciept: true,
       myInvoice: true,

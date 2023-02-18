@@ -12,10 +12,27 @@ export const useAccounts = () => {
     apiServices.getStudentFeeHistory,
     {
       enabled: permission?.feeHistory,
+      select: apiServices.formatData,
     }
   );
 
-  const isLoading = feeHistoryLoading;
+  const { isLoading: previousInvoiceLoading, data: previousInvoice } = useQuery(
+    [queryKeys.GET_PREVIOUS_INVOICE],
+    apiServices.getStudentPreviousInvoice,
+    {
+      enabled: permission?.previousInvoice,
+      select: apiServices.formatData,
+    }
+  );
 
-  return { indexStatus, setIndexStatus, feeHistory, isLoading };
+  const isLoading = feeHistoryLoading || previousInvoiceLoading;
+
+  return {
+    indexStatus,
+    setIndexStatus,
+    feeHistory,
+    isLoading,
+    previousInvoice,
+    permission,
+  };
 };
