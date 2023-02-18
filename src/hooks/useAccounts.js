@@ -25,7 +25,17 @@ export const useAccounts = () => {
     }
   );
 
-  const isLoading = feeHistoryLoading || previousInvoiceLoading;
+  const { isLoading: invoiceLoading, data: invoice } = useQuery(
+    [queryKeys.GET_INVOICE],
+    apiServices.getStudentInvoice,
+    {
+      enabled: permission?.myInvoice,
+      select: apiServices.formatData,
+    }
+  );
+
+  const isLoading =
+    feeHistoryLoading || previousInvoiceLoading || invoiceLoading;
 
   return {
     indexStatus,
@@ -34,5 +44,6 @@ export const useAccounts = () => {
     isLoading,
     previousInvoice,
     permission,
+    invoice,
   };
 };

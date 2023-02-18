@@ -10,6 +10,7 @@ const Accounts = () => {
     setIndexStatus,
     feeHistory,
     previousInvoice,
+    invoice,
   } = useAccounts();
 
   const getSortButtonOptions = () => {
@@ -157,8 +158,53 @@ const Accounts = () => {
       data: [],
     },
     "my-invoice": {
-      columns: [],
-      data: [],
+      columns: [
+        {
+          Header: "Invoice",
+          accessor: "invoice_no",
+        },
+        {
+          Header: "Full Name",
+          accessor: "student_fullname",
+        },
+        {
+          Header: "Admission Number",
+          accessor: "admission_number",
+        },
+        {
+          Header: "Class",
+          accessor: "class",
+        },
+        {
+          Header: "Fee Type",
+          accessor: "feetype",
+        },
+        {
+          Header: "Amount",
+          accessor: "amount",
+        },
+        {
+          Header: "Notation",
+          accessor: "notation",
+        },
+        {
+          Header: "Discount",
+          accessor: "discount",
+        },
+        {
+          Header: "Discount Amount",
+          accessor: "discount_amount",
+        },
+        {
+          Header: "Term",
+          accessor: "term",
+        },
+        {
+          Header: "Session",
+          accessor: "session",
+        },
+      ],
+      data: invoice,
     },
   };
 
