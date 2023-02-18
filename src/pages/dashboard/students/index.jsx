@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import PageView from "../../../components/views/table-view";
 import { useStudent } from "../../../hooks/useStudent";
 
 const Student = () => {
+  const { state } = useLocation();
   const {
     students,
     isLoading,
@@ -286,6 +288,13 @@ const Student = () => {
     debtors: studentDebtors,
     myStudents: studentByClassAndSession,
   };
+
+  useEffect(() => {
+    if (state?.status) {
+      setIndexStatus(state.status);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state?.status]);
 
   return (
     <PageView

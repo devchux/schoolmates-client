@@ -26,7 +26,6 @@ const MidTerm = ({ isCompute = false }) => {
     user,
     studentData,
     setStudentData,
-    // midResults,
     locationState,
     subjects,
     subjectsByClass,
@@ -35,16 +34,37 @@ const MidTerm = ({ isCompute = false }) => {
     removeSubject,
     studentByClassAndSession,
     createMidTermResult,
+    setInitGetExistingResult,
   } = useResults();
+
+  const getAddSubjectSelectOptions = () => {
+    const mapSubjects = subjectsByClass?.map((x) => ({
+      title: x.subject,
+      value: { ...x, grade: "0" },
+    }));
+
+    const options = mapSubjects?.filter((x) =>
+      !subjects?.some((s) => s.subject === x.title)
+    );
+
+    return options;
+  };
 
   return (
     <div className="results-sheet">
       <div className="students-wrapper">
         {studentByClassAndSession?.map((x) => (
-          <div key={x.id} onClick={() => setStudentData(x)} className="student">
+          <div
+            key={x.id}
+            onClick={() => {
+              setStudentData(x);
+              setInitGetExistingResult(true);
+            }}
+            className="student"
+          >
             <div
               className={`loader ${isLoading ? "is-loading" : ""} ${
-                studentData?.id === x.id ? "active" : ""
+                studentData.id === x.id ? "active" : ""
               }`}
             >
               <ProfileImage src={x?.image} alt={x.firstname} />
@@ -171,7 +191,7 @@ const MidTerm = ({ isCompute = false }) => {
                           <Button
                             variant="danger"
                             className="me-3"
-                            onClick={() => removeSubject(x.id)}
+                            onClick={() => removeSubject(x.subject)}
                           >
                             &#8722;
                           </Button>
@@ -193,7 +213,7 @@ const MidTerm = ({ isCompute = false }) => {
 
                           const fd = subjects.map((s) => ({
                             ...s,
-                            grade: s.id === x.id ? value : s.grade,
+                            grade: s.subject === x.subject ? value : s.grade,
                           }));
 
                           setSubjects(fd);
@@ -220,7 +240,7 @@ const MidTerm = ({ isCompute = false }) => {
                   <td>Sign:</td>
                   <td></td>
                   <td>Date:</td>
-                  <td>28/10/2021</td>
+                  <td>{moment(new Date()).format("DD/MM/YYYY")}</td>
                 </tr>
                 <tr>
                   <td />
@@ -233,7 +253,7 @@ const MidTerm = ({ isCompute = false }) => {
                   <td>Sign:</td>
                   <td></td>
                   <td>Date:</td>
-                  <td>28/10/2021</td>
+                  <td>{moment(new Date()).format("DD/MM/YYYY")}</td>
                 </tr>
               </tbody>
             </table>
@@ -274,10 +294,7 @@ const MidTerm = ({ isCompute = false }) => {
           <AuthSelect
             advanced
             isMulti
-            options={subjectsByClass?.map((x) => ({
-              title: x.subject,
-              value: { ...x, grade: "0" },
-            }))}
+            options={getAddSubjectSelectOptions()}
             onChange={(item) => {
               const fd = item?.map((x) => ({ ...x.value }));
 

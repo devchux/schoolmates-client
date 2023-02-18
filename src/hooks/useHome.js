@@ -147,6 +147,38 @@ export const useHome = () => {
     }
   );
 
+  const { isLoading: timetableLoading, data: timetableData } = useQuery(
+    [queryKeys.GET_TIME_TABLE],
+    apiServices.getTimeTable,
+    {
+      enabled: ["Teacher"].includes(user?.designation_name),
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) =>
+        apiServices.formatData(data)?.length
+          ? apiServices.formatData(data)[0]
+          : {},
+    }
+  );
+
+  const { isLoading: calendarLoading, data: calendarData } = useQuery(
+    [queryKeys.GET_ACADEMIC_CALENDER],
+    apiServices.getAcademicCalender,
+    {
+      enabled: ["Teacher"].includes(user?.designation_name),
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) =>
+        apiServices.formatData(data)?.length
+          ? apiServices.formatData(data)[0]
+          : {},
+    }
+  );
+
   const isLoading =
     outstandingLoading ||
     expectedIncomeLoading ||
@@ -157,7 +189,9 @@ export const useHome = () => {
     graduatedStudentLoading ||
     academicPeriodLoading ||
     schoolLoading ||
-    classPopulationLoading;
+    classPopulationLoading ||
+    timetableLoading ||
+    calendarLoading;
 
   return {
     isLoading,
@@ -168,5 +202,7 @@ export const useHome = () => {
     totalExpense,
     accountBalance,
     receivedIncome,
+    timetableData,
+    calendarData,
   };
 };

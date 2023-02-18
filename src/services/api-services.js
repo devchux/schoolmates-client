@@ -732,9 +732,9 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async getMidResults(term, session) {
+  async getStudentResult(studentId, term, session) {
     const { data } = await axios.get(
-      `${backendAPI}/midtermresult/${term}/${session}`,
+      `${backendAPI}/midtermresult/${studentId}/${term}/${session}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -764,6 +764,31 @@ class APIServies extends Helpers {
         Authorization: `Bearer ${super.getToken()}`,
       },
     });
+
+    return data;
+  }
+
+  async getPrincipalComments() {
+    const { data } = await axios.get(`${backendAPI}/principalcomment`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getEndOfTermResults(student_id, term, session) {
+    const { data } = await axios.get(
+      `${backendAPI}/endtermresult/${student_id}/${term}/${session}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }

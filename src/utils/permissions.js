@@ -92,6 +92,9 @@ export const permissions = {
       retrieve: true,
       save: true,
     },
+    "dress-code": {
+      read: true,
+    },
   },
 
   Student: {
