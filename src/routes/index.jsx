@@ -27,7 +27,7 @@ import Results from "../pages/dashboard/results";
 import Attendance from "../pages/dashboard/attendance";
 import MidTerm from "../pages/dashboard/results/sheets/mid-term";
 import EndOfTerm from "../pages/dashboard/results/sheets/end-of-term";
-import StudentsHome from "../pages/dashboard/student-dash";
+import StudentsHome from "../pages/dashboard/students/home";
 import DressCode from "../pages/dashboard/dress-code";
 
 const CustomRoutes = () => {

@@ -111,7 +111,7 @@ export const useHome = () => {
     [queryKeys.GET_ACADEMIC_PERIOD],
     apiServices.getAcademicPeriod,
     {
-      enabled: ["Teacher"].includes(user?.designation_name),
+      enabled: ["Teacher", "Student"].includes(user?.designation_name),
       retry: 3,
       onSuccess(data) {
         updateUser({
@@ -194,6 +194,7 @@ export const useHome = () => {
     calendarLoading;
 
   return {
+    user,
     isLoading,
     outstanding,
     expectedIncome,

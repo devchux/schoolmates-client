@@ -7,10 +7,10 @@ import {
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "reactstrap";
-import HomeCard from "../../../components/cards/home-card";
-import ProfileCard from "../../../components/cards/profile-card";
-import PageTitle from "../../../components/common/title";
-import { useHome } from "../../../hooks/useHome";
+import HomeCard from "../../../../components/cards/home-card";
+import ProfileCard from "../../../../components/cards/profile-card";
+import PageTitle from "../../../../components/common/title";
+import { useHome } from "../../../../hooks/useHome";
 
 const StudentsHome = () => {
   const { isLoading, timetableData, calendarData } = useHome();
@@ -23,7 +23,7 @@ const StudentsHome = () => {
       <div className="students-cards-wrapper">
         <HomeCard
           isBadge
-          title="My Students"
+          title="My Class"
           icon={faPeopleLine}
           onClick={() =>
             navigate("/app/students", { state: { status: "myStudents" } })

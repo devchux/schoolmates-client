@@ -89,7 +89,7 @@ export const dashboardSideBarLinks = {
   ],
   Teacher: [
     {
-      to: "/app/",
+      to: "/app/teachers",
       title: "Home",
       icon: faHome,
     },
@@ -126,14 +126,19 @@ export const dashboardSideBarLinks = {
       icon: faSchool,
     },
     {
-      to: "/app/vehicles",
-      title: "Vehicles",
-      icon: faTruck,
-    },
-    {
       to: "/app/results",
       title: "Results",
       icon: faBuildingColumns,
+    },
+    {
+      to: "/app/students",
+      title: "Students",
+      icon: faGraduationCap,
+    },
+    {
+      to: "/app/vehicles",
+      title: "Vehicles",
+      icon: faTruck,
     },
   ],
 };
