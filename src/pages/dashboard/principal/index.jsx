@@ -17,16 +17,16 @@ import {
     const navigate = useNavigate();
   
     return (
-      <div className="pricipal">
+      <div className="teachers">
         <PageTitle> Principal {isLoading && <Spinner />}</PageTitle>
         <ProfileCard type="principal" />
-        <div className="principal-cards-wrapper">
+        <div className="teachers-cards-wrapper">
           <HomeCard
             isBadge
-            title="My Students"
+            title="Staffs"
             icon={faPeopleLine}
             onClick={() =>
-              navigate("/app/students", { state: { status: "myStudents" } })
+              navigate("/app/staffs")
             }
           />
           <HomeCard
