@@ -27,8 +27,10 @@ import Results from "../pages/dashboard/results";
 import Attendance from "../pages/dashboard/attendance";
 import MidTerm from "../pages/dashboard/results/sheets/mid-term";
 import EndOfTerm from "../pages/dashboard/results/sheets/end-of-term";
+import StudentsHome from "../pages/dashboard/students/home";
 import DressCode from "../pages/dashboard/dress-code";
 import Principal from "../pages/dashboard/principal";
+import Accounts from "../pages/dashboard/accounts";
 
 const CustomRoutes = () => {
   return (
@@ -199,7 +201,7 @@ const CustomRoutes = () => {
           exact
           path="results/mid/compute"
           element={
-            <Guard routeName="results">
+            <Guard routeName="results" action={["compute"]}>
               <MidTerm isCompute />
             </Guard>
           }
@@ -217,7 +219,7 @@ const CustomRoutes = () => {
           exact
           path="results/end/compute"
           element={
-            <Guard routeName="results">
+            <Guard routeName="results" action={["compute"]}>
               <EndOfTerm isCompute />
             </Guard>
           }
@@ -253,6 +255,22 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="principal">
               <Principal />
+            </Guard>
+          }
+        />
+        <Route
+          path="student-home"
+          element={
+            <Guard routeName="student-home">
+              <StudentsHome />
+            </Guard>
+          }
+        />
+        <Route
+          path="accounts"
+          element={
+            <Guard routeName="accounts">
+              <Accounts />
             </Guard>
           }
         />

@@ -17,6 +17,7 @@ const MidTerm = ({ isCompute = false }) => {
 
   const {
     isLoading,
+    additionalCreds,
     // permission,
     openPrompt,
     setOpenPrompt,
@@ -43,8 +44,8 @@ const MidTerm = ({ isCompute = false }) => {
       value: { ...x, grade: "0" },
     }));
 
-    const options = mapSubjects?.filter((x) =>
-      !subjects?.some((s) => s.subject === x.title)
+    const options = mapSubjects?.filter(
+      (x) => !subjects?.some((s) => s.subject === x.title)
     );
 
     return options;
@@ -52,30 +53,36 @@ const MidTerm = ({ isCompute = false }) => {
 
   return (
     <div className="results-sheet">
-      <div className="students-wrapper">
-        {studentByClassAndSession?.map((x) => (
-          <div
-            key={x.id}
-            onClick={() => {
-              setStudentData(x);
-              setInitGetExistingResult(true);
-            }}
-            className="student"
-          >
+      {user?.designation_name !== "Student" && (
+        <div className="students-wrapper">
+          {studentByClassAndSession?.map((x) => (
             <div
-              className={`loader ${isLoading ? "is-loading" : ""} ${
-                studentData.id === x.id ? "active" : ""
-              }`}
+              key={x.id}
+              onClick={() => {
+                setStudentData(x);
+                setInitGetExistingResult(true);
+              }}
+              className="student"
             >
-              <ProfileImage src={x?.image} alt={x.firstname} />
+              <div
+                className={`loader ${isLoading ? "is-loading" : ""} ${
+                  studentData.id === x.id ? "active" : ""
+                }`}
+              >
+                <ProfileImage src={x?.image} alt={x.firstname} />
+                {additionalCreds?.computed_midterm && (
+                  <div className="computed" />
+                )}
+              </div>
+              <div>
+                <p>{x.firstname}</p>
+                <p>{x.surname}</p>
+              </div>
             </div>
-            <div>
-              <p>{x.firstname}</p>
-              <p>{x.surname}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+
       <PageSheet>
         {!isCompute && (
           <div className="mb-3">

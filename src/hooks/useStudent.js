@@ -345,6 +345,7 @@ export const useStudent = () => {
     studentByClassLoading;
 
   return {
+    user,
     isLoading,
     students,
     getFieldProps,

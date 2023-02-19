@@ -23,6 +23,7 @@ const Student = () => {
     setAdmissionNumber,
     setSortBy,
     studentByClassAndSession,
+    user,
   } = useStudent();
 
   const setVariant = (status) => {
@@ -241,6 +242,126 @@ const Student = () => {
     }
   };
 
+  const getStudentColumns = () => {
+    switch (indexStatus) {
+      case "all":
+        return [
+          {
+            Header: "",
+            accessor: "image",
+          },
+          {
+            Header: "id",
+            accessor: "id",
+          },
+          {
+            Header: "First Name",
+            accessor: "firstname",
+          },
+          {
+            Header: "Surname",
+            accessor: "surname",
+          },
+          {
+            Header: "Middle Name",
+            accessor: "middlename",
+          },
+          {
+            Header: "Class",
+            accessor: "class",
+          },
+          {
+            Header: "Present Class",
+            accessor: "present_class",
+          },
+          {
+            Header: "Gender",
+            accessor: "gender",
+          },
+        ];
+
+      case "myStudents":
+        return [
+          {
+            Header: "id",
+            accessor: "id",
+          },
+          {
+            Header: "First Name",
+            accessor: "firstname",
+          },
+          {
+            Header: "Surname",
+            accessor: "surname",
+          },
+          {
+            Header: "Middle Name",
+            accessor: "middlename",
+          },
+          {
+            Header: "Class",
+            accessor: "class",
+          },
+          {
+            Header: "Present Class",
+            accessor: "present_class",
+          },
+        ];
+
+      default:
+        return [
+          {
+            Header: "id",
+            accessor: "id",
+          },
+          {
+            Header: "Full Name",
+            accessor: "student_fullname",
+          },
+          {
+            Header: "Amount Due",
+            accessor: "amount_due",
+          },
+          {
+            Header: "Amount Paid",
+            accessor: "amount_paid",
+          },
+          {
+            Header: "Total Amount",
+            accessor: "total_amount",
+          },
+          {
+            Header: "Session",
+            accessor: "session",
+          },
+          {
+            Header: "Term",
+            accessor: "term",
+          },
+          {
+            Header: "Status",
+            accessor: "status",
+          },
+          {
+            Header: "Account Name",
+            accessor: "account_name",
+          },
+          {
+            Header: "Bank Name",
+            accessor: "bank_name",
+          },
+          {
+            Header: "Payment Method",
+            accessor: "payment_method",
+          },
+          {
+            Header: "Remark",
+            accessor: "remark",
+          },
+        ];
+    }
+  };
+
   const getSortButtonOptions = () => {
     let arr = [];
 
@@ -272,7 +393,8 @@ const Student = () => {
 
     if (permission?.myStudents) {
       arr.push({
-        title: "My Students",
+        title:
+          user?.designation_name === "Student" ? "My Class" : "My Students",
         type: "button",
         onClick: () => setIndexStatus("myStudents"),
         variant: setVariant("myStudents"),
@@ -293,7 +415,7 @@ const Student = () => {
     if (state?.status) {
       setIndexStatus(state.status);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state?.status]);
 
   return (
@@ -330,7 +452,11 @@ const Student = () => {
         setSortBy("");
       }}
       isLoading={isLoading}
-      columns={getColumns()}
+      columns={
+        user?.designation_name === "Student"
+          ? getStudentColumns()
+          : getColumns()
+      }
       data={data[indexStatus]}
     />
   );

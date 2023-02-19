@@ -116,4 +116,45 @@ export const permissions = {
       read: true,
     },
   },
+  Student: {
+    "student-home": {
+      read: true,
+    },
+    vehicles: {
+      create: false,
+      read: true,
+      readLogs: false,
+      update: false,
+      delete: false,
+    },
+    results: {
+      compute: false,
+      view: true,
+      preSchool: true,
+    },
+    students: {
+      create: false,
+      read: true,
+      readCreditors: false,
+      readDebtors: false,
+      update: false,
+      delete: false,
+      statusToggle: false,
+      sort: true,
+      sortSession: false,
+      sortAdmissionNumber: false,
+      myStudents: true,
+    },
+    "dress-code": {
+      read: true,
+    },
+    accounts: {
+      canCreate: false,
+      sort: true,
+      feeHistory: true,
+      paymentReciept: true,
+      myInvoice: true,
+      previousInvoice: true,
+    },
+  },
 };

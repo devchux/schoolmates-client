@@ -747,8 +747,41 @@ class APIServies extends Helpers {
   }
 
   async getAcademicPeriod() {
+    const { data } = await axios.get(`${backendAPI}/getacademicperiod`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getClassPopulation() {
+    const { data } = await axios.get(`${backendAPI}/classpopulation`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getPrincipalComments() {
+    const { data } = await axios.get(`${backendAPI}/principalcomment`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getEndOfTermResults(student_id, term, session) {
     const { data } = await axios.get(
-      `${backendAPI}/getacademicperiod`,
+      `${backendAPI}/endtermresult/${student_id}/${term}/${session}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -760,16 +793,46 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async getClassPopulation() {
-    const { data } = await axios.get(
-      `${backendAPI}/classpopulation`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${super.getToken()}`,
-        },
-      }
-    );
+  async getGrading() {
+    const { data } = await axios.get(`${backendAPI}/grading`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getStudentFeeHistory() {
+    const { data } = await axios.get(`${backendAPI}/studentfeehistory`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getStudentPreviousInvoice() {
+    const { data } = await axios.get(`${backendAPI}/studentpreviousinvoice`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getStudentInvoice() {
+    const { data } = await axios.get(`${backendAPI}/studentinvoice`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
 
     return data;
   }
