@@ -20,6 +20,7 @@ export const backendAPI = "https://schoolmate.powershellerp.com/api";
 export const homeUrl = {
   Superadmin: "/app/super-admin",
   Teacher: "/app/teachers",
+  Principal: "/app/principal",
   Student: "/app/student-home",
 };
 
@@ -112,6 +113,33 @@ export const dashboardSideBarLinks = {
       to: "/app/students",
       title: "Students",
       icon: faGraduationCap,
+    },
+  ],
+  Principal: [
+    {
+      to: "/app/principal",
+      title: "Home",
+      icon: faHome,
+    },
+    {
+      to: "/app/students",
+      title: "Students",
+      icon: faGraduationCap,
+    },
+    {
+      to: "/app/reports",
+      title: "Reports",
+      icon: faFileInvoice,
+    },
+    {
+      to: "/app/vehicles",
+      title: "Vehicles",
+      icon: faTruck,
+    },
+    {
+      to: "/app/alumni",
+      title: "Alumni",
+      icon: faPeopleGroup,
     },
   ],
   Student: [

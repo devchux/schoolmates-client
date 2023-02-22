@@ -34,7 +34,7 @@ export const permissions = {
       sort: true,
     },
     students: {
-      create: true,
+      create: false,
       read: true,
       readCreditors: true,
       readDebtors: true,
@@ -96,7 +96,26 @@ export const permissions = {
       read: true,
     },
   },
-
+  Principal: {
+    principal: {
+      read: true,
+    },
+    reports: {
+      read: true,
+    },
+    vehicles: {
+      create: false,
+      read: true,
+      readLogs: true,
+      update: false,
+      delete: true,
+      statusToggle: false,
+      sort: true,
+    },
+    "dress-code": {
+      read: true,
+    },
+  },
   Student: {
     "student-home": {
       read: true,
@@ -136,6 +155,6 @@ export const permissions = {
       paymentReciept: true,
       myInvoice: true,
       previousInvoice: true,
-    }
+    },
   },
 };
