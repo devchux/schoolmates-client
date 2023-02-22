@@ -112,7 +112,7 @@ const Accounts = () => {
         },
         {
           Header: "Full Name",
-          accessor: "student_fullname",
+          accessor: "fullname",
         },
         {
           Header: "Admission Number",
@@ -165,7 +165,7 @@ const Accounts = () => {
         },
         {
           Header: "Full Name",
-          accessor: "student_fullname",
+          accessor: "fullname",
         },
         {
           Header: "Admission Number",
