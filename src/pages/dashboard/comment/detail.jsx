@@ -1,49 +1,51 @@
-import React from 'react'
-import { useForm } from 'react-formid';
-import { useMutation } from 'react-query';
-import { toast } from 'react-toastify';
+import React from "react";
+import { useForm } from "react-formid";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import { Col, Row } from "reactstrap";
 import ImagePreview from "../../../components/common/image-preview";
 import AuthInput from "../../../components/inputs/auth-input";
 import DetailView from "../../../components/views/detail-view";
-import { useAppContext } from '../../../hooks/useAppContext';
-import { useFile } from '../../../hooks/useFile';
+import { useAppContext } from "../../../hooks/useAppContext";
+import { useFile } from "../../../hooks/useFile";
 
 const CommentDetail = () => {
-    const { apiServices, user } = useAppContext();
+  const { apiServices, user } = useAppContext();
 
-    const { isLoading, mutate: createPost } = useMutation(
-      apiServices.postPrincipalComment,
-      {
-        onSuccess() {
-          toast.success("Comment has been created");
-        },
-  
-        onError(err) {
-          apiServices.errorHandler(err);
-        },
-      }
-    );
-
-    const { handleImageChange, filePreview, base64String, fileRef, reset } =
-      useFile();
-  
-    const { handleSubmit, errors, getFieldProps } = useForm({
-      defaultValues: {
-        hos_comment: "",
+  const { isLoading, mutate: createPost } = useMutation(
+    apiServices.postPrincipalComment,
+    {
+      onSuccess() {
+        toast.success("Comment has been created");
       },
-    });
-  
-    const onSubmit = (data) => {
-      if (!base64String) {
-        return toast.error("Signature not provided");
-      }
-      createPost({
+
+      onError(err) {
+        apiServices.errorHandler(err);
+      },
+    }
+  );
+
+  const { handleImageChange, filePreview, base64String, fileRef, reset } =
+    useFile();
+
+  const { handleSubmit, errors, getFieldProps } = useForm({
+    defaultValues: {
+      hos_comment: "",
+    },
+  });
+
+  const onSubmit = (data) => {
+    if (!base64String) {
+      return toast.error("Signature not provided");
+    }
+    createPost({
+      body: {
         ...data,
         hos_id: user.id,
         signature: base64String,
-      });
-    };
+      },
+    });
+  };
   return (
     <DetailView
       isLoading={isLoading}
@@ -79,7 +81,7 @@ const CommentDetail = () => {
         reset={reset}
       />
     </DetailView>
-  )
-}
+  );
+};
 
-export default CommentDetail
+export default CommentDetail;
