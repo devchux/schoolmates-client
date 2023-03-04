@@ -1,5 +1,5 @@
 import {
-  // faBookmark,
+  faBookmark,
   faBuilding,
   faBuildingColumns,
   faClipboardUser,
@@ -23,10 +23,48 @@ export const homeUrl = {
   Teacher: "/app/teachers",
   Principal: "/app/principal",
   Student: "/app/student-home",
+  Admin: "/app/admin",
 };
 
 export const dashboardSideBarLinks = {
-  Admin: [],
+  Admin: [
+    {
+      to: "/app/admin",
+      title: "Home",
+      icon: faHome,
+    },
+    {
+      to: "/app/staffs",
+      title: "Staff Assignment",
+      icon: faClipboardUser,
+    },
+    {
+      to: "/app/students",
+      title: "Students",
+      icon: faGraduationCap,
+    },
+    {
+      to: "/app/",
+      title: "Broadsheet",
+      icon: faBookmark,
+    },
+    {
+      to: "/app/departments",
+      title: "Departments",
+      icon: faBuilding,
+    },
+    {
+      to: "/app/",
+      title: "Grading System",
+      icon: faBuildingColumns,
+    },
+    {
+      to: "/app/vehicles",
+      title: "Vehicles",
+      icon: faTruck,
+    },
+    
+  ],
   Superadmin: [
     {
       to: "/app/super-admin",
@@ -91,7 +129,7 @@ export const dashboardSideBarLinks = {
   ],
   Teacher: [
     {
-      to: "/app/teachers",
+      to: "/app/s",
       title: "Home",
       icon: faHome,
     },
