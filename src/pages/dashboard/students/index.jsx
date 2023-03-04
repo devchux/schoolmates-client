@@ -31,8 +31,6 @@ const Student = () => {
 
   const { classes } = useClasses();
 
-  console.log(classes);
-
   const setVariant = (status) => {
     return indexStatus !== status ? "outline" : null;
   };

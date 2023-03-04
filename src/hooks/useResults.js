@@ -67,12 +67,12 @@ export const useResults = () => {
     useQuery(
       [
         queryKeys.GET_STUDENTS_BY_ATTENDANCE,
-        user?.class_assigned,
+        state?.creds?.class_name ? state?.creds?.class_name : user?.class_assigned,
         state?.creds?.session,
       ],
       () =>
         apiServices.getStudentByClassAndSession(
-          user?.class_assigned,
+          state?.creds?.class_name ? state?.creds?.class_name : user?.class_assigned,
           state?.creds?.session
         ),
       {
@@ -157,8 +157,14 @@ export const useResults = () => {
     isLoading: subjectsByClassLoading,
     refetch: refetchStudentsByClass,
   } = useQuery(
-    [queryKeys.GET_SUBJECTS_BY_CLASS, user?.class_assigned],
-    () => apiServices.getSubjectByClass(user?.class_assigned),
+    [
+      queryKeys.GET_SUBJECTS_BY_CLASS,
+      state?.creds?.class_name ? state?.creds?.class_name : user?.class_assigned,
+    ],
+    () =>
+      apiServices.getSubjectByClass(
+        state?.creds?.class_name ? state?.creds?.class_name : user?.class_assigned
+      ),
     {
       enabled: initGetStudentsByClass,
       select: apiServices.formatData,

@@ -8,9 +8,10 @@ import AuthSelect from "../../../components/inputs/auth-select";
 import { useForm } from "react-formid";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../hooks/useAppContext";
+import { useClasses } from "../../../hooks/useClasses";
 
 const Results = () => {
-  const { permission } = useAppContext('results');
+  const { permission, user } = useAppContext("results");
   const [promptStatus, setPromptStatus] = useState("compute");
   const [loginPrompt, setLoginPrompt] = useState(false);
   const navigate = useNavigate();
@@ -19,8 +20,16 @@ const Results = () => {
       period: "First Half",
       term: "First Term",
       session: "2020/2021",
+      class_name: "",
+    },
+    validation: {
+      class_name: {
+        required: user?.designation_name === "Principal",
+      },
     },
   });
+
+  const { classes } = useClasses();
 
   const promptMapper = {
     compute: {
@@ -77,7 +86,7 @@ const Results = () => {
       });
     }
 
-    return arr
+    return arr;
   };
   return (
     <div>
@@ -96,7 +105,10 @@ const Results = () => {
         singleButtonProps={{
           type: "button",
           isLoading: false,
-          disabled: false,
+          disabled:
+            user?.designation_name === "Principal"
+              ? !inputs.class_name
+              : false,
           onClick: promptMapper[promptStatus].onFormSubmit,
         }}
         singleButtonText="Continue"
@@ -148,6 +160,24 @@ const Results = () => {
             <p className="error-message">{errors.session}</p>
           )}
         </div>
+        {user?.designation_name === "Principal" && (
+          <div className="form-group mb-4">
+            <AuthSelect
+              label="Class"
+              value={inputs.class_name}
+              name="class_name"
+              hasError={!!errors.class_name}
+              onChange={handleChange}
+              options={(classes || []).map((x) => ({
+                value: x?.class_name,
+                title: x?.class_name,
+              }))}
+            />
+            {!!errors.class_name && (
+              <p className="error-message">{errors.class_name}</p>
+            )}
+          </div>
+        )}
       </Prompt>
     </div>
   );
