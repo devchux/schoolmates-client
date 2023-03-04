@@ -19,6 +19,7 @@ export const useStudent = () => {
   const [indexStatus, setIndexStatus] = useState("all");
   const [session, setSession] = useState("");
   const [admissionNumber, setAdmissionNumber] = useState("");
+  const [classes, setClasses] = useState({ present_class: "", sub_class: "" });
   const [sortBy, setSortBy] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
@@ -252,7 +253,7 @@ export const useStudent = () => {
     [queryKeys.GET_ALL_STUDENTS_BY_SESSION, session],
     () => apiServices.getStudentBySession(session),
     {
-      enabled: !!session && (permission?.sortSession || false),
+      enabled: !!session && permission?.sortSession,
       onError(err) {
         errorHandler(err);
         setSession("");
@@ -278,7 +279,7 @@ export const useStudent = () => {
     [queryKeys.GET_ALL_STUDENTS_BY_ADMISSION_NUMBER, admissionNumber],
     () => apiServices.getStudentByAdmissionNumber(admissionNumber),
     {
-      enabled: !!admissionNumber && (permission?.sortAdmissionNumber || false),
+      enabled: !!admissionNumber && permission?.sortAdmissionNumber,
       onError(err) {
         errorHandler(err);
         setAdmissionNumber("");
@@ -293,6 +294,39 @@ export const useStudent = () => {
           };
         });
         setAdmissionNumber("");
+        setSortedStudents(format);
+        setIndexStatus("all");
+        setSorted(true);
+      },
+    }
+  );
+
+  const { isLoading: getStudentByClassLoading } = useQuery(
+    [
+      queryKeys.GET_ALL_STUDENTS_BY_CLASS,
+      classes.present_class,
+      classes.sub_class,
+    ],
+    () => apiServices.getStudentByClass(classes),
+    {
+      enabled:
+        !!classes.present_class &&
+        !!classes.sub_class &&
+        permission?.sortStudentByClass,
+      onError(err) {
+        errorHandler(err);
+        setClasses({ present_class: "", sub_class: "" });
+      },
+      onSuccess(data) {
+        const format = apiServices.formatData(data)?.map((student) => {
+          return {
+            ...student,
+            image: (
+              <ProfileImage src={student?.image} wrapperClassName="mx-auto" />
+            ),
+          };
+        });
+        setClasses({ present_class: "", sub_class: "" });
         setSortedStudents(format);
         setIndexStatus("all");
         setSorted(true);
@@ -324,6 +358,39 @@ export const useStudent = () => {
     }
   );
 
+  const { isLoading: alumniLoading, data: graduatedStudents } = useQuery(
+    [queryKeys.GET_GRADUATED_STUDENTS],
+    apiServices.getAlumniList,
+    {
+      retry: 3,
+      enabled: permission?.alumni,
+      select: (data) => {
+        return apiServices.formatData(data)?.map((student) => {
+          return {
+            ...student,
+            image: (
+              <ProfileImage src={student?.image} wrapperClassName="mx-auto" />
+            ),
+          };
+        });
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    }
+  );
+
+  const { mutate: graduateStudent, isLoading: graduateStudentLoading } =
+    useMutation(apiServices.graduateStudent, {
+      onSuccess() {
+        toast.success("Student is now an alumni");
+        navigate("/app/students");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
   const formatSingleStudent = id
     ? students?.find((x) => x.id === id)
     : undefined;
@@ -342,7 +409,10 @@ export const useStudent = () => {
     studentDebtorsListLoading ||
     studentCreditorsListLoading ||
     getStudentByAdmissionNumberLoading ||
-    studentByClassLoading;
+    studentByClassLoading ||
+    graduateStudentLoading ||
+    alumniLoading ||
+    getStudentByClassLoading;
 
   return {
     user,
@@ -376,7 +446,10 @@ export const useStudent = () => {
     sortBy,
     setSortBy,
     setAdmissionNumber,
+    setClasses,
     studentByClassAndSession,
+    graduatedStudents,
+    graduateStudent,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
     studentData: singleStudent || formatSingleStudent,

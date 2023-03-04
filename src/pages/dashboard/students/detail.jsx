@@ -9,7 +9,11 @@ import { countryListSelect } from "../../../utils/constants";
 import { useAppContext } from "../../../hooks/useAppContext";
 import ImagePreview from "../../../components/common/image-preview";
 import Button from "../../../components/buttons/button";
-import { faMinusCircle, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMinusCircle,
+  faPlusCircle,
+  faUserGraduate,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Prompt from "../../../components/modals/prompt";
 
@@ -36,6 +40,7 @@ const StudentDetail = () => {
     resetFile,
     fileRef,
     withdrawStudent,
+    graduateStudent,
   } = useStudent();
 
   const { classes } = useClasses();
@@ -107,7 +112,7 @@ const StudentDetail = () => {
       onFormSubmit={handleSubmit(onSubmit)}
     >
       {isEdit && (
-        <div className="mb-5 d-flex justify-content-end">
+        <div className="mb-5 d-flex justify-content-end gap-3">
           <Button
             type="button"
             disabled={isLoading}
@@ -118,6 +123,18 @@ const StudentDetail = () => {
             <FontAwesomeIcon icon={studentStatus().icon} className="me-2" />{" "}
             {studentStatus().text}
           </Button>
+          {studentData?.status !== "graduated" && (
+            <Button
+              type="button"
+              disabled={isLoading}
+              isLoading={isLoading}
+              variant="dark"
+              onClick={() => graduateStudent({ id: studentData.id })}
+            >
+              <FontAwesomeIcon icon={faUserGraduate} className="me-2" />{" "}
+              Graduate Student
+            </Button>
+          )}
         </div>
       )}
 

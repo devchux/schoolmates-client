@@ -147,6 +147,25 @@ export const useHome = () => {
     }
   );
 
+  const { isLoading: schoolPopulationLoading } = useQuery(
+    [queryKeys.GET_SCHOOL_POPULATION],
+    apiServices.getSchoolPopulation,
+    {
+      enabled: ["Principal"].includes(user?.designation_name),
+      retry: 3,
+      onSuccess(data) {
+        updateUser({
+          ...user,
+          school_population: data,
+        });
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) => data?.data,
+    }
+  );
+
   const { isLoading: timetableLoading, data: timetableData } = useQuery(
     [queryKeys.GET_TIME_TABLE],
     apiServices.getTimeTable,
@@ -191,7 +210,8 @@ export const useHome = () => {
     schoolLoading ||
     classPopulationLoading ||
     timetableLoading ||
-    calendarLoading;
+    calendarLoading ||
+    schoolPopulationLoading;
 
   return {
     user,

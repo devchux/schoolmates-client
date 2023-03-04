@@ -26,11 +26,13 @@ const PageView = ({
   showTableTitle = false,
   pageTitle,
   selectOptions,
+  searchSelectOptions,
   selectValue,
   onSelectChange,
   hasSelect = false,
   isSessionSearch = false,
   illustrationBanner,
+  searchIsSelect = false,
   svgIllustrationBanner: SvgIllustrationBanner,
   ...rest
 }) => {
@@ -63,11 +65,13 @@ const PageView = ({
 
           {hasSearch && (
             <Search
+              searchIsSelect={searchIsSelect}
               isLoading={isLoading}
               placeholder={searchPlaceholder}
               onSearch={onSearch}
               isSessionSearch={isSessionSearch}
               onClear={onSearchClear}
+              searchSelectOptions={searchSelectOptions}
             />
           )}
         </div>

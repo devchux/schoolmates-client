@@ -37,7 +37,7 @@ export const useClasses = () => {
     apiServices.getAllClasses,
     {
       retry: 3,
-      enabled: permission?.read || false,
+      enabled: permission?.read || permission?.readClass,
       onSuccess(data) {
         setClasses(data);
         const formatClassList = data?.map((x) => ({

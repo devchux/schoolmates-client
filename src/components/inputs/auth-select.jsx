@@ -2,13 +2,14 @@ import React from "react";
 import Select from "react-select";
 
 const AuthSelect = ({
+  value,
+  label,
   hasError,
   wrapperClassName,
-  label,
+  sort = false,
   options = [],
   advanced = false,
-  sort = false,
-  value,
+  placeholder = "",
   noPlaceholder = false,
   ...rest
 }) => {
@@ -47,7 +48,7 @@ const AuthSelect = ({
           <select {...rest} value={value} className={!value ? "no-value" : ""}>
             {!noPlaceholder && (
               <option className="disabled" value="">
-                {sort ? "Sort By" : "Select..."}
+                {placeholder ? placeholder : sort ? "Sort By" : "Select..."}
               </option>
             )}
             {options?.map((opt, key) => (

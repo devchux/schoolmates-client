@@ -31,6 +31,8 @@ import StudentsHome from "../pages/dashboard/students/home";
 import DressCode from "../pages/dashboard/dress-code";
 import Principal from "../pages/dashboard/principal";
 import Accounts from "../pages/dashboard/accounts";
+import Comment from "../pages/dashboard/comment";
+import CommentDetail from "../pages/dashboard/comment/detail";
 
 const CustomRoutes = () => {
   return (
@@ -255,6 +257,23 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="principal">
               <Principal />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="comment"
+          element={
+            <Guard routeName="comment">
+              <Comment />
+            </Guard>
+          }
+        />
+        <Route
+          path="comment/new"
+          element={
+            <Guard routeName="comment">
+              <CommentDetail />
             </Guard>
           }
         />

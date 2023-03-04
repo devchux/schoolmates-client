@@ -4,13 +4,16 @@ import React, { useState } from "react";
 import { useAppContext } from "../../hooks/useAppContext";
 import ButtonGroup from "../buttons/button-group";
 import AuthInput from "./auth-input";
+import AuthSelect from "./auth-select";
 
 const Search = ({
   onSearch,
   placeholder,
+  searchSelectOptions,
   onClear = () => null,
   isLoading = false,
   isSessionSearch = false,
+  searchIsSelect = false,
 }) => {
   const [inputs, setinputs] = useState({ text: "" });
   const {
@@ -23,18 +26,35 @@ const Search = ({
 
   return (
     <div className="custom-search">
-      <AuthInput
-        wrapperClassName="custom-search-input"
-        placeholder={placeholder}
-        value={inputs.text}
-        onChange={({ target: { value } }) => {
-          if (isSessionSearch) {
-            handleSessionChange(value, "text", setText);
-          } else {
-            setText("text", value);
-          }
-        }}
-      />
+      {searchIsSelect ? (
+        <AuthSelect
+          sort
+          placeholder={placeholder}
+          options={searchSelectOptions}
+          value={inputs.text}
+          onChange={({ target: { value } }) => {
+            if (isSessionSearch) {
+              handleSessionChange(value, "text", setText);
+            } else {
+              setText("text", value);
+            }
+          }}
+        />
+      ) : (
+        <AuthInput
+          wrapperClassName="custom-search-input"
+          placeholder={placeholder}
+          value={inputs.text}
+          onChange={({ target: { value } }) => {
+            if (isSessionSearch) {
+              handleSessionChange(value, "text", setText);
+            } else {
+              setText("text", value);
+            }
+          }}
+        />
+      )}
+
       <ButtonGroup
         wrapperClassName="custom-search-buttons"
         options={[

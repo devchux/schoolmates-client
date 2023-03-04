@@ -67,10 +67,6 @@ const ProfileCard = ({ type = "super-admin" }) => {
             <p>{user.phoneno}</p>
           </div>
           <div>
-            <h3>Status:</h3>
-            <p>{user.status}</p>
-          </div>
-          <div>
             <h3>Department:</h3>
             <p>{user.department}</p>
           </div>
@@ -105,8 +101,8 @@ const ProfileCard = ({ type = "super-admin" }) => {
             <p>{user.phoneno}</p>
           </div>
           <div>
-            <h3>Status:</h3>
-            <p>{user.status}</p>
+            <h3>School Population:</h3>
+            <p>{user?.school_population}</p>
           </div>
           <div>
             <h3>Department:</h3>

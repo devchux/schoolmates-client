@@ -3,6 +3,7 @@ import {
   faBuilding,
   faBuildingColumns,
   faClipboardUser,
+  faComment,
   // faCode,
   faFileInvoice,
   faGraduationCap,
@@ -122,6 +123,21 @@ export const dashboardSideBarLinks = {
       icon: faHome,
     },
     {
+      to: "/app/comment",
+      title: "Comment",
+      icon: faComment,
+    },
+    {
+      to: "/app/results",
+      title: "Results",
+      icon: faBuildingColumns,
+    },
+    {
+      to: "/app/staffs",
+      title: "Staffs",
+      icon: faClipboardUser,
+    },
+    {
       to: "/app/students",
       title: "Students",
       icon: faGraduationCap,
@@ -135,11 +151,6 @@ export const dashboardSideBarLinks = {
       to: "/app/vehicles",
       title: "Vehicles",
       icon: faTruck,
-    },
-    {
-      to: "/app/alumni",
-      title: "Alumni",
-      icon: faPeopleGroup,
     },
   ],
   Student: [

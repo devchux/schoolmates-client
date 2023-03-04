@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import PageView from "../../../components/views/table-view";
+import { useClasses } from "../../../hooks/useClasses";
 import { useStudent } from "../../../hooks/useStudent";
 
 const Student = () => {
@@ -24,7 +25,13 @@ const Student = () => {
     setSortBy,
     studentByClassAndSession,
     user,
+    graduatedStudents,
+    setClasses,
   } = useStudent();
+
+  const { classes } = useClasses();
+
+  console.log(classes);
 
   const setVariant = (status) => {
     return indexStatus !== status ? "outline" : null;
@@ -33,6 +40,85 @@ const Student = () => {
   const getColumns = () => {
     switch (indexStatus) {
       case "all":
+        return [
+          {
+            Header: "",
+            accessor: "image",
+          },
+          {
+            Header: "id",
+            accessor: "id",
+          },
+          {
+            Header: "First Name",
+            accessor: "firstname",
+          },
+          {
+            Header: "Surname",
+            accessor: "surname",
+          },
+          {
+            Header: "Middle Name",
+            accessor: "middlename",
+          },
+          {
+            Header: "Username",
+            accessor: "username",
+          },
+          {
+            Header: "Phone Number",
+            accessor: "phone_number",
+          },
+          {
+            Header: "Status",
+            accessor: "status",
+          },
+          {
+            Header: "Admission Number",
+            accessor: "admission_number",
+          },
+          {
+            Header: "Class",
+            accessor: "class",
+          },
+          {
+            Header: "Present Class",
+            accessor: "present_class",
+          },
+          {
+            Header: "Session Admitted",
+            accessor: "session_admitted",
+          },
+          {
+            Header: "Email Address",
+            accessor: "email_address",
+          },
+          {
+            Header: "Home Address",
+            accessor: "home_address",
+          },
+          {
+            Header: "Gender",
+            accessor: "gender",
+          },
+          {
+            Header: "Blood Group",
+            accessor: "blood_group",
+          },
+          {
+            Header: "Genotype",
+            accessor: "genotype",
+          },
+          {
+            Header: "State",
+            accessor: "state",
+          },
+          {
+            Header: "Nationality",
+            accessor: "nationality",
+          },
+        ];
+      case "alumni":
         return [
           {
             Header: "",
@@ -401,7 +487,22 @@ const Student = () => {
       });
     }
 
+    if (permission?.alumni) {
+      arr.push({
+        title: "Alumni",
+        type: "button",
+        onClick: () => setIndexStatus("alumni"),
+        variant: setVariant("alumni"),
+      });
+    }
+
     return arr.length ? arr : undefined;
+  };
+
+  const searchPlaceholder = {
+    session: "Sort by session (2021/2022)",
+    "admission-number": "Enter Admission Number",
+    class: "Select Class",
   };
 
   const data = {
@@ -409,6 +510,25 @@ const Student = () => {
     creditors: studentCreditors,
     debtors: studentDebtors,
     myStudents: studentByClassAndSession,
+    alumni: graduatedStudents,
+  };
+
+  const searchByClass = (value) => {
+    const findClass = classes?.find((each) => each?.class_name === value) || {};
+    setClasses({
+      present_class: findClass?.class_name,
+      sub_class: findClass?.sub_class,
+    });
+  };
+
+  const onSearch = (value) => {
+    const search = {
+      session: setSession,
+      "admission-number": setAdmissionNumber,
+      class: searchByClass,
+    };
+
+    return search[sortBy](value);
   };
 
   useEffect(() => {
@@ -420,44 +540,44 @@ const Student = () => {
 
   return (
     <PageView
+      selectValue={sortBy}
+      isLoading={isLoading}
+      onSearchClear={() => {
+        setSorted(false);
+        setSortBy("");
+      }}
+      data={data[indexStatus]}
+      onDelete={onDeleteStudent}
+      onSelectChange={handleSortBy}
+      canCreate={permission?.create}
+      hasSortOptions={permission?.sort}
+      searchIsSelect={sortBy === "class"}
+      columns={
+        user?.designation_name === "Student"
+          ? getStudentColumns()
+          : getColumns()
+      }
+      isSessionSearch={sortBy === "session"}
+      groupedButtonOptions={getSortButtonOptions()}
       hasSelect={indexStatus === "all" && permission?.sortSession}
+      hasSearch={indexStatus === "all" && permission?.sortSession}
+      searchSelectOptions={(classes || []).map((x) => ({
+        value: x?.class_name,
+        title: x?.class_name,
+      }))}
       selectOptions={[
         { value: "admission-number", title: "Admission Number" },
         { value: "session", title: "Session" },
+        { value: "class", title: "Class" },
       ]}
-      isSessionSearch={sortBy === "session"}
-      onSelectChange={handleSortBy}
-      selectValue={sortBy}
-      canCreate={permission?.create}
+      onSearch={onSearch}
       rowHasUpdate={
         !["creditors", "debtors"].includes(indexStatus) && permission?.update
       }
       rowHasDelete={
         !["creditors", "debtors"].includes(indexStatus) && permission?.delete
       }
-      hasSortOptions={permission?.sort}
-      hasSearch={indexStatus === "all" && permission?.sortSession}
-      groupedButtonOptions={getSortButtonOptions()}
-      searchPlaceholder={
-        sortBy === "session"
-          ? "Sort by session (2021/2022)"
-          : "Enter Admission Number"
-      }
-      onDelete={onDeleteStudent}
-      onSearch={(value) =>
-        sortBy === "session" ? setSession(value) : setAdmissionNumber(value)
-      }
-      onSearchClear={() => {
-        setSorted(false);
-        setSortBy("");
-      }}
-      isLoading={isLoading}
-      columns={
-        user?.designation_name === "Student"
-          ? getStudentColumns()
-          : getColumns()
-      }
-      data={data[indexStatus]}
+      searchPlaceholder={searchPlaceholder[sortBy] || "Enter Admission Number"}
     />
   );
 };

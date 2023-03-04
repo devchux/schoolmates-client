@@ -44,6 +44,9 @@ export const permissions = {
       sort: true,
       sortSession: true,
       sortAdmissionNumber: true,
+      alumni: true,
+      graduateStudent: false,
+      readClass: true,
     },
     reports: {
       read: true,
@@ -82,6 +85,9 @@ export const permissions = {
       sortSession: true,
       sortAdmissionNumber: true,
       myStudents: true,
+      alumni: false,
+      graduateStudent: false,
+      readClass: true,
     },
     results: {
       compute: true,
@@ -115,6 +121,40 @@ export const permissions = {
     "dress-code": {
       read: true,
     },
+    comment: {
+      create: true,
+    },
+    staffs: {
+      create: true,
+      read: true,
+      readAttendance: true,
+      update: true,
+      delete: true,
+      statusToggle: true,
+      sort: true,
+    },
+    students: {
+      create: true,
+      read: true,
+      readCreditors: false,
+      readDebtors: false,
+      update: true,
+      delete: true,
+      statusToggle: false,
+      sort: true,
+      sortSession: true,
+      sortAdmissionNumber: true,
+      sortStudentByClass: true,
+      myStudents: false,
+      alumni: true,
+      graduateStudent: true,
+      readClass: true,
+    },
+    results: {
+      compute: false,
+      view: true,
+      preSchool: true,
+    },
   },
   Student: {
     "student-home": {
@@ -144,6 +184,9 @@ export const permissions = {
       sortSession: false,
       sortAdmissionNumber: false,
       myStudents: true,
+      alumni: false,
+      graduateStudent: false,
+      readClass: true,
     },
     "dress-code": {
       read: true,

@@ -301,6 +301,20 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getStudentByClass({ present_class, sub_class }) {
+    const { data } = await axios.get(
+      `${backendAPI}/studentbyclass/${present_class}/${sub_class}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
   async withdrawStudent({ id }) {
     const { data } = await axios.patch(
       `${backendAPI}/withdrawstudent/${id}`,
@@ -779,6 +793,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async postPrincipalComment({ body }) {
+    const { data } = await axios.post(`${backendAPI}/principalcomment`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async getEndOfTermResults(student_id, term, session) {
     const { data } = await axios.get(
       `${backendAPI}/endtermresult/${student_id}/${term}/${session}`,
@@ -828,6 +853,58 @@ class APIServies extends Helpers {
 
   async getStudentInvoice() {
     const { data } = await axios.get(`${backendAPI}/studentinvoice`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async promoteStudent({ id, ...body }) {
+    const { data } = await axios.patch(
+      `${backendAPI}/promotestudent/${id}`,
+      body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async graduateStudent({ id }) {
+    const { data } = await axios.patch(
+      `${backendAPI}/graduatestudent/${id}`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async getAlumniList() {
+    const { data } = await axios.get(`${backendAPI}/graduatedstudent`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getSchoolPopulation() {
+    const { data } = await axios.get(`${backendAPI}/schoolpopulation`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
