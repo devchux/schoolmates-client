@@ -54,6 +54,7 @@ const EndOfTerm = ({ isCompute = false }) => {
     // isLoading,
     academicDate,
     // permission,
+    idWithComputedResult,
     openPrompt,
     setOpenPrompt,
     selectedComment,
@@ -146,7 +147,7 @@ const EndOfTerm = ({ isCompute = false }) => {
                 }`}
               >
                 <ProfileImage src={x?.image} alt={x.firstname} />
-                {additionalCreds?.computed_endterm && (
+                {idWithComputedResult.includes(x.id) && (
                   <div className="computed" />
                 )}
               </div>

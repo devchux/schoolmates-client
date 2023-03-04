@@ -17,7 +17,7 @@ const MidTerm = ({ isCompute = false }) => {
 
   const {
     isLoading,
-    additionalCreds,
+    idWithComputedResult,
     // permission,
     openPrompt,
     setOpenPrompt,
@@ -70,9 +70,9 @@ const MidTerm = ({ isCompute = false }) => {
                 }`}
               >
                 <ProfileImage src={x?.image} alt={x.firstname} />
-                {additionalCreds?.computed_midterm && (
+                {idWithComputedResult.includes(x.id) ? (
                   <div className="computed" />
-                )}
+                ) : null}
               </div>
               <div>
                 <p>{x.firstname}</p>

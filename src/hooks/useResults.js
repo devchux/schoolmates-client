@@ -15,6 +15,7 @@ export const useResults = () => {
   const [hosComment, setHosComment] = useState("");
   const [comment, setComment] = useState("teacher");
   const [studentData, setStudentData] = useState({});
+  const [idWithComputedResult, setIdWithComputedResult] = useState([]);
   const [subjects, setSubjects] = useState([]);
   const [initGetStudentsByClass, setInitGetStudentsByClass] = useState(false);
   const [initGetStudentData, setInitGetStudentData] = useState(true);
@@ -114,6 +115,8 @@ export const useResults = () => {
         setHosComment("");
 
         if (data?.length > 0) {
+          const ids = data?.map((x) => x.student_id);
+          setIdWithComputedResult(ids);
           const studentResult = data?.find(
             (x) =>
               x.student_id === studentData?.id &&
@@ -186,6 +189,8 @@ export const useResults = () => {
       onSuccess(data) {
         setInitGetExistingResult(false);
         if (data.length > 0) {
+          const ids = data?.map((x) => x.student_id);
+          setIdWithComputedResult(ids);
           const studentResult = data?.find(
             (x) =>
               x.student_id === studentData?.id &&
@@ -367,6 +372,7 @@ export const useResults = () => {
     comments,
     createEndOfTermResult,
     getScoreRemark,
+    idWithComputedResult,
     setInitGetExistingSecondHalfResult,
   };
 };
