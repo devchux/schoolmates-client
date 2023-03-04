@@ -3,11 +3,9 @@ import { useForm } from "react-formid";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { Col, Row } from "reactstrap";
-import ImagePreview from "../../../components/common/image-preview";
 import AuthInput from "../../../components/inputs/auth-input";
 import DetailView from "../../../components/views/detail-view";
 import { useAppContext } from "../../../hooks/useAppContext";
-import { useFile } from "../../../hooks/useFile";
 
 const CommentDetail = () => {
   const { apiServices, user } = useAppContext();
@@ -25,9 +23,6 @@ const CommentDetail = () => {
     }
   );
 
-  const { handleImageChange, filePreview, base64String, fileRef, reset } =
-    useFile();
-
   const { handleSubmit, errors, getFieldProps } = useForm({
     defaultValues: {
       hos_comment: "",
@@ -35,14 +30,10 @@ const CommentDetail = () => {
   });
 
   const onSubmit = (data) => {
-    if (!base64String) {
-      return toast.error("Signature not provided");
-    }
     createPost({
       body: {
         ...data,
         hos_id: user.id,
-        signature: base64String,
       },
     });
   };
@@ -63,23 +54,7 @@ const CommentDetail = () => {
             <p className="error-message">{errors.hos_comment}</p>
           )}
         </Col>
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            type="file"
-            className="px-0"
-            wrapperClassName="border-0"
-            label="Signature"
-            onChange={handleImageChange}
-            ref={fileRef}
-          />
-        </Col>
       </Row>
-      <ImagePreview
-        src={filePreview}
-        centered
-        wrapperClassName="my-5"
-        reset={reset}
-      />
     </DetailView>
   );
 };

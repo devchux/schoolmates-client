@@ -28,6 +28,8 @@ export const useProfile = () => {
       phoneno: "",
       address: "",
       image: "",
+      signature: "",
+      signaturePreview: "",
     },
   });
 
@@ -61,7 +63,7 @@ export const useProfile = () => {
   const isLoading = updateProfileLoading;
 
   useEffect(() => {
-    setInputs({
+    let updatedInputs = {
       ...inputs,
       id,
       department,
@@ -73,7 +75,11 @@ export const useProfile = () => {
       phoneno,
       address,
       image,
-    });
+    };
+    if (["Teacher", "Principal"].includes(user.designation_name)) {
+      updatedInputs["signature"] = user.signature;
+    }
+    setInputs(updatedInputs);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     department,
@@ -88,6 +94,7 @@ export const useProfile = () => {
   ]);
 
   return {
+    user,
     getFieldProps,
     inputs,
     setFieldValue,
@@ -102,5 +109,6 @@ export const useProfile = () => {
     base64String,
     fileRef,
     reset,
+    convertBase64: apiServices.convertBase64,
   };
 };

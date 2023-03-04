@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { Col, Row } from "reactstrap";
 import ImagePreview from "../../../components/common/image-preview";
 import AuthInput from "../../../components/inputs/auth-input";
@@ -9,6 +10,7 @@ import { useProfile } from "../../../hooks/useProfile";
 
 const Profile = () => {
   const {
+    user,
     getFieldProps,
     inputs,
     handleSubmit,
@@ -21,6 +23,8 @@ const Profile = () => {
     base64String,
     fileRef,
     reset,
+    convertBase64,
+    setFieldValue,
   } = useProfile();
 
   const { isLoading: departmentsListLoading, departmentsList } =
@@ -30,7 +34,12 @@ const Profile = () => {
 
   const onSubmit = async (data) => {
     const image = base64String ? base64String : inputs.image;
-    await updateProfile({ ...data, image });
+    const { signature, signaturePreview, ...others } = data;
+    let res = { ...others, image };
+    if (["Teacher", "Principal"].includes(user.designation_name)) {
+      res["signature"] = signature;
+    }
+    await updateProfile(res);
   };
 
   return (
@@ -161,6 +170,47 @@ const Profile = () => {
           )}
         </Col>
       </Row>
+      {["Teacher", "Principal"].includes(user.designation_name) && (
+        <Row className="mb-0 mb-sm-4">
+          <Col sm="6" className="mb-4 mb-sm-0">
+            <ImagePreview
+              src={inputs?.signaturePreview || inputs?.signature}
+              wrapperClassName="mb-3 w-25 h-100"
+              reset={() => {
+                setFieldValue("signaturePreview", "");
+                setFieldValue("signature", "");
+              }}
+            />
+            <AuthInput
+              label="Signature"
+              type="file"
+              className="px-0"
+              wrapperClassName="border-0"
+              onChange={async (e) => {
+                const file = e.target.files[0];
+                const file_types = ["image/png", "image/jpeg", "image/jpg"];
+
+                if (!file) return;
+
+                if (!file_types.includes(file.type)) {
+                  toast.error(`File can either be ${file_types.join(" ")}`);
+                  return;
+                }
+
+                if (file.size > 3000000) {
+                  toast.error("File should not be greater than 3mb");
+                  return;
+                }
+
+                const photoData = await convertBase64(file);
+
+                setFieldValue("signaturePreview", URL.createObjectURL(file));
+                setFieldValue("signature", photoData);
+              }}
+            />
+          </Col>
+        </Row>
+      )}
     </DetailView>
   );
 };
