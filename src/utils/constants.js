@@ -128,6 +128,11 @@ export const dashboardSideBarLinks = {
       icon: faComment,
     },
     {
+      to: "/app/reports",
+      title: "Reports",
+      icon: faFileInvoice,
+    },
+    {
       to: "/app/results",
       title: "Results",
       icon: faBuildingColumns,
@@ -141,11 +146,6 @@ export const dashboardSideBarLinks = {
       to: "/app/students",
       title: "Students",
       icon: faGraduationCap,
-    },
-    {
-      to: "/app/reports",
-      title: "Reports",
-      icon: faFileInvoice,
     },
     {
       to: "/app/vehicles",
