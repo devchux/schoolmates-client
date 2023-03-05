@@ -1,18 +1,18 @@
 import {
-  // faBookmark,
+  faBookmark,
   faBuilding,
   faBuildingColumns,
   faClipboardUser,
   faComment,
-  // faCode,
+  faCode,
   faFileInvoice,
   faGraduationCap,
   faHome,
   faPaperPlane,
   faPeopleGroup,
-  // faScaleBalanced,
+  faScaleBalanced,
   faSchool,
-  // faTape,
+  faTape,
   faTruck,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -23,21 +23,84 @@ export const homeUrl = {
   Teacher: "/app/teachers",
   Principal: "/app/principal",
   Student: "/app/student-home",
+  Admin: "/app/admin",
 };
 
 export const dashboardSideBarLinks = {
-  Admin: [],
+  Admin: [
+    {
+      to: "/app/admin",
+      title: "Home",
+      icon: faHome,
+    },
+    {
+      to: "/app/staffs",
+      title: "Staff Assignment",
+      icon: faClipboardUser,
+    },
+    {
+      to: "/app/students",
+      title: "Students",
+      icon: faGraduationCap,
+    },
+    {
+      to: "/app/",
+      title: "Broadsheet",
+      icon: faTape,
+    },
+    {
+      to: "/app/departments",
+      title: "Departments",
+      icon: faBuilding,
+    },
+    {
+      to: "/app/attendance",
+      title: "Attendance",
+      icon: faPeopleGroup,
+    },
+    {
+      to: "/app/",
+      title: "Grading System",
+      icon: faBuildingColumns,
+    },
+    {
+      to: "/app/vehicles",
+      title: "Vehicles",
+      icon: faTruck,
+    },
+    {
+      to: "/app/classes",
+      title: "Classes",
+      icon: faSchool,
+    },
+    {
+      to: "/app/subjects",
+      title: "Subjects",
+      icon: faBookmark,
+    },
+    {
+      to: "/",
+      title: "Disciplinary Action",
+      icon: faScaleBalanced,
+    },
+    {
+      to: "/",
+      title: "Code of Conduct",
+      icon: faCode,
+    },
+    {
+      to: "/",
+      title: "Assets",
+      icon: faTape,
+    },
+  ],
   Superadmin: [
     {
       to: "/app/super-admin",
       title: "Home",
       icon: faHome,
     },
-    // {
-    //   to: "/",
-    //   title: "Assets",
-    //   icon: faTape,
-    // },
+    
     {
       to: "/app/campus",
       title: "Campus",
@@ -48,21 +111,13 @@ export const dashboardSideBarLinks = {
       title: "Classes",
       icon: faSchool,
     },
-    // {
-    //   to: "/",
-    //   title: "Code of Conduct",
-    //   icon: faCode,
-    // },
+    
     {
       to: "/app/departments",
       title: "Departments",
       icon: faBuilding,
     },
-    // {
-    //   to: "/",
-    //   title: "Disciplinary Action",
-    //   icon: faScaleBalanced,
-    // },
+    
     {
       to: "/app/reports",
       title: "Reports",
@@ -105,11 +160,7 @@ export const dashboardSideBarLinks = {
       title: "Results",
       icon: faBuildingColumns,
     },
-    // {
-    //   to: "/app/subjects",
-    //   title: "Subjects",
-    //   icon: faBookmark,
-    // },
+    
     {
       to: "/app/students",
       title: "Students",

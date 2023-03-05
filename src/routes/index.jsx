@@ -33,6 +33,7 @@ import Principal from "../pages/dashboard/principal";
 import Accounts from "../pages/dashboard/accounts";
 import Comment from "../pages/dashboard/comment";
 import CommentDetail from "../pages/dashboard/comment/detail";
+import Admin from "../pages/dashboard/admin";
 
 const CustomRoutes = () => {
   return (
@@ -50,6 +51,14 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="superAdmin">
               <SuperAdmin />
+            </Guard>
+          }
+        />
+        <Route
+          path="admin"
+          element={
+            <Guard routeName="admin">
+              <Admin/>
             </Guard>
           }
         />

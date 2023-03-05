@@ -18,7 +18,7 @@ export const permissions = {
       statusToggle: false,
     },
     departments: {
-      create: false,
+      create: true,
       read: true,
       update: false,
       delete: false,
@@ -198,6 +198,56 @@ export const permissions = {
       paymentReciept: true,
       myInvoice: true,
       previousInvoice: true,
+    },
+  },
+  Admin: {
+    admin: {
+      read: true,
+    },
+
+    vehicles: {
+      create: false,
+      read: true,
+      readLogs: false,
+      update: false,
+      delete: false,
+    },
+    departments: {
+      create: false,
+      read: true,
+      update: false,
+      delete: false,
+      statusToggle: false,
+    },
+
+    students: {
+      create: false,
+      read: true,
+      readCreditors: false,
+      readDebtors: false,
+      update: false,
+      delete: false,
+      statusToggle: false,
+      sort: true,
+      sortSession: false,
+      sortAdmissionNumber: false,
+      myStudents: true,
+      alumni: false,
+      graduateStudent: false,
+      readClass: true,
+    },
+    attendance: {
+      retrieve: true,
+      save: true,
+    },
+    staffs: {
+      create: true,
+      read: true,
+      readAttendance: true,
+      update: true,
+      delete: true,
+      statusToggle: true,
+      sort: true,
     },
   },
 };
