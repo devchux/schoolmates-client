@@ -4,15 +4,15 @@ import {
   faBuildingColumns,
   faClipboardUser,
   faComment,
-  // faCode,
+  faCode,
   faFileInvoice,
   faGraduationCap,
   faHome,
   faPaperPlane,
   faPeopleGroup,
-  // faScaleBalanced,
+  faScaleBalanced,
   faSchool,
-  // faTape,
+  faTape,
   faTruck,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -46,12 +46,17 @@ export const dashboardSideBarLinks = {
     {
       to: "/app/",
       title: "Broadsheet",
-      icon: faBookmark,
+      icon: faTape,
     },
     {
       to: "/app/departments",
       title: "Departments",
       icon: faBuilding,
+    },
+    {
+      to: "/app/attendance",
+      title: "Attendance",
+      icon: faPeopleGroup,
     },
     {
       to: "/app/",
@@ -63,7 +68,31 @@ export const dashboardSideBarLinks = {
       title: "Vehicles",
       icon: faTruck,
     },
-    
+    {
+      to: "/app/classes",
+      title: "Classes",
+      icon: faSchool,
+    },
+    {
+      to: "/app/subjects",
+      title: "Subjects",
+      icon: faBookmark,
+    },
+    {
+      to: "/",
+      title: "Disciplinary Action",
+      icon: faScaleBalanced,
+    },
+    {
+      to: "/",
+      title: "Code of Conduct",
+      icon: faCode,
+    },
+    {
+      to: "/",
+      title: "Assets",
+      icon: faTape,
+    },
   ],
   Superadmin: [
     {
@@ -71,11 +100,7 @@ export const dashboardSideBarLinks = {
       title: "Home",
       icon: faHome,
     },
-    // {
-    //   to: "/",
-    //   title: "Assets",
-    //   icon: faTape,
-    // },
+    
     {
       to: "/app/campus",
       title: "Campus",
@@ -86,21 +111,13 @@ export const dashboardSideBarLinks = {
       title: "Classes",
       icon: faSchool,
     },
-    // {
-    //   to: "/",
-    //   title: "Code of Conduct",
-    //   icon: faCode,
-    // },
+    
     {
       to: "/app/departments",
       title: "Departments",
       icon: faBuilding,
     },
-    // {
-    //   to: "/",
-    //   title: "Disciplinary Action",
-    //   icon: faScaleBalanced,
-    // },
+    
     {
       to: "/app/reports",
       title: "Reports",
@@ -129,7 +146,7 @@ export const dashboardSideBarLinks = {
   ],
   Teacher: [
     {
-      to: "/app/s",
+      to: "/app/teachers",
       title: "Home",
       icon: faHome,
     },
@@ -143,11 +160,7 @@ export const dashboardSideBarLinks = {
       title: "Results",
       icon: faBuildingColumns,
     },
-    // {
-    //   to: "/app/subjects",
-    //   title: "Subjects",
-    //   icon: faBookmark,
-    // },
+    
     {
       to: "/app/students",
       title: "Students",

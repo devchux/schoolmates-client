@@ -18,7 +18,7 @@ export const permissions = {
       statusToggle: false,
     },
     departments: {
-      create: false,
+      create: true,
       read: true,
       update: false,
       delete: false,
@@ -235,6 +235,19 @@ export const permissions = {
       alumni: false,
       graduateStudent: false,
       readClass: true,
+    },
+    attendance: {
+      retrieve: true,
+      save: true,
+    },
+    staffs: {
+      create: true,
+      read: true,
+      readAttendance: true,
+      update: true,
+      delete: true,
+      statusToggle: true,
+      sort: true,
     },
   },
 };
