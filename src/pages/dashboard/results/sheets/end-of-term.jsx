@@ -782,14 +782,19 @@ const EndOfTerm = ({ isCompute = false }) => {
                     )}
                   </td>
                 </tr>
-                <tr>
-                  <td>Name:</td>
-                  <td className="text-capitalize">Ogene Onyinye</td>
-                  <td>Sign:</td>
-                  <td></td>
-                  <td>Date:</td>
-                  <td>{moment(new Date()).format("DD/MM/YYYY")}</td>
-                </tr>
+                {!isCompute && (
+                  <tr>
+                    <td>Name:</td>
+                    <td className="text-capitalize">
+                      {additionalCreds?.teacher_fullname}
+                    </td>
+                    <td>Sign:</td>
+                    <td></td>
+                    <td>Date:</td>
+                    <td>{moment(new Date()).format("DD/MM/YYYY")}</td>
+                  </tr>
+                )}
+
                 <tr>
                   <td colSpan="6" />
                 </tr>
@@ -822,16 +827,18 @@ const EndOfTerm = ({ isCompute = false }) => {
                     )}
                   </td>
                 </tr>
-                <tr>
-                  <td>Name:</td>
-                  <td className="text-capitalize">
-                    {user?.firstname} {user?.surname}
-                  </td>
-                  <td>Sign:</td>
-                  <td></td>
-                  <td>Date:</td>
-                  <td>{moment(new Date()).format("DD/MM/YYYY")}</td>
-                </tr>
+                {!isCompute && (
+                  <tr>
+                    <td>Name:</td>
+                    <td className="text-capitalize">
+                      {additionalCreds?.hos_fullname}
+                    </td>
+                    <td>Sign:</td>
+                    <td></td>
+                    <td>Date:</td>
+                    <td>{moment(new Date()).format("DD/MM/YYYY")}</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
