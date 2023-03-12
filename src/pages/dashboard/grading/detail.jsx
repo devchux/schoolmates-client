@@ -37,8 +37,7 @@ const GradingDetail = () => {
   return (
     <DetailView
       isLoading={isLoading}
-      cancelLink="/app/departments"
-      pageTitle="Create Department"
+      pageTitle="Create Grading"
       onFormSubmit={handleSubmit(onSubmit)}
     >
       <Row className="mb-0 mb-sm-4">

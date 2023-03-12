@@ -10,7 +10,7 @@ import {
   faHome,
   faPaperPlane,
   faPeopleGroup,
-  faScaleBalanced,
+  // faScaleBalanced,
   faSchool,
   // faTape,
   faTruck,
@@ -64,11 +64,11 @@ export const dashboardSideBarLinks = {
       title: "Departments",
       icon: faBuilding,
     },
-    {
-      to: "/",
-      title: "Disciplinary Action",
-      icon: faScaleBalanced,
-    },
+    // {
+    //   to: "/",
+    //   title: "Disciplinary Action",
+    //   icon: faScaleBalanced,
+    // },
     {
       to: "/app/grading",
       title: "Grading",
