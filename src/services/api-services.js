@@ -330,6 +330,21 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async acceptStudent({ id }) {
+    const { data } = await axios.patch(
+      `${backendAPI}/acceptstudent/${id}`,
+      {},
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
   async getAllVehicles() {
     const { data } = await axios.get(`${backendAPI}/vehicle`, {
       headers: {

@@ -57,6 +57,7 @@ export const useStudent = () => {
       session_admitted: "",
       class: "",
       present_class: "",
+      sub_class: "",
       image: "",
       home_address: "",
       phone_number: "",
@@ -337,8 +338,17 @@ export const useStudent = () => {
   const { mutateAsync: withdrawStudent, isLoading: withdrawStudentLoading } =
     useMutation(apiServices.withdrawStudent, {
       onSuccess() {
-        toast.success("Student has been deleted successfully");
-        navigate("/app/students");
+        toast.success("Student has been withdrawn");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
+  const { mutateAsync: acceptStudent, isLoading: acceptStudentLoading } =
+    useMutation(apiServices.acceptStudent, {
+      onSuccess() {
+        toast.success("Student has been accepted");
       },
       onError(err) {
         errorHandler(err);
@@ -429,7 +439,8 @@ export const useStudent = () => {
     graduateStudentLoading ||
     alumniLoading ||
     getStudentByClassLoading ||
-    studentLoginDetailsLoading;
+    studentLoginDetailsLoading ||
+    acceptStudentLoading;
 
   return {
     user,
@@ -468,6 +479,7 @@ export const useStudent = () => {
     graduatedStudents,
     graduateStudent,
     studentLoginDetailsStudents,
+    acceptStudent,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
     studentData: singleStudent || formatSingleStudent,
