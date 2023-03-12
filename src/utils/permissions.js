@@ -250,6 +250,9 @@ export const permissions = {
       readClass: true,
       studentLoginDetails: true,
     },
+    subjects: {
+      read: true,
+    },
     attendance: {
       retrieve: true,
       save: true,

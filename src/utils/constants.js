@@ -4,7 +4,7 @@ import {
   faBuildingColumns,
   faClipboardUser,
   faComment,
-  faCode,
+  // faCode,
   faFileInvoice,
   faGraduationCap,
   faHome,
@@ -12,7 +12,7 @@ import {
   faPeopleGroup,
   faScaleBalanced,
   faSchool,
-  faTape,
+  // faTape,
   faTruck,
   faMarker,
 } from "@fortawesome/free-solid-svg-icons";
@@ -34,31 +34,31 @@ export const dashboardSideBarLinks = {
       title: "Home",
       icon: faHome,
     },
-    {
-      to: "/",
-      title: "Assets",
-      icon: faTape,
-    },
-    {
-      to: "/app/attendance",
-      title: "Attendance",
-      icon: faPeopleGroup,
-    },
-    {
-      to: "/app/",
-      title: "Broadsheet",
-      icon: faTape,
-    },
+    // {
+    //   to: "/",
+    //   title: "Assets",
+    //   icon: faTape,
+    // },
+    // {
+    //   to: "/app/attendance",
+    //   title: "Attendance",
+    //   icon: faPeopleGroup,
+    // },
+    // {
+    //   to: "/app/",
+    //   title: "Broadsheet",
+    //   icon: faTape,
+    // },
     {
       to: "/app/classes",
       title: "Classes",
       icon: faSchool,
     },
-    {
-      to: "/",
-      title: "Code of Conduct",
-      icon: faCode,
-    },
+    // {
+    //   to: "/",
+    //   title: "Code of Conduct",
+    //   icon: faCode,
+    // },
     {
       to: "/app/departments",
       title: "Departments",

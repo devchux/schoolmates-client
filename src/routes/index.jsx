@@ -37,6 +37,7 @@ import Admin from "../pages/dashboard/admin";
 import DepartmentDetail from "../pages/dashboard/departments/detail";
 import GradingDetail from "../pages/dashboard/grading/detail";
 import VehicleDetail from "../pages/dashboard/vehicles/detail";
+import Subjects from "../pages/dashboard/subjects";
 
 const CustomRoutes = () => {
   return (
@@ -62,6 +63,14 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="admin">
               <Admin />
+            </Guard>
+          }
+        />
+        <Route
+          path="subjects"
+          element={
+            <Guard routeName="subjects">
+              <Subjects />
             </Guard>
           }
         />
