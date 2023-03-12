@@ -14,6 +14,7 @@ import {
   faSchool,
   faTape,
   faTruck,
+  faMarker,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const backendAPI = "https://schoolmate.powershellerp.com/api";
@@ -34,24 +35,9 @@ export const dashboardSideBarLinks = {
       icon: faHome,
     },
     {
-      to: "/app/staffs",
-      title: "Staff Assignment",
-      icon: faClipboardUser,
-    },
-    {
-      to: "/app/students",
-      title: "Students",
-      icon: faGraduationCap,
-    },
-    {
-      to: "/app/",
-      title: "Broadsheet",
+      to: "/",
+      title: "Assets",
       icon: faTape,
-    },
-    {
-      to: "/app/departments",
-      title: "Departments",
-      icon: faBuilding,
     },
     {
       to: "/app/attendance",
@@ -60,13 +46,8 @@ export const dashboardSideBarLinks = {
     },
     {
       to: "/app/",
-      title: "Grading System",
-      icon: faBuildingColumns,
-    },
-    {
-      to: "/app/vehicles",
-      title: "Vehicles",
-      icon: faTruck,
+      title: "Broadsheet",
+      icon: faTape,
     },
     {
       to: "/app/classes",
@@ -74,9 +55,14 @@ export const dashboardSideBarLinks = {
       icon: faSchool,
     },
     {
-      to: "/app/subjects",
-      title: "Subjects",
-      icon: faBookmark,
+      to: "/",
+      title: "Code of Conduct",
+      icon: faCode,
+    },
+    {
+      to: "/app/departments",
+      title: "Departments",
+      icon: faBuilding,
     },
     {
       to: "/",
@@ -84,14 +70,29 @@ export const dashboardSideBarLinks = {
       icon: faScaleBalanced,
     },
     {
-      to: "/",
-      title: "Code of Conduct",
-      icon: faCode,
+      to: "/app/grading",
+      title: "Grading",
+      icon: faMarker,
     },
     {
-      to: "/",
-      title: "Assets",
-      icon: faTape,
+      to: "/app/staffs",
+      title: "Staffs",
+      icon: faClipboardUser,
+    },
+    {
+      to: "/app/students",
+      title: "Students",
+      icon: faGraduationCap,
+    },
+    {
+      to: "/app/subjects",
+      title: "Subjects",
+      icon: faBookmark,
+    },
+    {
+      to: "/app/vehicles",
+      title: "Vehicles",
+      icon: faTruck,
     },
   ],
   Superadmin: [
@@ -100,7 +101,7 @@ export const dashboardSideBarLinks = {
       title: "Home",
       icon: faHome,
     },
-    
+
     {
       to: "/app/campus",
       title: "Campus",
@@ -111,13 +112,13 @@ export const dashboardSideBarLinks = {
       title: "Classes",
       icon: faSchool,
     },
-    
+
     {
       to: "/app/departments",
       title: "Departments",
       icon: faBuilding,
     },
-    
+
     {
       to: "/app/reports",
       title: "Reports",
@@ -160,7 +161,7 @@ export const dashboardSideBarLinks = {
       title: "Results",
       icon: faBuildingColumns,
     },
-    
+
     {
       to: "/app/students",
       title: "Students",

@@ -27,6 +27,7 @@ const Student = () => {
     user,
     graduatedStudents,
     setClasses,
+    studentLoginDetailsStudents,
   } = useStudent();
 
   const { classes } = useClasses();
@@ -272,6 +273,38 @@ const Student = () => {
           },
         ];
 
+      case "loginDetails":
+        return [
+          {
+            Header: "First Name",
+            accessor: "firstname",
+          },
+          {
+            Header: "Surname",
+            accessor: "surname",
+          },
+          {
+            Header: "Middle Name",
+            accessor: "middlename",
+          },
+          {
+            Header: "Username",
+            accessor: "username",
+          },
+          {
+            Header: "Admission Number",
+            accessor: "admission_number",
+          },
+          {
+            Header: "Present Class",
+            accessor: "present_class",
+          },
+          {
+            Header: "Password",
+            accessor: "pass_word",
+          },
+        ];
+
       default:
         return [
           {
@@ -494,6 +527,15 @@ const Student = () => {
       });
     }
 
+    if (permission?.studentLoginDetails) {
+      arr.push({
+        title: "Login Details",
+        type: "button",
+        onClick: () => setIndexStatus("loginDetails"),
+        variant: setVariant("loginDetails"),
+      });
+    }
+
     return arr.length ? arr : undefined;
   };
 
@@ -509,6 +551,7 @@ const Student = () => {
     debtors: studentDebtors,
     myStudents: studentByClassAndSession,
     alumni: graduatedStudents,
+    loginDetails: studentLoginDetailsStudents,
   };
 
   const searchByClass = (value) => {

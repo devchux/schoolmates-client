@@ -85,7 +85,7 @@ const Vehicles = () => {
   const getSortButtonOptions = () => {
     let arr = [];
 
-    if (permission.read) {
+    if (permission?.read) {
       arr.push({
         title: "All",
         type: "button",
@@ -93,7 +93,7 @@ const Vehicles = () => {
         onClick: () => setIndexStatus("all"),
       });
     }
-    if (permission.readLogs) {
+    if (permission?.readLogs) {
       arr.push({
         title: "Logs",
         type: "button",

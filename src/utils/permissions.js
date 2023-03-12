@@ -32,6 +32,7 @@ export const permissions = {
       delete: true,
       statusToggle: true,
       sort: true,
+      staffLoginDetails: true,
     },
     students: {
       create: false,
@@ -47,6 +48,7 @@ export const permissions = {
       alumni: true,
       graduateStudent: false,
       readClass: true,
+      studentLoginDetails: true,
     },
     reports: {
       read: true,
@@ -88,6 +90,7 @@ export const permissions = {
       alumni: false,
       graduateStudent: false,
       readClass: true,
+      studentLoginDetails: false,
     },
     results: {
       compute: true,
@@ -132,6 +135,7 @@ export const permissions = {
       delete: true,
       statusToggle: true,
       sort: true,
+      staffLoginDetails: true,
     },
     students: {
       create: true,
@@ -149,6 +153,7 @@ export const permissions = {
       alumni: true,
       graduateStudent: true,
       readClass: true,
+      studentLoginDetails: false,
     },
     results: {
       compute: false,
@@ -187,6 +192,7 @@ export const permissions = {
       alumni: false,
       graduateStudent: false,
       readClass: true,
+      studentLoginDetails: false,
     },
     "dress-code": {
       read: true,
@@ -204,16 +210,23 @@ export const permissions = {
     admin: {
       read: true,
     },
-
-    vehicles: {
-      create: false,
+    classes: {
+      create: true,
       read: true,
-      readLogs: false,
+      update: true,
+      delete: true,
+      statusToggle: false,
+    },
+    vehicles: {
+      create: true,
+      read: true,
+      readLogs: true,
       update: false,
       delete: false,
+      sort: true,
     },
     departments: {
-      create: false,
+      create: true,
       read: true,
       update: false,
       delete: false,
@@ -221,33 +234,38 @@ export const permissions = {
     },
 
     students: {
-      create: false,
+      create: true,
       read: true,
-      readCreditors: false,
-      readDebtors: false,
-      update: false,
-      delete: false,
-      statusToggle: false,
+      readCreditors: true,
+      readDebtors: true,
+      update: true,
+      delete: true,
+      statusToggle: true,
       sort: true,
-      sortSession: false,
-      sortAdmissionNumber: false,
-      myStudents: true,
-      alumni: false,
+      sortSession: true,
+      sortAdmissionNumber: true,
+      myStudents: false,
+      alumni: true,
       graduateStudent: false,
       readClass: true,
+      studentLoginDetails: true,
     },
     attendance: {
       retrieve: true,
       save: true,
     },
+    grading: {
+      create: true,
+    },
     staffs: {
       create: true,
       read: true,
-      readAttendance: true,
+      readAttendance: false,
       update: true,
       delete: true,
       statusToggle: true,
       sort: true,
+      staffLoginDetails: true,
     },
   },
 };

@@ -48,7 +48,7 @@ const PageView = ({
         <div className="mb-5 d-md-flex">
           {groupedButtonOptions.length ? (
             <div className={`me-3`}>
-              <ButtonGroup options={groupedButtonOptions} />
+              <ButtonGroup className="mb-3" options={groupedButtonOptions} />
             </div>
           ) : null}
 

@@ -490,6 +490,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async createDepartment(body) {
+    const { data } = await axios.post(`${backendAPI}/department`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async getAllOutstanding() {
     const { data } = await axios.get(`${backendAPI}/outstanding`, {
       headers: {
@@ -862,6 +873,28 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getStudentLoginDetails() {
+    const { data } = await axios.get(`${backendAPI}/studentlogindetails`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getStaffLoginDetails() {
+    const { data } = await axios.get(`${backendAPI}/stafflogindetails`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async promoteStudent({ id, ...body }) {
     const { data } = await axios.patch(
       `${backendAPI}/promotestudent/${id}`,
@@ -905,6 +938,28 @@ class APIServies extends Helpers {
 
   async getSchoolPopulation() {
     const { data } = await axios.get(`${backendAPI}/schoolpopulation`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async postAcademicPeriod(body) {
+    const { data } = await axios.post(`${backendAPI}/academicperiod`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async postGrading(body) {
+    const { data } = await axios.post(`${backendAPI}/grading`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,

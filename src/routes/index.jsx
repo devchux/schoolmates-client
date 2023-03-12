@@ -34,6 +34,9 @@ import Accounts from "../pages/dashboard/accounts";
 import Comment from "../pages/dashboard/comment";
 import CommentDetail from "../pages/dashboard/comment/detail";
 import Admin from "../pages/dashboard/admin";
+import DepartmentDetail from "../pages/dashboard/departments/detail";
+import GradingDetail from "../pages/dashboard/grading/detail";
+import VehicleDetail from "../pages/dashboard/vehicles/detail";
 
 const CustomRoutes = () => {
   return (
@@ -58,7 +61,7 @@ const CustomRoutes = () => {
           path="admin"
           element={
             <Guard routeName="admin">
-              <Admin/>
+              <Admin />
             </Guard>
           }
         />
@@ -165,6 +168,15 @@ const CustomRoutes = () => {
         />
         <Route
           exact
+          path="vehicles/new"
+          element={
+            <Guard routeName="vehicles">
+              <VehicleDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
           path="vendors"
           element={
             <Guard routeName="vendors">
@@ -250,6 +262,24 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="departments">
               <Departments />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="departments/new"
+          element={
+            <Guard routeName="departments">
+              <DepartmentDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="grading"
+          element={
+            <Guard routeName="grading">
+              <GradingDetail />
             </Guard>
           }
         />

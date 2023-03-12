@@ -380,6 +380,22 @@ export const useStudent = () => {
     }
   );
 
+  const {
+    isLoading: studentLoginDetailsLoading,
+    data: studentLoginDetailsStudents,
+  } = useQuery(
+    [queryKeys.GET_STUDENT_LOGIN_DETAILS],
+    apiServices.getStudentLoginDetails,
+    {
+      retry: 3,
+      enabled: permission?.studentLoginDetails,
+      select: (data) => data?.data,
+      onError(err) {
+        errorHandler(err);
+      },
+    }
+  );
+
   const { mutate: graduateStudent, isLoading: graduateStudentLoading } =
     useMutation(apiServices.graduateStudent, {
       onSuccess() {
@@ -412,7 +428,8 @@ export const useStudent = () => {
     studentByClassLoading ||
     graduateStudentLoading ||
     alumniLoading ||
-    getStudentByClassLoading;
+    getStudentByClassLoading ||
+    studentLoginDetailsLoading;
 
   return {
     user,
@@ -450,6 +467,7 @@ export const useStudent = () => {
     studentByClassAndSession,
     graduatedStudents,
     graduateStudent,
+    studentLoginDetailsStudents,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
     studentData: singleStudent || formatSingleStudent,
