@@ -4,9 +4,11 @@ import {
   faPeopleLine,
   faTimeline,
 } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-formid";
-import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+// import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Spinner } from "reactstrap";
 import HomeCard from "../../../components/cards/home-card";
 import ProfileCard from "../../../components/cards/profile-card";
@@ -16,10 +18,12 @@ import AuthSelect from "../../../components/inputs/auth-select";
 import Prompt from "../../../components/modals/prompt";
 import { useAcademicPeriod } from "../../../hooks/useAcademicPrompt";
 import { useAppContext } from "../../../hooks/useAppContext";
+import { useFile } from "../../../hooks/useFile";
 
 const Admin = () => {
+  const [importStudentPrompt, setImportStudentPrompt] = useState(false);
   const {
-    apiServices: { handleSessionChange },
+    apiServices: { handleSessionChange, importStudent, errorHandler },
   } = useAppContext();
   const {
     isLoading,
@@ -27,7 +31,9 @@ const Admin = () => {
     academicPeriodPrompt,
     setAcademicPeriodPrompt,
   } = useAcademicPeriod();
-  const navigate = useNavigate();
+
+  // const navigate = useNavigate();
+
   const { handleChange, inputs, errors, setFieldValue } = useForm({
     defaultValues: {
       period: "First Half",
@@ -47,18 +53,30 @@ const Admin = () => {
     },
   });
 
+  const { handleImageChange, base64String, fileRef, reset } = useFile([], true);
+
+  const { mutate: uploadFile, isLoading: uploadLoading } = useMutation(
+    importStudent,
+    {
+      onSuccess() {
+        setImportStudentPrompt(false);
+        reset();
+        toast.success("File has been imported");
+      },
+      onError: errorHandler,
+    }
+  );
+
   return (
     <div className="teachers">
-      <PageTitle> Admin {isLoading && <Spinner />}</PageTitle>
+      <PageTitle>Admin {(isLoading || uploadLoading) && <Spinner />}</PageTitle>
       <ProfileCard type="admin" />
       <div className="teachers-cards-wrapper">
         <HomeCard
           isBadge
-          title="My Students"
+          title="Import Students"
           icon={faPeopleLine}
-          onClick={() =>
-            navigate("/app/students", { state: { status: "myStudents" } })
-          }
+          onClick={() => setImportStudentPrompt(!importStudentPrompt)}
         />
         <HomeCard isBadge title="Calender" icon={faCalendar} />
         <HomeCard isBadge title="Timetable" icon={faTimeline} />
@@ -69,6 +87,27 @@ const Admin = () => {
           onClick={() => setAcademicPeriodPrompt(true)}
         />
       </div>
+      <Prompt
+        isOpen={importStudentPrompt}
+        toggle={() => setImportStudentPrompt(!importStudentPrompt)}
+        singleButtonProps={{
+          type: "button",
+          isLoading: isLoading || uploadLoading,
+          disabled: isLoading || uploadLoading || !base64String,
+          onClick: () => uploadFile({ files: base64String }),
+        }}
+        singleButtonText="Continue"
+        promptHeader="Import Student"
+      >
+        <AuthInput
+          type="file"
+          className="px-0"
+          wrapperClassName="border-0"
+          onChange={handleImageChange}
+          ref={fileRef}
+          accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        />
+      </Prompt>
       <Prompt
         isOpen={academicPeriodPrompt}
         toggle={() => setAcademicPeriodPrompt(!academicPeriodPrompt)}

@@ -355,6 +355,26 @@ export const useStudent = () => {
       },
     });
 
+  const { mutateAsync: transferStudent, isLoading: transferStudentLoading } =
+    useMutation(apiServices.transferStudent, {
+      onSuccess() {
+        toast.success("Student has been transferred");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
+  const { mutateAsync: promoteStudent, isLoading: promoteStudentLoading } =
+    useMutation(apiServices.promoteStudent, {
+      onSuccess() {
+        toast.success("Student has been promoted");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
   const { isLoading: getStudentLoading, data: singleStudent } = useQuery(
     [queryKeys.GET_STUDENT, id],
     () => apiServices.getStudent(id),
@@ -440,7 +460,9 @@ export const useStudent = () => {
     alumniLoading ||
     getStudentByClassLoading ||
     studentLoginDetailsLoading ||
-    acceptStudentLoading;
+    acceptStudentLoading ||
+    transferStudentLoading ||
+    promoteStudentLoading;
 
   return {
     user,
@@ -480,6 +502,8 @@ export const useStudent = () => {
     graduateStudent,
     studentLoginDetailsStudents,
     acceptStudent,
+    transferStudent,
+    promoteStudent,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
     studentData: singleStudent || formatSingleStudent,

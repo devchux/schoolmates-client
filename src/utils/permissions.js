@@ -210,6 +210,18 @@ export const permissions = {
     admin: {
       read: true,
     },
+    calendar: {
+      create: true,
+    },
+    timetable: {
+      create: true,
+    },
+    "resumption-date": {
+      read: true,
+    },
+    campus: {
+      read: true
+    },
     classes: {
       create: true,
       read: true,
@@ -249,6 +261,9 @@ export const permissions = {
       graduateStudent: false,
       readClass: true,
       studentLoginDetails: true,
+      action: true,
+      transfer: true,
+      promote: true,
     },
     subjects: {
       read: true,

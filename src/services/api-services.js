@@ -648,6 +648,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async addTimetable(body) {
+    const { data } = await axios.post(`${backendAPI}/timetable`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async addAcademicCalender(body) {
     const { data } = await axios.post(`${backendAPI}/academiccalender`, body, {
       headers: {
@@ -763,6 +774,17 @@ class APIServies extends Helpers {
 
   async getResumptionDate() {
     const { data } = await axios.get(`${backendAPI}/closingresumption`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async postResumptionDate() {
+    const { data } = await axios.post(`${backendAPI}/closingresumption`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
@@ -913,6 +935,36 @@ class APIServies extends Helpers {
   async promoteStudent({ id, ...body }) {
     const { data } = await axios.patch(
       `${backendAPI}/promotestudent/${id}`,
+      body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async transferStudent({ id, ...body }) {
+    const { data } = await axios.patch(
+      `${backendAPI}/transferstudent/${id}`,
+      body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async importStudent(body) {
+    const { data } = await axios.post(
+      `${backendAPI}/studentimport`,
       body,
       {
         headers: {

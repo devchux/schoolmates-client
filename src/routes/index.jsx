@@ -38,6 +38,11 @@ import DepartmentDetail from "../pages/dashboard/departments/detail";
 import GradingDetail from "../pages/dashboard/grading/detail";
 import VehicleDetail from "../pages/dashboard/vehicles/detail";
 import Subjects from "../pages/dashboard/subjects";
+import CalendarDetail from "../pages/dashboard/calendar/detail";
+import TransferStudent from "../pages/dashboard/students/transfer";
+import ResumptionDate from "../pages/dashboard/resumption-date";
+import PromoteStudent from "../pages/dashboard/students/promote";
+import TimetableDetail from "../pages/dashboard/timetable/detail";
 
 const CustomRoutes = () => {
   return (
@@ -167,6 +172,31 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          path="students/transfer/:id"
+          element={
+            <Guard routeName="students" action={["transfer"]}>
+              <TransferStudent />
+            </Guard>
+          }
+        />
+        <Route
+          path="students/promote/:id"
+          element={
+            <Guard routeName="students" action={["promote"]}>
+              <PromoteStudent />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="resumption-date"
+          element={
+            <Guard routeName="resumption-date" action={["read"]}>
+              <ResumptionDate />
+            </Guard>
+          }
+        />
+        <Route
           exact
           path="vehicles"
           element={
@@ -289,6 +319,24 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="grading">
               <GradingDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="calendar"
+          element={
+            <Guard routeName="calendar">
+              <CalendarDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="timetable"
+          element={
+            <Guard routeName="timetable">
+              <TimetableDetail />
             </Guard>
           }
         />

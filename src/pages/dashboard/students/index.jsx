@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PageView from "../../../components/views/table-view";
 import { useClasses } from "../../../hooks/useClasses";
 import { useStudent } from "../../../hooks/useStudent";
 
 const Student = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const {
     students,
     isLoading,
@@ -587,11 +588,22 @@ const Student = () => {
         setSorted(false);
         setSortBy("");
       }}
+      action={[
+        {
+          title: "Transfer",
+          onClick: (id) => navigate(`/app/students/transfer/${id}`),
+        },
+        {
+          title: "Promote",
+          onClick: (id) => navigate(`/app/students/promote/${id}`),
+        },
+      ]}
       data={data[indexStatus]}
       onDelete={onDeleteStudent}
       onSelectChange={handleSortBy}
       canCreate={permission?.create}
       hasSortOptions={permission?.sort}
+      rowHasAction={permission?.action && indexStatus === "all"}
       searchIsSelect={sortBy === "class"}
       columns={
         user?.designation_name === "Student"
