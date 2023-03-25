@@ -913,6 +913,28 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  //New Api calls 
+  async getChartAccount() {
+    const { data } = await axios.get(`${backendAPI}/chartaccount`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+  async getPayment() {
+    const { data } = await axios.get(`${backendAPI}/payment`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;

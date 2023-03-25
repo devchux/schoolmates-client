@@ -34,6 +34,9 @@ import Accounts from "../pages/dashboard/accounts";
 import Comment from "../pages/dashboard/comment";
 import CommentDetail from "../pages/dashboard/comment/detail";
 import Admin from "../pages/dashboard/admin";
+import Account from "../pages/dashboard/accounts/home";
+import Income from "../pages/income";
+import Expenses from "../pages/expenses";
 
 const CustomRoutes = () => {
   return (
@@ -279,6 +282,25 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          exact
+          path="income"
+          element={
+            <Guard routeName="income">
+              <Income/>
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="expense"
+          element={
+            <Guard routeName="expense">
+              <Expenses/>
+            </Guard>
+          }
+        />
+        <Route
+        
           path="comment/new"
           element={
             <Guard routeName="comment">
@@ -302,6 +324,23 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
+        <Route
+        path="account-home"
+        element={
+          <Guard routeName="account">
+            <Account/>
+          </Guard>
+        }
+      />
+      {/* <Route
+          exact
+          path="transfer"
+          element={
+            <Guard routeName="transfer">
+              <TransferFunds />
+            </Guard>
+          }
+        /> */}
         <Route exact path="profile" element={<Profile />} />
         <Route exact path="not-found" element={<NotFound />} />
         <Route exact path="change-password" element={<ChangePassword />} />

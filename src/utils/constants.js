@@ -14,6 +14,8 @@ import {
   faSchool,
   faTape,
   faTruck,
+  faMoneyBill,
+  faMoneyCheckDollar,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const backendAPI = "https://schoolmate.powershellerp.com/api";
@@ -24,6 +26,7 @@ export const homeUrl = {
   Principal: "/app/principal",
   Student: "/app/student-home",
   Admin: "/app/admin",
+  Account: "/app/account-home",
 };
 
 export const dashboardSideBarLinks = {
@@ -230,6 +233,39 @@ export const dashboardSideBarLinks = {
       title: "Vehicles",
       icon: faTruck,
     },
+  ],
+  Account: [
+    {
+      to: "/app/account-home",
+      title: "Home",
+      icon: faHome,
+    },
+    {
+      to: "/app/income",
+      title: "Income",
+      icon: faMoneyCheckDollar,
+    },
+    {
+      to: "/app/expense",
+      title: "Expenses",
+      icon: faBuildingColumns,
+    },
+    {
+      to: "/app/reports",
+      title: "Report",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/vendors",
+      title: "Vendor List",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/transfer",
+      title: "Transfer Funds",
+      icon: faMoneyBill,
+    },
+    
   ],
 };
 

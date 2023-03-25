@@ -1,13 +1,13 @@
 import React from "react";
 import { useForm } from "react-formid";
-import AuthInput from "../../../components/inputs/auth-input";
-import AuthSelect from "../../../components/inputs/auth-select";
-import Prompt from "../../../components/modals/prompt";
-import PageView from "../../../components/views/table-view";
-import { useAppContext } from "../../../hooks/useAppContext";
-import { useReports } from "../../../hooks/useReports";
+import AuthInput from "../../components/inputs/auth-input";
+import AuthSelect from "../../components/inputs/auth-select";
+import Prompt from "../../components/modals/prompt";
+import PageView from "../../components/views/table-view";
+import { useAppContext } from "../../hooks/useAppContext";
+import { useReports } from "../../hooks/useReports";
 
-const Reports = () => {
+const Expenses = () => {
   const {
     apiServices: { handleSessionChange },
   } = useAppContext();
@@ -44,22 +44,23 @@ const Reports = () => {
       term: data.term,
       session: data.session,
     });
-    if (data.type === "income") {
+
+    if (data.type === "payOut") {
+      setEnableExpensesQuery(true);
+    }
+    if (data.type === "paySalary") {
       setEnableIncomeQuery(true);
     }
 
     if (data.type === "expense") {
       setEnableExpensesQuery(true);
     }
-    if (data.type === "invoice") {
+    if (data.type === "vendor") {
       setEnableIncomeQuery(true);
     }
 
-    if (data.type === "bank") {
+    if (data.type === "undoPayment") {
       setEnableExpensesQuery(true);
-    }
-    if (data.type === "salaries") {
-      setEnableIncomeQuery(true);
     }
     reset();
   };
@@ -72,16 +73,16 @@ const Reports = () => {
   };
 
   const title = {
-    income: "Income Reports",
-    expense: "Expenses Reports",
-    invoice: "Invoices Reports",
-    Salary: "Salaries Reports",
-    bank: "Bank Reports",
+    expense: "Expenses",
+    UndoPayment: "Undo Payment",
+    PaySalary: "Pay Salary",
+    PayOut: "Pay Out",
+    Vendor: "Add Vendor",
   };
 
   const commonGroupButtonOptions = [
     {
-      title: "Generate Report",
+      title: "Create Expense",
       type: "button",
       onClick: togglePrompt,
       isLoading,
@@ -161,6 +162,7 @@ const Reports = () => {
         accessor: "updated_at",
       },
     ],
+    
   };
 
   return (
@@ -210,11 +212,12 @@ const Reports = () => {
             hasError={!!errors.type}
             onChange={handleChange}
             options={[
-              { value: "income", title: "Income Report" },
-              { value: "expense", title: "Expenses Report" },
-              { value: "bank", title: "Bank Report" },
-              { value: "salary", title: "Salaries Report" },
-              { value: "invoice", title: "Invoices Report" },
+              
+              { value: "expense", title: "Expenses" },
+              { value: "Undo Payment", title: "Undo Payment" },
+              { value: "expense", title: "Pay Salary" },
+              { value: "expense", title: "Pay Out" },
+              { value: "vendor", title: "Add Vendo" }
             ]}
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}
@@ -253,4 +256,4 @@ const Reports = () => {
   );
 };
 
-export default Reports;
+export default Expenses;

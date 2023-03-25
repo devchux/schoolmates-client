@@ -250,4 +250,36 @@ export const permissions = {
       sort: true,
     },
   },
+  Account: {
+    account: {
+      read: true,
+    },
+    reports: {
+      read: true,
+    },
+    income: {
+      canCreate: true,
+      sort: true,
+      feeHistory: true,
+      paymentReciept: true,
+      myInvoice: true,
+      previousInvoice: true,
+    },
+    expense: {
+      canCreate: true,
+      sort: true,
+      feeHistory: true,
+      paymentReciept: true,
+      myInvoice: true,
+      previousInvoice: true,
+    },
+    vendors: {
+      create: false,
+      read: true,
+      update: false,
+      delete: false,
+      statusToggle: false,
+      sort: false,
+    },
+  }
 };

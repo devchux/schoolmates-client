@@ -1,13 +1,14 @@
 import React from "react";
 import { useForm } from "react-formid";
-import AuthInput from "../../../components/inputs/auth-input";
-import AuthSelect from "../../../components/inputs/auth-select";
-import Prompt from "../../../components/modals/prompt";
-import PageView from "../../../components/views/table-view";
-import { useAppContext } from "../../../hooks/useAppContext";
-import { useReports } from "../../../hooks/useReports";
+import AuthInput from "../../components/inputs/auth-input";
+import AuthSelect from "../../components/inputs/auth-select";
+import Prompt from "../../components/modals/prompt";
+import PageView from "../../components/views/table-view";
+import { useAppContext } from "../../hooks/useAppContext";
+import { useReports } from "../../hooks/useReports";
+import { useVendors } from "../../hooks/useVendors";
 
-const Reports = () => {
+const Income = () => {
   const {
     apiServices: { handleSessionChange },
   } = useAppContext();
@@ -38,7 +39,7 @@ const Reports = () => {
     indexStatus,
     setIndexStatus,
   } = useReports();
-
+  const {vendorsList}= useVendors()
   const onSubmit = (data) => {
     setInputData({
       term: data.term,
@@ -48,18 +49,26 @@ const Reports = () => {
       setEnableIncomeQuery(true);
     }
 
-    if (data.type === "expense") {
+    if (data.type === "vendor") {
       setEnableExpensesQuery(true);
     }
-    if (data.type === "invoice") {
-      setEnableIncomeQuery(true);
-    }
-
-    if (data.type === "bank") {
+    if (data.type === "mentainance") {
       setEnableExpensesQuery(true);
     }
-    if (data.type === "salaries") {
-      setEnableIncomeQuery(true);
+    if (data.type === "creditors List") {
+      setEnableExpensesQuery(true);
+    }
+    if (data.type === "salary structure") {
+      setEnableExpensesQuery(true);
+    }
+    if (data.type === "pay in") {
+      setEnableExpensesQuery(true);
+    }
+    if (data.type === "update income") {
+      setEnableExpensesQuery(true);
+    }
+    if (data.type === "income review") {
+      setEnableExpensesQuery(true);
     }
     reset();
   };
@@ -69,19 +78,24 @@ const Reports = () => {
   const data = {
     income: incomeReports,
     expense: expensesReports,
+    vendorList: vendorsList,
   };
 
   const title = {
     income: "Income Reports",
-    expense: "Expenses Reports",
-    invoice: "Invoices Reports",
-    Salary: "Salaries Reports",
-    bank: "Bank Reports",
+    mentainance: "mentainance",
+    incomeReview:"income Review",
+    updateIncome:"Update Income",
+    payIn:"Pay In",
+    salaryStructure:"Salary Structure",
+    creditorList:"Creditors List",
+    DebtorsList:"Debtors List",
+
   };
 
   const commonGroupButtonOptions = [
     {
-      title: "Generate Report",
+      title: "Generate Income",
       type: "button",
       onClick: togglePrompt,
       isLoading,
@@ -161,6 +175,44 @@ const Reports = () => {
         accessor: "updated_at",
       },
     ],
+    vendor: [
+      {
+        Header: "id",
+        accessor: "id",
+      },
+      {
+        Header: "Vendor Name",
+        accessor: "vendor_name",
+      },
+      {
+        Header: "Vendor Type",
+        accessor: "vendor_type",
+      },
+      {
+        Header: "Vendor Code",
+        accessor: "vendor_code",
+      },
+      {
+        Header: "Company Name",
+        accessor: "company_name",
+      },
+      {
+        Header: "Contact Address",
+        accessor: "contact_address",
+      },
+      {
+        Header: "Contact Person",
+        accessor: "contact_person",
+      },
+      {
+        Header: "Contact Phone",
+        accessor: "contact_phone",
+      },
+      {
+        Header: "Email Address",
+        accessor: "email_address",
+      },
+    ]
   };
 
   return (
@@ -210,11 +262,12 @@ const Reports = () => {
             hasError={!!errors.type}
             onChange={handleChange}
             options={[
-              { value: "income", title: "Income Report" },
-              { value: "expense", title: "Expenses Report" },
-              { value: "bank", title: "Bank Report" },
-              { value: "salary", title: "Salaries Report" },
-              { value: "invoice", title: "Invoices Report" },
+              { value: "income", title: "Income Review" },
+              { value: "expense", title: "Mentainance" },
+              { value: "expense", title: "Update Income" },
+              { value: "expense", title: "Pay In" },
+              { value: "expense", title: "Salary Structure" },
+              { value: "vendor", title: "Vendors List" },
             ]}
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}
@@ -253,4 +306,4 @@ const Reports = () => {
   );
 };
 
-export default Reports;
+export default Income;
