@@ -220,7 +220,7 @@ export const permissions = {
       read: true,
     },
     campus: {
-      read: true
+      read: true,
     },
     classes: {
       create: true,
@@ -236,6 +236,9 @@ export const permissions = {
       update: false,
       delete: false,
       sort: true,
+    },
+    "vehicle-logs": {
+      create: true,
     },
     departments: {
       create: true,
@@ -264,6 +267,7 @@ export const permissions = {
       action: true,
       transfer: true,
       promote: true,
+      "health-report": true,
     },
     subjects: {
       read: true,
@@ -278,12 +282,14 @@ export const permissions = {
     staffs: {
       create: true,
       read: true,
-      readAttendance: false,
+      readAttendance: true,
       update: true,
       delete: true,
       statusToggle: true,
       sort: true,
       staffLoginDetails: true,
+      action: true,
+      createAttendance: true,
     },
   },
 };

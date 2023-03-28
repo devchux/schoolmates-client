@@ -597,6 +597,10 @@ const Student = () => {
           title: "Promote",
           onClick: (id) => navigate(`/app/students/promote/${id}`),
         },
+        {
+          title: "Health Report",
+          onClick: (id) => navigate(`/app/students/health-report/${id}`),
+        },
       ]}
       data={data[indexStatus]}
       onDelete={onDeleteStudent}

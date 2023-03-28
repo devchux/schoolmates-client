@@ -132,6 +132,17 @@ export const useStaff = () => {
     }
   );
 
+  const { mutate: addStaffAttendance, isLoading: addStaffAttendanceLoading } =
+    useMutation(apiServices.addStaffAttendance, {
+      onSuccess() {
+        refetchStaffList();
+        toast.success("Staff attendance updated successfully");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
   const { mutateAsync: toggleStaffStatus } = useMutation(
     apiServices.toggleStaffStatus,
     {
@@ -168,17 +179,28 @@ export const useStaff = () => {
       },
     });
 
-  const { mutateAsync: deleteStaff } = useMutation(apiServices.deleteStaff, {
-    onSuccess() {
-      toast.success("Staff has been deleted successfully");
-    },
-    onError(err) {
-      errorHandler(err);
-    },
-  });
+  const { mutateAsync: deleteStaff, isLoading: deleteStaffLoading } =
+    useMutation(apiServices.deleteStaff, {
+      onSuccess() {
+        toast.success("Staff has been deleted successfully");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
 
-  const { isLoading: getCampusLoading, data: singleStaff } = useQuery(
-    [queryKeys.GET_CAMPUS, id],
+  const { mutateAsync: disableStaff, isLoading: disableStaffLoading } =
+    useMutation(apiServices.disableStaff, {
+      onSuccess() {
+        toast.success("Staff has been disabled");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
+  const { isLoading: singleStaffLoading, data: singleStaff } = useQuery(
+    [queryKeys.GET_STAFF, id],
     () => apiServices.getStaff(id),
     {
       retry: 3,
@@ -224,10 +246,13 @@ export const useStaff = () => {
     staffListLoading ||
     addStaffLoading ||
     updateStaffLoading ||
-    getCampusLoading ||
+    singleStaffLoading ||
     designationLoading ||
     allStaffsByAttendanceLoading ||
-    staffLoginDetailsLoading;
+    staffLoginDetailsLoading ||
+    deleteStaffLoading ||
+    disableStaffLoading ||
+    addStaffAttendanceLoading;
 
   return {
     isLoading,
@@ -256,5 +281,8 @@ export const useStaff = () => {
     setIndexStatus,
     permission,
     staffLoginDetails,
+    disableStaff,
+    addStaffAttendance,
+    apiServices,
   };
 };

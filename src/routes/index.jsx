@@ -43,6 +43,10 @@ import TransferStudent from "../pages/dashboard/students/transfer";
 import ResumptionDate from "../pages/dashboard/resumption-date";
 import PromoteStudent from "../pages/dashboard/students/promote";
 import TimetableDetail from "../pages/dashboard/timetable/detail";
+import VehicleLogsDetail from "../pages/dashboard/vehicles/logs/detail";
+import SubjectDetail from "../pages/dashboard/subjects/detail";
+import StaffAttendanceDetail from "../pages/dashboard/staffs/attendance/detail";
+import HealthReport from "../pages/dashboard/students/health-report";
 
 const CustomRoutes = () => {
   return (
@@ -76,6 +80,14 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="subjects">
               <Subjects />
+            </Guard>
+          }
+        />
+        <Route
+          path="subjects/new"
+          element={
+            <Guard routeName="subjects">
+              <SubjectDetail />
             </Guard>
           }
         />
@@ -147,6 +159,14 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          path="staffs/attendance/:id"
+          element={
+            <Guard routeName="staffs" action={["createAttendance"]}>
+              <StaffAttendanceDetail />
+            </Guard>
+          }
+        />
+        <Route
           exact
           path="students"
           element={
@@ -188,6 +208,14 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          path="students/health-report/:id"
+          element={
+            <Guard routeName="students" action={["health-report"]}>
+              <HealthReport />
+            </Guard>
+          }
+        />
+        <Route
           exact
           path="resumption-date"
           element={
@@ -211,6 +239,15 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="vehicles">
               <VehicleDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="vehicles/logs/new"
+          element={
+            <Guard routeName="vehicle-logs">
+              <VehicleLogsDetail />
             </Guard>
           }
         />

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useForm } from "react-formid";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -10,29 +9,6 @@ export const useVehicles = () => {
   const [indexStatus, setIndexStatus] = useState("all");
   const { id } = useParams();
   const { apiServices, errorHandler, permission } = useAppContext("vehicles");
-
-  const {
-    getFieldProps,
-    inputs,
-    setFieldValue,
-    handleSubmit,
-    errors,
-    setInputs,
-    reset,
-  } = useForm({
-    defaultValues: {
-      name: "",
-      email: "",
-      phoneno: "+234",
-      address: "",
-      state: "",
-    },
-    validation: {
-      name: {
-        required: (val) => !!val || "Campus name is required",
-      },
-    },
-  });
 
   const { isLoading: vehiclesListLoading, data: vehiclesList } = useQuery(
     [queryKeys.GET_ALL_VEHICLES],
@@ -65,13 +41,22 @@ export const useVehicles = () => {
     {
       onSuccess() {
         toast.success("Vehicle has been added successfully");
-        reset();
       },
       onError(err) {
         errorHandler(err);
       },
     }
   );
+
+  const { mutateAsync: addVehicleLogs, isLoading: addVehicleLogsLoading } =
+    useMutation(apiServices.addVehicleLogs, {
+      onSuccess() {
+        toast.success("Vehicle Log has been added successfully");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
 
   const { mutateAsync: updateVehicle, isLoading: updateVehicleLoading } =
     useMutation(apiServices.updateVehicle, {
@@ -103,15 +88,10 @@ export const useVehicles = () => {
     addVehicleLoading ||
     updateVehicleLoading ||
     vehiclesListLoading ||
-    vehicleLogsListLoading;
+    vehicleLogsListLoading ||
+    addVehicleLogsLoading;
 
   return {
-    getFieldProps,
-    inputs,
-    setFieldValue,
-    handleSubmit,
-    errors,
-    setInputs,
     isLoading,
     addVehicle,
     handleUpdateVehicle,
@@ -121,6 +101,7 @@ export const useVehicles = () => {
     indexStatus,
     setIndexStatus,
     permission,
+    addVehicleLogs,
     isEdit: !!id,
   };
 };

@@ -179,6 +179,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async disableStaff(id) {
+    const { data } = await axios.patch(`${backendAPI}/disablestaff/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async getStaff(id) {
     const { data } = await axios.get(`${backendAPI}/staff/${id}`, {
       headers: {
@@ -192,6 +203,17 @@ class APIServies extends Helpers {
 
   async getStaffAttendance() {
     const { data } = await axios.get(`${backendAPI}/staffattendance`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addStaffAttendance(body) {
+    const { data } = await axios.post(`${backendAPI}/staffattendance`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
@@ -358,6 +380,17 @@ class APIServies extends Helpers {
 
   async addVehicle(body) {
     const { data } = await axios.post(`${backendAPI}/vehicle`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addVehicleLogs(body) {
+    const { data } = await axios.post(`${backendAPI}/vehiclelog`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
@@ -639,6 +672,17 @@ class APIServies extends Helpers {
 
   async getAllSubjects() {
     const { data } = await axios.get(`${backendAPI}/subjects`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addSubject(body) {
+    const { data } = await axios.post(`${backendAPI}/subjects`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
@@ -1027,6 +1071,17 @@ class APIServies extends Helpers {
 
   async postGrading(body) {
     const { data } = await axios.post(`${backendAPI}/grading`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async postHealthReport(body) {
+    const { data } = await axios.post(`${backendAPI}/healthreport`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
