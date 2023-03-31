@@ -47,6 +47,8 @@ import VehicleLogsDetail from "../pages/dashboard/vehicles/logs/detail";
 import SubjectDetail from "../pages/dashboard/subjects/detail";
 import StaffAttendanceDetail from "../pages/dashboard/staffs/attendance/detail";
 import HealthReport from "../pages/dashboard/students/health-report";
+import BusRouting from "../pages/dashboard/students/bus-routing";
+import AssignClass from "../pages/dashboard/staffs/assign-class";
 
 const CustomRoutes = () => {
   return (
@@ -161,8 +163,16 @@ const CustomRoutes = () => {
         <Route
           path="staffs/attendance/:id"
           element={
-            <Guard routeName="staffs" action={["createAttendance"]}>
+            <Guard routeName="staffs" action={["create-attendance"]}>
               <StaffAttendanceDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="staffs/assign-class/:id"
+          element={
+            <Guard routeName="staffs" action={["assign-class"]}>
+              <AssignClass />
             </Guard>
           }
         />
@@ -212,6 +222,14 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="students" action={["health-report"]}>
               <HealthReport />
+            </Guard>
+          }
+        />
+        <Route
+          path="students/bus-routing/:id"
+          element={
+            <Guard routeName="students" action={["bus-routing"]}>
+              <BusRouting />
             </Guard>
           }
         />

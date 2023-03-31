@@ -199,6 +199,16 @@ export const useStaff = () => {
       },
     });
 
+  const { mutateAsync: assignClass, isLoading: assignClassLoading } =
+    useMutation(apiServices.assignClass, {
+      onSuccess() {
+        toast.success("Class has been assigned to staff");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
   const { isLoading: singleStaffLoading, data: singleStaff } = useQuery(
     [queryKeys.GET_STAFF, id],
     () => apiServices.getStaff(id),
@@ -252,7 +262,7 @@ export const useStaff = () => {
     staffLoginDetailsLoading ||
     deleteStaffLoading ||
     disableStaffLoading ||
-    addStaffAttendanceLoading;
+    addStaffAttendanceLoading || assignClassLoading;
 
   return {
     isLoading,
@@ -284,5 +294,6 @@ export const useStaff = () => {
     disableStaff,
     addStaffAttendance,
     apiServices,
+    assignClass,
   };
 };

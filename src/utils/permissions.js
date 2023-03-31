@@ -236,6 +236,7 @@ export const permissions = {
       update: false,
       delete: false,
       sort: true,
+      assignedBus: true,
     },
     "vehicle-logs": {
       create: true,
@@ -267,7 +268,9 @@ export const permissions = {
       action: true,
       transfer: true,
       promote: true,
+      communication: true,
       "health-report": true,
+      "bus-routing": true,
     },
     subjects: {
       read: true,
@@ -289,7 +292,8 @@ export const permissions = {
       sort: true,
       staffLoginDetails: true,
       action: true,
-      createAttendance: true,
+      "create-attendance": true,
+      "assign-class": true,
     },
   },
 };

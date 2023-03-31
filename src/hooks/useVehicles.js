@@ -36,6 +36,19 @@ export const useVehicles = () => {
     }
   );
 
+  const { isLoading: getAssignedBusLoading, data: assignedBusList } = useQuery(
+    [queryKeys.GET_ASSIGNED_BUS],
+    apiServices.getAssignedBus,
+    {
+      enabled: permission?.assignedBus || false,
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      select: apiServices.formatData,
+    }
+  );
+
   const { mutateAsync: addVehicle, isLoading: addVehicleLoading } = useMutation(
     apiServices.addVehicle,
     {
@@ -89,7 +102,8 @@ export const useVehicles = () => {
     updateVehicleLoading ||
     vehiclesListLoading ||
     vehicleLogsListLoading ||
-    addVehicleLogsLoading;
+    addVehicleLogsLoading ||
+    getAssignedBusLoading;
 
   return {
     isLoading,
@@ -102,6 +116,7 @@ export const useVehicles = () => {
     setIndexStatus,
     permission,
     addVehicleLogs,
+    assignedBusList,
     isEdit: !!id,
   };
 };

@@ -1090,6 +1090,50 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  async getAssignedBus() {
+    const { data } = await axios.get(`${backendAPI}/assignedvehicle`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getCommunicationBook() {
+    const { data } = await axios.get(`${backendAPI}/communicationbook`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async postBusRouting(body) {
+    const { data } = await axios.post(`${backendAPI}/busrouting`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async assignClass({staff_id, body}) {
+    const { data } = await axios.post(`${backendAPI}/assignclass/${staff_id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;

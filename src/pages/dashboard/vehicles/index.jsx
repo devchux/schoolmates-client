@@ -11,7 +11,10 @@ const Vehicles = () => {
     vehicleLogsList,
     handleDeleteVehicle,
     permission,
+    assignedBusList,
   } = useVehicles();
+
+  console.log('assignedBusList', assignedBusList)
 
   const dataMapper = {
     all: {
@@ -80,6 +83,10 @@ const Vehicles = () => {
       ],
       data: vehicleLogsList,
     },
+    assignedBus: {
+      columns: [],
+      data: assignedBusList
+    }
   };
 
   const getSortButtonOptions = () => {
@@ -99,6 +106,14 @@ const Vehicles = () => {
         type: "button",
         variant: indexStatus !== "logs" ? "outline" : null,
         onClick: () => setIndexStatus("logs"),
+      });
+    }
+    if (permission?.assignedBus) {
+      arr.push({
+        title: "Assigned Bus",
+        type: "button",
+        variant: indexStatus !== "assignedBus" ? "outline" : null,
+        onClick: () => setIndexStatus("assignedBus"),
       });
     }
 

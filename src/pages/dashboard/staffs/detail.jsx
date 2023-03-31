@@ -8,8 +8,9 @@ import { roleMap } from "../../../utils/constants";
 import ImagePreview from "../../../components/common/image-preview";
 import { useDepartments } from "../../../hooks/useDepartments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCancel } from "@fortawesome/free-solid-svg-icons";
+import { faCancel, faHandPointer } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../components/buttons/button";
+import { useNavigate } from "react-router-dom";
 
 const StaffDetail = () => {
   const {
@@ -33,6 +34,8 @@ const StaffDetail = () => {
     fileRef,
     disableStaff,
   } = useStaff();
+
+  const navigate = useNavigate();
 
   const { isLoading: departmentsListLoading, departmentsList } =
     useDepartments();
@@ -62,6 +65,8 @@ const StaffDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [staffData]);
 
+  console.log(staffData)
+
   return (
     <DetailView
       isLoading={isLoading}
@@ -80,6 +85,20 @@ const StaffDetail = () => {
           >
             <FontAwesomeIcon icon={faCancel} className="me-2" /> Disable Staff
           </Button>
+          {staffData.designation_id === "4" && (
+            <Button
+              type="button"
+              disabled={isLoading}
+              isLoading={isLoading}
+              variant="outline-dark"
+              onClick={() =>
+                navigate(`/app/staffs/assign-class/${staffData?.id}`)
+              }
+            >
+              <FontAwesomeIcon icon={faHandPointer} className="me-2" /> Assign
+              Class
+            </Button>
+          )}
         </div>
       )}
       <Row className="mb-0 mb-sm-4">

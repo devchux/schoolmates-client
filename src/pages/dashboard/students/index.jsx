@@ -29,6 +29,7 @@ const Student = () => {
     graduatedStudents,
     setClasses,
     studentLoginDetailsStudents,
+    communicationList,
   } = useStudent();
 
   const { classes } = useClasses();
@@ -306,6 +307,50 @@ const Student = () => {
           },
         ];
 
+      case "communication":
+        return [
+          {
+            Header: "Campus",
+            accessor: "campus",
+          },
+          {
+            Header: "Period",
+            accessor: "period",
+          },
+          {
+            Header: "Term",
+            accessor: "term",
+          },
+          {
+            Header: "Session",
+            accessor: "session",
+          },
+          {
+            Header: "Title",
+            accessor: "title",
+          },
+          {
+            Header: "Urgency",
+            accessor: "urgency",
+          },
+          {
+            Header: "Admission Number",
+            accessor: "admission_number",
+          },
+          {
+            Header: "Message",
+            accessor: "message",
+          },
+          {
+            Header: "Sender",
+            accessor: "sender",
+          },
+          {
+            Header: "Status",
+            accessor: "status",
+          },
+        ];
+
       default:
         return [
           {
@@ -528,6 +573,15 @@ const Student = () => {
       });
     }
 
+    if (permission?.communication) {
+      arr.push({
+        title: "Communication Book",
+        type: "button",
+        onClick: () => setIndexStatus("communication"),
+        variant: setVariant("communication"),
+      });
+    }
+
     if (permission?.studentLoginDetails) {
       arr.push({
         title: "Login Details",
@@ -553,6 +607,7 @@ const Student = () => {
     myStudents: studentByClassAndSession,
     alumni: graduatedStudents,
     loginDetails: studentLoginDetailsStudents,
+    communication: communicationList,
   };
 
   const searchByClass = (value) => {
@@ -600,6 +655,10 @@ const Student = () => {
         {
           title: "Health Report",
           onClick: (id) => navigate(`/app/students/health-report/${id}`),
+        },
+        {
+          title: "Bus Routing",
+          onClick: (id) => navigate(`/app/students/bus-routing/${id}`),
         },
       ]}
       data={data[indexStatus]}
