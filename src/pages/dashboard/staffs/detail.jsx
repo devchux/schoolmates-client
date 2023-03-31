@@ -85,7 +85,7 @@ const StaffDetail = () => {
           >
             <FontAwesomeIcon icon={faCancel} className="me-2" /> Disable Staff
           </Button>
-          {staffData.designation_id === "4" && (
+          {staffData?.designation_id === "4" && (
             <Button
               type="button"
               disabled={isLoading}
