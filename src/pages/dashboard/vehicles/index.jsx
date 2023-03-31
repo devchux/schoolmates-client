@@ -14,8 +14,6 @@ const Vehicles = () => {
     assignedBusList,
   } = useVehicles();
 
-  console.log('assignedBusList', assignedBusList)
-
   const dataMapper = {
     all: {
       columns: [
@@ -84,9 +82,78 @@ const Vehicles = () => {
       data: vehicleLogsList,
     },
     assignedBus: {
-      columns: [],
-      data: assignedBusList
-    }
+      columns: [
+        {
+          Header: "School Id",
+          accessor: "sch_id",
+        },
+        {
+          Header: "School",
+          accessor: "campus",
+        },
+        {
+          Header: "Term",
+          accessor: "term",
+        },
+        {
+          Header: "Session",
+          accessor: "session",
+        },
+        {
+          Header: "Admission Number",
+          accessor: "admission_number",
+        },
+        {
+          Header: "Bus Type",
+          accessor: "bus_type",
+        },
+        {
+          Header: "Bus Number",
+          accessor: "bus_number",
+        },
+        {
+          Header: "Driver's Name",
+          accessor: "driver_name",
+        },
+        {
+          Header: "Driver's Phone Number",
+          accessor: "driver_phonenumber",
+        },
+        {
+          Header: "Driver's Profile Image",
+          accessor: "driver_image",
+        },
+        {
+          Header: "Conductor's Name",
+          accessor: "conductor_name",
+        },
+        {
+          Header: "Conductor's Phone Number",
+          accessor: "conductor_phonenumber",
+        },
+        {
+          Header: "Conductor's Profile Image",
+          accessor: "conductor_image",
+        },
+        {
+          Header: "ways",
+          accessor: "ways",
+        },
+        {
+          Header: "route",
+          accessor: "route",
+        },
+        {
+          Header: "Pick Up Time",
+          accessor: "pickup_time",
+        },
+        {
+          Header: "Drop Off Time",
+          accessor: "dropoff_time",
+        },
+      ],
+      data: assignedBusList,
+    },
   };
 
   const getSortButtonOptions = () => {
@@ -123,7 +190,7 @@ const Vehicles = () => {
   return (
     <PageView
       hasSortOptions={permission?.sort}
-      rowHasDelete={permission?.delete && indexStatus !== 'logs'}
+      rowHasDelete={permission?.delete && indexStatus !== "logs"}
       canCreate={permission?.create}
       rowHasUpdate={permission?.update}
       onDelete={handleDeleteVehicle}
