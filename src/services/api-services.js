@@ -1113,6 +1113,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getSubjectsByClass(class_name) {
+    const { data } = await axios.get(`${backendAPI}/subject/${class_name}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async postBusRouting(body) {
     const { data } = await axios.post(`${backendAPI}/busrouting`, body, {
       headers: {

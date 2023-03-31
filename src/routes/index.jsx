@@ -49,6 +49,7 @@ import StaffAttendanceDetail from "../pages/dashboard/staffs/attendance/detail";
 import HealthReport from "../pages/dashboard/students/health-report";
 import BusRouting from "../pages/dashboard/students/bus-routing";
 import AssignClass from "../pages/dashboard/staffs/assign-class";
+import ClassSubjects from "../pages/dashboard/classes/subjects";
 
 const CustomRoutes = () => {
   return (
@@ -107,6 +108,14 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="classes" action={["update"]}>
               <ClassDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="classes/subjects/:id"
+          element={
+            <Guard routeName="classes" action={["subjects"]}>
+              <ClassSubjects />
             </Guard>
           }
         />

@@ -228,6 +228,7 @@ export const permissions = {
       update: true,
       delete: true,
       statusToggle: false,
+      subjects: true,
     },
     vehicles: {
       create: true,

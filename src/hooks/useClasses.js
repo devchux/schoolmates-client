@@ -10,7 +10,7 @@ export const useClasses = () => {
   const [classes, setClasses] = useState([]);
   const [classList, setClassList] = useState([]);
   const { id } = useParams();
-  const { apiServices, errorHandler, permission } = useAppContext('classes');
+  const { apiServices, errorHandler, permission } = useAppContext("classes");
 
   const {
     getFieldProps,
@@ -54,6 +54,15 @@ export const useClasses = () => {
     }
   );
 
+  const { isLoading: subjectsLoading, data: subjects } = useQuery(
+    [queryKeys.GET_SUBJECTS, id],
+    () => apiServices.getSubjectsByClass(id),
+    {
+      select: apiServices.formatData,
+      onError: apiServices.errorHandler,
+    }
+  );
+
   const { mutateAsync: addClass, isLoading: addClassLoading } = useMutation(
     apiServices.addClass,
     {
@@ -92,7 +101,11 @@ export const useClasses = () => {
 
   const handleDeleteClass = async (data) => await deleteClass(data);
 
-  const isLoading = classListLoading || addClassLoading || updateClassLoading;
+  const isLoading =
+    classListLoading ||
+    addClassLoading ||
+    updateClassLoading ||
+    subjectsLoading;
 
   return {
     isLoading,
@@ -109,5 +122,6 @@ export const useClasses = () => {
     classData: singleClass,
     onDeleteClass: handleDeleteClass,
     permission,
+    subjects,
   };
 };
