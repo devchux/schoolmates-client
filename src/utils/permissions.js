@@ -34,6 +34,8 @@ export const permissions = {
       sort: true,
       staffLoginDetails: true,
       "assign-class": true,
+      action: false,
+      "create-attendance": false,
     },
     students: {
       create: false,
@@ -155,6 +157,12 @@ export const permissions = {
       graduateStudent: true,
       readClass: true,
       studentLoginDetails: false,
+      action: false,
+      transfer: false,
+      promote: true,
+      communication: false,
+      "health-report": false,
+      "bus-routing": false,
     },
     results: {
       compute: false,

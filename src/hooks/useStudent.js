@@ -444,7 +444,7 @@ export const useStudent = () => {
     apiServices.getCommunicationBook,
     {
       retry: 3,
-      enabled: permission?.communicatuin,
+      enabled: permission?.communication,
       select: apiServices.formatData,
       onError(err) {
         errorHandler(err);
