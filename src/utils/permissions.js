@@ -180,6 +180,8 @@ export const permissions = {
       readLogs: false,
       update: false,
       delete: false,
+      sort: true,
+      assignedBus: true,
     },
     results: {
       compute: false,
@@ -202,6 +204,12 @@ export const permissions = {
       graduateStudent: false,
       readClass: true,
       studentLoginDetails: false,
+      action: false,
+      transfer: false,
+      promote: false,
+      communication: false,
+      "health-report": false,
+      "bus-routing": false,
     },
     "dress-code": {
       read: true,
