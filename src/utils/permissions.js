@@ -157,7 +157,7 @@ export const permissions = {
       graduateStudent: true,
       readClass: true,
       studentLoginDetails: false,
-      action: false,
+      action: true,
       transfer: false,
       promote: true,
       communication: false,

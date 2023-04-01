@@ -597,6 +597,40 @@ const Student = () => {
     return arr.length ? arr : undefined;
   };
 
+  const getActionOptions = () => {
+    const arr = [];
+
+    if (permission?.promote) {
+      arr.push({
+        title: "Promote",
+        onClick: (id) => navigate(`/app/students/promote/${id}`),
+      });
+    }
+
+    if (permission?.transfer) {
+      arr.push({
+        title: "Transfer",
+        onClick: (id) => navigate(`/app/students/transfer/${id}`),
+      });
+    }
+
+    if (permission["health-report"]) {
+      arr.push({
+        title: "Health Report",
+        onClick: (id) => navigate(`/app/students/health-report/${id}`),
+      });
+    }
+
+    if (permission["bus-routing"]) {
+      arr.push({
+        title: "Bus Routing",
+        onClick: (id) => navigate(`/app/students/bus-routing/${id}`),
+      });
+    }
+
+    return arr.length ? arr : undefined;
+  };
+
   const searchPlaceholder = {
     session: "Sort by session (2021/2022)",
     "admission-number": "Enter Admission Number",
@@ -659,24 +693,7 @@ const Student = () => {
         setSorted(false);
         setSortBy("");
       }}
-      action={[
-        {
-          title: "Transfer",
-          onClick: (id) => navigate(`/app/students/transfer/${id}`),
-        },
-        {
-          title: "Promote",
-          onClick: (id) => navigate(`/app/students/promote/${id}`),
-        },
-        {
-          title: "Health Report",
-          onClick: (id) => navigate(`/app/students/health-report/${id}`),
-        },
-        {
-          title: "Bus Routing",
-          onClick: (id) => navigate(`/app/students/bus-routing/${id}`),
-        },
-      ]}
+      action={getActionOptions()}
       data={data[indexStatus]}
       onDelete={onDeleteStudent}
       onSelectChange={handleSortBy}
