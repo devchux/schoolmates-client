@@ -16,7 +16,6 @@ const PromoteStudent = () => {
     inputs,
     errors,
     handleChange,
-    setFieldValue,
   } = useForm({
     defaultValues: {
       campus: "",
@@ -58,8 +57,11 @@ const PromoteStudent = () => {
             name="present_class"
             hasError={!!errors.present_class}
             onChange={(e) => {
-              handleChange(e);
-              setFieldValue("sub_class", "");
+              setInputs({
+                ...inputs,
+                present_class: e.target.value,
+                sub_class: "",
+              });
             }}
             options={(classes || []).map((x) => ({
               value: x?.class_name,

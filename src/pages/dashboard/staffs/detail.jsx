@@ -8,7 +8,7 @@ import { roleMap } from "../../../utils/constants";
 import ImagePreview from "../../../components/common/image-preview";
 import { useDepartments } from "../../../hooks/useDepartments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCancel, faHandPointer } from "@fortawesome/free-solid-svg-icons";
+import { faHandPointer } from "@fortawesome/free-solid-svg-icons";
 import Button from "../../../components/buttons/button";
 import { useNavigate } from "react-router-dom";
 
@@ -32,7 +32,6 @@ const StaffDetail = () => {
     base64String,
     resetFile,
     fileRef,
-    disableStaff,
   } = useStaff();
 
   const navigate = useNavigate();
@@ -76,15 +75,6 @@ const StaffDetail = () => {
     >
       {isEdit && (
         <div className="mb-5 d-flex justify-content-end gap-3">
-          <Button
-            type="button"
-            disabled={isLoading}
-            isLoading={isLoading}
-            variant="dark"
-            onClick={() => disableStaff(staffData?.id)}
-          >
-            <FontAwesomeIcon icon={faCancel} className="me-2" /> Disable Staff
-          </Button>
           {staffData?.designation_id === "4" && (
             <Button
               type="button"

@@ -8,18 +8,16 @@ import { useClasses } from "../../../hooks/useClasses";
 import { useStaff } from "../../../hooks/useStaff";
 
 const AssignClass = () => {
-  const { handleSubmit, errors, inputs, handleChange, setFieldValue } = useForm(
-    {
-      defaultValues: {
-        class_assigned: "",
-        sub_class: "",
-      },
-      validation: {
-        class_assigned: { required: true },
-        sub_class: { required: true },
-      },
-    }
-  );
+  const { handleSubmit, errors, inputs, handleChange, setInputs } = useForm({
+    defaultValues: {
+      class_assigned: "",
+      sub_class: "",
+    },
+    validation: {
+      class_assigned: { required: true },
+      sub_class: { required: true },
+    },
+  });
 
   const { assignClass, isLoading, staffData } = useStaff();
 
@@ -49,8 +47,11 @@ const AssignClass = () => {
             name="class_assigned"
             hasError={!!errors.class_assigned}
             onChange={(e) => {
-              handleChange(e);
-              setFieldValue("sub_class", "");
+              setInputs({
+                ...inputs,
+                class_assigned: e.target.value,
+                sub_class: "",
+              });
             }}
             options={(classes || []).map((x) => ({
               value: x?.class_name,
