@@ -50,8 +50,6 @@ const TransferStudent = () => {
 
   const isLoading = campusLoading || classesLoading || studentLoading;
 
-  console.log("campusList", campusList);
-
   return (
     <DetailView
       isLoading={isLoading}

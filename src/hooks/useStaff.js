@@ -233,7 +233,7 @@ export const useStaff = () => {
           return apiServices.formatData(data)?.map((staff) => {
             const { designation_name } = designations?.data?.find(
               (item) => item.id === staff.designation_id
-            )?.attributes;
+            )?.attributes ?? { designation_name: "" };
             return {
               ...staff,
               designation_name: roleMap[designation_name],
@@ -262,7 +262,8 @@ export const useStaff = () => {
     staffLoginDetailsLoading ||
     deleteStaffLoading ||
     disableStaffLoading ||
-    addStaffAttendanceLoading || assignClassLoading;
+    addStaffAttendanceLoading ||
+    assignClassLoading;
 
   return {
     isLoading,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-formid";
 import { toast } from "react-toastify";
 import { Col, Row } from "reactstrap";
@@ -31,6 +31,17 @@ const AssignClass = () => {
       body: data,
     });
   };
+
+  useEffect(() => {
+    if (staffData) {
+      setInputs({
+        ...inputs,
+        class_assigned: staffData.class_assigned,
+        sub_class: staffData.sub_class,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [staffData]);
 
   return (
     <DetailView

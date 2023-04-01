@@ -64,8 +64,6 @@ const StaffDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [staffData]);
 
-  console.log(staffData)
-
   return (
     <DetailView
       isLoading={isLoading}

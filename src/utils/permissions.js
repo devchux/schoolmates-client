@@ -33,6 +33,7 @@ export const permissions = {
       statusToggle: true,
       sort: true,
       staffLoginDetails: true,
+      "assign-class": true,
     },
     students: {
       create: false,
