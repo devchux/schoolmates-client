@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import ProfileImage from "../components/common/profile-image";
 import queryKeys from "../utils/queryKeys";
 import { useAppContext } from "./useAppContext";
 
@@ -45,7 +46,16 @@ export const useVehicles = () => {
       onError(err) {
         errorHandler(err);
       },
-      select: apiServices.formatData,
+      select: (data) =>
+        apiServices.formatData(data)?.map((x) => ({
+          ...x,
+          conductor_image: (
+            <ProfileImage src={x?.conductor_image} wrapperClassName="mx-auto" />
+          ),
+          driver_image: (
+            <ProfileImage src={x?.driver_image} wrapperClassName="mx-auto" />
+          ),
+        })),
     }
   );
 
