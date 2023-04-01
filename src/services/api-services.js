@@ -1143,7 +1143,7 @@ class APIServies extends Helpers {
   }
 
   async assignClass({ staff_id, body }) {
-    const { data } = await axios.post(
+    const { data } = await axios.patch(
       `${backendAPI}/assignclass/${staff_id}`,
       body,
       {
