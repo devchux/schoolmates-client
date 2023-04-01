@@ -118,6 +118,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async deleteCampus(id) {
+    const { data } = await axios.delete(`${backendAPI}/campus/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async toggleCampusStatus({ id, status }) {
     const { data } = await axios.patch(
       `${backendAPI}/${
@@ -1007,16 +1018,12 @@ class APIServies extends Helpers {
   }
 
   async importStudent(body) {
-    const { data } = await axios.post(
-      `${backendAPI}/studentimport`,
-      body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${super.getToken()}`,
-        },
-      }
-    );
+    const { data } = await axios.post(`${backendAPI}/studentimport`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
 
     return data;
   }
@@ -1135,13 +1142,17 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async assignClass({staff_id, body}) {
-    const { data } = await axios.post(`${backendAPI}/assignclass/${staff_id}`, body, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${super.getToken()}`,
-      },
-    });
+  async assignClass({ staff_id, body }) {
+    const { data } = await axios.post(
+      `${backendAPI}/assignclass/${staff_id}`,
+      body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }
