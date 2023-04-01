@@ -1,31 +1,26 @@
 import React from "react";
 import { useForm } from "react-formid";
-import AuthInput from "../../../components/inputs/auth-input";
 import AuthSelect from "../../../components/inputs/auth-select";
 import Prompt from "../../../components/modals/prompt";
 import PageView from "../../../components/views/table-view";
-import { useAppContext } from "../../../hooks/useAppContext";
+import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useReports } from "../../../hooks/useReports";
 
 const Reports = () => {
-  const {
-    apiServices: { handleSessionChange },
-  } = useAppContext();
-  const { inputs, handleSubmit, handleChange, errors, setFieldValue, reset } =
-    useForm({
-      defaultValues: { session: "", type: "income", term: "First Term" },
-      validation: {
-        session: {
-          required: true,
-        },
-        type: {
-          required: true,
-        },
-        term: {
-          required: true,
-        },
+  const { inputs, handleSubmit, handleChange, errors, reset } = useForm({
+    defaultValues: { session: "", type: "income", term: "First Term" },
+    validation: {
+      session: {
+        required: true,
       },
-    });
+      type: {
+        required: true,
+      },
+      term: {
+        required: true,
+      },
+    },
+  });
   const {
     setEnableIncomeQuery,
     setEnableExpensesQuery,
@@ -38,6 +33,8 @@ const Reports = () => {
     indexStatus,
     setIndexStatus,
   } = useReports();
+
+  const { isLoading: loadingSessions, data: sessions } = useAcademicSession();
 
   const onSubmit = (data) => {
     setInputData({
@@ -182,8 +179,8 @@ const Reports = () => {
         toggle={togglePrompt}
         singleButtonProps={{
           type: "button",
-          isLoading,
-          disabled: isLoading,
+          isLoading: isLoading || loadingSessions,
+          disabled: isLoading || loadingSessions,
           onClick: handleSubmit(onSubmit),
         }}
         singleButtonText="Continue"
@@ -219,14 +216,16 @@ const Reports = () => {
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </div>
         <div className="form-group mb-4">
-          <AuthInput
+          <AuthSelect
             label="Session"
-            placeholder="2021/2022"
-            hasError={!!errors.session}
             value={inputs.session}
-            onChange={({ target: { value } }) =>
-              handleSessionChange(value, "session", setFieldValue)
-            }
+            name="session"
+            hasError={!!errors.session}
+            onChange={handleChange}
+            options={(sessions || [])?.map((session) => ({
+              value: session?.academic_session,
+              title: session?.academic_session,
+            }))}
           />
           {!!errors.session && (
             <p className="error-message">{errors.session}</p>

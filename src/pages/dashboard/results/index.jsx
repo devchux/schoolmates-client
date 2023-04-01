@@ -9,6 +9,7 @@ import { useForm } from "react-formid";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../../../hooks/useAppContext";
 import { useClasses } from "../../../hooks/useClasses";
+import { useAcademicSession } from "../../../hooks/useAcademicSession";
 
 const Results = () => {
   const { permission, user } = useAppContext("results");
@@ -30,6 +31,8 @@ const Results = () => {
   });
 
   const { classes } = useClasses();
+
+  const { data: sessions } = useAcademicSession();
 
   const promptMapper = {
     compute: {
@@ -106,9 +109,7 @@ const Results = () => {
           type: "button",
           isLoading: false,
           disabled:
-            user?.designation_name === "Principal"
-              ? !inputs.class_name
-              : false,
+            user?.designation_name === "Principal" ? !inputs.class_name : false,
           onClick: promptMapper[promptStatus].onFormSubmit,
         }}
         singleButtonText="Continue"
@@ -150,11 +151,10 @@ const Results = () => {
             name="session"
             hasError={!!errors.session}
             onChange={handleChange}
-            options={[
-              { value: "2020/2021", title: "2020/2021" },
-              { value: "2021/2022", title: "2021/2022" },
-              { value: "2022/2023", title: "2022/2023" },
-            ]}
+            options={(sessions || [])?.map((session) => ({
+              value: session?.academic_session,
+              title: session?.academic_session,
+            }))}
           />
           {!!errors.session && (
             <p className="error-message">{errors.session}</p>

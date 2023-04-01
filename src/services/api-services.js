@@ -1156,6 +1156,17 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  async getAcademicSessions() {
+    const { data } = await axios.get(`${backendAPI}/getacademicsessions`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 }
 
 export default APIServies;

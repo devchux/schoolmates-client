@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PageView from "../../../components/views/table-view";
+import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useClasses } from "../../../hooks/useClasses";
 import { useStudent } from "../../../hooks/useStudent";
 
@@ -33,6 +34,8 @@ const Student = () => {
   } = useStudent();
 
   const { classes } = useClasses();
+
+  const { data: sessions } = useAcademicSession();
 
   const setVariant = (status) => {
     return indexStatus !== status ? "outline" : null;
@@ -618,6 +621,19 @@ const Student = () => {
     });
   };
 
+  const getSelectSearchOptions = () => {
+    if (sortBy === "class")
+      return (classes || []).map((x) => ({
+        value: x?.class_name,
+        title: x?.class_name,
+      }));
+    if (sortBy === "session")
+      return (sessions || [])?.map((session) => ({
+        value: session?.academic_session,
+        title: session?.academic_session,
+      }));
+  };
+
   const onSearch = (value) => {
     const search = {
       session: setSession,
@@ -667,20 +683,16 @@ const Student = () => {
       canCreate={permission?.create}
       hasSortOptions={permission?.sort}
       rowHasAction={permission?.action && indexStatus === "all"}
-      searchIsSelect={sortBy === "class"}
+      searchIsSelect={sortBy === "class" || sortBy === "session"}
       columns={
         user?.designation_name === "Student"
           ? getStudentColumns()
           : getColumns()
       }
-      isSessionSearch={sortBy === "session"}
       groupedButtonOptions={getSortButtonOptions()}
       hasSelect={indexStatus === "all" && permission?.sortSession}
       hasSearch={indexStatus === "all" && permission?.sortSession}
-      searchSelectOptions={(classes || []).map((x) => ({
-        value: x?.class_name,
-        title: x?.class_name,
-      }))}
+      searchSelectOptions={getSelectSearchOptions()}
       selectOptions={[
         { value: "admission-number", title: "Admission Number" },
         { value: "session", title: "Session" },
