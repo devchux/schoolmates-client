@@ -1,5 +1,9 @@
+import { faBook } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Col, Row } from "reactstrap";
+import Button from "../../../components/buttons/button";
 import AuthInput from "../../../components/inputs/auth-input";
 import DetailView from "../../../components/views/detail-view";
 import { useClasses } from "../../../hooks/useClasses";
@@ -18,6 +22,8 @@ const ClassDetail = () => {
     errors,
     setInputs,
   } = useClasses();
+
+  const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     if (isEdit) {
@@ -43,6 +49,21 @@ const ClassDetail = () => {
       pageTitle={isEdit ? "Edit Class" : "Add Class"}
       onFormSubmit={handleSubmit(onSubmit)}
     >
+      {isEdit && (
+        <div className="mb-5 d-flex justify-content-end gap-3">
+          <Button
+            type="button"
+            disabled={isLoading}
+            isLoading={isLoading}
+            variant="dark"
+            onClick={() =>
+              navigate(`/app/classes/subjects/${classData?.class_name}`)
+            }
+          >
+            <FontAwesomeIcon icon={faBook} className="me-2" /> Subjects
+          </Button>
+        </div>
+      )}
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput

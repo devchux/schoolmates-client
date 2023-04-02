@@ -1,65 +1,66 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-formid";
+import { toast } from "react-toastify";
 import { Col, Row } from "reactstrap";
 import AuthSelect from "../../../components/inputs/auth-select";
 import DetailView from "../../../components/views/detail-view";
 import { useClasses } from "../../../hooks/useClasses";
-import { useStudent } from "../../../hooks/useStudent";
+import { useStaff } from "../../../hooks/useStaff";
 
-const PromoteStudent = () => {
-  const { isLoading, studentData, promoteStudent } = useStudent();
-
-  const { classes } = useClasses();
-  const {
-    handleSubmit,
-    setInputs,
-    inputs,
-    errors,
-    handleChange,
-  } = useForm({
+const AssignClass = () => {
+  const { handleSubmit, errors, inputs, handleChange, setInputs } = useForm({
     defaultValues: {
-      campus: "",
-      present_class: "",
+      class_assigned: "",
       sub_class: "",
+    },
+    validation: {
+      class_assigned: { required: true },
+      sub_class: { required: true },
     },
   });
 
+  const { assignClass, isLoading, staffData } = useStaff();
+
+  const { classes } = useClasses();
+
+  const onSubmit = (data) => {
+    if (staffData.designation_id !== "4")
+      return toast.error("Staff is not a teacher");
+    assignClass({
+      staff_id: staffData.id,
+      body: data,
+    });
+  };
+
   useEffect(() => {
-    if (studentData) {
+    if (staffData) {
       setInputs({
         ...inputs,
-        campus: studentData?.campus,
-        present_class: studentData?.present_class,
-        sub_class: studentData?.sub_class,
+        class_assigned: staffData.class_assigned,
+        sub_class: staffData.sub_class,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [studentData]);
+  }, [staffData]);
 
-  const onSubmit = (data) => {
-    promoteStudent({
-      id: studentData?.id,
-      ...data,
-    });
-  };
   return (
     <DetailView
       isLoading={isLoading}
-      cancelLink="/app/students"
-      pageTitle="Promote Student"
+      cancelLink="/app/classes"
+      pageTitle="Assign Class"
       onFormSubmit={handleSubmit(onSubmit)}
     >
       <Row className="my-5">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
-            label="Present Class"
-            value={inputs.present_class}
-            name="present_class"
-            hasError={!!errors.present_class}
+            label="Class"
+            value={inputs.class_assigned}
+            name="class_assigned"
+            hasError={!!errors.class_assigned}
             onChange={(e) => {
               setInputs({
                 ...inputs,
-                present_class: e.target.value,
+                class_assigned: e.target.value,
                 sub_class: "",
               });
             }}
@@ -68,8 +69,8 @@ const PromoteStudent = () => {
               title: x?.class_name,
             }))}
           />
-          {!!errors.present_class && (
-            <p className="error-message">{errors.present_class}</p>
+          {!!errors.class_assigned && (
+            <p className="error-message">{errors.class_assigned}</p>
           )}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
@@ -80,7 +81,7 @@ const PromoteStudent = () => {
             hasError={!!errors.sub_class}
             onChange={handleChange}
             options={classes
-              ?.find((x) => x.class_name === inputs.present_class)
+              ?.find((x) => x.class_name === inputs.class_assigned)
               ?.sub_class?.split(",")
               ?.map((x) => ({
                 value: x,
@@ -96,4 +97,4 @@ const PromoteStudent = () => {
   );
 };
 
-export default PromoteStudent;
+export default AssignClass;

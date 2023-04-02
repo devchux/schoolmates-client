@@ -1,8 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PageView from "../../../components/views/table-view";
 import { useStaff } from "../../../hooks/useStaff";
 
 const Staff = () => {
+  const navigate = useNavigate();
   const {
     staffs,
     isLoading,
@@ -164,6 +166,7 @@ const Staff = () => {
 
   return (
     <PageView
+      rowHasAction={permission?.action && indexStatus === "all"}
       rowHasUpdate={indexStatus === "all" && permission?.update}
       rowHasDelete={indexStatus === "all" && permission?.delete}
       rowHasStatusToggle={indexStatus === "all" && permission?.statusToggle}
@@ -174,6 +177,12 @@ const Staff = () => {
       groupedButtonOptions={getSortButtonOptions()}
       columns={dataMapper[indexStatus].columns}
       data={dataMapper[indexStatus].data}
+      action={[
+        {
+          title: "Attendance",
+          onClick: (id) => navigate(`/app/staffs/attendance/${id}`),
+        },
+      ]}
     />
   );
 };

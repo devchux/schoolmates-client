@@ -61,6 +61,15 @@ import DiscountDetail from "../pages/dashboard/setup_discount";
 import Invoices from "../pages/dashboard/invoices";
 import InvoiceDetail from "../pages/dashboard/invoices/detail";
 import VehicleMaintenance from "../pages/dashboard/maintenance";
+import VehicleLogsDetail from "../pages/dashboard/vehicles/logs/detail";
+import SubjectDetail from "../pages/dashboard/subjects/detail";
+import StaffAttendanceDetail from "../pages/dashboard/staffs/attendance/detail";
+import HealthReport from "../pages/dashboard/students/health-report";
+import BusRouting from "../pages/dashboard/students/bus-routing";
+import AssignClass from "../pages/dashboard/staffs/assign-class";
+import ClassSubjects from "../pages/dashboard/classes/subjects";
+import ExpensesDetail from "../pages/expenses/detail";
+import AcademicPeriods from "../pages/dashboard/academic-period";
 
 const CustomRoutes = () => {
   return (
@@ -97,6 +106,14 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
+        <Route
+          path="subjects/new"
+          element={
+            <Guard routeName="subjects">
+              <SubjectDetail />
+            </Guard>
+          }
+        />
         <Route exact path="classes" element={<Classes />} />
         <Route
           path="classes/new"
@@ -111,6 +128,14 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="classes" action={["update"]}>
               <ClassDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="classes/subjects/:id"
+          element={
+            <Guard routeName="classes" action={["subjects"]}>
+              <ClassSubjects />
             </Guard>
           }
         />
@@ -165,6 +190,22 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          path="staffs/attendance/:id"
+          element={
+            <Guard routeName="staffs" action={["create-attendance"]}>
+              <StaffAttendanceDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="staffs/assign-class/:id"
+          element={
+            <Guard routeName="staffs" action={["assign-class"]}>
+              <AssignClass />
+            </Guard>
+          }
+        />
+        <Route
           exact
           path="students"
           element={
@@ -206,6 +247,22 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          path="students/health-report/:id"
+          element={
+            <Guard routeName="students" action={["health-report"]}>
+              <HealthReport />
+            </Guard>
+          }
+        />
+        <Route
+          path="students/bus-routing/:id"
+          element={
+            <Guard routeName="students" action={["bus-routing"]}>
+              <BusRouting />
+            </Guard>
+          }
+        />
+        <Route
           exact
           path="resumption-date"
           element={
@@ -229,6 +286,15 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="vehicles">
               <VehicleDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="vehicles/logs/new"
+          element={
+            <Guard routeName="vehicle-logs">
+              <VehicleLogsDetail />
             </Guard>
           }
         />
@@ -468,6 +534,15 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          exact
+          path="expense/new"
+          element={
+            <Guard routeName="expense">
+              <ExpensesDetail/>
+            </Guard>
+          }
+        />
+        <Route
         
           path="comment/new"
           element={
@@ -558,6 +633,15 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="creditors">
               <CreditorsList/>
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="academic"
+          element={
+            <Guard routeName="academic">
+              <AcademicPeriods/>
             </Guard>
           }
         />

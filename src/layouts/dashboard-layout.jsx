@@ -55,8 +55,11 @@ const DashboardLayout = () => {
           </button>
         </div>
         <div className="sidebar-top-wrapper">
-          <ProfileImage />
-          <p>{user?.department}</p>
+          <ProfileImage
+            wrapperClassName="school-image"
+            src={user?.school?.schlogo}
+          />
+          <p title={user?.school?.schname}>{user?.school?.schname}</p>
         </div>
         <div className="sidebar-links-wrapper">
           {dashboardSideBarLinks[user?.designation_name]?.map((item, i) => (

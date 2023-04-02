@@ -3,7 +3,13 @@ import PageView from "../../../components/views/table-view";
 import { useCampus } from "../../../hooks/useCampus";
 
 const Campus = () => {
-  const { campusList, isLoading, toggleCampusStatus, permission } = useCampus();
+  const {
+    campusList,
+    isLoading,
+    toggleCampusStatus,
+    permission,
+    deleteCampus,
+  } = useCampus();
 
   return (
     <PageView
@@ -13,6 +19,7 @@ const Campus = () => {
       rowHasDelete={permission?.delete}
       isLoading={isLoading}
       onStatusToggle={toggleCampusStatus}
+      onDelete={async (id) => await deleteCampus(id)}
       columns={[
         {
           Header: "id",

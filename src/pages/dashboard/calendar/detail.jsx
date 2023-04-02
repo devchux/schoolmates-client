@@ -64,7 +64,7 @@ const CalendarDetail = () => {
               type="file"
               className="px-0"
               wrapperClassName="border-0"
-              label="Profile Image"
+              label="File"
               onChange={handleImageChange}
               ref={fileRef}
             />

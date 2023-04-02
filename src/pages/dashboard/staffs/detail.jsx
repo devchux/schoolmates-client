@@ -7,6 +7,10 @@ import AuthSelect from "../../../components/inputs/auth-select";
 import { roleMap } from "../../../utils/constants";
 import ImagePreview from "../../../components/common/image-preview";
 import { useDepartments } from "../../../hooks/useDepartments";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHandPointer } from "@fortawesome/free-solid-svg-icons";
+import Button from "../../../components/buttons/button";
+import { useNavigate } from "react-router-dom";
 
 const StaffDetail = () => {
   const {
@@ -29,6 +33,8 @@ const StaffDetail = () => {
     resetFile,
     fileRef,
   } = useStaff();
+
+  const navigate = useNavigate();
 
   const { isLoading: departmentsListLoading, departmentsList } =
     useDepartments();
@@ -65,6 +71,24 @@ const StaffDetail = () => {
       pageTitle={isEdit ? "Edit Staff" : "Add Staff"}
       onFormSubmit={handleSubmit(onSubmit)}
     >
+      {isEdit && (
+        <div className="mb-5 d-flex justify-content-end gap-3">
+          {staffData?.designation_id === "4" && (
+            <Button
+              type="button"
+              disabled={isLoading}
+              isLoading={isLoading}
+              variant="outline-dark"
+              onClick={() =>
+                navigate(`/app/staffs/assign-class/${staffData?.id}`)
+              }
+            >
+              <FontAwesomeIcon icon={faHandPointer} className="me-2" /> Assign
+              Class
+            </Button>
+          )}
+        </div>
+      )}
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput

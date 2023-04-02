@@ -42,6 +42,35 @@ export const useFile = (extras = [], removeFileTypeValidation = false) => {
     setBase64String(photoData);
   };
 
+  const asyncHandleImageChange = (e) => {
+    return new Promise(async (resolve) => {
+      const file = e.target.files[0];
+      const file_types = ["image/png", "image/jpeg", "image/jpg", ...extras];
+
+      if (!file) return;
+
+      if (!file_types.includes(file.type) && !removeFileTypeValidation) {
+        reset();
+        toast.error(`File can either be ${file_types.join(", ")}`);
+        return;
+      }
+
+      if (file.size > 3000000) {
+        reset();
+        toast.error("File should not be greater than 3mb");
+        return;
+      }
+      const photoData = await convertBase64(file);
+
+      resolve({
+        fileName: file.name,
+        filePreview: URL.createObjectURL(file),
+        base64: photoData,
+        file,
+      });
+    });
+  };
+
   return {
     base64String,
     fileName,
@@ -49,5 +78,6 @@ export const useFile = (extras = [], removeFileTypeValidation = false) => {
     handleImageChange,
     reset,
     fileRef,
+    asyncHandleImageChange,
   };
 };

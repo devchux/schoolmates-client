@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import PageView from "../../../components/views/table-view";
+import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useClasses } from "../../../hooks/useClasses";
 import { useStudent } from "../../../hooks/useStudent";
 
@@ -29,9 +30,12 @@ const Student = () => {
     graduatedStudents,
     setClasses,
     studentLoginDetailsStudents,
+    communicationList,
   } = useStudent();
 
   const { classes } = useClasses();
+
+  const { data: sessions } = useAcademicSession();
 
   const setVariant = (status) => {
     return indexStatus !== status ? "outline" : null;
@@ -306,6 +310,50 @@ const Student = () => {
           },
         ];
 
+      case "communication":
+        return [
+          {
+            Header: "Campus",
+            accessor: "campus",
+          },
+          {
+            Header: "Period",
+            accessor: "period",
+          },
+          {
+            Header: "Term",
+            accessor: "term",
+          },
+          {
+            Header: "Session",
+            accessor: "session",
+          },
+          {
+            Header: "Title",
+            accessor: "title",
+          },
+          {
+            Header: "Urgency",
+            accessor: "urgency",
+          },
+          {
+            Header: "Admission Number",
+            accessor: "admission_number",
+          },
+          {
+            Header: "Message",
+            accessor: "message",
+          },
+          {
+            Header: "Sender",
+            accessor: "sender",
+          },
+          {
+            Header: "Status",
+            accessor: "status",
+          },
+        ];
+
       default:
         return [
           {
@@ -528,12 +576,55 @@ const Student = () => {
       });
     }
 
+    if (permission?.communication) {
+      arr.push({
+        title: "Communication Book",
+        type: "button",
+        onClick: () => setIndexStatus("communication"),
+        variant: setVariant("communication"),
+      });
+    }
+
     if (permission?.studentLoginDetails) {
       arr.push({
         title: "Login Details",
         type: "button",
         onClick: () => setIndexStatus("loginDetails"),
         variant: setVariant("loginDetails"),
+      });
+    }
+
+    return arr.length ? arr : undefined;
+  };
+
+  const getActionOptions = () => {
+    const arr = [];
+
+    if (permission?.promote) {
+      arr.push({
+        title: "Promote",
+        onClick: (id) => navigate(`/app/students/promote/${id}`),
+      });
+    }
+
+    if (permission?.transfer) {
+      arr.push({
+        title: "Transfer",
+        onClick: (id) => navigate(`/app/students/transfer/${id}`),
+      });
+    }
+
+    if (permission["health-report"]) {
+      arr.push({
+        title: "Health Report",
+        onClick: (id) => navigate(`/app/students/health-report/${id}`),
+      });
+    }
+
+    if (permission["bus-routing"]) {
+      arr.push({
+        title: "Bus Routing",
+        onClick: (id) => navigate(`/app/students/bus-routing/${id}`),
       });
     }
 
@@ -553,6 +644,7 @@ const Student = () => {
     myStudents: studentByClassAndSession,
     alumni: graduatedStudents,
     loginDetails: studentLoginDetailsStudents,
+    communication: communicationList,
   };
 
   const searchByClass = (value) => {
@@ -561,6 +653,19 @@ const Student = () => {
       present_class: findClass?.class_name,
       sub_class: findClass?.sub_class,
     });
+  };
+
+  const getSelectSearchOptions = () => {
+    if (sortBy === "class")
+      return (classes || []).map((x) => ({
+        value: x?.class_name,
+        title: x?.class_name,
+      }));
+    if (sortBy === "session")
+      return (sessions || [])?.map((session) => ({
+        value: session?.academic_session,
+        title: session?.academic_session,
+      }));
   };
 
   const onSearch = (value) => {
@@ -588,36 +693,23 @@ const Student = () => {
         setSorted(false);
         setSortBy("");
       }}
-      action={[
-        {
-          title: "Transfer",
-          onClick: (id) => navigate(`/app/students/transfer/${id}`),
-        },
-        {
-          title: "Promote",
-          onClick: (id) => navigate(`/app/students/promote/${id}`),
-        },
-      ]}
+      action={getActionOptions()}
       data={data[indexStatus]}
       onDelete={onDeleteStudent}
       onSelectChange={handleSortBy}
       canCreate={permission?.create}
       hasSortOptions={permission?.sort}
       rowHasAction={permission?.action && indexStatus === "all"}
-      searchIsSelect={sortBy === "class"}
+      searchIsSelect={sortBy === "class" || sortBy === "session"}
       columns={
         user?.designation_name === "Student"
           ? getStudentColumns()
           : getColumns()
       }
-      isSessionSearch={sortBy === "session"}
       groupedButtonOptions={getSortButtonOptions()}
       hasSelect={indexStatus === "all" && permission?.sortSession}
       hasSearch={indexStatus === "all" && permission?.sortSession}
-      searchSelectOptions={(classes || []).map((x) => ({
-        value: x?.class_name,
-        title: x?.class_name,
-      }))}
+      searchSelectOptions={getSelectSearchOptions()}
       selectOptions={[
         { value: "admission-number", title: "Admission Number" },
         { value: "session", title: "Session" },

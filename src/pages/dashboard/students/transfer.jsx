@@ -22,7 +22,6 @@ const TransferStudent = () => {
     inputs,
     errors,
     handleChange,
-    setFieldValue,
   } = useForm({
     defaultValues: {
       campus: "",
@@ -51,8 +50,6 @@ const TransferStudent = () => {
 
   const isLoading = campusLoading || classesLoading || studentLoading;
 
-  console.log("campusList", campusList);
-
   return (
     <DetailView
       isLoading={isLoading}
@@ -73,9 +70,7 @@ const TransferStudent = () => {
               title: x?.name,
             }))}
           />
-          {!!errors.campus && (
-            <p className="error-message">{errors.campus}</p>
-          )}
+          {!!errors.campus && <p className="error-message">{errors.campus}</p>}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
@@ -84,8 +79,11 @@ const TransferStudent = () => {
             name="present_class"
             hasError={!!errors.present_class}
             onChange={(e) => {
-              handleChange(e);
-              setFieldValue("sub_class", "");
+              setInputs({
+                ...inputs,
+                present_class: e.target.value,
+                sub_class: "",
+              });
             }}
             options={(classes || []).map((x) => ({
               value: x?.class_name,

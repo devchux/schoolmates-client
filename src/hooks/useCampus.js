@@ -10,7 +10,7 @@ import { useFile } from "./useFile";
 
 export const useCampus = () => {
   const { id } = useParams();
-  const { apiServices, errorHandler, permission } = useAppContext('campus');
+  const { apiServices, errorHandler, permission } = useAppContext("campus");
 
   const {
     getFieldProps,
@@ -52,8 +52,6 @@ export const useCampus = () => {
     },
   });
 
-
-
   const {
     handleImageChange,
     filePreview,
@@ -93,7 +91,7 @@ export const useCampus = () => {
     {
       onSuccess() {
         toast.success("Campus has been added successfully");
-        resetFile()
+        resetFile();
         reset();
       },
       onError(err) {
@@ -106,6 +104,16 @@ export const useCampus = () => {
     useMutation(apiServices.updateCampus, {
       onSuccess() {
         toast.success("Campus has been updated successfully");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
+  const { mutateAsync: deleteCampus, isLoading: deleteCampusLoading } =
+    useMutation(apiServices.deleteCampus, {
+      onSuccess() {
+        toast.success("Campus has been deleted successfully");
       },
       onError(err) {
         errorHandler(err);
@@ -134,7 +142,8 @@ export const useCampus = () => {
     addCampusLoading ||
     campusListLoading ||
     updateCampusLoading ||
-    getCampusLoading;
+    getCampusLoading ||
+    deleteCampusLoading;
 
   return {
     permission,
@@ -152,6 +161,7 @@ export const useCampus = () => {
     base64String,
     resetFile,
     fileRef,
+    deleteCampus,
     updateCampus: handleUpdateCampus,
     campusData: campusData || singleCampus,
     toggleCampusStatus,

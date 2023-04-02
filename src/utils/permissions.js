@@ -33,6 +33,9 @@ export const permissions = {
       statusToggle: true,
       sort: true,
       staffLoginDetails: true,
+      "assign-class": true,
+      action: false,
+      "create-attendance": false,
     },
     students: {
       create: false,
@@ -154,6 +157,12 @@ export const permissions = {
       graduateStudent: true,
       readClass: true,
       studentLoginDetails: false,
+      action: true,
+      transfer: false,
+      promote: true,
+      communication: false,
+      "health-report": false,
+      "bus-routing": false,
     },
     results: {
       compute: false,
@@ -171,6 +180,8 @@ export const permissions = {
       readLogs: false,
       update: false,
       delete: false,
+      sort: true,
+      assignedBus: true,
     },
     results: {
       compute: false,
@@ -193,6 +204,12 @@ export const permissions = {
       graduateStudent: false,
       readClass: true,
       studentLoginDetails: false,
+      action: false,
+      transfer: false,
+      promote: false,
+      communication: false,
+      "health-report": false,
+      "bus-routing": false,
     },
     "dress-code": {
       read: true,
@@ -220,7 +237,7 @@ export const permissions = {
       read: true,
     },
     campus: {
-      read: true
+      read: true,
     },
     classes: {
       create: true,
@@ -228,6 +245,7 @@ export const permissions = {
       update: true,
       delete: true,
       statusToggle: false,
+      subjects: true,
     },
     vehicles: {
       create: true,
@@ -236,6 +254,10 @@ export const permissions = {
       update: false,
       delete: false,
       sort: true,
+      assignedBus: true,
+    },
+    "vehicle-logs": {
+      create: true,
     },
     departments: {
       create: true,
@@ -264,6 +286,9 @@ export const permissions = {
       action: true,
       transfer: true,
       promote: true,
+      communication: true,
+      "health-report": true,
+      "bus-routing": true,
     },
     subjects: {
       read: true,
@@ -278,12 +303,15 @@ export const permissions = {
     staffs: {
       create: true,
       read: true,
-      readAttendance: false,
+      readAttendance: true,
       update: true,
       delete: true,
       statusToggle: true,
       sort: true,
       staffLoginDetails: true,
+      action: true,
+      "create-attendance": true,
+      "assign-class": true,
     },
   },
   Account: {

@@ -118,6 +118,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async deleteCampus(id) {
+    const { data } = await axios.delete(`${backendAPI}/campus/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async toggleCampusStatus({ id, status }) {
     const { data } = await axios.patch(
       `${backendAPI}/${
@@ -179,6 +190,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async disableStaff(id) {
+    const { data } = await axios.patch(`${backendAPI}/disablestaff/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async getStaff(id) {
     const { data } = await axios.get(`${backendAPI}/staff/${id}`, {
       headers: {
@@ -192,6 +214,17 @@ class APIServies extends Helpers {
 
   async getStaffAttendance() {
     const { data } = await axios.get(`${backendAPI}/staffattendance`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addStaffAttendance(body) {
+    const { data } = await axios.post(`${backendAPI}/staffattendance`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
@@ -358,6 +391,17 @@ class APIServies extends Helpers {
 
   async addVehicle(body) {
     const { data } = await axios.post(`${backendAPI}/vehicle`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async addVehicleLogs(body) {
+    const { data } = await axios.post(`${backendAPI}/vehiclelog`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
@@ -669,6 +713,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async addSubject(body) {
+    const { data } = await axios.post(`${backendAPI}/subjects`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async addTimetable(body) {
     const { data } = await axios.post(`${backendAPI}/timetable`, body, {
       headers: {
@@ -952,6 +1007,16 @@ class APIServies extends Helpers {
 
     return data;
   }
+  async postExpense({ body }) {
+    const { data } = await axios.post(`${backendAPI}/expenses`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 
   async postMaintenance({ body }) {
     const { data } = await axios.post(`${backendAPI}/vehiclemaintenance`, body, {
@@ -1107,16 +1172,12 @@ class APIServies extends Helpers {
   }
 
   async importStudent(body) {
-    const { data } = await axios.post(
-      `${backendAPI}/studentimport`,
-      body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${super.getToken()}`,
-        },
-      }
-    );
+    const { data } = await axios.post(`${backendAPI}/studentimport`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
 
     return data;
   }
@@ -1190,6 +1251,16 @@ class APIServies extends Helpers {
   }
   async PostTransferFund(body) {
     const { data } = await axios.post(`${backendAPI}/transferfund`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+  async getAcademicSessions() {
+    const { data } = await axios.get(`${backendAPI}/getacademicsessions`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,

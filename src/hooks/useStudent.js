@@ -375,6 +375,16 @@ export const useStudent = () => {
       },
     });
 
+  const { mutateAsync: postHealthReport, isLoading: postHealthReportLoading } =
+    useMutation(apiServices.postHealthReport, {
+      onSuccess() {
+        toast.success("Health report has been created");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
   const { isLoading: getStudentLoading, data: singleStudent } = useQuery(
     [queryKeys.GET_STUDENT, id],
     () => apiServices.getStudent(id),
@@ -426,8 +436,35 @@ export const useStudent = () => {
     }
   );
 
+  const {
+    isLoading: communicationListLoading,
+    data: communicationList,
+  } = useQuery(
+    [queryKeys.GET_COMMUNICATION_BOOK],
+    apiServices.getCommunicationBook,
+    {
+      retry: 3,
+      enabled: permission?.communication,
+      select: apiServices.formatData,
+      onError(err) {
+        errorHandler(err);
+      },
+    }
+  );
+
   const { mutate: graduateStudent, isLoading: graduateStudentLoading } =
     useMutation(apiServices.graduateStudent, {
+      onSuccess() {
+        toast.success("Student is now an alumni");
+        navigate("/app/students");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
+  const { mutate: postBusRouting, isLoading: postBusRoutingLoading } =
+    useMutation(apiServices.postBusRouting, {
       onSuccess() {
         toast.success("Student is now an alumni");
         navigate("/app/students");
@@ -462,7 +499,10 @@ export const useStudent = () => {
     studentLoginDetailsLoading ||
     acceptStudentLoading ||
     transferStudentLoading ||
-    promoteStudentLoading;
+    promoteStudentLoading ||
+    postHealthReportLoading ||
+    postBusRoutingLoading ||
+    communicationListLoading;
 
   return {
     user,
@@ -504,6 +544,10 @@ export const useStudent = () => {
     acceptStudent,
     transferStudent,
     promoteStudent,
+    postHealthReport,
+    apiServices,
+    postBusRouting,
+    communicationList,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
     studentData: singleStudent || formatSingleStudent,

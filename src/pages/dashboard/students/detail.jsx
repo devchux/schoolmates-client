@@ -342,8 +342,12 @@ const StudentDetail = () => {
             name="present_class"
             hasError={!!errors.present_class}
             onChange={(e) => {
-              handleChange(e)
-              setFieldValue("sub_class", "");}}
+              setInputs({
+                ...inputs,
+                present_class: e.target.value,
+                sub_class: "",
+              });
+            }}
             options={(classes || []).map((x) => ({
               value: x?.class_name,
               title: x?.class_name,
