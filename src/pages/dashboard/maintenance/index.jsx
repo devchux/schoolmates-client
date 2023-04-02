@@ -107,8 +107,7 @@ const VehicleMaintenance = () => {
             <p className="error-message">{errors.detected_fault}</p>
           )}
         </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
+      
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Mechanic Name"
@@ -119,6 +118,8 @@ const VehicleMaintenance = () => {
             <p className="error-message">{errors.mechanic_name}</p>
           )}
         </Col>
+        </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Mechanic Phone"
@@ -129,8 +130,7 @@ const VehicleMaintenance = () => {
             <p className="error-message">{errors.mechanic_phone}</p>
           )}
         </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
+      
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Cost Of Maintenance"
@@ -141,6 +141,8 @@ const VehicleMaintenance = () => {
             <p className="error-message">{errors.cost_of_maintenance}</p>
           )}
         </Col>
+        </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Initial Payment"

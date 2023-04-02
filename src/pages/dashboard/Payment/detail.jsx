@@ -13,12 +13,9 @@ const PaymentDetail = () => {
   const {
     apiServices,
     user,
-    apiServices: { handleSessionChange },
+    // apiServices: { handleSessionChange },
   } = useAppContext();
   const {
-    inputs,
-    handleChange,
-    setFieldValue,
     handleSubmit,
     errors,
     getFieldProps,
@@ -36,16 +33,15 @@ const PaymentDetail = () => {
       total_amount: "",
       remark: "",
     },
-    validation: {
-      session: {
-        required: false,
-      },
-      term: {
-        required: false,
-      },
-    },
+    // validation: {
+    //   session: {
+    //     required: false,
+    //   },
+    //   term: {
+    //     required: true,
+    //   },
+    // },
   });
-  const { setInputData } = useReports();
   const { isLoading, mutate: createPost } = useMutation(
     apiServices.postPayment,
     {
@@ -59,26 +55,11 @@ const PaymentDetail = () => {
     }
   );
 
-  //   const { handleSubmit, errors, getFieldProps } = useForm({
-  //     defaultValues: {
-  //         term: "First Term",
-  //         session: "",
-  //         bank_name: "",
-  //         account_name: "",
-  //         student_id: "",
-  //         student_fullname: "",
-  //         payment_method: "",
-  //         amount_paid: "",
-  //         total_amount: "",
-  //         remark: ""
-  //     },
-  //   });
-
   const onSubmit = (data) => {
-    setInputData({
-      term: data.term,
-      session: data.session,
-    });
+    // setInputData({
+    //   term: data.term,
+    //   session: data.session,
+    // });
     createPost({
       body: {
         ...data,
@@ -94,6 +75,16 @@ const PaymentDetail = () => {
       onFormSubmit={handleSubmit(onSubmit)}
     >
       <Row className="mb-0 mb-sm-4">
+      <Col sm="6" className="mb-4 mb-sm-0">
+          <AuthInput
+            label="Student Id"
+            hasError={!!errors.student_id}
+            {...getFieldProps("student_id")}
+          />
+          {!!errors.student_id && (
+            <p className="error-message">{errors.student_id}</p>
+          )}
+        </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Account Name"
@@ -161,36 +152,26 @@ const PaymentDetail = () => {
           )}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthSelect
+          <AuthInput
             label="Term"
-            value={inputs.term}
-            name="term"
             hasError={!!errors.term}
-            onChange={handleChange}
-            options={[
-              { value: "First Term", title: "First Term" },
-              { value: "Second Term", title: "Second Term" },
-              { value: "Third Term", title: "Third Term" },
-            ]}
+            {...getFieldProps("term")}
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </Col>
       </Row>
       <Row className="mb-0 mb-sm-4">
-        <Col sm="6" className="mb-4 mb-sm-0">
+      <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Session"
-            placeholder="2021/2022"
             hasError={!!errors.session}
-            value={inputs.session}
-            onChange={({ target: { value } }) =>
-              handleSessionChange(value, "session", setFieldValue)
-            }
+            {...getFieldProps("session")}
           />
           {!!errors.session && (
             <p className="error-message">{errors.session}</p>
           )}
         </Col>
+        
         <Col sm="6" className="mb-4 mb-sm-0">
           <label className="mb-2">Remark</label>
           <textarea

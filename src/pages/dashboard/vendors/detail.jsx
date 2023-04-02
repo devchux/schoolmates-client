@@ -107,8 +107,7 @@ const VendorDetail = () => {
             <p className="error-message">{errors.company_name}</p>
           )}
         </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
+      
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Contact Address"
@@ -119,6 +118,8 @@ const VendorDetail = () => {
             <p className="error-message">{errors.contact_address}</p>
           )}
         </Col>
+        </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Contact Person"
@@ -129,8 +130,7 @@ const VendorDetail = () => {
             <p className="error-message">{errors.contact_person}</p>
           )}
         </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
+      
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Contact Phone"
@@ -141,6 +141,8 @@ const VendorDetail = () => {
             <p className="error-message">{errors.contact_phone}</p>
           )}
         </Col>
+        </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Email Address"

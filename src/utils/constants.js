@@ -4,15 +4,25 @@ import {
   faBuildingColumns,
   faClipboardUser,
   faComment,
-  // faCode,
+  faCode,
+  faSuitcase,
   faFileInvoice,
   faGraduationCap,
   faHome,
   faPaperPlane,
   faPeopleGroup,
-  // faScaleBalanced,
+  faScaleBalanced,
+  faEnvelope,
   faSchool,
+  faAddressCard,
+  faUserPlus,
+  faShoppingBasket,
   // faTape,
+  faUsers,
+  faBusinessTime,
+    // faCalendar,
+    // faPeopleLine,
+  faCar,
   faTruck,
   faMoneyBill,
   faMoneyCheckDollar,
@@ -267,7 +277,7 @@ export const dashboardSideBarLinks = {
     {
       to: "/app/expense",
       title: "Expenses",
-      icon: faBuildingColumns,
+      icon: faShoppingBasket,
     },
     {
       to: "/app/reports",
@@ -277,7 +287,7 @@ export const dashboardSideBarLinks = {
     {
       to: "/app/vendors",
       title: "Vendor List",
-      icon: faMoneyBill,
+      icon: faAddressCard,
     },
     {
       to: "/app/transfer",
@@ -287,23 +297,28 @@ export const dashboardSideBarLinks = {
     {
       to: "/app/chart-account",
       title: "Chart Account List",
-      icon: faMoneyBill,
+      icon: faCode,
     },
     {
       to: "/app/fee-list",
       title: "Fee List",
-      icon: faMoneyBill,
+      icon: faScaleBalanced,
     },
     {
-      to: "/app/debtors",
-      title: "Debtors List",
-      icon: faMoneyBill,
+      to: "/app/accounts",
+      title: "Accounts",
+      icon: faSchool,
     },
-    {
-      to: "/app/creditors",
-      title: "Creditors List",
-      icon: faMoneyBill,
-    },
+    // {
+    //   to: "/app/debtors",
+    //   title: "Debtors List",
+    //   icon: faUsers,
+    // },
+    // {
+    //   to: "/app/creditors",
+    //   title: "Creditors List",
+    //   icon: faUserPlus,
+    // },
     {
       to: "/app/payment",
       title: "Payment",
@@ -312,17 +327,22 @@ export const dashboardSideBarLinks = {
     {
       to: "/app/bank",
       title: "Bank",
-      icon: faMoneyBill,
+      icon: faBuildingColumns,
+    },
+    {
+      to: "/app/academic",
+      title: "Academic Period",
+      icon: faBusinessTime,
     },
     {
       to: "/app/discount",
       title: "Setup Discount",
-      icon: faMoneyBill,
+      icon: faSuitcase,
     },
     {
       to: "/app/invoice",
       title: "Invoice",
-      icon: faMoneyBill,
+      icon: faEnvelope,
     },
     {
       to: "/app/students",
@@ -332,7 +352,7 @@ export const dashboardSideBarLinks = {
     {
       to: "/app/maintenance",
       title: "Vehicle Maintenance",
-      icon: faMoneyBill,
+      icon: faCar,
     },
   ],
 };

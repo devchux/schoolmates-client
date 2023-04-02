@@ -29,17 +29,15 @@ const Income = () => {
     });
   const {
     setEnableIncomeQuery,
-    setEnableExpensesQuery,
     incomeReports,
     isLoading,
     setInputData,
-    expensesReports,
     openPrompt,
     togglePrompt,
     indexStatus,
     setIndexStatus,
   } = useReports();
-  const {vendorsList}= useVendors()
+
   const onSubmit = (data) => {
     setInputData({
       term: data.term,
@@ -49,27 +47,7 @@ const Income = () => {
       setEnableIncomeQuery(true);
     }
 
-    if (data.type === "vendor") {
-      setEnableExpensesQuery(true);
-    }
-    if (data.type === "mentainance") {
-      setEnableExpensesQuery(true);
-    }
-    if (data.type === "creditors List") {
-      setEnableExpensesQuery(true);
-    }
-    if (data.type === "salary structure") {
-      setEnableExpensesQuery(true);
-    }
-    if (data.type === "pay in") {
-      setEnableExpensesQuery(true);
-    }
-    if (data.type === "update income") {
-      setEnableExpensesQuery(true);
-    }
-    if (data.type === "income review") {
-      setEnableExpensesQuery(true);
-    }
+    
     reset();
   };
 
@@ -77,20 +55,11 @@ const Income = () => {
 
   const data = {
     income: incomeReports,
-    expense: expensesReports,
-    vendorList: vendorsList,
   };
 
   const title = {
     income: "Income Reports",
-    mentainance: "mentainance",
-    incomeReview:"income Review",
-    updateIncome:"Update Income",
-    payIn:"Pay In",
-    salaryStructure:"Salary Structure",
-    creditorList:"Creditors List",
-    DebtorsList:"Debtors List",
-
+    
   };
 
   const commonGroupButtonOptions = [
@@ -197,6 +166,7 @@ const Income = () => {
                   onClick: clear,
                   isLoading,
                 },
+                
               ]
             : commonGroupButtonOptions
         }
@@ -226,11 +196,7 @@ const Income = () => {
             onChange={handleChange}
             options={[
               { value: "income", title: "Income Review" },
-              { value: "expense", title: "Mentainance" },
-              { value: "expense", title: "Update Income" },
-              { value: "expense", title: "Pay In" },
-              { value: "expense", title: "Salary Structure" },
-              { value: "vendor", title: "Vendors List" },
+              
             ]}
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}

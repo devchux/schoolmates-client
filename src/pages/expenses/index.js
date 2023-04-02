@@ -34,10 +34,12 @@ const Expenses = () => {
     setInputData,
     expensesReports,
     openPrompt,
+    permission,
     togglePrompt,
     indexStatus,
     setIndexStatus,
   } = useReports();
+  // const {  permission } = useAccounts();
 
   const onSubmit = (data) => {
     setInputData({
@@ -82,7 +84,7 @@ const Expenses = () => {
 
   const commonGroupButtonOptions = [
     {
-      title: "Create Expense",
+      title: "Extract Expense",
       type: "button",
       onClick: togglePrompt,
       isLoading,
@@ -169,6 +171,7 @@ const Expenses = () => {
     <div>
       <PageView
         hasSortOptions
+        canCreate={permission?.create}
         pageTitle={title[indexStatus]}
         showTableTitle={!!indexStatus}
         showIllustration={!indexStatus}
@@ -184,10 +187,11 @@ const Expenses = () => {
                   onClick: clear,
                   isLoading,
                 },
+                
               ]
             : commonGroupButtonOptions
         }
-        canCreate={false}
+        canCreate={true}
         isLoading={false}
         columns={columns[indexStatus]}
         data={data[indexStatus]}

@@ -60,10 +60,7 @@ const InvoiceDetail = () => {
   );
 
   const onSubmit = (data) => {
-    // setInputData({
-    //   term: data.term,
-    //   session: data.session,
-    // });
+    
     createInvoicePost({
       body: {
         ...data,
@@ -175,35 +172,7 @@ const InvoiceDetail = () => {
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </Col>
-        {/* <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthSelect
-            label="Term"
-            value={inputs.term}
-            name="term"
-            hasError={!!errors.term}
-            onChange={handleChange}
-            options={[
-              { value: "First Term", title: "First Term" },
-              { value: "Second Term", title: "Second Term" },
-              { value: "Third Term", title: "Third Term" },
-            ]}
-          />
-          {!!errors.term && <p className="error-message">{errors.term}</p>}
-        </Col> */}
-        {/* <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            label="Session"
-            placeholder="2021/2022"
-            hasError={!!errors.session}
-            value={inputs.session}
-            onChange={({ target: { value } }) =>
-              handleSessionChange(value, "session", setFieldValue)
-            }
-          />
-          {!!errors.session && (
-            <p className="error-message">{errors.session}</p>
-          )}
-        </Col> */}
+        
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Session"
