@@ -8,6 +8,7 @@ const HomeCard = ({
   icon,
   isLink = false,
   isBadge = false,
+  variant,
   ...rest
 }) => {
   if (isLink) return (
@@ -26,7 +27,7 @@ const HomeCard = ({
     </Link>
   )
   return (
-    <div {...rest} className={`home-card-wrapper ${isBadge ? "is-badge" : ""}`}>
+    <div {...rest} className={`home-card-wrapper ${variant || ''} ${isBadge ? "is-badge" : ""}`}>
       {isBadge ? (
         <>
           <FontAwesomeIcon icon={icon} />
