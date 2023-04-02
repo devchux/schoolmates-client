@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useTable } from "react-table";
-import { Input, Spinner, Table } from "reactstrap";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Input,
+  Spinner,
+  Table,
+} from "reactstrap";
 import Button from "../buttons/button";
 import Prompt from "../modals/prompt";
 
@@ -19,12 +27,21 @@ const CustomTable = ({
   hasCheckBox = false,
   checkedRows = [],
   setCheckedRows = () => null,
+  rowHasAction = false,
+  action = [],
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [actionDropdown, setActionDropdown] = useState(false);
+  const [actionId, setActionId] = useState("");
   const [modalStatus, setModalStatus] = useState("disable");
   const [row, setRow] = useState({});
 
   const toggleModal = () => setModalOpen(!modalOpen);
+
+  const toggleAction = (id) => {
+    setActionDropdown(!actionDropdown);
+    setActionId(actionId ? "" : id);
+  };
 
   const openModal = (row, status) => {
     setRow(row);
@@ -117,6 +134,7 @@ const CustomTable = ({
                   {rowHasUpdate && <th>Update</th>}
                   {rowHasStatusToggle && <th>Disable</th>}
                   {rowHasDelete && <th>Delete</th>}
+                  {rowHasAction && <th>Action</th>}
                 </tr>
               ))}
             </thead>
@@ -182,6 +200,37 @@ const CustomTable = ({
                         >
                           Delete
                         </Button>
+                      </td>
+                    )}
+                    {rowHasAction && (
+                      <td>
+                        <Dropdown
+                          isOpen={
+                            actionDropdown && row.original.id === actionId
+                          }
+                          toggle={() => toggleAction(row.original.id)}
+                        >
+                          <DropdownToggle tag="div">
+                            <Button
+                              variant="dark"
+                              className="d-block mx-auto"
+                              onClick={() => toggleAction(row.original.id)}
+                            >
+                              Action
+                            </Button>
+                          </DropdownToggle>
+                          <DropdownMenu>
+                            {action?.map(({ onClick, title }, key) => (
+                              <DropdownItem
+                                onClick={() => onClick(row.original.id)}
+                                className="px-5 py-3"
+                                key={key}
+                              >
+                                {title}
+                              </DropdownItem>
+                            ))}
+                          </DropdownMenu>
+                        </Dropdown>
                       </td>
                     )}
                   </tr>

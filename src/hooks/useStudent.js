@@ -57,6 +57,7 @@ export const useStudent = () => {
       session_admitted: "",
       class: "",
       present_class: "",
+      sub_class: "",
       image: "",
       home_address: "",
       phone_number: "",
@@ -337,8 +338,37 @@ export const useStudent = () => {
   const { mutateAsync: withdrawStudent, isLoading: withdrawStudentLoading } =
     useMutation(apiServices.withdrawStudent, {
       onSuccess() {
-        toast.success("Student has been deleted successfully");
-        navigate("/app/students");
+        toast.success("Student has been withdrawn");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
+  const { mutateAsync: acceptStudent, isLoading: acceptStudentLoading } =
+    useMutation(apiServices.acceptStudent, {
+      onSuccess() {
+        toast.success("Student has been accepted");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
+  const { mutateAsync: transferStudent, isLoading: transferStudentLoading } =
+    useMutation(apiServices.transferStudent, {
+      onSuccess() {
+        toast.success("Student has been transferred");
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+    });
+
+  const { mutateAsync: promoteStudent, isLoading: promoteStudentLoading } =
+    useMutation(apiServices.promoteStudent, {
+      onSuccess() {
+        toast.success("Student has been promoted");
       },
       onError(err) {
         errorHandler(err);
@@ -380,6 +410,22 @@ export const useStudent = () => {
     }
   );
 
+  const {
+    isLoading: studentLoginDetailsLoading,
+    data: studentLoginDetailsStudents,
+  } = useQuery(
+    [queryKeys.GET_STUDENT_LOGIN_DETAILS],
+    apiServices.getStudentLoginDetails,
+    {
+      retry: 3,
+      enabled: permission?.studentLoginDetails,
+      select: (data) => data?.data,
+      onError(err) {
+        errorHandler(err);
+      },
+    }
+  );
+
   const { mutate: graduateStudent, isLoading: graduateStudentLoading } =
     useMutation(apiServices.graduateStudent, {
       onSuccess() {
@@ -412,7 +458,11 @@ export const useStudent = () => {
     studentByClassLoading ||
     graduateStudentLoading ||
     alumniLoading ||
-    getStudentByClassLoading;
+    getStudentByClassLoading ||
+    studentLoginDetailsLoading ||
+    acceptStudentLoading ||
+    transferStudentLoading ||
+    promoteStudentLoading;
 
   return {
     user,
@@ -450,6 +500,10 @@ export const useStudent = () => {
     studentByClassAndSession,
     graduatedStudents,
     graduateStudent,
+    studentLoginDetailsStudents,
+    acceptStudent,
+    transferStudent,
+    promoteStudent,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
     studentData: singleStudent || formatSingleStudent,

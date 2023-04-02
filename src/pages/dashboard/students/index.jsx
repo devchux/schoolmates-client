@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import PageView from "../../../components/views/table-view";
 import { useClasses } from "../../../hooks/useClasses";
 import { useStudent } from "../../../hooks/useStudent";
 
 const Student = () => {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const {
     students,
     isLoading,
@@ -27,6 +28,7 @@ const Student = () => {
     user,
     graduatedStudents,
     setClasses,
+    studentLoginDetailsStudents,
   } = useStudent();
 
   const { classes } = useClasses();
@@ -272,6 +274,38 @@ const Student = () => {
           },
         ];
 
+      case "loginDetails":
+        return [
+          {
+            Header: "First Name",
+            accessor: "firstname",
+          },
+          {
+            Header: "Surname",
+            accessor: "surname",
+          },
+          {
+            Header: "Middle Name",
+            accessor: "middlename",
+          },
+          {
+            Header: "Username",
+            accessor: "username",
+          },
+          {
+            Header: "Admission Number",
+            accessor: "admission_number",
+          },
+          {
+            Header: "Present Class",
+            accessor: "present_class",
+          },
+          {
+            Header: "Password",
+            accessor: "pass_word",
+          },
+        ];
+
       default:
         return [
           {
@@ -494,6 +528,15 @@ const Student = () => {
       });
     }
 
+    if (permission?.studentLoginDetails) {
+      arr.push({
+        title: "Login Details",
+        type: "button",
+        onClick: () => setIndexStatus("loginDetails"),
+        variant: setVariant("loginDetails"),
+      });
+    }
+
     return arr.length ? arr : undefined;
   };
 
@@ -509,6 +552,7 @@ const Student = () => {
     debtors: studentDebtors,
     myStudents: studentByClassAndSession,
     alumni: graduatedStudents,
+    loginDetails: studentLoginDetailsStudents,
   };
 
   const searchByClass = (value) => {
@@ -544,11 +588,22 @@ const Student = () => {
         setSorted(false);
         setSortBy("");
       }}
+      action={[
+        {
+          title: "Transfer",
+          onClick: (id) => navigate(`/app/students/transfer/${id}`),
+        },
+        {
+          title: "Promote",
+          onClick: (id) => navigate(`/app/students/promote/${id}`),
+        },
+      ]}
       data={data[indexStatus]}
       onDelete={onDeleteStudent}
       onSelectChange={handleSortBy}
       canCreate={permission?.create}
       hasSortOptions={permission?.sort}
+      rowHasAction={permission?.action && indexStatus === "all"}
       searchIsSelect={sortBy === "class"}
       columns={
         user?.designation_name === "Student"

@@ -4,18 +4,22 @@ import {
   faBuildingColumns,
   faClipboardUser,
   faComment,
-  faCode,
+  // faCode,
   faFileInvoice,
   faGraduationCap,
   faHome,
   faPaperPlane,
   faPeopleGroup,
-  faScaleBalanced,
+  // faScaleBalanced,
   faSchool,
-  faTape,
+  // faTape,
   faTruck,
   faMoneyBill,
   faMoneyCheckDollar,
+  faMarker,
+  faCalendarDays,
+  faSchoolLock,
+  faTimeline,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const backendAPI = "https://schoolmate.powershellerp.com/api";
@@ -36,9 +40,64 @@ export const dashboardSideBarLinks = {
       title: "Home",
       icon: faHome,
     },
+    // {
+    //   to: "/",
+    //   title: "Assets",
+    //   icon: faTape,
+    // },
+    // {
+    //   to: "/app/attendance",
+    //   title: "Attendance",
+    //   icon: faPeopleGroup,
+    // },
+    // {
+    //   to: "/app/",
+    //   title: "Broadsheet",
+    //   icon: faTape,
+    // },
+    {
+      to: "/app/calendar",
+      title: "Calendar",
+      icon: faCalendarDays,
+    },
+    {
+      to: "/app/timetable",
+      title: "Timetable",
+      icon: faTimeline,
+    },
+    {
+      to: "/app/classes",
+      title: "Classes",
+      icon: faSchool,
+    },
+    // {
+    //   to: "/",
+    //   title: "Code of Conduct",
+    //   icon: faCode,
+    // },
+    {
+      to: "/app/departments",
+      title: "Departments",
+      icon: faBuilding,
+    },
+    // {
+    //   to: "/",
+    //   title: "Disciplinary Action",
+    //   icon: faScaleBalanced,
+    // },
+    {
+      to: "/app/grading",
+      title: "Grading",
+      icon: faMarker,
+    },
+    {
+      to: "/app/resumption-date",
+      title: "Resumption Date",
+      icon: faSchoolLock,
+    },
     {
       to: "/app/staffs",
-      title: "Staff Assignment",
+      title: "Staffs",
       icon: faClipboardUser,
     },
     {
@@ -47,54 +106,14 @@ export const dashboardSideBarLinks = {
       icon: faGraduationCap,
     },
     {
-      to: "/app/",
-      title: "Broadsheet",
-      icon: faTape,
-    },
-    {
-      to: "/app/departments",
-      title: "Departments",
-      icon: faBuilding,
-    },
-    {
-      to: "/app/attendance",
-      title: "Attendance",
-      icon: faPeopleGroup,
-    },
-    {
-      to: "/app/",
-      title: "Grading System",
-      icon: faBuildingColumns,
-    },
-    {
-      to: "/app/vehicles",
-      title: "Vehicles",
-      icon: faTruck,
-    },
-    {
-      to: "/app/classes",
-      title: "Classes",
-      icon: faSchool,
-    },
-    {
       to: "/app/subjects",
       title: "Subjects",
       icon: faBookmark,
     },
     {
-      to: "/",
-      title: "Disciplinary Action",
-      icon: faScaleBalanced,
-    },
-    {
-      to: "/",
-      title: "Code of Conduct",
-      icon: faCode,
-    },
-    {
-      to: "/",
-      title: "Assets",
-      icon: faTape,
+      to: "/app/vehicles",
+      title: "Vehicles",
+      icon: faTruck,
     },
   ],
   Superadmin: [
@@ -103,7 +122,7 @@ export const dashboardSideBarLinks = {
       title: "Home",
       icon: faHome,
     },
-    
+
     {
       to: "/app/campus",
       title: "Campus",
@@ -114,13 +133,13 @@ export const dashboardSideBarLinks = {
       title: "Classes",
       icon: faSchool,
     },
-    
+
     {
       to: "/app/departments",
       title: "Departments",
       icon: faBuilding,
     },
-    
+
     {
       to: "/app/reports",
       title: "Reports",
@@ -163,7 +182,7 @@ export const dashboardSideBarLinks = {
       title: "Results",
       icon: faBuildingColumns,
     },
-    
+
     {
       to: "/app/students",
       title: "Students",
@@ -265,7 +284,56 @@ export const dashboardSideBarLinks = {
       title: "Transfer Funds",
       icon: faMoneyBill,
     },
-    
+    {
+      to: "/app/chart-account",
+      title: "Chart Account List",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/fee-list",
+      title: "Fee List",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/debtors",
+      title: "Debtors List",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/creditors",
+      title: "Creditors List",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/payment",
+      title: "Payment",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/bank",
+      title: "Bank",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/discount",
+      title: "Setup Discount",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/invoice",
+      title: "Invoice",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/students",
+      title: "Students",
+      icon: faGraduationCap,
+    },
+    {
+      to: "/app/maintenance",
+      title: "Vehicle Maintenance",
+      icon: faMoneyBill,
+    },
   ],
 };
 

@@ -75,7 +75,7 @@ export const useStaff = () => {
     ["GET_DESIGNATIONS_STAFF"],
     apiServices.getDesignation,
     {
-      enabled: permission?.read || false,
+      enabled: permission?.read || permission?.staffLoginDetails,
       onError(err) {
         errorHandler(err);
       },
@@ -190,6 +190,30 @@ export const useStaff = () => {
     }
   );
 
+  const { isLoading: staffLoginDetailsLoading, data: staffLoginDetails } =
+    useQuery(
+      [queryKeys.GET_STAFF_LOGIN_DETAILS],
+      apiServices.getStaffLoginDetails,
+      {
+        retry: 3,
+        enabled: permission?.staffLoginDetails,
+        select: (data) => {
+          return apiServices.formatData(data)?.map((staff) => {
+            const { designation_name } = designations?.data?.find(
+              (item) => item.id === staff.designation_id
+            )?.attributes;
+            return {
+              ...staff,
+              designation_name: roleMap[designation_name],
+            };
+          });
+        },
+        onError(err) {
+          errorHandler(err);
+        },
+      }
+    );
+
   const formatSingleStaff = id ? staffs?.find((x) => x.id === id) : undefined;
 
   const handleUpdateStaff = async (data) => await updateStaff({ ...data, id });
@@ -202,7 +226,8 @@ export const useStaff = () => {
     updateStaffLoading ||
     getCampusLoading ||
     designationLoading ||
-    allStaffsByAttendanceLoading;
+    allStaffsByAttendanceLoading ||
+    staffLoginDetailsLoading;
 
   return {
     isLoading,
@@ -230,5 +255,6 @@ export const useStaff = () => {
     indexStatus,
     setIndexStatus,
     permission,
+    staffLoginDetails,
   };
 };

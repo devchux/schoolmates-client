@@ -34,7 +34,7 @@ export const useAccounts = () => {
     }
   );
   //NEW CALL
-  const { isLoading: chartaccountLoading, data: chartaccount } = useQuery(
+  const { isLoading: chartaccountLoading, data: chartaccountList } = useQuery(
     [queryKeys.GET_CHART_ACCOUNTS],
     apiServices.getChartAccount,
     {
@@ -50,6 +50,7 @@ export const useAccounts = () => {
       select: apiServices.formatData,
     }
   );
+  
 
   const isLoading =
     feeHistoryLoading ||
@@ -66,7 +67,7 @@ export const useAccounts = () => {
     previousInvoice,
     permission,
     invoice,
-    chartaccount,
+    chartaccountList,
     payment,
   };
 };

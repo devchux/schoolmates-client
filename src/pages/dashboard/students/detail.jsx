@@ -40,6 +40,7 @@ const StudentDetail = () => {
     resetFile,
     fileRef,
     withdrawStudent,
+    acceptStudent,
     graduateStudent,
   } = useStudent();
 
@@ -76,10 +77,10 @@ const StudentDetail = () => {
       case "withdrawn":
         return {
           icon: faPlusCircle,
-          text: "Admit",
+          text: "Accept",
           variant: "outline-dark",
           action: async () =>
-            studentData?.id && (await withdrawStudent({ id: studentData.id })),
+            studentData?.id && (await acceptStudent({ id: studentData.id })),
         };
 
       default:
@@ -340,7 +341,9 @@ const StudentDetail = () => {
             value={inputs.present_class}
             name="present_class"
             hasError={!!errors.present_class}
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e)
+              setFieldValue("sub_class", "");}}
             options={(classes || []).map((x) => ({
               value: x?.class_name,
               title: x?.class_name,
@@ -358,7 +361,9 @@ const StudentDetail = () => {
             value={inputs.class}
             name="class"
             hasError={!!errors.class}
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e);
+            }}
             options={(classes || []).map((x) => ({
               value: x?.class_name,
               title: x?.class_name,
@@ -385,10 +390,13 @@ const StudentDetail = () => {
             name="sub_class"
             hasError={!!errors.sub_class}
             onChange={handleChange}
-            options={[
-              { value: "female", title: "Female" },
-              { value: "male", title: "Male" },
-            ]}
+            options={classes
+              ?.find((x) => x.class_name === inputs.present_class)
+              ?.sub_class?.split(",")
+              ?.map((x) => ({
+                value: x,
+                title: x,
+              }))}
           />
           {!!errors.sub_class && (
             <p className="error-message">{errors.sub_class}</p>

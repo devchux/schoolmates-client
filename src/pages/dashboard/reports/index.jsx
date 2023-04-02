@@ -29,10 +29,12 @@ const Reports = () => {
   const {
     setEnableIncomeQuery,
     setEnableExpensesQuery,
+    setEnableInvoicesQuery,
     incomeReports,
     isLoading,
     setInputData,
     expensesReports,
+    invoiceReports,
     openPrompt,
     togglePrompt,
     indexStatus,
@@ -52,7 +54,7 @@ const Reports = () => {
       setEnableExpensesQuery(true);
     }
     if (data.type === "invoice") {
-      setEnableIncomeQuery(true);
+      setEnableInvoicesQuery(true);
     }
 
     if (data.type === "bank") {
@@ -69,6 +71,7 @@ const Reports = () => {
   const data = {
     income: incomeReports,
     expense: expensesReports,
+    invoice: invoiceReports,
   };
 
   const title = {
@@ -161,8 +164,50 @@ const Reports = () => {
         accessor: "updated_at",
       },
     ],
+    invoice: [
+      {
+        Header: "id",
+        accessor: "student_id",
+      },
+      {
+        Header: "Admission Number",
+        accessor: "admission_number",
+      },
+      {
+        Header: "Full Name",
+        accessor: "fullname",
+      },
+      {
+        Header: "Amount",
+        accessor: "amount",
+      },
+      {
+        Header: "Class",
+        accessor: "class",
+      },
+      {
+        Header: "Fee Type",
+        accessor: "feetype",
+      },
+      {
+        Header: "Session",
+        accessor: "session",
+      },
+      {
+        Header: "term",
+        accessor: "term",
+      },
+      {
+        Header: "Discount",
+        accessor: "discount",
+      },
+      {
+        Header: "Discount Amount",
+        accessor: "discount_amount",
+      },
+    ],
   };
-
+  
   return (
     <div>
       <PageView

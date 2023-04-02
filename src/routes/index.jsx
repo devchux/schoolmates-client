@@ -37,6 +37,30 @@ import Admin from "../pages/dashboard/admin";
 import Account from "../pages/dashboard/accounts/home";
 import Income from "../pages/income";
 import Expenses from "../pages/expenses";
+import DepartmentDetail from "../pages/dashboard/departments/detail";
+import GradingDetail from "../pages/dashboard/grading/detail";
+import VehicleDetail from "../pages/dashboard/vehicles/detail";
+import Subjects from "../pages/dashboard/subjects";
+import CalendarDetail from "../pages/dashboard/calendar/detail";
+import TransferStudent from "../pages/dashboard/students/transfer";
+import ResumptionDate from "../pages/dashboard/resumption-date";
+import PromoteStudent from "../pages/dashboard/students/promote";
+import TimetableDetail from "../pages/dashboard/timetable/detail";
+import TransferFund from "../pages/dashboard/transfer-funds";
+import ChartAccount from "../pages/dashboard/chart-account";
+import Deptors from "../pages/dashboard/debtors";
+import CreditorsList from "../pages/dashboard/creditor";
+import ChartAccountDetail from "../pages/dashboard/chart-account/detail";
+import FeeList from "../pages/dashboard/Fee";
+import FeeDetail from "../pages/dashboard/Fee/detail";
+import VendorDetail from "../pages/dashboard/vendors/detail";
+import Payment from "../pages/dashboard/Payment";
+import PaymentDetail from "../pages/dashboard/Payment/detail";
+import BankDetail from "../pages/dashboard/bank";
+import DiscountDetail from "../pages/dashboard/setup_discount";
+import Invoices from "../pages/dashboard/invoices";
+import InvoiceDetail from "../pages/dashboard/invoices/detail";
+import VehicleMaintenance from "../pages/dashboard/maintenance";
 
 const CustomRoutes = () => {
   return (
@@ -61,7 +85,15 @@ const CustomRoutes = () => {
           path="admin"
           element={
             <Guard routeName="admin">
-              <Admin/>
+              <Admin />
+            </Guard>
+          }
+        />
+        <Route
+          path="subjects"
+          element={
+            <Guard routeName="subjects">
+              <Subjects />
             </Guard>
           }
         />
@@ -158,11 +190,45 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          path="students/transfer/:id"
+          element={
+            <Guard routeName="students" action={["transfer"]}>
+              <TransferStudent />
+            </Guard>
+          }
+        />
+        <Route
+          path="students/promote/:id"
+          element={
+            <Guard routeName="students" action={["promote"]}>
+              <PromoteStudent />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="resumption-date"
+          element={
+            <Guard routeName="resumption-date" action={["read"]}>
+              <ResumptionDate />
+            </Guard>
+          }
+        />
+        <Route
           exact
           path="vehicles"
           element={
             <Guard routeName="vehicles">
               <Vehicles />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="vehicles/new"
+          element={
+            <Guard routeName="vehicles">
+              <VehicleDetail />
             </Guard>
           }
         />
@@ -175,6 +241,72 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
+        <Route
+        path="vendors/new"
+        element={
+          <Guard routeName="vendors">
+            <VendorDetail/>
+          </Guard>
+        }
+      />
+      <Route
+          exact
+          path="payment"
+          element={
+            <Guard routeName="payment">
+              <Payment/>
+            </Guard>
+          }
+        />
+        <Route
+        path="payment/new"
+        element={
+          <Guard routeName="payment">
+            <PaymentDetail/>
+          </Guard>
+        }
+      />
+      <Route
+          exact
+          path="invoice"
+          element={
+            <Guard routeName="invoice">
+              <Invoices/>
+            </Guard>
+          }
+        />
+        <Route
+        path="invoice/new"
+        element={
+          <Guard routeName="invoice">
+            <InvoiceDetail/>
+          </Guard>
+        }
+      />
+      <Route
+        path="bank"
+        element={
+          <Guard routeName="bank">
+            <BankDetail/>
+          </Guard>
+        }
+      />
+      <Route
+        path="maintenance"
+        element={
+          <Guard routeName="maintenance">
+            <VehicleMaintenance/>
+          </Guard>
+        }
+      />
+      <Route
+        path="discount"
+        element={
+          <Guard routeName="discount">
+            <DiscountDetail/>
+          </Guard>
+        }
+      />
         <Route
           exact
           path="reports"
@@ -257,6 +389,42 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          exact
+          path="departments/new"
+          element={
+            <Guard routeName="departments">
+              <DepartmentDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="grading"
+          element={
+            <Guard routeName="grading">
+              <GradingDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="calendar"
+          element={
+            <Guard routeName="calendar">
+              <CalendarDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="timetable"
+          element={
+            <Guard routeName="timetable">
+              <TimetableDetail />
+            </Guard>
+          }
+        />
+        <Route
           path="teachers"
           element={
             <Guard routeName="teacher">
@@ -309,6 +477,31 @@ const CustomRoutes = () => {
           }
         />
         <Route
+        
+        path="chart-account/new"
+        element={
+          <Guard routeName="chart-account">
+            <ChartAccountDetail/>
+          </Guard>
+        }
+      />
+      <Route
+        path="fee-list"
+        element={
+          <Guard routeName="fee-list">
+            <FeeList/>
+          </Guard>
+        }
+      />
+      <Route
+        path="fee-list/new"
+        element={
+          <Guard routeName="fee-list">
+            <FeeDetail/>
+          </Guard>
+        }
+      />
+        <Route
           path="student-home"
           element={
             <Guard routeName="student-home">
@@ -332,15 +525,42 @@ const CustomRoutes = () => {
           </Guard>
         }
       />
-      {/* <Route
+      <Route
           exact
           path="transfer"
           element={
             <Guard routeName="transfer">
-              <TransferFunds />
+              <TransferFund/>
             </Guard>
           }
-        /> */}
+        />
+        <Route
+          exact
+          path="chart-account"
+          element={
+            <Guard routeName="chart-account">
+              <ChartAccount/>
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="debtors"
+          element={
+            <Guard routeName="debtors">
+              <Deptors/>
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="creditors"
+          element={
+            <Guard routeName="creditors">
+              <CreditorsList/>
+            </Guard>
+          }
+        />
         <Route exact path="profile" element={<Profile />} />
         <Route exact path="not-found" element={<NotFound />} />
         <Route exact path="change-password" element={<ChangePassword />} />
