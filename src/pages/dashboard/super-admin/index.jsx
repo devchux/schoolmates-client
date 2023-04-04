@@ -87,29 +87,36 @@ const SuperAdmin = () => {
             title="Outstanding"
             variant="pink"
             amount={
-              <Numeral value={outstanding?.data || "0"} format="0,0.00" />
+              <>
+                &#8358;
+                <Numeral value={outstanding?.data || "0"} format="0,0.00" />
+              </>
             }
           />
         </Col>
       </Row>
-      <PieChart
-        data={[
-          accountBalance?.data ?? 0,
-          receivedIncome?.data ?? 0,
-          expectedIncome?.data ?? 0,
-          totalExpense?.data ?? 0,
-          discount?.data ?? 0,
-          outstanding?.data ?? 0,
-        ]}
-        label={[
-          "Account Balance",
-          "Received Income",
-          "Expected Income",
-          "Total Expense",
-          "Discount",
-          "Outstanding",
-        ]}
-      />
+      <Row className="mt-3">
+        <Col sm="6" className="mb-4">
+          <PieChart
+            data={[
+              +accountBalance?.data ?? 0,
+              +receivedIncome?.data ?? 0,
+              +expectedIncome?.data ?? 0,
+              +totalExpense?.data ?? 0,
+              +discount?.data ?? 0,
+              +outstanding?.data ?? 0,
+            ]}
+            label={[
+              "Account Balance",
+              "Received Income",
+              "Expected Income",
+              "Total Expense",
+              "Discount",
+              "Outstanding",
+            ]}
+          />
+        </Col>
+      </Row>
     </div>
   );
 };

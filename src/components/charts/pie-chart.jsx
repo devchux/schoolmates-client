@@ -6,10 +6,10 @@ const PieChart = ({ label, data }) => {
     return {
       series: data,
       options: {
-        chart: {
-          width: 380,
-          type: "pie",
-        },
+        // chart: {
+        //   width: 380,
+        //   type: "pie",
+        // },
         labels: label,
         responsive: [
           {
@@ -29,12 +29,13 @@ const PieChart = ({ label, data }) => {
   }, [label, data]);
 
   return (
-    <div>
+    <div className="chart-wrapper">
+      <h4>Balance Chart</h4>
       <ReactApexChart
         options={state.options}
         series={state.series}
         type="pie"
-        width={380}
+        // width="50%"
       />
     </div>
   );

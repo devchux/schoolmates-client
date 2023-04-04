@@ -17,13 +17,14 @@ import AuthInput from "../../../components/inputs/auth-input";
 import AuthSelect from "../../../components/inputs/auth-select";
 import Prompt from "../../../components/modals/prompt";
 import { useAcademicPeriod } from "../../../hooks/useAcademicPrompt";
+import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useAppContext } from "../../../hooks/useAppContext";
 import { useFile } from "../../../hooks/useFile";
 
 const Admin = () => {
   const [importStudentPrompt, setImportStudentPrompt] = useState(false);
   const {
-    apiServices: { handleSessionChange, importStudent, errorHandler },
+    apiServices: { importStudent, errorHandler },
   } = useAppContext();
   const {
     isLoading,
@@ -32,9 +33,10 @@ const Admin = () => {
     setAcademicPeriodPrompt,
   } = useAcademicPeriod();
 
-  // const navigate = useNavigate();
 
-  const { handleChange, inputs, errors, setFieldValue } = useForm({
+  const { data: sessions } = useAcademicSession();
+
+  const { handleChange, inputs, errors } = useForm({
     defaultValues: {
       period: "First Half",
       session: "",
@@ -74,14 +76,16 @@ const Admin = () => {
       <div className="teachers-cards-wrapper">
         <HomeCard
           isBadge
+          variant="orange"
           title="Import Students"
           icon={faPeopleLine}
           onClick={() => setImportStudentPrompt(!importStudentPrompt)}
         />
-        <HomeCard isBadge title="Calender" icon={faCalendar} />
+        <HomeCard variant="purple" isBadge title="Calender" icon={faCalendar} />
         <HomeCard isBadge title="Timetable" icon={faTimeline} />
         <HomeCard
           isBadge
+          variant="green"
           title="Academic Period"
           icon={faBusinessTime}
           onClick={() => setAcademicPeriodPrompt(true)}
@@ -150,14 +154,16 @@ const Admin = () => {
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </div>
         <div className="form-group mb-4">
-          <AuthInput
+          <AuthSelect
             label="Session"
             value={inputs.session}
             name="session"
             hasError={!!errors.session}
-            onChange={({ target: { value } }) =>
-              handleSessionChange(value, "session", setFieldValue)
-            }
+            onChange={handleChange}
+            options={(sessions || [])?.map((session) => ({
+              value: session?.academic_session,
+              title: session?.academic_session,
+            }))}
           />
           {!!errors.session && (
             <p className="error-message">{errors.session}</p>

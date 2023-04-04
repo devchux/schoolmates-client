@@ -70,9 +70,31 @@
   &.is-badge {
     width: 100%;
     max-width: 45%;
+    color: #ffffff;
+    background-color: rgb(54, 127, 169);
 
     @media only screen and (min-width: 768px) {
       max-width: 25rem;
+    }
+
+    &.orange {
+      background-color: orange;
+    }
+
+    &.red {
+      background-color: red;
+    }
+
+    &.green {
+      background-color: green;
+    }
+
+    &.pink {
+      background-color: pink;
+    }
+
+    &.purple {
+      background-color: purple;
     }
 
     > svg {
@@ -83,11 +105,6 @@
       margin-top: 2rem;
       font-size: 2rem;
       text-align: center;
-    }
-
-    &:hover {
-      background-color: #367fa9;
-      color: #ffffff;
     }
   }
 }
