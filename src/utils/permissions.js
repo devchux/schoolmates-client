@@ -369,22 +369,7 @@ export const permissions = {
       statusToggle: false,
       sort: false,
     },
-    debtors: {
-      create: false,
-      read: true,
-      update: false,
-      delete: false,
-      statusToggle: false,
-      sort: false,
-    },
-    creditors: {
-      create: false,
-      read: true,
-      update: false,
-      delete: false,
-      statusToggle: false,
-      sort: false,
-    },
+    
     "fee-list": {
       create: false,
       read: true,

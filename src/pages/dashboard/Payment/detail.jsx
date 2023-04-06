@@ -4,16 +4,13 @@ import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
-import AuthSelect from "../../../components/inputs/auth-select";
 import DetailView from "../../../components/views/detail-view";
 import { useAppContext } from "../../../hooks/useAppContext";
-import { useReports } from "../../../hooks/useReports";
 
 const PaymentDetail = () => {
   const {
     apiServices,
     user,
-    // apiServices: { handleSessionChange },
   } = useAppContext();
   const {
     handleSubmit,

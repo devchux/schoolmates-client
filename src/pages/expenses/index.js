@@ -47,39 +47,25 @@ const Expenses = () => {
       session: data.session,
     });
 
-    if (data.type === "payOut") {
-      setEnableExpensesQuery(true);
-    }
-    if (data.type === "paySalary") {
-      setEnableIncomeQuery(true);
-    }
+    
 
     if (data.type === "expense") {
       setEnableExpensesQuery(true);
     }
-    if (data.type === "vendor") {
-      setEnableIncomeQuery(true);
-    }
-
-    if (data.type === "undoPayment") {
-      setEnableExpensesQuery(true);
-    }
+    
     reset();
   };
 
   const clear = () => setIndexStatus("");
 
   const data = {
-    income: incomeReports,
+    // income: incomeReports,
     expense: expensesReports,
   };
 
   const title = {
     expense: "Expenses",
-    UndoPayment: "Undo Payment",
-    PaySalary: "Pay Salary",
-    PayOut: "Pay Out",
-    Vendor: "Add Vendor",
+    
   };
 
   const commonGroupButtonOptions = [
@@ -218,10 +204,6 @@ const Expenses = () => {
             options={[
               
               { value: "expense", title: "Expenses" },
-              { value: "Undo Payment", title: "Undo Payment" },
-              { value: "expense", title: "Pay Salary" },
-              { value: "expense", title: "Pay Out" },
-              { value: "vendor", title: "Add Vendo" }
             ]}
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}

@@ -1,6 +1,5 @@
 import React from "react";
 import PageView from "../../../components/views/table-view";
-import { useAccounts } from "../../../hooks/useAccounts";
 import { useInvoices } from "../../../hooks/useInvoice";
 const Invoices = () => {
   const { invoicesLoading, invoicesList, permission } = useInvoices();

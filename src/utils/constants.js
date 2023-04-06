@@ -309,16 +309,7 @@ export const dashboardSideBarLinks = {
       title: "Accounts",
       icon: faSchool,
     },
-    // {
-    //   to: "/app/debtors",
-    //   title: "Debtors List",
-    //   icon: faUsers,
-    // },
-    // {
-    //   to: "/app/creditors",
-    //   title: "Creditors List",
-    //   icon: faUserPlus,
-    // },
+    
     {
       to: "/app/payment",
       title: "Payment",
@@ -329,11 +320,7 @@ export const dashboardSideBarLinks = {
       title: "Bank",
       icon: faBuildingColumns,
     },
-    {
-      to: "/app/academic",
-      title: "Academic Period",
-      icon: faBusinessTime,
-    },
+    
     {
       to: "/app/discount",
       title: "Setup Discount",
@@ -349,11 +336,7 @@ export const dashboardSideBarLinks = {
       title: "Students",
       icon: faGraduationCap,
     },
-    {
-      to: "/app/maintenance",
-      title: "Vehicle Maintenance",
-      icon: faCar,
-    },
+    
   ],
 };
 

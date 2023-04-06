@@ -48,19 +48,19 @@ import PromoteStudent from "../pages/dashboard/students/promote";
 import TimetableDetail from "../pages/dashboard/timetable/detail";
 import TransferFund from "../pages/dashboard/transfer-funds";
 import ChartAccount from "../pages/dashboard/chart-account";
-import Deptors from "../pages/dashboard/debtors";
-import CreditorsList from "../pages/dashboard/creditor";
+// import Deptors from "../pages/dashboard/debtors";
+// import CreditorsList from "../pages/dashboard/creditor";
 import ChartAccountDetail from "../pages/dashboard/chart-account/detail";
 import FeeList from "../pages/dashboard/Fee";
 import FeeDetail from "../pages/dashboard/Fee/detail";
 import VendorDetail from "../pages/dashboard/vendors/detail";
 import Payment from "../pages/dashboard/Payment";
 import PaymentDetail from "../pages/dashboard/Payment/detail";
-import BankDetail from "../pages/dashboard/bank";
+import BankDetail from "../pages/dashboard/bank/detail";
 import DiscountDetail from "../pages/dashboard/setup_discount";
 import Invoices from "../pages/dashboard/invoices";
 import InvoiceDetail from "../pages/dashboard/invoices/detail";
-import VehicleMaintenance from "../pages/dashboard/maintenance";
+// import VehicleMaintenance from "../pages/dashboard/maintenance";
 import VehicleLogsDetail from "../pages/dashboard/vehicles/logs/detail";
 import SubjectDetail from "../pages/dashboard/subjects/detail";
 import StaffAttendanceDetail from "../pages/dashboard/staffs/attendance/detail";
@@ -69,7 +69,7 @@ import BusRouting from "../pages/dashboard/students/bus-routing";
 import AssignClass from "../pages/dashboard/staffs/assign-class";
 import ClassSubjects from "../pages/dashboard/classes/subjects";
 import ExpensesDetail from "../pages/expenses/detail";
-import AcademicPeriods from "../pages/dashboard/academic-period";
+import BankList from "../pages/dashboard/bank";
 
 const CustomRoutes = () => {
   return (
@@ -350,7 +350,7 @@ const CustomRoutes = () => {
         }
       />
       <Route
-        path="bank"
+        path="bank/new"
         element={
           <Guard routeName="bank">
             <BankDetail/>
@@ -358,13 +358,21 @@ const CustomRoutes = () => {
         }
       />
       <Route
+        path="bank"
+        element={
+          <Guard routeName="bank">
+            <BankList/>
+          </Guard>
+        }
+      />
+      {/* <Route
         path="maintenance"
         element={
           <Guard routeName="maintenance">
             <VehicleMaintenance/>
           </Guard>
         }
-      />
+      /> */}
       <Route
         path="discount"
         element={
@@ -618,7 +626,7 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
-        <Route
+        {/* <Route
           exact
           path="debtors"
           element={
@@ -636,15 +644,7 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
-        <Route
-          exact
-          path="academic"
-          element={
-            <Guard routeName="academic">
-              <AcademicPeriods/>
-            </Guard>
-          }
-        />
+         */}
         <Route exact path="profile" element={<Profile />} />
         <Route exact path="not-found" element={<NotFound />} />
         <Route exact path="change-password" element={<ChangePassword />} />

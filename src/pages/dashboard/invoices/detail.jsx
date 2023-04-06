@@ -4,25 +4,19 @@ import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
-import AuthSelect from "../../../components/inputs/auth-select";
 import DetailView from "../../../components/views/detail-view";
 import { useAppContext } from "../../../hooks/useAppContext";
-import { useReports } from "../../../hooks/useReports";
+
 
 const InvoiceDetail = () => {
   const {
     apiServices,
     user,
-    // apiServices: { handleSessionChange },
   } = useAppContext();
   const {
-    inputs,
-    handleChange,
-    setFieldValue,
     handleSubmit,
     errors,
     getFieldProps,
-    reset,
   } = useForm({
     defaultValues: {
       session: "",
@@ -36,16 +30,7 @@ const InvoiceDetail = () => {
       discount: "",
       discount_amount: "",
     },
-    // validation: {
-    //   session: {
-    //     required: false,
-    //   },
-    //   term: {
-    //     required: false,
-    //   },
-    // },
   });
-  //   const { setInputData } = useReports();
   const { isLoading, mutate: createInvoicePost } = useMutation(
     apiServices.postInvoice,
     {

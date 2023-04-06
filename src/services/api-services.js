@@ -953,6 +953,16 @@ class APIServies extends Helpers {
 
     return data;
   }
+  async getBankList() {
+    const { data } = await axios.get(`${backendAPI}/bank`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
 
 
   async postPrincipalComment({ body }) {
@@ -1259,6 +1269,7 @@ class APIServies extends Helpers {
 
     return data;
   }
+  
   async getAcademicSessions() {
     const { data } = await axios.get(`${backendAPI}/getacademicsessions`, {
       headers: {
