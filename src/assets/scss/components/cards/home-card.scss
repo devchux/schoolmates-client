@@ -1,7 +1,7 @@
 .home-card-wrapper {
   text-decoration: none;
   color: #000000;
-  height: 20rem;
+  height: 15rem;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
@@ -9,12 +9,59 @@
   padding: 2.5rem;
   background-color: #ffffff;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  @media only screen and (min-width: 600px) {
+    height: 20rem;
+  }
+
+  &::before {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 1rem;
+    background-color: rgb(54, 127, 169);
+  }
+
+  &.orange {
+    &::before {
+      background-color: orange;
+    }
+  }
+
+  &.red {
+    &::before {
+      background-color: red;
+    }
+  }
+
+  &.green {
+    &::before {
+      background-color: green;
+    }
+  }
+
+  &.pink {
+    &::before {
+      background-color: pink;
+    }
+  }
+
+  &.purple {
+    &::before {
+      background-color: purple;
+    }
+  }
 
   @media only screen and (min-width: 600px) {
     height: 15rem;
   }
 
-  h3, span {
+  h3,
+  span {
     font-size: 3rem;
     line-height: 4.5rem;
     font-weight: 700;
@@ -23,9 +70,31 @@
   &.is-badge {
     width: 100%;
     max-width: 45%;
+    color: #ffffff;
+    background-color: rgb(54, 127, 169);
 
     @media only screen and (min-width: 768px) {
       max-width: 25rem;
+    }
+
+    &.orange {
+      background-color: orange;
+    }
+
+    &.red {
+      background-color: red;
+    }
+
+    &.green {
+      background-color: green;
+    }
+
+    &.pink {
+      background-color: pink;
+    }
+
+    &.purple {
+      background-color: purple;
     }
 
     > svg {
@@ -36,11 +105,6 @@
       margin-top: 2rem;
       font-size: 2rem;
       text-align: center;
-    }
-
-    &:hover {
-      background-color: #367fa9;
-      color: #ffffff;
     }
   }
 }
