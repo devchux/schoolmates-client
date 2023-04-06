@@ -44,8 +44,7 @@ const Account = () => {
       period: "First Half",
       session: "",
       term: "First Term",
-    },
-    defaultValues: {
+   
       vehicle_type: "",
       vehicle_make: "",
       vehicle_number: "",

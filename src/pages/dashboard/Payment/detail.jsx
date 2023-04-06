@@ -16,7 +16,6 @@ const PaymentDetail = () => {
     handleSubmit,
     errors,
     getFieldProps,
-    reset,
   } = useForm({
     defaultValues: {
       session: "",

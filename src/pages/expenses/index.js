@@ -27,9 +27,7 @@ const Expenses = () => {
       },
     });
   const {
-    setEnableIncomeQuery,
     setEnableExpensesQuery,
-    incomeReports,
     isLoading,
     setInputData,
     expensesReports,
@@ -39,7 +37,6 @@ const Expenses = () => {
     indexStatus,
     setIndexStatus,
   } = useReports();
-  // const {  permission } = useAccounts();
 
   const onSubmit = (data) => {
     setInputData({
@@ -59,7 +56,6 @@ const Expenses = () => {
   const clear = () => setIndexStatus("");
 
   const data = {
-    // income: incomeReports,
     expense: expensesReports,
   };
 

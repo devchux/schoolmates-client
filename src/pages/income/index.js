@@ -6,7 +6,6 @@ import Prompt from "../../components/modals/prompt";
 import PageView from "../../components/views/table-view";
 import { useAppContext } from "../../hooks/useAppContext";
 import { useReports } from "../../hooks/useReports";
-import { useVendors } from "../../hooks/useVendors";
 
 const Income = () => {
   const {
