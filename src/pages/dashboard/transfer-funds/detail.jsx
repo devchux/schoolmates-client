@@ -69,6 +69,7 @@ const TransferFundDetail = () => {
   return (
     <DetailView
       isLoading={isLoading}
+      cancelLink="/app/transfer"
       pageTitle={isEdit ? "Edit Transfer" : "Transfer Fund"}
       onFormSubmit={handleSubmit(onSubmit)}
     >
