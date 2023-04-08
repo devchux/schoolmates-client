@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 import { useForm } from "react-formid";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 // import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Spinner } from "reactstrap";
@@ -20,11 +20,14 @@ import { useAcademicPeriod } from "../../../hooks/useAcademicPrompt";
 import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useAppContext } from "../../../hooks/useAppContext";
 import { useFile } from "../../../hooks/useFile";
+import queryKeys from "../../../utils/queryKeys";
 
 const Admin = () => {
   const [importStudentPrompt, setImportStudentPrompt] = useState(false);
   const {
-    apiServices: { importStudent, errorHandler },
+    user,
+    updateUser,
+    apiServices: { importStudent, errorHandler, getSchool },
   } = useAppContext();
   const {
     isLoading,
@@ -33,8 +36,25 @@ const Admin = () => {
     setAcademicPeriodPrompt,
   } = useAcademicPeriod();
 
-
   const { data: sessions } = useAcademicSession();
+
+  const { isLoading: schoolLoading } = useQuery(
+    [queryKeys.GET_SCHOOL],
+    getSchool,
+    {
+      retry: 3,
+      onSuccess(data) {
+        updateUser({
+          ...user,
+          school: { ...data },
+        });
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) => data?.data[0].attributes,
+    }
+  );
 
   const { handleChange, inputs, errors } = useForm({
     defaultValues: {
@@ -71,7 +91,9 @@ const Admin = () => {
 
   return (
     <div className="teachers">
-      <PageTitle>Admin {(isLoading || uploadLoading) && <Spinner />}</PageTitle>
+      <PageTitle>
+        Admin {(isLoading || uploadLoading || schoolLoading) && <Spinner />}
+      </PageTitle>
       <ProfileCard type="admin" />
       <div className="teachers-cards-wrapper">
         <HomeCard
