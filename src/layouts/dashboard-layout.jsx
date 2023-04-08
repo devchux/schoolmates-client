@@ -50,7 +50,7 @@ const DashboardLayout = () => {
         className={`sidebar-wrapper ${navbarIsOpen ? "toggle-navbar" : ""}`}
       >
         <div className="d-flex justify-content-end p-3 close-nav-button-wrapper">
-          <button type="button" className="btn" onClick={toggleNavbar}>
+          <button type="button" className="btn text-white" onClick={toggleNavbar}>
             <FontAwesomeIcon icon={faClose} className="me-2" /> Close
           </button>
         </div>
