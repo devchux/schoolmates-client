@@ -11,7 +11,7 @@ export const useDepartments = () => {
     [queryKeys.GET_ALL_DEPARTMENTS],
     apiServices.getAllDepartmentList,
     {
-      enabled: permission?.read || false,
+      enabled: permission?.read,
       retry: 3,
       onError(err) {
         errorHandler(err);

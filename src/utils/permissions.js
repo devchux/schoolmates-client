@@ -419,6 +419,9 @@ export const permissions = {
       read: true,
       sort: false,
     },
+    departments: {
+      read: true,
+    },
     academic: {
       create: true,
       read: true,
