@@ -2,11 +2,11 @@ import React from "react";
 import PageView from "../../../components/views/table-view";
 import { useInvoices } from "../../../hooks/useInvoice";
 const Invoices = () => {
-  const { invoicesLoading, invoicesList, permission } = useInvoices();
+  const { invoicesLoading, invoicesList } = useInvoices();
 
   return (
     <PageView
-      canCreate={permission?.create}
+      canCreate={false}
       isLoading={invoicesLoading}
       columns={[
         {

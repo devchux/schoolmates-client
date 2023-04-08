@@ -23,19 +23,20 @@ const VendorDetail = () => {
     }
   );
 
-  const { handleSubmit, errors, getFieldProps } = useForm({
-    defaultValues: {
-      vendor_type: "",
-      initial_balance: "",
-      expense_category: "",
-      vendor_name: "",
-      company_name: "",
-      contact_address: "",
-      contact_person: "",
-      email_address: "",
-      contact_phone: ""
-    },
-  });
+  const { handleSubmit, errors, getFieldProps, inputs, setFieldValue } =
+    useForm({
+      defaultValues: {
+        vendor_type: "",
+        initial_balance: "",
+        expense_category: "",
+        vendor_name: "",
+        company_name: "",
+        contact_address: "",
+        contact_person: "",
+        email_address: "",
+        contact_phone: "",
+      },
+    });
 
   const onSubmit = (data) => {
     createPost({
@@ -45,7 +46,7 @@ const VendorDetail = () => {
       },
     });
   };
-  
+
   return (
     <DetailView
       isLoading={isLoading}
@@ -107,7 +108,7 @@ const VendorDetail = () => {
             <p className="error-message">{errors.company_name}</p>
           )}
         </Col>
-      
+
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Contact Address"
@@ -118,7 +119,7 @@ const VendorDetail = () => {
             <p className="error-message">{errors.contact_address}</p>
           )}
         </Col>
-        </Row>
+      </Row>
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
@@ -130,18 +131,21 @@ const VendorDetail = () => {
             <p className="error-message">{errors.contact_person}</p>
           )}
         </Col>
-      
+
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
-            label="Contact Phone"
+            label="Contact Phone Number"
+            isPhone
             hasError={!!errors.contact_phone}
             {...getFieldProps("contact_phone")}
+            value={inputs.contact_phone}
+            onChange={(value) => setFieldValue("contact_phone", value || "")}
           />
           {!!errors.contact_phone && (
             <p className="error-message">{errors.contact_phone}</p>
           )}
         </Col>
-        </Row>
+      </Row>
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput

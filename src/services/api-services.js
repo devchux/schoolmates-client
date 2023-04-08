@@ -389,6 +389,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getAllVehicleMaintenance() {
+    const { data } = await axios.get(`${backendAPI}/vehiclemaintenance`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async addVehicle(body) {
     const { data } = await axios.post(`${backendAPI}/vehicle`, body, {
       headers: {
@@ -424,6 +435,17 @@ class APIServies extends Helpers {
 
   async deleteVehicle(id) {
     const { data } = await axios.delete(`${backendAPI}/vehicle/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getVehicle(id) {
+    const { data } = await axios.get(`${backendAPI}/vehicle/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
@@ -964,7 +986,6 @@ class APIServies extends Helpers {
     return data;
   }
 
-
   async postPrincipalComment({ body }) {
     const { data } = await axios.post(`${backendAPI}/principalcomment`, body, {
       headers: {
@@ -1029,12 +1050,16 @@ class APIServies extends Helpers {
   }
 
   async postMaintenance(body) {
-    const { data } = await axios.post(`${backendAPI}/vehiclemaintenance`, body, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${super.getToken()}`,
-      },
-    });
+    const { data } = await axios.post(
+      `${backendAPI}/vehiclemaintenance`,
+      body,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }
@@ -1269,7 +1294,7 @@ class APIServies extends Helpers {
 
     return data;
   }
-  
+
   async getAcademicSessions() {
     const { data } = await axios.get(`${backendAPI}/getacademicsessions`, {
       headers: {
@@ -1280,9 +1305,42 @@ class APIServies extends Helpers {
 
     return data;
   }
-  
+
   async getFunds() {
     const { data } = await axios.get(`${backendAPI}/getfunds`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deleteFund(id) {
+    const { data } = await axios.delete(`${backendAPI}/deletefund/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getFund(id) {
+    const { data } = await axios.get(`${backendAPI}/getsinglefund/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async editFund({ id, ...body }) {
+    const { data } = await axios.patch(`${backendAPI}/editfund/${id}`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,

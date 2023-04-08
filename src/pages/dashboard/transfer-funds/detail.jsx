@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-formid";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
@@ -6,12 +6,19 @@ import DetailView from "../../../components/views/detail-view";
 import { useTransferFund } from "../../../hooks/useTransferFund";
 
 const TransferFundDetail = () => {
-  const { isLoading, PostTransferFund, apiServices } = useTransferFund();
-  const { errors, getFieldProps, handleSubmit } = useForm({
+  const {
+    isLoading,
+    PostTransferFund,
+    isEdit,
+    updateTransferFund,
+    fundData,
+    apiServices,
+  } = useTransferFund();
+  const { errors, getFieldProps, handleSubmit, setInputs, inputs } = useForm({
     defaultValues: {
       from: "",
       to: "",
-      account: "",
+      amount: "",
       transfer_date: "",
       memo: "",
     },
@@ -22,7 +29,7 @@ const TransferFundDetail = () => {
       to: {
         required: true,
       },
-      account: {
+      amount: {
         required: true,
       },
       memo: {
@@ -35,16 +42,34 @@ const TransferFundDetail = () => {
   });
 
   const onSubmit = (data) => {
-    PostTransferFund({
-      ...data,
-      transfer_date: apiServices.formatDate(data.transfer_date),
-    });
+    if (isEdit) {
+      updateTransferFund({
+        ...data,
+        id: fundData.id,
+        transfer_date: apiServices.formatDate(data.transfer_date),
+      });
+    } else {
+      PostTransferFund({
+        ...data,
+        transfer_date: apiServices.formatDate(data.transfer_date),
+      });
+    }
   };
+
+  useEffect(() => {
+    if (isEdit) {
+      setInputs({
+        ...inputs,
+        ...fundData,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fundData, isEdit]);
 
   return (
     <DetailView
       isLoading={isLoading}
-      pageTitle="Transfer Fund"
+      pageTitle={isEdit ? "Edit Transfer" : "Transfer Fund"}
       onFormSubmit={handleSubmit(onSubmit)}
     >
       <Row className="mb-0 mb-sm-4">
@@ -68,11 +93,12 @@ const TransferFundDetail = () => {
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
-            label="Account"
-            hasError={!!errors.account}
-            {...getFieldProps("account")}
+            type="number"
+            label="Amount"
+            hasError={!!errors.amount}
+            {...getFieldProps("amount")}
           />
-          {!!errors.account && <p className="error-message">{errors.account}</p>}
+          {!!errors.amount && <p className="error-message">{errors.amount}</p>}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput

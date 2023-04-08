@@ -356,6 +356,8 @@ export const permissions = {
     transfer: {
       create: true,
       read: true,
+      update: true,
+      delete: true,
     },
     "chart-account": {
       create: false,
@@ -375,7 +377,7 @@ export const permissions = {
       sort: false,
     },
     payment: {
-      create: true,
+      create: false,
       read: true,
       update: false,
       delete: false,
@@ -427,6 +429,7 @@ export const permissions = {
       read: true,
       readCreditors: true,
       readDebtors: true,
+      action: true,
       update: false,
       delete: false,
       statusToggle: false,
@@ -438,9 +441,10 @@ export const permissions = {
       graduateStudent: false,
       readClass: false,
       studentLoginDetails: false,
-      action: false,
       transfer: false,
       promote: false,
+      invoice: true,
+      payment: true,
       communication: false,
       "health-report": false,
       "bus-routing": false,

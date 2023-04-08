@@ -72,6 +72,7 @@ import BankList from "../pages/dashboard/bank";
 import ExpensesDetail from "../pages/dashboard/expenses/detail";
 import VehicleMaintenanceDetail from "../pages/dashboard/vehicles/maintenance/detail";
 import TransferFundDetail from "../pages/dashboard/transfer-funds/detail";
+import VehicleMaintenance from "../pages/dashboard/vehicles/maintenance";
 
 const CustomRoutes = () => {
   return (
@@ -309,6 +310,14 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          path="vehicle-maintenance"
+          element={
+            <Guard routeName="vehicle-maintenance">
+              <VehicleMaintenance />
+            </Guard>
+          }
+        />
+        <Route
           exact
           path="vendors"
           element={
@@ -335,7 +344,7 @@ const CustomRoutes = () => {
           }
         />
         <Route
-          path="payment/new"
+          path="payment/:id"
           element={
             <Guard routeName="payment">
               <PaymentDetail />
@@ -352,7 +361,7 @@ const CustomRoutes = () => {
           }
         />
         <Route
-          path="invoice/new"
+          path="students/invoice/:id"
           element={
             <Guard routeName="invoice">
               <InvoiceDetail />
@@ -620,6 +629,15 @@ const CustomRoutes = () => {
         <Route
           exact
           path="transfer/new"
+          element={
+            <Guard routeName="transfer">
+              <TransferFundDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="transfer/edit/:id"
           element={
             <Guard routeName="transfer">
               <TransferFundDetail />

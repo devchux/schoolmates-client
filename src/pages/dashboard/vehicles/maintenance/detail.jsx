@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-formid";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../../components/inputs/auth-input";
@@ -6,7 +6,7 @@ import DetailView from "../../../../components/views/detail-view";
 import { useVehicleMaintenance } from "../../../../hooks/useVehicleMaintenance";
 
 const VehicleMaintenanceDetail = () => {
-  const { errors, handleSubmit, getFieldProps } = useForm({
+  const { errors, handleSubmit, getFieldProps, setInputs, inputs } = useForm({
     defaultValues: {
       vehicle_type: "",
       vehicle_make: "",
@@ -30,11 +30,25 @@ const VehicleMaintenanceDetail = () => {
       initial_payment: { required: true },
     },
   });
-  const { isLoading, postMaintenance } = useVehicleMaintenance();
+  const { isLoading, postMaintenance, vehicleData, isEdit } =
+    useVehicleMaintenance();
 
   const onSubmit = (data) => {
     postMaintenance(data);
   };
+
+  useEffect(() => {
+    if (isEdit) {
+      setInputs({
+        ...inputs,
+        vehicle_type: vehicleData?.type,
+        vehicle_make: vehicleData?.make,
+        vehicle_number: vehicleData?.number,
+        driver_name: vehicleData?.drivername,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isEdit, vehicleData]);
   return (
     <DetailView
       isLoading={isLoading}
@@ -44,6 +58,7 @@ const VehicleMaintenanceDetail = () => {
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
+            disabled
             label="Vehicle Type"
             hasError={!!errors.vehicle_type}
             {...getFieldProps("vehicle_type")}
@@ -54,6 +69,7 @@ const VehicleMaintenanceDetail = () => {
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
+            disabled
             label="Vehicle Make"
             hasError={!!errors.vehicle_make}
             {...getFieldProps("vehicle_make")}
@@ -66,6 +82,7 @@ const VehicleMaintenanceDetail = () => {
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
+            disabled
             label="Vehicle Number"
             hasError={!!errors.vehicle_number}
             {...getFieldProps("vehicle_number")}
@@ -76,7 +93,8 @@ const VehicleMaintenanceDetail = () => {
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
-            label="Driver Name "
+            disabled
+            label="Driver Name"
             hasError={!!errors.driver_name}
             {...getFieldProps("driver_name")}
           />

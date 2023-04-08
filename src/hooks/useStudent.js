@@ -102,27 +102,27 @@ export const useStudent = () => {
     setSortBy(value);
   };
 
-  const { isLoading: studentListLoading, data: students } = useQuery(
-    [queryKeys.GET_ALL_STUDENTS],
-    apiServices.getAllStudents,
-    {
-      enabled: permission?.read || false,
-      retry: 3,
-      onError(err) {
-        errorHandler(err);
-      },
-      select: (data) => {
-        return apiServices.formatData(data)?.map((student) => {
-          return {
-            ...student,
-            image: (
-              <ProfileImage src={student?.image} wrapperClassName="mx-auto" />
-            ),
-          };
-        });
-      },
-    }
-  );
+  const {
+    isLoading: studentListLoading,
+    data: students,
+    refetch: refetchStudents,
+  } = useQuery([queryKeys.GET_ALL_STUDENTS], apiServices.getAllStudents, {
+    enabled: permission?.read || false,
+    retry: 3,
+    onError(err) {
+      errorHandler(err);
+    },
+    select: (data) => {
+      return apiServices.formatData(data)?.map((student) => {
+        return {
+          ...student,
+          image: (
+            <ProfileImage src={student?.image} wrapperClassName="mx-auto" />
+          ),
+        };
+      });
+    },
+  });
 
   const { data: studentByClassAndSession, isLoading: studentByClassLoading } =
     useQuery(
@@ -243,6 +243,7 @@ export const useStudent = () => {
     {
       onSuccess() {
         toast.success("Student has been deleted successfully");
+        refetchStudents();
       },
       onError(err) {
         errorHandler(err);
@@ -436,21 +437,19 @@ export const useStudent = () => {
     }
   );
 
-  const {
-    isLoading: communicationListLoading,
-    data: communicationList,
-  } = useQuery(
-    [queryKeys.GET_COMMUNICATION_BOOK],
-    apiServices.getCommunicationBook,
-    {
-      retry: 3,
-      enabled: permission?.communication,
-      select: apiServices.formatData,
-      onError(err) {
-        errorHandler(err);
-      },
-    }
-  );
+  const { isLoading: communicationListLoading, data: communicationList } =
+    useQuery(
+      [queryKeys.GET_COMMUNICATION_BOOK],
+      apiServices.getCommunicationBook,
+      {
+        retry: 3,
+        enabled: permission?.communication,
+        select: apiServices.formatData,
+        onError(err) {
+          errorHandler(err);
+        },
+      }
+    );
 
   const { mutate: graduateStudent, isLoading: graduateStudentLoading } =
     useMutation(apiServices.graduateStudent, {

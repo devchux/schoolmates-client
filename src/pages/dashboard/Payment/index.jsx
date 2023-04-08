@@ -3,11 +3,11 @@ import PageView from "../../../components/views/table-view";
 import { useAccounts } from "../../../hooks/useAccounts";
 
 const Payment = () => {
-  const { paymentLoading, payment, permission } = useAccounts();
+  const { paymentLoading, payment } = useAccounts();
 
   return (
     <PageView
-      canCreate={permission?.create}
+      canCreate={false}
       isLoading={paymentLoading}
       columns={[
         {

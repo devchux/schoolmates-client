@@ -4,7 +4,6 @@ import {
   faBuildingColumns,
   faClipboardUser,
   faComment,
-  faCode,
   faSuitcase,
   faFileInvoice,
   faGraduationCap,
@@ -31,6 +30,7 @@ import {
   faSchoolLock,
   faTimeline,
   faBusSimple,
+  faChartSimple,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const backendAPI = "https://schoolmate.powershellerp.com/api";
@@ -287,7 +287,7 @@ export const dashboardSideBarLinks = {
     },
     {
       to: "/app/vendors",
-      title: "Vendor List",
+      title: "Vendors",
       icon: faAddressCard,
     },
     {
@@ -297,12 +297,12 @@ export const dashboardSideBarLinks = {
     },
     {
       to: "/app/chart-account",
-      title: "Chart Account List",
-      icon: faCode,
+      title: "Chart Account",
+      icon: faChartSimple,
     },
     {
       to: "/app/fee-list",
-      title: "Fee List",
+      title: "Fees",
       icon: faScaleBalanced,
     },
     {

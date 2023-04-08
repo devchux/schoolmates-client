@@ -114,6 +114,7 @@ export const useCampus = () => {
     useMutation(apiServices.deleteCampus, {
       onSuccess() {
         toast.success("Campus has been deleted successfully");
+        refetchCampusList();
       },
       onError(err) {
         errorHandler(err);

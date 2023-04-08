@@ -6,7 +6,9 @@ import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
+import AuthSelect from "../../../components/inputs/auth-select";
 import DetailView from "../../../components/views/detail-view";
+import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useAppContext } from "../../../hooks/useAppContext";
 
 const ExpensesDetail = () => {
@@ -25,7 +27,9 @@ const ExpensesDetail = () => {
     }
   );
 
-  const { handleSubmit, errors, getFieldProps } = useForm({
+  const { data: sessions } = useAcademicSession();
+
+  const { handleSubmit, errors, getFieldProps, inputs, handleChange } = useForm({
     defaultValues: {
         term: "",
         session: "",
@@ -68,10 +72,16 @@ const ExpensesDetail = () => {
           )}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
+          <AuthSelect
             label="Session"
+            value={inputs.session}
+            name="session"
             hasError={!!errors.session}
-            {...getFieldProps("session")}
+            onChange={handleChange}
+            options={(sessions || [])?.map((session) => ({
+              value: session?.academic_session,
+              title: session?.academic_session,
+            }))}
           />
           {!!errors.session && (
             <p className="error-message">{errors.session}</p>

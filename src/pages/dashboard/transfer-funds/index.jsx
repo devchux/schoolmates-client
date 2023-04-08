@@ -3,15 +3,14 @@ import PageView from "../../../components/views/table-view";
 import { useTransferFund } from "../../../hooks/useTransferFund";
 
 const TransferFund = () => {
-  const { isLoading, funds, permission } = useTransferFund();
+  const { isLoading, funds, permission, deleteTransferFund } = useTransferFund();
 
-  console.log(funds);
   return (
     <PageView
       canCreate={permission?.create}
-      // rowHasUpdate={permission?.update}
-      // rowHasDelete={permission?.delete}
-      // onDelete={onDeleteClass}
+      rowHasUpdate={permission?.update}
+      rowHasDelete={permission?.delete}
+      onDelete={deleteTransferFund}
       isLoading={isLoading}
       columns={[
         {
@@ -27,8 +26,8 @@ const TransferFund = () => {
           accessor: "to",
         },
         {
-          Header: "Account",
-          accessor: "account",
+          Header: "Amount",
+          accessor: "amount",
         },
         {
           Header: "Memo",

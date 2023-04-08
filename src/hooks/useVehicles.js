@@ -11,18 +11,18 @@ export const useVehicles = () => {
   const { id } = useParams();
   const { apiServices, errorHandler, permission } = useAppContext("vehicles");
 
-  const { isLoading: vehiclesListLoading, data: vehiclesList } = useQuery(
-    [queryKeys.GET_ALL_VEHICLES],
-    apiServices.getAllVehicles,
-    {
-      enabled: permission?.read || false,
-      retry: 3,
-      onError(err) {
-        errorHandler(err);
-      },
-      select: apiServices.formatData,
-    }
-  );
+  const {
+    isLoading: vehiclesListLoading,
+    data: vehiclesList,
+    refetch: refetchVehicles,
+  } = useQuery([queryKeys.GET_ALL_VEHICLES], apiServices.getAllVehicles, {
+    enabled: permission?.read || false,
+    retry: 3,
+    onError(err) {
+      errorHandler(err);
+    },
+    select: apiServices.formatData,
+  });
 
   const { isLoading: vehicleLogsListLoading, data: vehicleLogsList } = useQuery(
     [queryKeys.GET_ALL_VEHICLE_LOGS],
@@ -96,6 +96,7 @@ export const useVehicles = () => {
     {
       onSuccess() {
         toast.success("Vehicle has been deleted successfully");
+        refetchVehicles();
       },
       onError(err) {
         errorHandler(err);

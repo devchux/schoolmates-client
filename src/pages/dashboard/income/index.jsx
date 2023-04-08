@@ -1,17 +1,13 @@
 import React from "react";
 import { useForm } from "react-formid";
-import AuthInput from "../../../components/inputs/auth-input";
 import AuthSelect from "../../../components/inputs/auth-select";
 import Prompt from "../../../components/modals/prompt";
 import PageView from "../../../components/views/table-view";
-import { useAppContext } from "../../../hooks/useAppContext";
+import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useReports } from "../../../hooks/useReports";
 
 const Income = () => {
-  const {
-    apiServices: { handleSessionChange },
-  } = useAppContext();
-  const { inputs, handleSubmit, handleChange, errors, setFieldValue, reset } =
+  const { inputs, handleSubmit, handleChange, errors, reset } =
     useForm({
       defaultValues: { session: "", type: "income", term: "First Term" },
       validation: {
@@ -26,6 +22,7 @@ const Income = () => {
         },
       },
     });
+  const { data: sessions } = useAcademicSession();
   const {
     setEnableIncomeQuery,
     incomeReports,
@@ -46,7 +43,6 @@ const Income = () => {
       setEnableIncomeQuery(true);
     }
 
-    
     reset();
   };
 
@@ -58,7 +54,6 @@ const Income = () => {
 
   const title = {
     income: "Income Reports",
-    
   };
 
   const commonGroupButtonOptions = [
@@ -143,7 +138,6 @@ const Income = () => {
         accessor: "updated_at",
       },
     ],
-    
   };
 
   return (
@@ -165,7 +159,6 @@ const Income = () => {
                   onClick: clear,
                   isLoading,
                 },
-                
               ]
             : commonGroupButtonOptions
         }
@@ -193,10 +186,7 @@ const Income = () => {
             name="type"
             hasError={!!errors.type}
             onChange={handleChange}
-            options={[
-              { value: "income", title: "Income Review" },
-              
-            ]}
+            options={[{ value: "income", title: "Income Review" }]}
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </div>
@@ -216,14 +206,16 @@ const Income = () => {
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </div>
         <div className="form-group mb-4">
-          <AuthInput
+          <AuthSelect
             label="Session"
-            placeholder="2021/2022"
-            hasError={!!errors.session}
             value={inputs.session}
-            onChange={({ target: { value } }) =>
-              handleSessionChange(value, "session", setFieldValue)
-            }
+            name="session"
+            hasError={!!errors.session}
+            onChange={handleChange}
+            options={(sessions || [])?.map((session) => ({
+              value: session?.academic_session,
+              title: session?.academic_session,
+            }))}
           />
           {!!errors.session && (
             <p className="error-message">{errors.session}</p>
