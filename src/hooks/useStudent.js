@@ -137,9 +137,11 @@ export const useStudent = () => {
           user?.session
         ),
       {
-        enabled:
-          permission?.myStudents && !!user?.class_assigned && !!user?.session,
+        enabled: permission?.myStudents || false,
         select: apiServices.formatData,
+        onError(err) {
+          errorHandler(err);
+        },
       }
     );
 
@@ -394,7 +396,7 @@ export const useStudent = () => {
       onError(err) {
         errorHandler(err);
       },
-      enabled: !!id && (permission?.update || false),
+      enabled: !!id,
       select: apiServices.formatSingleData,
     }
   );

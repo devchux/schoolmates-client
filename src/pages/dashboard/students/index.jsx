@@ -689,7 +689,7 @@ const Student = () => {
       class: searchByClass,
     };
 
-    return search[sortBy](value);
+    return search[sortBy || "admission-number"](value);
   };
 
   useEffect(() => {
