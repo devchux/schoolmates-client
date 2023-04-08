@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import PageView from "../../../components/views/table-view";
 import { useVehicles } from "../../../hooks/useVehicles";
 
@@ -13,6 +14,8 @@ const Vehicles = () => {
     permission,
     assignedBusList,
   } = useVehicles();
+
+  const navigate = useNavigate();
 
   const dataMapper = {
     all: {
@@ -187,6 +190,19 @@ const Vehicles = () => {
     return arr.length ? arr : undefined;
   };
 
+  const getActionOptions = () => {
+    const arr = [];
+
+    if (permission?.maintenance) {
+      arr.push({
+        title: "Add Maintenance",
+        onClick: (id) => navigate(`/app/vehicles/maintenance/${id}`),
+      });
+    }
+
+    return arr.length ? arr : undefined;
+  };
+
   return (
     <PageView
       hasSortOptions={permission?.sort}
@@ -195,6 +211,8 @@ const Vehicles = () => {
       rowHasUpdate={permission?.update}
       onDelete={handleDeleteVehicle}
       isLoading={isLoading}
+      action={getActionOptions()}
+      rowHasAction={permission?.action && indexStatus === "all"}
       groupedButtonOptions={getSortButtonOptions()}
       columns={dataMapper[indexStatus].columns}
       data={dataMapper[indexStatus].data}

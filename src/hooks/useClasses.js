@@ -32,7 +32,7 @@ export const useClasses = () => {
     },
   });
 
-  const { isLoading: classListLoading } = useQuery(
+  const { isLoading: classListLoading, refetch: refetchClasses } = useQuery(
     [queryKeys.GET_ALL_CLASSES],
     apiServices.getAllClasses,
     {
@@ -56,7 +56,7 @@ export const useClasses = () => {
 
   const { isLoading: subjectsLoading, data: subjects } = useQuery(
     [queryKeys.GET_SUBJECTS, id],
-    () => apiServices.getSubjectsByClass(id),
+    () => apiServices.getSubjectByClass(id),
     {
       select: apiServices.formatData,
       onError: apiServices.errorHandler,
@@ -89,6 +89,7 @@ export const useClasses = () => {
   const { mutateAsync: deleteClass } = useMutation(apiServices.deleteClass, {
     onSuccess() {
       toast.success("Class has been deleted successfully");
+      refetchClasses();
     },
     onError(err) {
       errorHandler(err);

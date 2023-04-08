@@ -27,7 +27,7 @@ const AuthInput = forwardRef(
           <div
             className={`auth-input-wrapper auth-password-input ${
               hasError ? "has-error" : ""
-            } ${wrapperClassName || ""}`}
+            } ${rest?.disabled ? 'disabled' : ''} ${wrapperClassName || ""}`}
           >
             <input
               type={showPassword ? "text" : "password"}
@@ -51,7 +51,7 @@ const AuthInput = forwardRef(
         <>
           {label && <label className="mb-2">{label}</label>}
           <div
-            className={`auth-input-wrapper is-phone ${
+            className={`auth-input-wrapper is-phone ${rest.disabled ? 'disabled' : ''} ${
               hasError ? "has-error" : ""
             } ${wrapperClassName || ""}`}
           >
@@ -72,7 +72,7 @@ const AuthInput = forwardRef(
         <>
           {label && <label className="mb-2">{label}</label>}
           <div
-            className={`auth-input-wrapper ${hasError ? "has-error" : ""} ${
+            className={`auth-input-wrapper ${rest.disabled ? 'disabled' : ''} ${hasError ? "has-error" : ""} ${
               wrapperClassName || ""
             }`}
           >
@@ -85,7 +85,7 @@ const AuthInput = forwardRef(
       <>
         {label && <label className="mb-2">{label}</label>}
         <div
-          className={`auth-input-wrapper ${hasError ? "has-error" : ""} ${
+          className={`auth-input-wrapper ${rest.disabled ? 'disabled' : ''} ${hasError ? "has-error" : ""} ${
             wrapperClassName || ""
           }`}
         >

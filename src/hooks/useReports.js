@@ -8,6 +8,9 @@ import { useAppContext } from "./useAppContext";
 export const useReports = () => {
   const [enableIncomeQuery, setEnableIncomeQuery] = useState(false);
   const [enableExpensesQuery, setEnableExpensesQuery] = useState(false);
+  const [enableDebtorsQuery, setEnableDebtorsQuery] = useState(false);
+  const [enableCreditorsQuery, setEnableCreditorsQuery] = useState(false);
+  const [enableInvoicesQuery, setEnableInvoicesQuery] = useState(false);
   const [openPrompt, setOpenPrompt] = useState(false);
   const [indexStatus, setIndexStatus] = useState("");
   const [inputData, setInputData] = useState({
@@ -33,6 +36,101 @@ export const useReports = () => {
         setEnableIncomeQuery(false);
         setOpenPrompt(false);
         setIndexStatus("income");
+      },
+      select: (data) => {
+        const format = apiServices.formatData(data);
+
+        return format?.map((item) => ({
+          ...item,
+          created_at: moment(item?.created_at).format("LLL"),
+          amount_paid: (
+            <>
+              &#8358;
+              <Numeral value={data.amount_paid || "0"} format="0,0.00" />
+            </>
+          ),
+        }));
+      },
+    }
+  );
+
+  //New call
+
+  const { isLoading: incomeInvoicesLoading, data: invoiceReports } = useQuery(
+    [queryKeys.GET_ALL_INCOME_REPORTS, term, session],
+    () => apiServices.getAllIncomeReports(term, session),
+    {
+      enabled: enableInvoicesQuery,
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      onSuccess() {
+        setEnableInvoicesQuery(false);
+        setOpenPrompt(false);
+        setIndexStatus("invoice");
+      },
+      select: (data) => {
+        const format = apiServices.formatData(data);
+
+        return format?.map((item) => ({
+          ...item,
+          created_at: moment(item?.created_at).format("LLL"),
+          amount_paid: (
+            <>
+              &#8358;
+              <Numeral value={data.amount_paid || "0"} format="0,0.00" />
+            </>
+          ),
+        }));
+      },
+    }
+  );
+
+  const { isLoading: incomeDebtorsLoading, data: incomeDebtors } = useQuery(
+    [queryKeys.GET_DEBTORS, term, session],
+    () => apiServices.getDebtors(term, session),
+    {
+      enabled: enableDebtorsQuery,
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      onSuccess() {
+        setEnableDebtorsQuery(false);
+        setOpenPrompt(false);
+        setIndexStatus("debtors");
+      },
+      select: (data) => {
+        const format = apiServices.formatData(data);
+
+        return format?.map((item) => ({
+          ...item,
+          created_at: moment(item?.created_at).format("LLL"),
+          amount_paid: (
+            <>
+              &#8358;
+              <Numeral value={data.amount_paid || "0"} format="0,0.00" />
+            </>
+          ),
+        }));
+      },
+    }
+  );
+
+  const { isLoading: incomeCreditorLoading, data: incomeCreditors } = useQuery(
+    [queryKeys.GET_CREDITORS, term, session],
+    () => apiServices.getCreditors(term, session),
+    {
+      enabled: enableCreditorsQuery,
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      onSuccess() {
+        setEnableCreditorsQuery(false);
+        setOpenPrompt(false);
+        setIndexStatus("creditors");
       },
       select: (data) => {
         const format = apiServices.formatData(data);
@@ -80,11 +178,19 @@ export const useReports = () => {
     }
   );
 
-  const isLoading = incomeReportsLoading || expensesReportsLoading;
+  const isLoading =
+    incomeReportsLoading ||
+    expensesReportsLoading ||
+    incomeDebtorsLoading ||
+    incomeCreditorLoading ||
+    incomeInvoicesLoading;
 
   return {
     setEnableIncomeQuery,
     setEnableExpensesQuery,
+    setEnableDebtorsQuery,
+    setEnableCreditorsQuery,
+    setEnableInvoicesQuery,
     incomeReports,
     isLoading,
     setInputData,
@@ -92,6 +198,9 @@ export const useReports = () => {
     openPrompt,
     togglePrompt,
     indexStatus,
+    incomeDebtors,
+    incomeCreditors,
+    invoiceReports,
     setIndexStatus,
   };
 };

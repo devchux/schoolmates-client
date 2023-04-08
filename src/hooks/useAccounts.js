@@ -34,8 +34,30 @@ export const useAccounts = () => {
     }
   );
 
+  const { isLoading: chartaccountLoading, data: chartaccountList } = useQuery(
+    [queryKeys.GET_CHART_ACCOUNTS],
+    apiServices.getChartAccount,
+    {
+      enabled: permission?.myChartAccount,
+      select: apiServices.formatData,
+    }
+  );
+  const { isLoading: paymentLoading, data: payment } = useQuery(
+    [queryKeys.GET_PAYMENT],
+    apiServices.getPayment,
+    {
+      enabled: permission?.myPayment,
+      select: apiServices.formatData,
+    }
+  );
+  
+
   const isLoading =
-    feeHistoryLoading || previousInvoiceLoading || invoiceLoading;
+    feeHistoryLoading ||
+    previousInvoiceLoading ||
+    invoiceLoading ||
+    chartaccountLoading ||
+    paymentLoading;
 
   return {
     indexStatus,
@@ -45,5 +67,7 @@ export const useAccounts = () => {
     previousInvoice,
     permission,
     invoice,
+    chartaccountList,
+    payment,
   };
 };

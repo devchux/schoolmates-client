@@ -183,6 +183,7 @@ export const useStaff = () => {
     useMutation(apiServices.deleteStaff, {
       onSuccess() {
         toast.success("Staff has been deleted successfully");
+        refetchStaffList();
       },
       onError(err) {
         errorHandler(err);

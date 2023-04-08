@@ -4,20 +4,33 @@ import {
   faBuildingColumns,
   faClipboardUser,
   faComment,
-  // faCode,
+  faSuitcase,
   faFileInvoice,
   faGraduationCap,
   faHome,
   faPaperPlane,
   faPeopleGroup,
-  // faScaleBalanced,
+  faScaleBalanced,
+  faEnvelope,
   faSchool,
+  faAddressCard,
+  // faUserPlus,
+  faShoppingBasket,
   // faTape,
+  // faUsers,
+  // faBusinessTime,
+    // faCalendar,
+    // faPeopleLine,
+  // faCar,
   faTruck,
+  faMoneyBill,
+  faMoneyCheckDollar,
   faMarker,
   faCalendarDays,
   faSchoolLock,
   faTimeline,
+  faBusSimple,
+  faChartSimple,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const backendAPI = "https://schoolmate.powershellerp.com/api";
@@ -28,6 +41,7 @@ export const homeUrl = {
   Principal: "/app/principal",
   Student: "/app/student-home",
   Admin: "/app/admin",
+  Account: "/app/account-home",
 };
 
 export const dashboardSideBarLinks = {
@@ -248,6 +262,90 @@ export const dashboardSideBarLinks = {
       to: "/app/vehicles",
       title: "Vehicles",
       icon: faTruck,
+    },
+  ],
+  Account: [
+    {
+      to: "/app/account-home",
+      title: "Home",
+      icon: faHome,
+    },
+    {
+      to: "/app/income",
+      title: "Income",
+      icon: faMoneyCheckDollar,
+    },
+    {
+      to: "/app/expense",
+      title: "Expenses",
+      icon: faShoppingBasket,
+    },
+    {
+      to: "/app/reports",
+      title: "Report",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/vendors",
+      title: "Vendors",
+      icon: faAddressCard,
+    },
+    {
+      to: "/app/transfer",
+      title: "Transfer Funds",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/chart-account",
+      title: "Chart Account",
+      icon: faChartSimple,
+    },
+    {
+      to: "/app/fee-list",
+      title: "Fees",
+      icon: faScaleBalanced,
+    },
+    {
+      to: "/app/accounts",
+      title: "Accounts",
+      icon: faSchool,
+    },
+    
+    {
+      to: "/app/payment",
+      title: "Payment",
+      icon: faMoneyBill,
+    },
+    {
+      to: "/app/bank",
+      title: "Bank",
+      icon: faBuildingColumns,
+    },
+    
+    {
+      to: "/app/discount",
+      title: "Setup Discount",
+      icon: faSuitcase,
+    },
+    {
+      to: "/app/invoice",
+      title: "Invoice",
+      icon: faEnvelope,
+    },
+    {
+      to: "/app/students",
+      title: "Students",
+      icon: faGraduationCap,
+    },
+    {
+      to: "/app/vehicles",
+      title: "Vehicles",
+      icon: faTruck,
+    },
+    {
+      to: "/app/vehicle-maintenance",
+      title: "Vehicle Maintenance",
+      icon: faBusSimple,
     },
   ],
 };

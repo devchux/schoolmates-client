@@ -34,6 +34,9 @@ import Accounts from "../pages/dashboard/accounts";
 import Comment from "../pages/dashboard/comment";
 import CommentDetail from "../pages/dashboard/comment/detail";
 import Admin from "../pages/dashboard/admin";
+import Income from "../pages/dashboard/income";
+import Expenses from "../pages/dashboard/expenses";
+import Account from "../pages/dashboard/accounts/home";
 import DepartmentDetail from "../pages/dashboard/departments/detail";
 import GradingDetail from "../pages/dashboard/grading/detail";
 import VehicleDetail from "../pages/dashboard/vehicles/detail";
@@ -43,6 +46,21 @@ import TransferStudent from "../pages/dashboard/students/transfer";
 import ResumptionDate from "../pages/dashboard/resumption-date";
 import PromoteStudent from "../pages/dashboard/students/promote";
 import TimetableDetail from "../pages/dashboard/timetable/detail";
+import TransferFund from "../pages/dashboard/transfer-funds";
+import ChartAccount from "../pages/dashboard/chart-account";
+// import Deptors from "../pages/dashboard/debtors";
+// import CreditorsList from "../pages/dashboard/creditor";
+import ChartAccountDetail from "../pages/dashboard/chart-account/detail";
+import FeeList from "../pages/dashboard/Fee";
+import FeeDetail from "../pages/dashboard/Fee/detail";
+import VendorDetail from "../pages/dashboard/vendors/detail";
+import Payment from "../pages/dashboard/Payment";
+import PaymentDetail from "../pages/dashboard/Payment/detail";
+import BankDetail from "../pages/dashboard/bank/detail";
+import DiscountDetail from "../pages/dashboard/setup_discount";
+import Invoices from "../pages/dashboard/invoices";
+import InvoiceDetail from "../pages/dashboard/invoices/detail";
+// import VehicleMaintenance from "../pages/dashboard/maintenance";
 import VehicleLogsDetail from "../pages/dashboard/vehicles/logs/detail";
 import SubjectDetail from "../pages/dashboard/subjects/detail";
 import StaffAttendanceDetail from "../pages/dashboard/staffs/attendance/detail";
@@ -50,6 +68,11 @@ import HealthReport from "../pages/dashboard/students/health-report";
 import BusRouting from "../pages/dashboard/students/bus-routing";
 import AssignClass from "../pages/dashboard/staffs/assign-class";
 import ClassSubjects from "../pages/dashboard/classes/subjects";
+import BankList from "../pages/dashboard/bank";
+import ExpensesDetail from "../pages/dashboard/expenses/detail";
+import VehicleMaintenanceDetail from "../pages/dashboard/vehicles/maintenance/detail";
+import TransferFundDetail from "../pages/dashboard/transfer-funds/detail";
+import VehicleMaintenance from "../pages/dashboard/vehicles/maintenance";
 
 const CustomRoutes = () => {
   return (
@@ -279,11 +302,93 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          path="vehicles/maintenance/:id"
+          element={
+            <Guard routeName="vehicles">
+              <VehicleMaintenanceDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="vehicle-maintenance"
+          element={
+            <Guard routeName="vehicle-maintenance">
+              <VehicleMaintenance />
+            </Guard>
+          }
+        />
+        <Route
           exact
           path="vendors"
           element={
             <Guard routeName="vendors">
               <Vendors />
+            </Guard>
+          }
+        />
+        <Route
+          path="vendors/new"
+          element={
+            <Guard routeName="vendors">
+              <VendorDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="payment"
+          element={
+            <Guard routeName="payment">
+              <Payment />
+            </Guard>
+          }
+        />
+        <Route
+          path="payment/:id"
+          element={
+            <Guard routeName="payment">
+              <PaymentDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="invoice"
+          element={
+            <Guard routeName="invoice">
+              <Invoices />
+            </Guard>
+          }
+        />
+        <Route
+          path="students/invoice/:id"
+          element={
+            <Guard routeName="invoice">
+              <InvoiceDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="bank/new"
+          element={
+            <Guard routeName="bank">
+              <BankDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="bank"
+          element={
+            <Guard routeName="bank">
+              <BankList />
+            </Guard>
+          }
+        />
+        <Route
+          path="discount"
+          element={
+            <Guard routeName="discount">
+              <DiscountDetail />
             </Guard>
           }
         />
@@ -430,10 +535,61 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          exact
+          path="income"
+          element={
+            <Guard routeName="income">
+              <Income />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="expense"
+          element={
+            <Guard routeName="expense">
+              <Expenses />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="expense/new"
+          element={
+            <Guard routeName="expense">
+              <ExpensesDetail />
+            </Guard>
+          }
+        />
+        <Route
           path="comment/new"
           element={
             <Guard routeName="comment">
               <CommentDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="chart-account/new"
+          element={
+            <Guard routeName="chart-account">
+              <ChartAccountDetail />
+            </Guard>
+          }
+        />
+        <Route
+          path="fee-list"
+          element={
+            <Guard routeName="fee-list">
+              <FeeList />
+            </Guard>
+          }
+        />
+        <Route
+          path="fee-list/new"
+          element={
+            <Guard routeName="fee-list">
+              <FeeDetail />
             </Guard>
           }
         />
@@ -453,6 +609,69 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
+        <Route
+          path="account-home"
+          element={
+            <Guard routeName="account">
+              <Account />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="transfer"
+          element={
+            <Guard routeName="transfer">
+              <TransferFund />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="transfer/new"
+          element={
+            <Guard routeName="transfer">
+              <TransferFundDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="transfer/edit/:id"
+          element={
+            <Guard routeName="transfer">
+              <TransferFundDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="chart-account"
+          element={
+            <Guard routeName="chart-account">
+              <ChartAccount />
+            </Guard>
+          }
+        />
+        {/* <Route
+          exact
+          path="debtors"
+          element={
+            <Guard routeName="debtors">
+              <Deptors/>
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="creditors"
+          element={
+            <Guard routeName="creditors">
+              <CreditorsList/>
+            </Guard>
+          }
+        />
+         */}
         <Route exact path="profile" element={<Profile />} />
         <Route exact path="not-found" element={<NotFound />} />
         <Route exact path="change-password" element={<ChangePassword />} />

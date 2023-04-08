@@ -614,6 +614,20 @@ const Student = () => {
       });
     }
 
+    if (permission?.invoice) {
+      arr.push({
+        title: "Create Invoice",
+        onClick: (id) => navigate(`/app/students/invoice/${id}`),
+      });
+    }
+
+    if (permission?.payment) {
+      arr.push({
+        title: "Register Payment",
+        onClick: (id) => navigate(`/app/payment/${id}`),
+      });
+    }
+
     if (permission["health-report"]) {
       arr.push({
         title: "Health Report",

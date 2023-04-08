@@ -6,37 +6,33 @@ import PageView from "../../../components/views/table-view";
 import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useReports } from "../../../hooks/useReports";
 
-const Reports = () => {
-  const { inputs, handleSubmit, handleChange, errors, reset } = useForm({
-    defaultValues: { session: "", type: "income", term: "First Term" },
-    validation: {
-      session: {
-        required: true,
+const Income = () => {
+  const { inputs, handleSubmit, handleChange, errors, reset } =
+    useForm({
+      defaultValues: { session: "", type: "income", term: "First Term" },
+      validation: {
+        session: {
+          required: true,
+        },
+        type: {
+          required: true,
+        },
+        term: {
+          required: true,
+        },
       },
-      type: {
-        required: true,
-      },
-      term: {
-        required: true,
-      },
-    },
-  });
+    });
+  const { data: sessions } = useAcademicSession();
   const {
     setEnableIncomeQuery,
-    setEnableExpensesQuery,
-    setEnableInvoicesQuery,
     incomeReports,
     isLoading,
     setInputData,
-    expensesReports,
-    invoiceReports,
     openPrompt,
     togglePrompt,
     indexStatus,
     setIndexStatus,
   } = useReports();
-
-  const { isLoading: loadingSessions, data: sessions } = useAcademicSession();
 
   const onSubmit = (data) => {
     setInputData({
@@ -47,19 +43,6 @@ const Reports = () => {
       setEnableIncomeQuery(true);
     }
 
-    if (data.type === "expense") {
-      setEnableExpensesQuery(true);
-    }
-    if (data.type === "invoice") {
-      setEnableInvoicesQuery(true);
-    }
-
-    if (data.type === "bank") {
-      setEnableExpensesQuery(true);
-    }
-    if (data.type === "salaries") {
-      setEnableIncomeQuery(true);
-    }
     reset();
   };
 
@@ -67,21 +50,15 @@ const Reports = () => {
 
   const data = {
     income: incomeReports,
-    expense: expensesReports,
-    invoice: invoiceReports,
   };
 
   const title = {
     income: "Income Reports",
-    expense: "Expenses Reports",
-    invoice: "Invoices Reports",
-    Salary: "Salaries Reports",
-    bank: "Bank Reports",
   };
 
   const commonGroupButtonOptions = [
     {
-      title: "Generate Report",
+      title: "Generate Income",
       type: "button",
       onClick: togglePrompt,
       isLoading,
@@ -161,50 +138,8 @@ const Reports = () => {
         accessor: "updated_at",
       },
     ],
-    invoice: [
-      {
-        Header: "id",
-        accessor: "student_id",
-      },
-      {
-        Header: "Admission Number",
-        accessor: "admission_number",
-      },
-      {
-        Header: "Full Name",
-        accessor: "fullname",
-      },
-      {
-        Header: "Amount",
-        accessor: "amount",
-      },
-      {
-        Header: "Class",
-        accessor: "class",
-      },
-      {
-        Header: "Fee Type",
-        accessor: "feetype",
-      },
-      {
-        Header: "Session",
-        accessor: "session",
-      },
-      {
-        Header: "term",
-        accessor: "term",
-      },
-      {
-        Header: "Discount",
-        accessor: "discount",
-      },
-      {
-        Header: "Discount Amount",
-        accessor: "discount_amount",
-      },
-    ],
   };
-  
+
   return (
     <div>
       <PageView
@@ -237,8 +172,8 @@ const Reports = () => {
         toggle={togglePrompt}
         singleButtonProps={{
           type: "button",
-          isLoading: isLoading || loadingSessions,
-          disabled: isLoading || loadingSessions,
+          isLoading,
+          disabled: isLoading,
           onClick: handleSubmit(onSubmit),
         }}
         singleButtonText="Continue"
@@ -251,13 +186,7 @@ const Reports = () => {
             name="type"
             hasError={!!errors.type}
             onChange={handleChange}
-            options={[
-              { value: "income", title: "Income Report" },
-              { value: "expense", title: "Expenses Report" },
-              { value: "bank", title: "Bank Report" },
-              { value: "salary", title: "Salaries Report" },
-              { value: "invoice", title: "Invoices Report" },
-            ]}
+            options={[{ value: "income", title: "Income Review" }]}
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </div>
@@ -297,4 +226,4 @@ const Reports = () => {
   );
 };
 
-export default Reports;
+export default Income;

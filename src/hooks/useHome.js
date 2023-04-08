@@ -9,7 +9,7 @@ export const useHome = () => {
     [queryKeys.GET_ALL_OUTSTANDING],
     apiServices.getAllOutstanding,
     {
-      enabled: ["Superadmin"].includes(user?.designation_name),
+      enabled: ["Superadmin", "Account"].includes(user?.designation_name),
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -21,7 +21,7 @@ export const useHome = () => {
     [queryKeys.GET_ALL_EXPECTED_INCOME],
     apiServices.getAllExpectedIncome,
     {
-      enabled: ["Superadmin"].includes(user?.designation_name),
+      enabled: ["Superadmin", "Account"].includes(user?.designation_name),
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -33,7 +33,7 @@ export const useHome = () => {
     [queryKeys.GET_ALL_DISCOUNT],
     apiServices.getAllDiscounts,
     {
-      enabled: ["Superadmin"].includes(user?.designation_name),
+      enabled: ["Superadmin", "Account"].includes(user?.designation_name),
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -44,7 +44,7 @@ export const useHome = () => {
     [queryKeys.GET_ALL_TOTAL_EXPENSES],
     apiServices.getAllExpenses,
     {
-      enabled: ["Superadmin"].includes(user?.designation_name),
+      enabled: ["Superadmin", "Account"].includes(user?.designation_name),
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -55,7 +55,7 @@ export const useHome = () => {
     [queryKeys.GET_ALL_ACCOUNT_BALANCE],
     apiServices.getAllAccountBalances,
     {
-      enabled: ["Superadmin"].includes(user?.designation_name),
+      enabled: ["Superadmin", "Account"].includes(user?.designation_name),
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -67,7 +67,7 @@ export const useHome = () => {
     [queryKeys.GET_ALL_RECEIVED_INCOME],
     apiServices.getAllReceivedIncome,
     {
-      enabled: ["Superadmin"].includes(user?.designation_name),
+      enabled: ["Superadmin", "Account"].includes(user?.designation_name),
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -80,7 +80,7 @@ export const useHome = () => {
       [queryKeys.GET_ALL_GRADUATED_STUDENT],
       apiServices.getAllGraduatedStudent,
       {
-        enabled: ["Superadmin"].includes(user?.designation_name),
+        enabled: ["Superadmin", "Account"].includes(user?.designation_name),
         retry: 3,
         onError(err) {
           errorHandler(err);
@@ -92,9 +92,6 @@ export const useHome = () => {
     [queryKeys.GET_SCHOOL],
     apiServices.getSchool,
     {
-      enabled: ["Teacher", "Student", "Principal", "Superadmin"].includes(
-        user?.designation_name
-      ),
       retry: 3,
       onSuccess(data) {
         updateUser({

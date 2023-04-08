@@ -16,6 +16,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Prompt from "../../../components/modals/prompt";
+import { useAcademicSession } from "../../../hooks/useAcademicSession";
 
 const StudentDetail = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -47,8 +48,10 @@ const StudentDetail = () => {
   const { classes } = useClasses();
 
   const {
-    apiServices: { formatDate, handleSessionChange },
+    apiServices: { formatDate },
   } = useAppContext();
+
+  const { data: sessions } = useAcademicSession();
 
   const onSubmit = async (data) => {
     const image = isEdit
@@ -322,14 +325,16 @@ const StudentDetail = () => {
       </Row>
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
+          <AuthSelect
             label="Session Admitted"
-            placeholder="2021/2022"
-            hasError={!!errors.session_admitted}
             value={inputs.session_admitted}
-            onChange={({ target: { value } }) =>
-              handleSessionChange(value, "session_admitted", setFieldValue)
-            }
+            name="session_admitted"
+            hasError={!!errors.session_admitted}
+            onChange={handleChange}
+            options={(sessions || [])?.map((session) => ({
+              value: session?.academic_session,
+              title: session?.academic_session,
+            }))}
           />
           {!!errors.session_admitted && (
             <p className="error-message">{errors.session_admitted}</p>
@@ -361,35 +366,7 @@ const StudentDetail = () => {
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
-            label="Class"
-            value={inputs.class}
-            name="class"
-            hasError={!!errors.class}
-            onChange={(e) => {
-              handleChange(e);
-            }}
-            options={(classes || []).map((x) => ({
-              value: x?.class_name,
-              title: x?.class_name,
-            }))}
-          />
-          {!!errors.class && <p className="error-message">{errors.class}</p>}
-        </Col>
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            type="file"
-            className="px-0"
-            wrapperClassName="border-0"
-            label="Profile Image"
-            onChange={handleImageChange}
-            ref={fileRef}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthSelect
-            label="Sub_class"
+            label="Sub Class"
             value={inputs.sub_class}
             name="sub_class"
             hasError={!!errors.sub_class}
@@ -405,6 +382,34 @@ const StudentDetail = () => {
           {!!errors.sub_class && (
             <p className="error-message">{errors.sub_class}</p>
           )}
+        </Col>
+        <Col sm="6" className="mb-4 mb-sm-0">
+          <AuthInput
+            type="file"
+            className="px-0"
+            wrapperClassName="border-0"
+            label="Profile Image"
+            onChange={handleImageChange}
+            ref={fileRef}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col sm="6" className="mb-4 mb-sm-0">
+          <AuthSelect
+            label="Admitted Class"
+            value={inputs.class}
+            name="class"
+            hasError={!!errors.class}
+            onChange={(e) => {
+              handleChange(e);
+            }}
+            options={(classes || []).map((x) => ({
+              value: x?.class_name,
+              title: x?.class_name,
+            }))}
+          />
+          {!!errors.class && <p className="error-message">{errors.class}</p>}
         </Col>
       </Row>
       <ImagePreview

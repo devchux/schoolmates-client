@@ -18,6 +18,10 @@
     padding: 0 1.6rem;
   }
 
+  &.disabled {
+    background-color: rgba(#111111, 0.1);
+  }
+
   input,
   select,
   textarea {
