@@ -1,5 +1,5 @@
 .custom-button {
-  background: #367fa9;
+  background: rgb(1,21,59);
   border-radius: 0.3rem;
   width: fit-content;
   font-style: normal;
@@ -28,12 +28,12 @@
   }
 
   &.outline {
-    border: 0.2rem solid #367fa9;
+    border: 0.2rem solid rgb(1,21,59);
     background: transparent;
-    color: #367fa9;
+    color: rgb(1,21,59);
 
     &:hover {
-      background: #367fa9;
+      background: rgb(1,21,59);
       color: #ffffff;
     }
   }

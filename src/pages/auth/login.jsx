@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Button from "../../components/buttons/button";
 import AuthInput from "../../components/inputs/auth-input";
 import { useForm } from "react-formid";
@@ -59,11 +58,6 @@ const Login = () => {
             {!!errors.password && (
               <p className="error-message">{errors.password}</p>
             )}
-          </div>
-          <div className="form-group">
-            <Link to="/" className="forgot-password-text">
-              Forgot PASSWORD?
-            </Link>
           </div>
           <div className="form-group">
             <Button

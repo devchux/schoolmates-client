@@ -419,7 +419,7 @@
           &.is-loading,
           &.active,
           &:hover {
-            background: conic-gradient(transparent 0, #367fa9, transparent);
+            background: conic-gradient(transparent 0, rgb(1,21,59), transparent);
           }
 
           &.is-loading {
@@ -429,33 +429,33 @@
               0% {
                 background: conic-gradient(
                   transparent 90%,
-                  #367fa9,
+                  rgb(1,21,59),
                   transparent
                 );
               }
               25% {
                 background: conic-gradient(
                   transparent 70%,
-                  #367fa9,
+                  rgb(1,21,59),
                   transparent
                 );
               }
               50% {
                 background: conic-gradient(
                   transparent 50%,
-                  #367fa9,
+                  rgb(1,21,59),
                   transparent
                 );
               }
               75% {
                 background: conic-gradient(
                   transparent 30%,
-                  #367fa9,
+                  rgb(1,21,59),
                   transparent
                 );
               }
               100% {
-                background: conic-gradient(transparent 0, #367fa9, transparent);
+                background: conic-gradient(transparent 0, rgb(1,21,59), transparent);
               }
             }
           }

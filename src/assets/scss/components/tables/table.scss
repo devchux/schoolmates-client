@@ -26,14 +26,14 @@
       th {
         font-weight: 700;
         text-transform: uppercase;
-        background-color: #367fa9;
+        background-color: rgb(1,21,59);
         color: #ffffff;
         text-align: center;
       }
 
       tr {
         &:nth-of-type(even) {
-          background-color: rgba(#367fa9, 0.2);
+          background-color: rgba(rgb(1,21,59), 0.2);
         }
       }
 
