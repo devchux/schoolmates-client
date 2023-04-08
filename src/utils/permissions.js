@@ -354,12 +354,8 @@ export const permissions = {
       sort: false,
     },
     transfer: {
-      canCreate: true,
-      sort: true,
-      feeHistory: true,
-      paymentReciept: true,
-      myInvoice: true,
-      previousInvoice: true,
+      create: true,
+      read: true,
     },
     "chart-account": {
       create: false,
@@ -369,7 +365,7 @@ export const permissions = {
       statusToggle: false,
       sort: false,
     },
-    
+
     "fee-list": {
       create: false,
       read: true,
@@ -402,13 +398,19 @@ export const permissions = {
       statusToggle: false,
       sort: false,
     },
-    maintenance: {
-      create: true,
+    vehicles: {
+      create: false,
       read: true,
+      readLogs: false,
       update: false,
       delete: false,
-      statusToggle: false,
       sort: false,
+      assignedBus: false,
+      maintenance: true,
+      action: true,
+    },
+    "vehicle-maintenance": {
+      read: true,
     },
     discount: {
       create: true,
@@ -443,5 +445,5 @@ export const permissions = {
       "health-report": false,
       "bus-routing": false,
     },
-  }
+  },
 };

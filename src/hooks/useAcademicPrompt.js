@@ -19,23 +19,3 @@ export const useAcademicPeriod = () => {
 
   return { postAcademicPeriod, isLoading, academicPeriodPrompt, setAcademicPeriodPrompt };
 };
-
-export const useMaintenancePeriod = () => {
-  const [maintenancePrompt, setMaintenancePrompt] = useState(false);
-  const { apiServices } = useAppContext();
-
-  const { mutate: postMaintenance, isLoading } = useMutation(
-    apiServices.postMaintenance,
-    {
-      onSuccess() {
-        toast.success("Maintenance has been posted successfully");
-      },
-      onError: apiServices.errorHandler,
-    }
-  );
-
-  return { postMaintenance, isLoading, maintenancePrompt, setMaintenancePrompt };
-};
-
-
-

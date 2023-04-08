@@ -56,7 +56,7 @@ export const useClasses = () => {
 
   const { isLoading: subjectsLoading, data: subjects } = useQuery(
     [queryKeys.GET_SUBJECTS, id],
-    () => apiServices.getSubjectsByClass(id),
+    () => apiServices.getSubjectByClass(id),
     {
       select: apiServices.formatData,
       onError: apiServices.errorHandler,

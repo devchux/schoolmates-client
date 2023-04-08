@@ -1,13 +1,13 @@
 import React from "react";
 import { useForm } from "react-formid";
-import AuthInput from "../../components/inputs/auth-input";
-import AuthSelect from "../../components/inputs/auth-select";
-import Prompt from "../../components/modals/prompt";
-import PageView from "../../components/views/table-view";
-import { useAppContext } from "../../hooks/useAppContext";
-import { useReports } from "../../hooks/useReports";
+import AuthInput from "../../../components/inputs/auth-input";
+import AuthSelect from "../../../components/inputs/auth-select";
+import Prompt from "../../../components/modals/prompt";
+import PageView from "../../../components/views/table-view";
+import { useAppContext } from "../../../hooks/useAppContext";
+import { useReports } from "../../../hooks/useReports";
 
-const Expenses = () => {
+const Income = () => {
   const {
     apiServices: { handleSessionChange },
   } = useAppContext();
@@ -27,12 +27,11 @@ const Expenses = () => {
       },
     });
   const {
-    setEnableExpensesQuery,
+    setEnableIncomeQuery,
+    incomeReports,
     isLoading,
     setInputData,
-    expensesReports,
     openPrompt,
-    permission,
     togglePrompt,
     indexStatus,
     setIndexStatus,
@@ -43,12 +42,10 @@ const Expenses = () => {
       term: data.term,
       session: data.session,
     });
-
-    
-
-    if (data.type === "expense") {
-      setEnableExpensesQuery(true);
+    if (data.type === "income") {
+      setEnableIncomeQuery(true);
     }
+
     
     reset();
   };
@@ -56,17 +53,17 @@ const Expenses = () => {
   const clear = () => setIndexStatus("");
 
   const data = {
-    expense: expensesReports,
+    income: incomeReports,
   };
 
   const title = {
-    expense: "Expenses",
+    income: "Income Reports",
     
   };
 
   const commonGroupButtonOptions = [
     {
-      title: "Extract Expense",
+      title: "Generate Income",
       type: "button",
       onClick: togglePrompt,
       isLoading,
@@ -153,7 +150,6 @@ const Expenses = () => {
     <div>
       <PageView
         hasSortOptions
-        canCreate={permission?.create}
         pageTitle={title[indexStatus]}
         showTableTitle={!!indexStatus}
         showIllustration={!indexStatus}
@@ -173,7 +169,7 @@ const Expenses = () => {
               ]
             : commonGroupButtonOptions
         }
-        canCreate={true}
+        canCreate={false}
         isLoading={false}
         columns={columns[indexStatus]}
         data={data[indexStatus]}
@@ -198,8 +194,8 @@ const Expenses = () => {
             hasError={!!errors.type}
             onChange={handleChange}
             options={[
+              { value: "income", title: "Income Review" },
               
-              { value: "expense", title: "Expenses" },
             ]}
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}
@@ -238,4 +234,4 @@ const Expenses = () => {
   );
 };
 
-export default Expenses;
+export default Income;

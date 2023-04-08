@@ -5,9 +5,9 @@ import { useForm } from "react-formid";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import { Col, Row } from "reactstrap";
-import AuthInput from "../../components/inputs/auth-input";
-import DetailView from "../../components/views/detail-view";
-import { useAppContext } from "../../hooks/useAppContext";
+import AuthInput from "../../../components/inputs/auth-input";
+import DetailView from "../../../components/views/detail-view";
+import { useAppContext } from "../../../hooks/useAppContext";
 
 const ExpensesDetail = () => {
   const { apiServices, user } = useAppContext();

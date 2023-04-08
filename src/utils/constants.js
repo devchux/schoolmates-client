@@ -30,6 +30,7 @@ import {
   faCalendarDays,
   faSchoolLock,
   faTimeline,
+  faBusSimple,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const backendAPI = "https://schoolmate.powershellerp.com/api";
@@ -336,7 +337,16 @@ export const dashboardSideBarLinks = {
       title: "Students",
       icon: faGraduationCap,
     },
-    
+    {
+      to: "/app/vehicles",
+      title: "Vehicles",
+      icon: faTruck,
+    },
+    {
+      to: "/app/vehicle-maintenance",
+      title: "Vehicle Maintenance",
+      icon: faBusSimple,
+    },
   ],
 };
 

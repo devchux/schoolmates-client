@@ -4,16 +4,12 @@ import { useAccounts } from "../../../hooks/useAccounts";
 
 const Payment = () => {
   const { paymentLoading, payment, permission } = useAccounts();
-  
+
   return (
     <PageView
       canCreate={permission?.create}
       isLoading={paymentLoading}
       columns={[
-        {
-          Header: "id",
-          accessor: "student_id",
-        },
         {
           Header: "Student Fullname",
           accessor: "student_fullname",
@@ -27,9 +23,9 @@ const Payment = () => {
           accessor: "amount_paid",
         },
         {
-            Header: "Account Name",
-            accessor: "account_name",
-          },
+          Header: "Account Name",
+          accessor: "account_name",
+        },
         {
           Header: "Total Amount",
           accessor: "total_amount",
@@ -48,7 +44,7 @@ const Payment = () => {
         },
         {
           Header: "Remark",
-          accessor: "remarks",
+          accessor: "remark",
         },
       ]}
       data={payment}

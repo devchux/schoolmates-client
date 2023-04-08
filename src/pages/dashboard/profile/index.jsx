@@ -134,10 +134,11 @@ const Profile = () => {
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             isPhone
+            name="phoneno"
             label="Phone Number"
             value={inputs.phoneno}
             hasError={!!errors.phoneno}
-            onChange={handleChange}
+            onChange={(value) => setFieldValue("phoneno", value || "")}
           />
           {!!errors.phoneno && (
             <p className="error-message">{errors.phoneno}</p>

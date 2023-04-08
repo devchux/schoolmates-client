@@ -92,9 +92,6 @@ export const useHome = () => {
     [queryKeys.GET_SCHOOL],
     apiServices.getSchool,
     {
-      enabled: ["Teacher", "Student", "Principal", "Superadmin"].includes(
-        user?.designation_name
-      ),
       retry: 3,
       onSuccess(data) {
         updateUser({

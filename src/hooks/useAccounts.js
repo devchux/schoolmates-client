@@ -33,7 +33,7 @@ export const useAccounts = () => {
       select: apiServices.formatData,
     }
   );
-  //NEW CALL
+
   const { isLoading: chartaccountLoading, data: chartaccountList } = useQuery(
     [queryKeys.GET_CHART_ACCOUNTS],
     apiServices.getChartAccount,

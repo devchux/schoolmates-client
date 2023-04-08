@@ -22,23 +22,3 @@ export const useGrading = () => {
     isLoading,
   };
 };
-export const useTransferFund = () => {
-  const { apiServices } = useAppContext();
-
-  const { mutate: PostTransferFund, isLoading: postTransferLoading } = useMutation(
-    apiServices.PostTransferFund,
-    {
-      onSuccess() {
-        toast.success("Transfer was successful");
-      },
-      onError: apiServices.errorHandler,
-    }
-  );
-
-  const isLoading =  postTransferLoading;
-
-  return {
-    PostTransferFund,
-    isLoading,
-  };
-};

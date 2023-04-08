@@ -29,14 +29,8 @@ const PaymentDetail = () => {
       total_amount: "",
       remark: "",
     },
-    // validation: {
-    //   session: {
-    //     required: false,
-    //   },
-    //   term: {
-    //     required: true,
-    //   },
-    // },
+    validation: {
+    },
   });
   const { isLoading, mutate: createPost } = useMutation(
     apiServices.postPayment,
@@ -52,10 +46,6 @@ const PaymentDetail = () => {
   );
 
   const onSubmit = (data) => {
-    // setInputData({
-    //   term: data.term,
-    //   session: data.session,
-    // });
     createPost({
       body: {
         ...data,

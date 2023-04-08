@@ -1028,7 +1028,7 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async postMaintenance({ body }) {
+  async postMaintenance(body) {
     const { data } = await axios.post(`${backendAPI}/vehiclemaintenance`, body, {
       headers: {
         "Content-Type": "application/json",
@@ -1272,6 +1272,17 @@ class APIServies extends Helpers {
   
   async getAcademicSessions() {
     const { data } = await axios.get(`${backendAPI}/getacademicsessions`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+  
+  async getFunds() {
+    const { data } = await axios.get(`${backendAPI}/getfunds`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
