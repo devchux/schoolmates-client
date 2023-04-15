@@ -42,7 +42,6 @@ const StudentsHome = () => {
         />
         <HomeCard
           isBadge
-          variant="blue"
           title="Timetable"
           icon={faTimeline}
           to={timetableData?.file || "/"}
