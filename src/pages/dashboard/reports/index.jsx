@@ -57,9 +57,9 @@ const Reports = () => {
     if (data.type === "bank") {
       setEnableExpensesQuery(true);
     }
-    if (data.type === "salaries") {
-      setEnableIncomeQuery(true);
-    }
+    // if (data.type === "salaries") {
+    //   setEnableIncomeQuery(true);
+    // }
     reset();
   };
 
@@ -204,6 +204,8 @@ const Reports = () => {
       },
     ],
   };
+
+  console.log(indexStatus)
   
   return (
     <div>
@@ -255,7 +257,7 @@ const Reports = () => {
               { value: "income", title: "Income Report" },
               { value: "expense", title: "Expenses Report" },
               { value: "bank", title: "Bank Report" },
-              { value: "salary", title: "Salaries Report" },
+              // { value: "salary", title: "Salaries Report" },
               { value: "invoice", title: "Invoices Report" },
             ]}
           />

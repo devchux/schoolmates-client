@@ -57,11 +57,6 @@ const ChartAccountDetail = () => {
           {!!errors.name && <p className="error-message">{errors.name}</p>}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            label="Account Type"
-            hasError={!!errors.acct_type}
-            {...getFieldProps("acct_type")}
-          />
           <AuthSelect
             label="Account Type"
             value={inputs.acct_type}

@@ -33,9 +33,9 @@ export const useReports = () => {
         errorHandler(err);
       },
       onSuccess() {
+        setIndexStatus("income");
         setEnableIncomeQuery(false);
         setOpenPrompt(false);
-        setIndexStatus("income");
       },
       select: (data) => {
         const format = apiServices.formatData(data);
@@ -56,9 +56,9 @@ export const useReports = () => {
 
   //New call
 
-  const { isLoading: incomeInvoicesLoading, data: invoiceReports } = useQuery(
-    [queryKeys.GET_ALL_INCOME_REPORTS, term, session],
-    () => apiServices.getAllIncomeReports(term, session),
+  const { isLoading: invoiceReportsLoading, data: invoiceReports } = useQuery(
+    [queryKeys.GET_ALL_INVOICE_REPORTS, term, session],
+    () => apiServices.getAllInvoiceReports(term, session),
     {
       enabled: enableInvoicesQuery,
       retry: 3,
@@ -164,14 +164,14 @@ export const useReports = () => {
         setIndexStatus("expense");
       },
       select: (data) =>
-        data.data?.map((item) => ({
+        apiServices.formatData(data)?.map((item) => ({
           ...item,
           created_at: moment(item?.created_at).format("LLL"),
           updated_at: moment(item?.updated_at).format("LLL"),
           amount: (
             <>
               &#8358;
-              <Numeral value={data.amount || "0"} format="0,0.00" />
+              <Numeral value={item.amount || "0"} format="0,0.00" />
             </>
           ),
         })),
@@ -183,7 +183,7 @@ export const useReports = () => {
     expensesReportsLoading ||
     incomeDebtorsLoading ||
     incomeCreditorLoading ||
-    incomeInvoicesLoading;
+    invoiceReportsLoading;
 
   return {
     setEnableIncomeQuery,

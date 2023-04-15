@@ -24,7 +24,6 @@ import {
   // faCar,
   faTruck,
   faMoneyBill,
-  faMoneyCheckDollar,
   faMarker,
   faCalendarDays,
   faSchoolLock,
@@ -269,11 +268,6 @@ export const dashboardSideBarLinks = {
       to: "/app/account-home",
       title: "Home",
       icon: faHome,
-    },
-    {
-      to: "/app/income",
-      title: "Income",
-      icon: faMoneyCheckDollar,
     },
     {
       to: "/app/expense",

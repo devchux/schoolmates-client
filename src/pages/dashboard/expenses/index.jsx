@@ -9,7 +9,7 @@ import { useReports } from "../../../hooks/useReports";
 const Expenses = () => {
   const { inputs, handleSubmit, handleChange, errors, reset } =
     useForm({
-      defaultValues: { session: "", type: "income", term: "First Term" },
+      defaultValues: { session: "", type: "expense", term: "First Term" },
       validation: {
         session: {
           required: true,
@@ -179,19 +179,8 @@ const Expenses = () => {
           onClick: handleSubmit(onSubmit),
         }}
         singleButtonText="Continue"
-        promptHeader="Generate Report"
+        promptHeader="Expenses"
       >
-        <div className="form-group mb-4">
-          <AuthSelect
-            label="Type"
-            value={inputs.type}
-            name="type"
-            hasError={!!errors.type}
-            onChange={handleChange}
-            options={[{ value: "expense", title: "Expenses" }]}
-          />
-          {!!errors.term && <p className="error-message">{errors.term}</p>}
-        </div>
         <div className="form-group mb-4">
           <AuthSelect
             label="Term"

@@ -34,7 +34,6 @@ import Accounts from "../pages/dashboard/accounts";
 import Comment from "../pages/dashboard/comment";
 import CommentDetail from "../pages/dashboard/comment/detail";
 import Admin from "../pages/dashboard/admin";
-import Income from "../pages/dashboard/income";
 import Expenses from "../pages/dashboard/expenses";
 import Account from "../pages/dashboard/accounts/home";
 import DepartmentDetail from "../pages/dashboard/departments/detail";
@@ -60,7 +59,6 @@ import BankDetail from "../pages/dashboard/bank/detail";
 import DiscountDetail from "../pages/dashboard/setup_discount";
 import Invoices from "../pages/dashboard/invoices";
 import InvoiceDetail from "../pages/dashboard/invoices/detail";
-// import VehicleMaintenance from "../pages/dashboard/maintenance";
 import VehicleLogsDetail from "../pages/dashboard/vehicles/logs/detail";
 import SubjectDetail from "../pages/dashboard/subjects/detail";
 import StaffAttendanceDetail from "../pages/dashboard/staffs/attendance/detail";
@@ -540,15 +538,6 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="comment">
               <Comment />
-            </Guard>
-          }
-        />
-        <Route
-          exact
-          path="income"
-          element={
-            <Guard routeName="income">
-              <Income />
             </Guard>
           }
         />

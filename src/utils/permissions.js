@@ -321,14 +321,6 @@ export const permissions = {
     reports: {
       read: true,
     },
-    income: {
-      canCreate: true,
-      sort: true,
-      feeHistory: true,
-      paymentReciept: true,
-      myInvoice: true,
-      previousInvoice: true,
-    },
     expense: {
       canCreate: true,
       sort: true,
