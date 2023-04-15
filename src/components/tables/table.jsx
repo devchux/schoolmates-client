@@ -11,6 +11,7 @@ import {
 } from "reactstrap";
 import Button from "../buttons/button";
 import Prompt from "../modals/prompt";
+import Action from "../buttons/action";
 
 const CustomTable = ({
   columns,
@@ -211,13 +212,9 @@ const CustomTable = ({
                           toggle={() => toggleAction(row.original.id)}
                         >
                           <DropdownToggle tag="div">
-                            <Button
-                              variant="dark"
-                              className="d-block mx-auto"
+                            <Action
                               onClick={() => toggleAction(row.original.id)}
-                            >
-                              Action
-                            </Button>
+                            />
                           </DropdownToggle>
                           <DropdownMenu>
                             {action?.map(({ onClick, title }, key) => (

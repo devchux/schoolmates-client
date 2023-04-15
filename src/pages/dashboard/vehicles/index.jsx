@@ -206,9 +206,9 @@ const Vehicles = () => {
   return (
     <PageView
       hasSortOptions={permission?.sort}
-      rowHasDelete={permission?.delete && indexStatus !== "logs"}
+      rowHasDelete={permission?.delete && indexStatus === "all"}
       canCreate={permission?.create}
-      rowHasUpdate={permission?.update}
+      rowHasUpdate={permission?.update && indexStatus === "all"}
       onDelete={handleDeleteVehicle}
       isLoading={isLoading}
       action={getActionOptions()}

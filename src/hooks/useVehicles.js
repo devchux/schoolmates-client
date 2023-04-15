@@ -104,6 +104,19 @@ export const useVehicles = () => {
     }
   );
 
+  const { isLoading: vehicleDataLoading, data: vehicleData } = useQuery(
+    [queryKeys.GET_VEHICLE, id],
+    () => apiServices.getVehicle(id),
+    {
+      enabled: !!id,
+      retry: 3,
+      onError(err) {
+        apiServices.errorHandler(err);
+      },
+      select: apiServices.formatSingleData,
+    }
+  );
+
   const handleUpdateVehicle = async (data) => await updateVehicle(data);
 
   const handleDeleteVehicle = async (data) => await deleteVehicle(data);
@@ -114,7 +127,8 @@ export const useVehicles = () => {
     vehiclesListLoading ||
     vehicleLogsListLoading ||
     addVehicleLogsLoading ||
-    getAssignedBusLoading;
+    getAssignedBusLoading ||
+    vehicleDataLoading;
 
   return {
     isLoading,
@@ -129,5 +143,6 @@ export const useVehicles = () => {
     addVehicleLogs,
     assignedBusList,
     isEdit: !!id,
+    vehicleData,
   };
 };

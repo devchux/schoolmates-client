@@ -251,8 +251,8 @@ export const permissions = {
       create: true,
       read: true,
       readLogs: true,
-      update: false,
-      delete: false,
+      update: true,
+      delete: true,
       sort: true,
       assignedBus: true,
     },
@@ -317,14 +317,6 @@ export const permissions = {
   Account: {
     account: {
       read: true,
-    },
-    accounts: {
-      canCreate: false,
-      sort: true,
-      feeHistory: true,
-      paymentReciept: true,
-      myInvoice: true,
-      previousInvoice: true,
     },
     reports: {
       read: true,

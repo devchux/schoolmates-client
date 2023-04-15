@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-formid";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
@@ -6,8 +6,9 @@ import DetailView from "../../../components/views/detail-view";
 import { useVehicles } from "../../../hooks/useVehicles";
 
 const VehicleDetail = () => {
-  const { isLoading, addVehicle } = useVehicles();
-  const { errors, getFieldProps, handleSubmit } = useForm({
+  const { isLoading, addVehicle, handleUpdateVehicle, isEdit, vehicleData } =
+    useVehicles();
+  const { errors, getFieldProps, handleSubmit, setInputs, inputs } = useForm({
     defaultValues: {
       type: "",
       make: "",
@@ -30,7 +31,18 @@ const VehicleDetail = () => {
     },
   });
 
+  useEffect(() => {
+    if (vehicleData) {
+      setInputs({
+        ...inputs,
+        ...vehicleData,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vehicleData]);
+
   const onSubmit = (data) => {
+    if (isEdit) return handleUpdateVehicle({ id: vehicleData?.id, ...data });
     addVehicle(data);
   };
   return (

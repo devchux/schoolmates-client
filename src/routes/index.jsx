@@ -294,6 +294,15 @@ const CustomRoutes = () => {
         />
         <Route
           exact
+          path="vehicles/edit/:id"
+          element={
+            <Guard routeName="vehicles">
+              <VehicleDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
           path="vehicles/logs/new"
           element={
             <Guard routeName="vehicle-logs">

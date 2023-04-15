@@ -305,11 +305,6 @@ export const dashboardSideBarLinks = {
       title: "Fees",
       icon: faScaleBalanced,
     },
-    {
-      to: "/app/accounts",
-      title: "Accounts",
-      icon: faSchool,
-    },
     
     {
       to: "/app/payment",

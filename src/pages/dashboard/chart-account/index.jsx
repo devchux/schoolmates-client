@@ -15,7 +15,7 @@ const ChartAccount = () => {
           accessor: "id",
         },
         {
-          Header: " Name",
+          Header: " Account Name",
           accessor: "name",
         },
         {

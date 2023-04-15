@@ -26,6 +26,12 @@
     background-color: rgb(1,21,59);
   }
 
+  &.blue {
+    &::before {
+      background-color: blue;
+    }
+  }
+
   &.orange {
     &::before {
       background-color: orange;
@@ -75,6 +81,10 @@
 
     @media only screen and (min-width: 768px) {
       max-width: 25rem;
+    }
+
+    &.blue {
+      background-color: blue;
     }
 
     &.orange {

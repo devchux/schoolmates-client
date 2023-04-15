@@ -23,6 +23,7 @@ const StudentsHome = () => {
       <div className="students-cards-wrapper">
         <HomeCard
           isBadge
+          variant="purple"
           title="My Class"
           icon={faPeopleLine}
           onClick={() =>
@@ -31,6 +32,7 @@ const StudentsHome = () => {
         />
         <HomeCard
           isBadge
+          variant="orange"
           title="Calender"
           icon={faCalendar}
           isLink
@@ -40,6 +42,7 @@ const StudentsHome = () => {
         />
         <HomeCard
           isBadge
+          variant="blue"
           title="Timetable"
           icon={faTimeline}
           to={timetableData?.file || "/"}
@@ -49,6 +52,7 @@ const StudentsHome = () => {
         />
         <HomeCard
           isBadge
+          variant="green"
           title="Dress Code"
           icon={faPersonDress}
           to="/app/dress-code"

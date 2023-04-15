@@ -31,7 +31,7 @@ const ExpensesDetail = () => {
 
   const { handleSubmit, errors, getFieldProps, inputs, handleChange } = useForm({
     defaultValues: {
-        term: "",
+        term: "First Term",
         session: "",
         expense_category: "",
         bank_name: "",
@@ -62,10 +62,17 @@ const ExpensesDetail = () => {
     >
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
+          <AuthSelect
             label="Term"
+            value={inputs.term}
+            name="term"
             hasError={!!errors.term}
-            {...getFieldProps("term")}
+            onChange={handleChange}
+            options={[
+              { value: "First Term", title: "First Term" },
+              { value: "Second Term", title: "Second Term" },
+              { value: "Third Term", title: "Third Term" },
+            ]}
           />
           {!!errors.term && (
             <p className="error-message">{errors.term}</p>
@@ -121,6 +128,16 @@ const ExpensesDetail = () => {
             <p className="error-message">{errors.account_name}</p>
           )}
         </Col>
+        <Col sm="6" className="mb-4 mb-sm-0">
+          <AuthInput
+            label="Amount"
+            hasError={!!errors.amount}
+            {...getFieldProps("amount")}
+          />
+          {!!errors.amount && (
+            <p className="error-message">{errors.amount}</p>
+          )}
+        </Col>
       </Row>
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
@@ -153,16 +170,6 @@ const ExpensesDetail = () => {
           />
           {!!errors.transaction_id && (
             <p className="error-message">{errors.transaction_id}</p>
-          )}
-        </Col>
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            label="Amount"
-            hasError={!!errors.amount}
-            {...getFieldProps("amount")}
-          />
-          {!!errors.amount && (
-            <p className="error-message">{errors.amount}</p>
           )}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
