@@ -170,10 +170,17 @@ const InvoiceDetail = () => {
       </Row>
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
+          <AuthSelect
             label="Term"
+            value={inputs.term}
+            name="term"
             hasError={!!errors.term}
-            {...getFieldProps("term")}
+            onChange={handleChange}
+            options={[
+              { value: "First Term", title: "First Term" },
+              { value: "Second Term", title: "Second Term" },
+              { value: "Third Term", title: "Third Term" },
+            ]}
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </Col>

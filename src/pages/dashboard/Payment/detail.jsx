@@ -32,7 +32,17 @@ const PaymentDetail = () => {
       total_amount: "",
       remark: "",
     },
-    validation: {},
+    validation: {
+      session: { required: true },
+      bank_name: { required: true },
+      account_name: { required: true },
+      student_id: { required: true },
+      student_fullname: { required: true },
+      payment_method: { required: true },
+      amount_paid: { required: true },
+      total_amount: { required: true },
+      remark: { required: true },
+    },
   });
 
   const { data: sessions } = useAcademicSession();
@@ -51,11 +61,7 @@ const PaymentDetail = () => {
   );
 
   const onSubmit = (data) => {
-    createPost({
-      body: {
-        ...data,
-      },
-    });
+    createPost(data);
   };
 
   useEffect(() => {
@@ -155,10 +161,17 @@ const PaymentDetail = () => {
           )}
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
+          <AuthSelect
             label="Term"
+            value={inputs.term}
+            name="term"
             hasError={!!errors.term}
-            {...getFieldProps("term")}
+            onChange={handleChange}
+            options={[
+              { value: "First Term", title: "First Term" },
+              { value: "Second Term", title: "Second Term" },
+              { value: "Third Term", title: "Third Term" },
+            ]}
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </Col>
