@@ -21,6 +21,7 @@ import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useAppContext } from "../../../hooks/useAppContext";
 import { useFile } from "../../../hooks/useFile";
 import queryKeys from "../../../utils/queryKeys";
+import { Link } from "react-router-dom";
 
 const Admin = () => {
   const [importStudentPrompt, setImportStudentPrompt] = useState(false);
@@ -186,6 +187,13 @@ const Admin = () => {
           ref={fileRef}
           accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
         />
+        <Link
+          to="/app/students/imported"
+          className="text-success text-decoration-none"
+          style={{ fontSize: "1.2rem" }}
+        >
+          View file format
+        </Link>
       </Prompt>
       <Prompt
         isOpen={academicPeriodPrompt}

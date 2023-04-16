@@ -62,6 +62,7 @@ const queryKeys = {
   GET_BANK_LIST: "GET_BANK_LIST",
   GET_ALL_INVOICES: "GET_ALL_INVOICES",
   GET_FUNDS: "GET_FUNDS",
+  GET_IMPORTED_STUDENTS: "GET_IMPORTED_STUDENTS",
 };
 
 export default queryKeys;

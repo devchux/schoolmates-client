@@ -72,6 +72,7 @@ import VehicleMaintenanceDetail from "../pages/dashboard/vehicles/maintenance/de
 import TransferFundDetail from "../pages/dashboard/transfer-funds/detail";
 import VehicleMaintenance from "../pages/dashboard/vehicles/maintenance";
 import Grading from "../pages/dashboard/grading";
+import ImportedStudents from "../pages/dashboard/students/imported";
 
 const CustomRoutes = () => {
   return (
@@ -253,6 +254,14 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="students" action={["promote"]}>
               <PromoteStudent />
+            </Guard>
+          }
+        />
+        <Route
+          path="students/imported"
+          element={
+            <Guard routeName="students" action={["imported"]}>
+              <ImportedStudents />
             </Guard>
           }
         />

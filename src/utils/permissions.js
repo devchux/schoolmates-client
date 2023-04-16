@@ -287,6 +287,7 @@ export const permissions = {
       transfer: true,
       promote: true,
       communication: false,
+      imported: true,
       "health-report": true,
       "bus-routing": true,
     },

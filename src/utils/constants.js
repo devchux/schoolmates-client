@@ -4,7 +4,7 @@ import {
   faBuildingColumns,
   faClipboardUser,
   faComment,
-  faSuitcase,
+  // faSuitcase,
   faFileInvoice,
   faGraduationCap,
   faHome,
@@ -19,8 +19,8 @@ import {
   // faTape,
   // faUsers,
   // faBusinessTime,
-    // faCalendar,
-    // faPeopleLine,
+  // faCalendar,
+  // faPeopleLine,
   // faCar,
   faTruck,
   faMoneyBill,
@@ -311,11 +311,11 @@ export const dashboardSideBarLinks = {
       icon: faBuildingColumns,
     },
     
-    {
-      to: "/app/discount",
-      title: "Setup Discount",
-      icon: faSuitcase,
-    },
+    // {
+    //   to: "/app/discount",
+    //   title: "Setup Discount",
+    //   icon: faSuitcase,
+    // },
     {
       to: "/app/invoice",
       title: "Invoice",

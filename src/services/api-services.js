@@ -1411,6 +1411,17 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getImportedStudents() {
+    const { data } = await axios.get(`${backendAPI}/studentexcelimport`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async getFunds() {
     const { data } = await axios.get(`${backendAPI}/getfunds`, {
       headers: {
