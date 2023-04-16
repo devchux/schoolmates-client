@@ -251,6 +251,7 @@ export const permissions = {
       create: true,
       read: true,
       readLogs: true,
+      createLogs: true,
       update: true,
       delete: true,
       sort: true,

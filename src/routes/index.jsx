@@ -74,6 +74,7 @@ import VehicleMaintenance from "../pages/dashboard/vehicles/maintenance";
 import Grading from "../pages/dashboard/grading";
 import ImportedStudents from "../pages/dashboard/students/imported";
 import CommunicationBook from "../pages/dashboard/students/communication";
+import VehicleLogs from "../pages/dashboard/vehicles/logs";
 
 const CustomRoutes = () => {
   return (
@@ -328,7 +329,16 @@ const CustomRoutes = () => {
         />
         <Route
           exact
-          path="vehicles/logs/new"
+          path="vehicle-logs"
+          element={
+            <Guard routeName="vehicles">
+              <VehicleLogs />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="vehicle-logs/new"
           element={
             <Guard routeName="vehicle-logs">
               <VehicleLogsDetail />

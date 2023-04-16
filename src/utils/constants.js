@@ -125,6 +125,11 @@ export const dashboardSideBarLinks = {
       title: "Vehicles",
       icon: faTruck,
     },
+    {
+      to: "/app/vehicle-logs",
+      title: "Vehicle Logs",
+      icon: faBusSimple,
+    },
   ],
   Superadmin: [
     {
