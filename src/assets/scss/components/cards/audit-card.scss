@@ -1,0 +1,39 @@
+.audit-card-wrapper {
+  background-color: #ffffff;
+  height: 35rem;
+  border-radius: 1rem;
+  padding: 2rem 3rem;
+  overflow: hidden;
+
+  > h4 {
+    color: grey;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4em;
+      padding: 1rem 0;
+      border-top: 0.1em solid #111;
+
+      > h4 {
+        font-weight: 600;
+      }
+
+      p {
+        font-size: 1rem;
+        color: green;
+        font-weight: 600;
+      }
+    }
+  }
+}

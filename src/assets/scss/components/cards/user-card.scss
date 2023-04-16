@@ -1,0 +1,81 @@
+.user-card-wrapper {
+  background-color: #ffffff;
+  height: 16.5rem;
+  border-radius: 1rem;
+  padding: 0 2rem;
+  position: relative;
+  overflow: hidden;
+
+  .header {
+    padding: 2rem 0 1rem 0;
+    border-bottom: 0.2rem solid #ececec;
+
+    > h4 {
+      color: grey;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    padding-top: 2em;
+
+    h2 {
+      color: rgb(1, 21, 59);
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1rem;
+      font-weight: 700;
+      color: grey;
+    }
+  }
+
+  .icon {
+    position: absolute;
+    bottom: -1rem;
+    right: -1rem;
+    background-color: rgb(1,21,59);
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.blue {
+      background-color: blue;
+    }
+
+    &.orange {
+      background-color: orange;
+    }
+
+    &.red {
+      background-color: red;
+    }
+
+    &.green {
+      background-color: green;
+    }
+
+    &.pink {
+      background-color: pink;
+    }
+
+    &.purple {
+      background-color: purple;
+    }
+
+    > svg {
+      color: #ffffff;
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+}

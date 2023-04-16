@@ -120,7 +120,7 @@ export const permissions = {
       read: true,
       readLogs: true,
       update: false,
-      delete: true,
+      delete: false,
       statusToggle: false,
       sort: true,
     },

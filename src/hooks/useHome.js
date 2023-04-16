@@ -146,9 +146,29 @@ export const useHome = () => {
     }
   );
 
-  const { isLoading: schoolPopulationLoading } = useQuery(
-    [queryKeys.GET_SCHOOL_POPULATION],
-    apiServices.getSchoolPopulation,
+  const { isLoading: schoolPopulationLoading, data: schoolPopulation } =
+    useQuery(
+      [queryKeys.GET_SCHOOL_POPULATION],
+      apiServices.getSchoolPopulation,
+      {
+        enabled: ["Principal"].includes(user?.designation_name),
+        retry: 3,
+        onSuccess(data) {
+          updateUser({
+            ...user,
+            school_population: data,
+          });
+        },
+        onError(err) {
+          errorHandler(err);
+        },
+        select: (data) => data?.data,
+      }
+    );
+
+  const { isLoading: staffPopulationLoading, data: staffPopulation } = useQuery(
+    [queryKeys.GET_STAFF_POPULATION],
+    apiServices.getStaffPopulation,
     {
       enabled: ["Principal"].includes(user?.designation_name),
       retry: 3,
@@ -164,6 +184,46 @@ export const useHome = () => {
       select: (data) => data?.data,
     }
   );
+
+  const { isLoading: studentPopulationLoading, data: studentPopulation } =
+    useQuery(
+      [queryKeys.GET_STUDENT_POPULATION],
+      apiServices.getStudentPopulation,
+      {
+        enabled: ["Principal"].includes(user?.designation_name),
+        retry: 3,
+        onSuccess(data) {
+          updateUser({
+            ...user,
+            school_population: data,
+          });
+        },
+        onError(err) {
+          errorHandler(err);
+        },
+        select: (data) => data?.data,
+      }
+    );
+
+  const { isLoading: teacherPopulationLoading, data: teacherPopulation } =
+    useQuery(
+      [queryKeys.GET_TEACHER_POPULATION],
+      apiServices.getTeacherPopulation,
+      {
+        enabled: ["Principal"].includes(user?.designation_name),
+        retry: 3,
+        onSuccess(data) {
+          updateUser({
+            ...user,
+            school_population: data,
+          });
+        },
+        onError(err) {
+          errorHandler(err);
+        },
+        select: (data) => data?.data,
+      }
+    );
 
   const { isLoading: timetableLoading, data: timetableData } = useQuery(
     [queryKeys.GET_TIME_TABLE],
@@ -210,7 +270,10 @@ export const useHome = () => {
     classPopulationLoading ||
     timetableLoading ||
     calendarLoading ||
-    schoolPopulationLoading;
+    schoolPopulationLoading ||
+    staffPopulationLoading ||
+    studentPopulationLoading ||
+    teacherPopulationLoading;
 
   return {
     user,
@@ -224,5 +287,9 @@ export const useHome = () => {
     receivedIncome,
     timetableData,
     calendarData,
+    staffPopulation,
+    studentPopulation,
+    teacherPopulation,
+    schoolPopulation,
   };
 };

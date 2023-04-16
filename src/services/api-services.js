@@ -1358,6 +1358,39 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getStudentPopulation() {
+    const { data } = await axios.get(`${backendAPI}/studentpopulation`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getStaffPopulation() {
+    const { data } = await axios.get(`${backendAPI}/staffpopulation`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getTeacherPopulation() {
+    const { data } = await axios.get(`${backendAPI}/teacherpopulation`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async getChartAccount() {
     const { data } = await axios.get(`${backendAPI}/chartaccount`, {
       headers: {
@@ -1481,6 +1514,17 @@ class APIServies extends Helpers {
 
   async getAssignedBus() {
     const { data } = await axios.get(`${backendAPI}/assignedvehicle`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAuditLogs() {
+    const { data } = await axios.get(`${backendAPI}/audits`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
