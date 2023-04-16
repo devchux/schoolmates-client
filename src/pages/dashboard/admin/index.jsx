@@ -34,6 +34,7 @@ const Admin = () => {
       formatData,
       getAcademicCalender,
       handleSessionChange,
+      getAcademicPeriod,
     },
   } = useAppContext();
   const {
@@ -85,7 +86,7 @@ const Admin = () => {
     }
   );
 
-  const { handleChange, inputs, errors, setFieldValue } = useForm({
+  const { handleChange, inputs, errors, setFieldValue, setInputs } = useForm({
     defaultValues: {
       period: "First Half",
       session: "",
@@ -104,6 +105,26 @@ const Admin = () => {
     },
   });
 
+  const { isLoading: academicPeriodLoading } = useQuery(
+    [queryKeys.GET_ACADEMIC_PERIOD],
+    getAcademicPeriod,
+    {
+      retry: 3,
+      onSuccess(data) {
+        setInputs({
+          ...inputs,
+          term: data?.term,
+          session: data?.session,
+          period: data?.period,
+        });
+      },
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) => data?.data[0],
+    }
+  );
+
   const { handleImageChange, base64String, fileRef, reset } = useFile([], true);
 
   const { mutate: uploadFile, isLoading: uploadLoading } = useMutation(
@@ -118,16 +139,17 @@ const Admin = () => {
     }
   );
 
+  const loading =
+    isLoading ||
+    uploadLoading ||
+    schoolLoading ||
+    calendarLoading ||
+    timetableLoading ||
+    academicPeriodLoading;
+
   return (
     <div className="teachers">
-      <PageTitle>
-        Admin{" "}
-        {(isLoading ||
-          uploadLoading ||
-          schoolLoading ||
-          calendarLoading ||
-          timetableLoading) && <Spinner />}
-      </PageTitle>
+      <PageTitle>Admin {loading && <Spinner />}</PageTitle>
       <ProfileCard type="admin" />
       <div className="teachers-cards-wrapper">
         <HomeCard
@@ -234,7 +256,7 @@ const Admin = () => {
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </div>
         <div className="form-group mb-4">
-        <AuthInput
+          <AuthInput
             label="Session"
             placeholder="2021/2022"
             hasError={!!errors.session}
