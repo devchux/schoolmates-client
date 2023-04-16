@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { useForm } from "react-formid";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "react-toastify";
-import { Spinner } from "reactstrap";
+import { Col, Row, Spinner } from "reactstrap";
 import HomeCard from "../../../components/cards/home-card";
 import ProfileCard from "../../../components/cards/profile-card";
 import PageTitle from "../../../components/common/title";
@@ -20,6 +20,7 @@ import { useAppContext } from "../../../hooks/useAppContext";
 import { useFile } from "../../../hooks/useFile";
 import queryKeys from "../../../utils/queryKeys";
 import { Link } from "react-router-dom";
+import AuditCard from "../../../components/cards/audit-card";
 
 const Admin = () => {
   const [importStudentPrompt, setImportStudentPrompt] = useState(false);
@@ -151,41 +152,56 @@ const Admin = () => {
     <div className="teachers">
       <PageTitle>Admin {loading && <Spinner />}</PageTitle>
       <ProfileCard type="admin" />
-      <div className="teachers-cards-wrapper">
-        <HomeCard
-          isBadge
-          variant="orange"
-          title="Import Students"
-          icon={faPeopleLine}
-          onClick={() => setImportStudentPrompt(!importStudentPrompt)}
-        />
-        <HomeCard
-          variant="purple"
-          isBadge
-          title="Calender"
-          icon={faCalendar}
-          isLink
-          download
-          to={calendarData?.file || "/"}
-          target="_blank"
-        />
-        <HomeCard
-          isBadge
-          title="Timetable"
-          icon={faTimeline}
-          to={timetableData?.file || "/"}
-          download
-          target="_blank"
-          isLink
-        />
-        <HomeCard
-          isBadge
-          variant="green"
-          title="Academic Period"
-          icon={faBusinessTime}
-          onClick={() => setAcademicPeriodPrompt(true)}
-        />
-      </div>
+      <Row className="my-5">
+        <Col sm="6" className="col-12">
+          <Row>
+            <Col className="col-6 mb-5">
+              <HomeCard
+                isBadge
+                variant="orange"
+                title="Import Students"
+                icon={faPeopleLine}
+                onClick={() => setImportStudentPrompt(!importStudentPrompt)}
+              />
+            </Col>
+            <Col className="col-6 mb-5">
+              <HomeCard
+                variant="purple"
+                isBadge
+                title="Calender"
+                icon={faCalendar}
+                isLink
+                download
+                to={calendarData?.file || "/"}
+                target="_blank"
+              />
+            </Col>
+            <Col className="col-6 mb-5">
+              <HomeCard
+                isBadge
+                title="Timetable"
+                icon={faTimeline}
+                to={timetableData?.file || "/"}
+                download
+                target="_blank"
+                isLink
+              />
+            </Col>
+            <Col className="col-6 mb-5">
+              <HomeCard
+                isBadge
+                variant="green"
+                title="Academic Period"
+                icon={faBusinessTime}
+                onClick={() => setAcademicPeriodPrompt(true)}
+              />
+            </Col>
+          </Row>
+        </Col>
+        <Col sm="6" className="col-12">
+          <AuditCard />
+        </Col>
+      </Row>
       <Prompt
         isOpen={importStudentPrompt}
         toggle={() => setImportStudentPrompt(!importStudentPrompt)}

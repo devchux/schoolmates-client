@@ -15,8 +15,6 @@ const AuditCard = () => {
     }
   );
 
-  console.log(data);
-
   return (
     <div className="audit-card-wrapper">
       <h4>Audit Logs {isLoading && <Spinner />}</h4>
@@ -24,7 +22,10 @@ const AuditCard = () => {
         {data?.map((item) => (
           <div key={item.id}>
             <h4>
-              {item.user_id} {item.event} {item.auditable_type.split("\\")[2].replace(/([a-z])([A-Z])/g, '$1 $2')}
+              {item.user_id} {item.event}{" "}
+              {item.auditable_type
+                .split("\\")[2]
+                .replace(/([a-z])([A-Z])/g, "$1 $2")}
             </h4>
             <p>{item.updated_at}</p>
           </div>
