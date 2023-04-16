@@ -474,6 +474,50 @@ const Student = () => {
           },
         ];
 
+      case "communication":
+        return [
+          {
+            Header: "Campus",
+            accessor: "campus",
+          },
+          {
+            Header: "Period",
+            accessor: "period",
+          },
+          {
+            Header: "Term",
+            accessor: "term",
+          },
+          {
+            Header: "Session",
+            accessor: "session",
+          },
+          {
+            Header: "Title",
+            accessor: "title",
+          },
+          {
+            Header: "Urgency",
+            accessor: "urgency",
+          },
+          {
+            Header: "Admission Number",
+            accessor: "admission_number",
+          },
+          {
+            Header: "Message",
+            accessor: "message",
+          },
+          {
+            Header: "Sender",
+            accessor: "sender",
+          },
+          {
+            Header: "Status",
+            accessor: "status",
+          },
+        ];
+
       default:
         return [
           {
