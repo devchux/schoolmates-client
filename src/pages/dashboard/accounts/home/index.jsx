@@ -6,6 +6,8 @@ import ProfileCard from "../../../../components/cards/profile-card";
 import { useHome } from "../../../../hooks/useHome";
 import Numeral from "react-numeral";
 import PieChart from "../../../../components/charts/pie-chart";
+import UserCard from "../../../../components/cards/user-card";
+import { faSchoolCircleExclamation, faUserGraduate, faUserGroup, faUserTie } from "@fortawesome/free-solid-svg-icons";
 
 const Account = () => {
   const {
@@ -16,6 +18,10 @@ const Account = () => {
     totalExpense,
     accountBalance,
     receivedIncome,
+    staffPopulation,
+    studentPopulation,
+    teacherPopulation,
+    schoolPopulation,
   } = useHome();
 
   return (
@@ -96,6 +102,41 @@ const Account = () => {
         </Col>
       </Row>
       <Row className="mt-3">
+        <Col>
+          <Row>
+            <Col className="mb-4 col-6">
+              <UserCard
+                title="Students"
+                number={studentPopulation}
+                icon={faUserGraduate}
+              />
+            </Col>
+            <Col className="mb-4 col-6">
+              <UserCard
+                variant="purple"
+                title="Teachers"
+                number={teacherPopulation}
+                icon={faUserTie}
+              />
+            </Col>
+            <Col className="mb-4 col-6">
+              <UserCard
+                variant="green"
+                title="Schools"
+                number={schoolPopulation}
+                icon={faSchoolCircleExclamation}
+              />
+            </Col>
+            <Col className="mb-4 col-6">
+              <UserCard
+                variant="orange"
+                title="Staffs"
+                number={staffPopulation}
+                icon={faUserGroup}
+              />
+            </Col>
+          </Row>
+        </Col>
         <Col sm="6" className="mb-4">
           <PieChart
             data={[

@@ -6,6 +6,7 @@ import ProfileCard from "../../../components/cards/profile-card";
 import { useHome } from "../../../hooks/useHome";
 import Numeral from "react-numeral";
 import PieChart from "../../../components/charts/pie-chart";
+import AuditCard from "../../../components/cards/audit-card";
 
 const SuperAdmin = () => {
   const {
@@ -115,6 +116,9 @@ const SuperAdmin = () => {
               "Outstanding",
             ]}
           />
+        </Col>
+        <Col sm="6" className="mb-4">
+          <AuditCard />
         </Col>
       </Row>
     </div>

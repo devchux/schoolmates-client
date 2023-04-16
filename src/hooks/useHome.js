@@ -151,7 +151,7 @@ export const useHome = () => {
       [queryKeys.GET_SCHOOL_POPULATION],
       apiServices.getSchoolPopulation,
       {
-        enabled: ["Principal"].includes(user?.designation_name),
+        enabled: ["Principal", "Account"].includes(user?.designation_name),
         retry: 3,
         onSuccess(data) {
           updateUser({
@@ -170,7 +170,7 @@ export const useHome = () => {
     [queryKeys.GET_STAFF_POPULATION],
     apiServices.getStaffPopulation,
     {
-      enabled: ["Principal"].includes(user?.designation_name),
+      enabled: ["Principal", "Account"].includes(user?.designation_name),
       retry: 3,
       onSuccess(data) {
         updateUser({
@@ -190,7 +190,7 @@ export const useHome = () => {
       [queryKeys.GET_STUDENT_POPULATION],
       apiServices.getStudentPopulation,
       {
-        enabled: ["Principal"].includes(user?.designation_name),
+        enabled: ["Principal", "Account"].includes(user?.designation_name),
         retry: 3,
         onSuccess(data) {
           updateUser({
@@ -210,7 +210,7 @@ export const useHome = () => {
       [queryKeys.GET_TEACHER_POPULATION],
       apiServices.getTeacherPopulation,
       {
-        enabled: ["Principal"].includes(user?.designation_name),
+        enabled: ["Principal", "Account"].includes(user?.designation_name),
         retry: 3,
         onSuccess(data) {
           updateUser({
