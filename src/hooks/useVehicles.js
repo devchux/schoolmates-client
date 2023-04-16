@@ -9,7 +9,8 @@ import { useAppContext } from "./useAppContext";
 export const useVehicles = () => {
   const [indexStatus, setIndexStatus] = useState("all");
   const { id } = useParams();
-  const { apiServices, errorHandler, permission } = useAppContext("vehicles");
+  const { apiServices, errorHandler, permission, user } =
+    useAppContext("vehicles");
 
   const {
     isLoading: vehiclesListLoading,
@@ -41,7 +42,10 @@ export const useVehicles = () => {
     [queryKeys.GET_ASSIGNED_BUS],
     apiServices.getAssignedBus,
     {
-      enabled: permission?.assignedBus || false,
+      enabled:
+        permission?.assignedBus ||
+        ["Student"].includes(user?.designation_name) ||
+        false,
       retry: 3,
       onError(err) {
         errorHandler(err);
@@ -58,6 +62,28 @@ export const useVehicles = () => {
         })),
     }
   );
+
+  const { isLoading: getAllAssignedBusLoading, data: allAssignedBusList } =
+    useQuery([queryKeys.GET_ALL_ASSIGNED_BUS], apiServices.getAllAssignedBus, {
+      enabled:
+        permission?.allAssignedBus ||
+        ["Admin"].includes(user?.designation_name) ||
+        false,
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) =>
+        apiServices.formatData(data)?.map((x) => ({
+          ...x,
+          conductor_image: (
+            <ProfileImage src={x?.conductor_image} wrapperClassName="mx-auto" />
+          ),
+          driver_image: (
+            <ProfileImage src={x?.driver_image} wrapperClassName="mx-auto" />
+          ),
+        })),
+    });
 
   const { mutateAsync: addVehicle, isLoading: addVehicleLoading } = useMutation(
     apiServices.addVehicle,
@@ -128,7 +154,8 @@ export const useVehicles = () => {
     vehicleLogsListLoading ||
     addVehicleLogsLoading ||
     getAssignedBusLoading ||
-    vehicleDataLoading;
+    vehicleDataLoading ||
+    getAllAssignedBusLoading;
 
   return {
     isLoading,
@@ -144,5 +171,7 @@ export const useVehicles = () => {
     assignedBusList,
     isEdit: !!id,
     vehicleData,
+    allAssignedBusList,
+    user,
   };
 };

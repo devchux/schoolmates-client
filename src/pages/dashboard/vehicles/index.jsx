@@ -13,6 +13,8 @@ const Vehicles = () => {
     handleDeleteVehicle,
     permission,
     assignedBusList,
+    allAssignedBusList,
+    user,
   } = useVehicles();
 
   const navigate = useNavigate();
@@ -155,7 +157,7 @@ const Vehicles = () => {
           accessor: "dropoff_time",
         },
       ],
-      data: assignedBusList,
+      data: user?.designation_name === "Admin" ? allAssignedBusList : assignedBusList,
     },
   };
 
@@ -178,7 +180,7 @@ const Vehicles = () => {
         onClick: () => setIndexStatus("logs"),
       });
     }
-    if (permission?.assignedBus) {
+    if (permission?.assignedBus || permission?.allAssignedBus) {
       arr.push({
         title: "Assigned Bus",
         type: "button",

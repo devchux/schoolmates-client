@@ -255,7 +255,8 @@ export const permissions = {
       update: true,
       delete: true,
       sort: true,
-      assignedBus: true,
+      assignedBus: false,
+      allAssignedBus: true,
     },
     "vehicle-logs": {
       create: true,

@@ -1468,6 +1468,28 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getAllAssignedBus() {
+    const { data } = await axios.get(`${backendAPI}/allassignedvehicle`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getAssignedBus() {
+    const { data } = await axios.get(`${backendAPI}/assignedvehicle`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async getFunds() {
     const { data } = await axios.get(`${backendAPI}/getfunds`, {
       headers: {
