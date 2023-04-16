@@ -585,8 +585,41 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getDepartment(id) {
+    const { data } = await axios.get(`${backendAPI}/department/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deleteDepartment(id) {
+    const { data } = await axios.delete(`${backendAPI}/department/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async createDepartment(body) {
     const { data } = await axios.post(`${backendAPI}/department`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async updateDepartment({ id, ...body }) {
+    const { data } = await axios.patch(`${backendAPI}/department/${id}`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
@@ -1074,6 +1107,7 @@ class APIServies extends Helpers {
 
     return data;
   }
+
   async postExpense({ body }) {
     const { data } = await axios.post(`${backendAPI}/expenses`, body, {
       headers: {
@@ -1121,6 +1155,7 @@ class APIServies extends Helpers {
 
     return data;
   }
+
   async postChartAccount({ body }) {
     const { data } = await axios.post(`${backendAPI}/chartaccount`, body, {
       headers: {

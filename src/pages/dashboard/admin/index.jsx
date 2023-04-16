@@ -27,7 +27,14 @@ const Admin = () => {
   const {
     user,
     updateUser,
-    apiServices: { importStudent, errorHandler, getSchool },
+    apiServices: {
+      importStudent,
+      errorHandler,
+      getSchool,
+      getTimeTable,
+      formatData,
+      getAcademicCalender,
+    },
   } = useAppContext();
   const {
     isLoading,
@@ -53,6 +60,30 @@ const Admin = () => {
         errorHandler(err);
       },
       select: (data) => data?.data[0].attributes,
+    }
+  );
+
+  const { isLoading: timetableLoading, data: timetableData } = useQuery(
+    [queryKeys.GET_TIME_TABLE],
+    getTimeTable,
+    {
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) => (formatData(data)?.length ? formatData(data)[0] : {}),
+    }
+  );
+
+  const { isLoading: calendarLoading, data: calendarData } = useQuery(
+    [queryKeys.GET_ACADEMIC_CALENDER],
+    getAcademicCalender,
+    {
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) => (formatData(data)?.length ? formatData(data)[0] : {}),
     }
   );
 
@@ -92,7 +123,12 @@ const Admin = () => {
   return (
     <div className="teachers">
       <PageTitle>
-        Admin {(isLoading || uploadLoading || schoolLoading) && <Spinner />}
+        Admin{" "}
+        {(isLoading ||
+          uploadLoading ||
+          schoolLoading ||
+          calendarLoading ||
+          timetableLoading) && <Spinner />}
       </PageTitle>
       <ProfileCard type="admin" />
       <div className="teachers-cards-wrapper">
@@ -103,8 +139,25 @@ const Admin = () => {
           icon={faPeopleLine}
           onClick={() => setImportStudentPrompt(!importStudentPrompt)}
         />
-        <HomeCard variant="purple" isBadge title="Calender" icon={faCalendar} />
-        <HomeCard isBadge title="Timetable" icon={faTimeline} />
+        <HomeCard
+          variant="purple"
+          isBadge
+          title="Calender"
+          icon={faCalendar}
+          isLink
+          download
+          to={calendarData?.file || "/"}
+          target="_blank"
+        />
+        <HomeCard
+          isBadge
+          title="Timetable"
+          icon={faTimeline}
+          to={timetableData?.file || "/"}
+          download
+          target="_blank"
+          isLink
+        />
         <HomeCard
           isBadge
           variant="green"

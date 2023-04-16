@@ -500,6 +500,15 @@ const CustomRoutes = () => {
         />
         <Route
           exact
+          path="departments/edit/:id"
+          element={
+            <Guard routeName="departments">
+              <DepartmentDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
           path="grading"
           element={
             <Guard routeName="grading">

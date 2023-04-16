@@ -262,8 +262,8 @@ export const permissions = {
     departments: {
       create: true,
       read: true,
-      update: false,
-      delete: false,
+      update: true,
+      delete: true,
       statusToggle: false,
     },
 
