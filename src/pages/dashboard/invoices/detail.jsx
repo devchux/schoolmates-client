@@ -19,6 +19,7 @@ const InvoiceDetail = () => {
     setInputs,
     inputs,
     handleChange,
+    setFieldValue,
   } = useForm({
     defaultValues: {
       session: "",
@@ -29,8 +30,17 @@ const InvoiceDetail = () => {
       class: "",
       feetype: "",
       amount: "",
-      discount: "",
-      discount_amount: "",
+      discount: "0",
+    },
+    validation: {
+      session: { required: true },
+      admission_number: { required: true },
+      fullname: { required: true },
+      student_id: { required: true },
+      class: { required: true },
+      feetype: { required: true },
+      amount: { required: true },
+      discount: { required: true },
     },
   });
 
@@ -50,9 +60,13 @@ const InvoiceDetail = () => {
   );
 
   const onSubmit = (data) => {
+    const amount = data.amount.replace(/,/g, "");
+    const discount_amount =
+      Number(amount) - (Number(amount) * Number(data.discount)) / 100;
     createInvoicePost({
       body: {
         ...data,
+        discount_amount,
       },
     });
   };
@@ -140,7 +154,16 @@ const InvoiceDetail = () => {
           <AuthInput
             label="Amount"
             hasError={!!errors.amount}
-            {...getFieldProps("amount")}
+            name="amount"
+            value={inputs.amount}
+            onChange={(e) =>
+              apiServices.onAmountChange(
+                e,
+                handleChange,
+                setFieldValue,
+                "amount"
+              )
+            }
           />
           {!!errors.amount && <p className="error-message">{errors.amount}</p>}
         </Col>
@@ -148,7 +171,8 @@ const InvoiceDetail = () => {
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
-            label="Discount"
+            type="number"
+            label="Discount (%)"
             hasError={!!errors.discount}
             {...getFieldProps("discount")}
           />
@@ -157,18 +181,6 @@ const InvoiceDetail = () => {
           )}
         </Col>
 
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            label="Discount Amount"
-            hasError={!!errors.discount_amount}
-            {...getFieldProps("discount_amount")}
-          />
-          {!!errors.discount_amount && (
-            <p className="error-message">{errors.discount_amount}</p>
-          )}
-        </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Term"
@@ -184,7 +196,8 @@ const InvoiceDetail = () => {
           />
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </Col>
-
+      </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Session"

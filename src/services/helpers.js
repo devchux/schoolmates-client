@@ -83,6 +83,24 @@ class Helpers {
       maximumFractionDigits: 2,
     });
   };
+
+  onAmountChange = (
+    e,
+    handleChange,
+    setFieldValue,
+    field
+  ) => {
+    const inputValue = e.target.value;
+    if (!inputValue) {
+      handleChange(e);
+      return;
+    }
+    const removeComma = +inputValue.replace(/,/g, '');
+    if (Number.isNaN(removeComma)) return;
+    handleChange(e);
+    const commaSeperatedValue = this.commaSeperatedNumber(removeComma);
+    setFieldValue(field, commaSeperatedValue);
+  };
 }
 
 export default Helpers;

@@ -1124,6 +1124,39 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getSingleGrading(id) {
+    const { data } = await axios.get(`${backendAPI}/grading/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async updateGrading({ id, ...body }) {
+    const { data } = await axios.patch(`${backendAPI}/grading/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deleteGrading(id) {
+    const { data } = await axios.delete(`${backendAPI}/grading/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async getStudentFeeHistory() {
     const { data } = await axios.get(`${backendAPI}/studentfeehistory`, {
       headers: {
@@ -1287,6 +1320,7 @@ class APIServies extends Helpers {
 
     return data;
   }
+
   async PostTransferFund(body) {
     const { data } = await axios.post(`${backendAPI}/transferfund`, body, {
       headers: {

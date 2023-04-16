@@ -46,7 +46,7 @@ export const useReports = () => {
           amount_paid: (
             <>
               &#8358;
-              <Numeral value={data.amount_paid || "0"} format="0,0.00" />
+              <Numeral value={item?.amount_paid || "0"} format="0,0.00" />
             </>
           ),
         }));
@@ -79,7 +79,7 @@ export const useReports = () => {
           amount_paid: (
             <>
               &#8358;
-              <Numeral value={data.amount_paid || "0"} format="0,0.00" />
+              <Numeral value={item.amount_paid || "0"} format="0,0.00" />
             </>
           ),
         }));
@@ -110,7 +110,7 @@ export const useReports = () => {
           amount_paid: (
             <>
               &#8358;
-              <Numeral value={data.amount_paid || "0"} format="0,0.00" />
+              <Numeral value={item.amount_paid || "0"} format="0,0.00" />
             </>
           ),
         }));
@@ -141,7 +141,7 @@ export const useReports = () => {
           amount_paid: (
             <>
               &#8358;
-              <Numeral value={data.amount_paid || "0"} format="0,0.00" />
+              <Numeral value={item?.amount_paid || "0"} format="0,0.00" />
             </>
           ),
         }));

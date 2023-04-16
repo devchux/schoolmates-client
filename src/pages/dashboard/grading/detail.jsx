@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-formid";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
@@ -6,8 +6,9 @@ import DetailView from "../../../components/views/detail-view";
 import { useGrading } from "../../../hooks/useGrading";
 
 const GradingDetail = () => {
-  const { isLoading, postGrading } = useGrading();
-  const { errors, getFieldProps, handleSubmit } = useForm({
+  const { isLoading, postGrading, singleGrading, isEdit, updateGrading } =
+    useGrading();
+  const { errors, getFieldProps, handleSubmit, setInputs, inputs } = useForm({
     defaultValues: {
       score_from: "",
       score_to: "",
@@ -31,8 +32,20 @@ const GradingDetail = () => {
   });
 
   const onSubmit = (data) => {
+    if (isEdit)
+      return updateGrading({
+        id: singleGrading.id,
+        ...data,
+      });
     postGrading(data);
   };
+
+  useEffect(() => {
+    if (singleGrading) {
+      setInputs({ ...inputs, ...singleGrading });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [singleGrading]);
 
   return (
     <DetailView

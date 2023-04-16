@@ -256,7 +256,7 @@ const Reports = () => {
             options={[
               { value: "income", title: "Income Report" },
               { value: "expense", title: "Expenses Report" },
-              { value: "bank", title: "Bank Report" },
+              // { value: "bank", title: "Bank Report" },
               // { value: "salary", title: "Salaries Report" },
               { value: "invoice", title: "Invoices Report" },
             ]}

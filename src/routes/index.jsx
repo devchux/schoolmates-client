@@ -71,6 +71,7 @@ import ExpensesDetail from "../pages/dashboard/expenses/detail";
 import VehicleMaintenanceDetail from "../pages/dashboard/vehicles/maintenance/detail";
 import TransferFundDetail from "../pages/dashboard/transfer-funds/detail";
 import VehicleMaintenance from "../pages/dashboard/vehicles/maintenance";
+import Grading from "../pages/dashboard/grading";
 
 const CustomRoutes = () => {
   return (
@@ -492,6 +493,24 @@ const CustomRoutes = () => {
         <Route
           exact
           path="grading"
+          element={
+            <Guard routeName="grading">
+              <Grading />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="grading/new"
+          element={
+            <Guard routeName="grading">
+              <GradingDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="grading/edit/:id"
           element={
             <Guard routeName="grading">
               <GradingDetail />
