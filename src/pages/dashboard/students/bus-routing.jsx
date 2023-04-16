@@ -168,6 +168,20 @@ const BusRouting = () => {
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             isPhone
+            label="Driver's Phone Number"
+            value={inputs.driver_phonenumber}
+            hasError={!!errors.driver_phonenumber}
+            onChange={(value) =>
+              setFieldValue("driver_phonenumber", value || "")
+            }
+          />
+          {!!errors.driver_phonenumber && (
+            <p className="error-message">{errors.driver_phonenumber}</p>
+          )}
+        </Col>
+        <Col sm="6" className="mb-4 mb-sm-0">
+          <AuthInput
+            isPhone
             label="Conductor's Phone Number"
             value={inputs.conductor_phonenumber}
             hasError={!!errors.conductor_phonenumber}
