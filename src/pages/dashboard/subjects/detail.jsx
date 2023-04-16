@@ -8,21 +8,19 @@ import { useClasses } from "../../../hooks/useClasses";
 import { useSubject } from "../../../hooks/useSubjects";
 
 const SubjectDetail = () => {
-  const { isLoading, addSubject } = useSubject();
+  const { isLoading, addSubject, subjectData } = useSubject();
 
   const { classes } = useClasses();
-  const {
-    handleSubmit,
-    inputs,
-    errors,
-    handleChange,
-    getFieldProps,
-  } = useForm({
-    defaultValues: {
-      class_name: "",
-      subject: "",
-    },
-  });
+  const { handleSubmit, inputs, errors, handleChange, getFieldProps } = useForm(
+    {
+      defaultValues: {
+        class_name: "",
+        subject: "",
+      },
+    }
+  );
+
+  console.log(subjectData);
 
   const onSubmit = (data) => {
     addSubject(data);

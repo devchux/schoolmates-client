@@ -292,6 +292,9 @@ export const permissions = {
     },
     subjects: {
       read: true,
+      create: true,
+      update: true,
+      delete: true,
     },
     attendance: {
       retrieve: true,

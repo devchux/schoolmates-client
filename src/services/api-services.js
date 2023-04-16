@@ -749,6 +749,39 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getSubject(id) {
+    const { data } = await axios.get(`${backendAPI}/subjects/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deleteSubject(id) {
+    const { data } = await axios.delete(`${backendAPI}/subjects/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async updateSubject({ id, ...body }) {
+    const { data } = await axios.patch(`${backendAPI}/subjects/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async addSubject(body) {
     const { data } = await axios.post(`${backendAPI}/subjects`, body, {
       headers: {

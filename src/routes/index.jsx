@@ -116,6 +116,14 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
+        <Route
+          path="subjects/edit/:id"
+          element={
+            <Guard routeName="subjects">
+              <SubjectDetail />
+            </Guard>
+          }
+        />
         <Route exact path="classes" element={<Classes />} />
         <Route
           path="classes/new"
