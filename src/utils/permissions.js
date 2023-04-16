@@ -20,8 +20,8 @@ export const permissions = {
     departments: {
       create: true,
       read: true,
-      update: false,
-      delete: false,
+      update: true,
+      delete: true,
       statusToggle: false,
     },
     staffs: {
@@ -158,7 +158,7 @@ export const permissions = {
       readClass: true,
       studentLoginDetails: false,
       action: true,
-      transfer: false,
+      transfer: true,
       promote: true,
       communication: false,
       "health-report": false,
@@ -290,6 +290,7 @@ export const permissions = {
       imported: true,
       "health-report": true,
       "bus-routing": true,
+      "create-communication": true,
     },
     subjects: {
       read: true,

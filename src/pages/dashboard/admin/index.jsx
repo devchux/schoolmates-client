@@ -7,7 +7,6 @@ import {
 import React, { useState } from "react";
 import { useForm } from "react-formid";
 import { useMutation, useQuery } from "react-query";
-// import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Spinner } from "reactstrap";
 import HomeCard from "../../../components/cards/home-card";
@@ -17,7 +16,6 @@ import AuthInput from "../../../components/inputs/auth-input";
 import AuthSelect from "../../../components/inputs/auth-select";
 import Prompt from "../../../components/modals/prompt";
 import { useAcademicPeriod } from "../../../hooks/useAcademicPrompt";
-import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useAppContext } from "../../../hooks/useAppContext";
 import { useFile } from "../../../hooks/useFile";
 import queryKeys from "../../../utils/queryKeys";
@@ -35,6 +33,7 @@ const Admin = () => {
       getTimeTable,
       formatData,
       getAcademicCalender,
+      handleSessionChange,
     },
   } = useAppContext();
   const {
@@ -43,8 +42,6 @@ const Admin = () => {
     academicPeriodPrompt,
     setAcademicPeriodPrompt,
   } = useAcademicPeriod();
-
-  const { data: sessions } = useAcademicSession();
 
   const { isLoading: schoolLoading } = useQuery(
     [queryKeys.GET_SCHOOL],
@@ -88,7 +85,7 @@ const Admin = () => {
     }
   );
 
-  const { handleChange, inputs, errors } = useForm({
+  const { handleChange, inputs, errors, setFieldValue } = useForm({
     defaultValues: {
       period: "First Half",
       session: "",
@@ -237,16 +234,14 @@ const Admin = () => {
           {!!errors.term && <p className="error-message">{errors.term}</p>}
         </div>
         <div className="form-group mb-4">
-          <AuthSelect
+        <AuthInput
             label="Session"
-            value={inputs.session}
-            name="session"
+            placeholder="2021/2022"
             hasError={!!errors.session}
-            onChange={handleChange}
-            options={(sessions || [])?.map((session) => ({
-              value: session?.academic_session,
-              title: session?.academic_session,
-            }))}
+            value={inputs.session}
+            onChange={({ target: { value } }) =>
+              handleSessionChange(value, "session", setFieldValue)
+            }
           />
           {!!errors.session && (
             <p className="error-message">{errors.session}</p>

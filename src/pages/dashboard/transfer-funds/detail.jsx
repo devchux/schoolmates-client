@@ -8,7 +8,7 @@ import { useTransferFund } from "../../../hooks/useTransferFund";
 const TransferFundDetail = () => {
   const {
     isLoading,
-    PostTransferFund,
+    postTransferFund,
     isEdit,
     updateTransferFund,
     fundData,
@@ -49,7 +49,7 @@ const TransferFundDetail = () => {
         transfer_date: apiServices.formatDate(data.transfer_date),
       });
     } else {
-      PostTransferFund({
+      postTransferFund({
         ...data,
         transfer_date: apiServices.formatDate(data.transfer_date),
       });

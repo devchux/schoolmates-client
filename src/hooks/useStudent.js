@@ -388,6 +388,18 @@ export const useStudent = () => {
       },
     });
 
+  const {
+    mutateAsync: postCommunicationBook,
+    isLoading: postCommunicationBookLoading,
+  } = useMutation(apiServices.postCommunicationBook, {
+    onSuccess() {
+      toast.success("Record has been created");
+    },
+    onError(err) {
+      errorHandler(err);
+    },
+  });
+
   const { isLoading: getStudentLoading, data: singleStudent } = useQuery(
     [queryKeys.GET_STUDENT, id],
     () => apiServices.getStudent(id),
@@ -503,7 +515,8 @@ export const useStudent = () => {
     promoteStudentLoading ||
     postHealthReportLoading ||
     postBusRoutingLoading ||
-    communicationListLoading;
+    communicationListLoading ||
+    postCommunicationBookLoading;
 
   return {
     user,
@@ -549,6 +562,7 @@ export const useStudent = () => {
     apiServices,
     postBusRouting,
     communicationList,
+    postCommunicationBook,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
     studentData: singleStudent || formatSingleStudent,

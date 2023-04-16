@@ -85,6 +85,7 @@ const BusRouting = () => {
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
+            type="time"
             label="Pick Up Time"
             hasError={!!errors.pickup_time}
             {...getFieldProps("pickup_time")}
@@ -95,6 +96,7 @@ const BusRouting = () => {
         </Col>
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
+            type="time"
             label="Drop Off Time"
             hasError={!!errors.dropoff_time}
             {...getFieldProps("dropoff_time")}

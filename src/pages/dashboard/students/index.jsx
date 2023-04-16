@@ -642,6 +642,13 @@ const Student = () => {
       });
     }
 
+    if (permission["create-communication"]) {
+      arr.push({
+        title: "Communication Book",
+        onClick: (id) => navigate(`/app/students/communication/${id}`),
+      });
+    }
+
     return arr.length ? arr : undefined;
   };
 

@@ -8,8 +8,8 @@ export const useTransferFund = () => {
   const { apiServices, permission } = useAppContext("transfer");
   const { id } = useParams();
 
-  const { mutate: PostTransferFund, isLoading: postTransferLoading } =
-    useMutation(apiServices.PostTransferFund, {
+  const { mutate: postTransferFund, isLoading: postTransferLoading } =
+    useMutation(apiServices.postTransferFund, {
       onSuccess() {
         toast.success("Transfer has been registered");
       },
@@ -63,7 +63,7 @@ export const useTransferFund = () => {
     deleteTransferLoading;
 
   return {
-    PostTransferFund,
+    postTransferFund,
     isLoading,
     apiServices,
     funds,

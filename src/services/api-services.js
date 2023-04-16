@@ -1357,6 +1357,7 @@ class APIServies extends Helpers {
 
     return data;
   }
+
   async getChartAccount() {
     const { data } = await axios.get(`${backendAPI}/chartaccount`, {
       headers: {
@@ -1367,6 +1368,18 @@ class APIServies extends Helpers {
 
     return data;
   }
+
+  async getCommunicationBook() {
+    const { data } = await axios.get(`${backendAPI}/communicationbook`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async postAcademicPeriod(body) {
     const { data } = await axios.post(`${backendAPI}/academicperiod`, body, {
       headers: {
@@ -1389,8 +1402,41 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async PostTransferFund(body) {
+  async postTransferFund(body) {
     const { data } = await axios.post(`${backendAPI}/transferfund`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async postBusRouting(body) {
+    const { data } = await axios.post(`${backendAPI}/busrouting`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async postCommunicationBook(body) {
+    const { data } = await axios.post(`${backendAPI}/communicationbook`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async postHealthReport(body) {
+    const { data } = await axios.post(`${backendAPI}/healthreport`, body, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,

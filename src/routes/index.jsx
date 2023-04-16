@@ -73,6 +73,7 @@ import TransferFundDetail from "../pages/dashboard/transfer-funds/detail";
 import VehicleMaintenance from "../pages/dashboard/vehicles/maintenance";
 import Grading from "../pages/dashboard/grading";
 import ImportedStudents from "../pages/dashboard/students/imported";
+import CommunicationBook from "../pages/dashboard/students/communication";
 
 const CustomRoutes = () => {
   return (
@@ -278,6 +279,14 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="students" action={["bus-routing"]}>
               <BusRouting />
+            </Guard>
+          }
+        />
+        <Route
+          path="students/communication/:id"
+          element={
+            <Guard routeName="students" action={["create-communication"]}>
+              <CommunicationBook />
             </Guard>
           }
         />
