@@ -8,14 +8,14 @@ export const useSubject = () => {
   const { apiServices, permission } = useAppContext("subjects");
   const { id } = useParams();
 
-  const { isLoading: subjectsLoading, data: subjects } = useQuery(
-    [queryKeys.GET_SUBJECTS],
-    apiServices.getAllSubjects,
-    {
-      select: apiServices.formatData,
-      onError: apiServices.errorHandler,
-    }
-  );
+  const {
+    isLoading: subjectsLoading,
+    data: subjects,
+    refetch: refetchSubjects,
+  } = useQuery([queryKeys.GET_SUBJECTS], apiServices.getAllSubjects, {
+    select: apiServices.formatData,
+    onError: apiServices.errorHandler,
+  });
 
   const { isLoading: subjectDataLoading, data: subjectData } = useQuery(
     [queryKeys.GET_SUBJECTS, id],
@@ -41,6 +41,7 @@ export const useSubject = () => {
     useMutation(apiServices.deleteSubject, {
       onSuccess() {
         toast.success("Subject has been deleted successfully");
+        refetchSubjects();
       },
       onError: apiServices.errorHandler,
     });

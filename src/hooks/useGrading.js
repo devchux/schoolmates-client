@@ -26,24 +26,25 @@ export const useGrading = () => {
       onError: apiServices.errorHandler,
     });
 
+  const {
+    data: grading,
+    isLoading: gradingLoading,
+    refetch: refetchGrading,
+  } = useQuery([queryKeys.GET_GRADING], apiServices.getGrading, {
+    select: apiServices.formatData,
+    onError(err) {
+      apiServices.errorHandler(err);
+    },
+  });
+
   const { mutate: deleteGrading, isLoading: deleteGradingLoading } =
     useMutation(apiServices.deleteGrading, {
       onSuccess() {
         toast.success("Grade has been deleted");
+        refetchGrading();
       },
       onError: apiServices.errorHandler,
     });
-
-  const { data: grading, isLoading: gradingLoading } = useQuery(
-    [queryKeys.GET_GRADING],
-    apiServices.getGrading,
-    {
-      select: apiServices.formatData,
-      onError(err) {
-        apiServices.errorHandler(err);
-      },
-    }
-  );
 
   const { data: singleGrading, isLoading: singleGradingLoading } = useQuery(
     [queryKeys.GET_GRADING, id],
@@ -61,7 +62,8 @@ export const useGrading = () => {
     postGradingLoading ||
     gradingLoading ||
     singleGradingLoading ||
-    updateGradingLoading || deleteGradingLoading;
+    updateGradingLoading ||
+    deleteGradingLoading;
 
   return {
     postGrading,

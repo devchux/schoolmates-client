@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-formid";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
@@ -8,23 +8,44 @@ import { useClasses } from "../../../hooks/useClasses";
 import { useSubject } from "../../../hooks/useSubjects";
 
 const SubjectDetail = () => {
-  const { isLoading, addSubject, subjectData } = useSubject();
+  const { isLoading, addSubject, subjectData, updateSubject, isEdit } =
+    useSubject();
 
   const { classes } = useClasses();
-  const { handleSubmit, inputs, errors, handleChange, getFieldProps } = useForm(
-    {
-      defaultValues: {
-        class_name: "",
-        subject: "",
-      },
-    }
-  );
-
-  console.log(subjectData);
+  const {
+    handleSubmit,
+    inputs,
+    errors,
+    handleChange,
+    getFieldProps,
+    setInputs,
+  } = useForm({
+    defaultValues: {
+      class_name: "",
+      subject: "",
+    },
+  });
 
   const onSubmit = (data) => {
+    if (isEdit)
+      return updateSubject({
+        id: subjectData.id,
+        ...data,
+      });
     addSubject(data);
   };
+
+  useEffect(() => {
+    if (subjectData) {
+      setInputs({
+        ...inputs,
+        class_name: subjectData.class_name,
+        subject: subjectData.subject,
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subjectData]);
+
   return (
     <DetailView
       isLoading={isLoading}
