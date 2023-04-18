@@ -29,7 +29,7 @@ const Account = () => {
       <PageTitle>Accounts {isLoading && <Spinner />}</PageTitle>
       <ProfileCard type="account" />
       <Row className="mt-5">
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Account Balance"
             amount={
@@ -40,7 +40,7 @@ const Account = () => {
             }
           />
         </Col>
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Received Income"
             variant="purple"
@@ -52,7 +52,7 @@ const Account = () => {
             }
           />
         </Col>
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Expected Income"
             variant="orange"
@@ -64,7 +64,7 @@ const Account = () => {
             }
           />
         </Col>
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Total Expense"
             variant="red"
@@ -76,7 +76,7 @@ const Account = () => {
             }
           />
         </Col>
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Discount"
             variant="green"
@@ -88,7 +88,7 @@ const Account = () => {
             }
           />
         </Col>
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Outstanding"
             variant="pink"

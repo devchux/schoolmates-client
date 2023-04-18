@@ -24,7 +24,7 @@ const SuperAdmin = () => {
       <PageTitle>Super Admin {isLoading && <Spinner />}</PageTitle>
       <ProfileCard />
       <Row className="mt-5">
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Account Balance"
             amount={
@@ -35,7 +35,7 @@ const SuperAdmin = () => {
             }
           />
         </Col>
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Received Income"
             variant="purple"
@@ -47,7 +47,7 @@ const SuperAdmin = () => {
             }
           />
         </Col>
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Expected Income"
             variant="orange"
@@ -59,7 +59,7 @@ const SuperAdmin = () => {
             }
           />
         </Col>
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Total Expense"
             variant="red"
@@ -71,7 +71,7 @@ const SuperAdmin = () => {
             }
           />
         </Col>
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Discount"
             variant="green"
@@ -83,7 +83,7 @@ const SuperAdmin = () => {
             }
           />
         </Col>
-        <Col sm="6" md="4" className="mb-4">
+        <Col md="4" className="mb-4 col-6">
           <HomeCard
             title="Outstanding"
             variant="pink"

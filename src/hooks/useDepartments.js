@@ -9,7 +9,11 @@ export const useDepartments = () => {
     useAppContext("departments");
   const { id } = useParams();
 
-  const { isLoading: departmentsListLoading, data: departmentsList } = useQuery(
+  const {
+    isLoading: departmentsListLoading,
+    data: departmentsList,
+    refetch: refetchDepartmentList,
+  } = useQuery(
     [queryKeys.GET_ALL_DEPARTMENTS],
     apiServices.getAllDepartmentList,
     {
@@ -24,7 +28,7 @@ export const useDepartments = () => {
 
   const { isLoading: departmentDataLoading, data: departmentData } = useQuery(
     [queryKeys.GET_ALL_DEPARTMENTS, id],
-    apiServices.getDepartment,
+    () => apiServices.getDepartment(id),
     {
       enabled: !!id,
       retry: 3,
@@ -47,6 +51,7 @@ export const useDepartments = () => {
     useMutation(apiServices.deleteDepartment, {
       onSuccess() {
         toast.success("Department has been deleted");
+        refetchDepartmentList();
       },
       onError: apiServices.errorHandler,
     });

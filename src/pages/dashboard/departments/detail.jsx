@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-formid";
 import { Col, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
@@ -6,8 +6,14 @@ import DetailView from "../../../components/views/detail-view";
 import { useDepartments } from "../../../hooks/useDepartments";
 
 const DepartmentDetail = () => {
-  const { createDepartment, isLoading } = useDepartments();
-  const { handleSubmit, getFieldProps, errors } = useForm({
+  const {
+    createDepartment,
+    isLoading,
+    departmentData,
+    isEdit,
+    updateDepartment,
+  } = useDepartments();
+  const { handleSubmit, getFieldProps, errors, setInputs, inputs } = useForm({
     defaultValues: {
       department_id: "",
       department_name: "",
@@ -23,8 +29,25 @@ const DepartmentDetail = () => {
   });
 
   const onSubmit = (data) => {
+    if (isEdit) {
+      return updateDepartment({
+        id: departmentData.id,
+        ...data,
+      });
+    }
     createDepartment(data);
   };
+
+  useEffect(() => {
+    if (departmentData) {
+      setInputs({
+        ...inputs,
+        department_id: departmentData.department_id,
+        department_name: departmentData.department_name,
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [departmentData]);
 
   return (
     <DetailView
