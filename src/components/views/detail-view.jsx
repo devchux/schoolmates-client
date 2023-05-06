@@ -29,8 +29,9 @@ const DetailView = ({
               options={[
                 {
                   title: "Cancel",
+                  type: "button",
                   variant: "outline",
-                  onClick: () => navigate(cancelLink || "/"),
+                  onClick: () => navigate(cancelLink || -1),
                 },
                 {
                   title: "Save",

@@ -75,6 +75,8 @@ import Grading from "../pages/dashboard/grading";
 import ImportedStudents from "../pages/dashboard/students/imported";
 import CommunicationBook from "../pages/dashboard/students/communication";
 import VehicleLogs from "../pages/dashboard/vehicles/logs";
+import PreSchoolDetail from "../pages/dashboard/pre-school/detail";
+import PreSchool from "../pages/dashboard/pre-school";
 
 const CustomRoutes = () => {
   return (
@@ -215,6 +217,23 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="staffs" action={["assign-class"]}>
               <AssignClass />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="pre-school"
+          element={
+            <Guard routeName="pre-school">
+              <PreSchool />
+            </Guard>
+          }
+        />
+        <Route
+          path="pre-school/new"
+          element={
+            <Guard routeName="pre-school" action={["create"]}>
+              <PreSchoolDetail />
             </Guard>
           }
         />

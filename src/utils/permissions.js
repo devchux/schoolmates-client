@@ -256,7 +256,12 @@ export const permissions = {
       delete: true,
       statusToggle: false,
     },
-
+    'pre-school': {
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
+    },
     students: {
       create: true,
       read: true,

@@ -4,7 +4,6 @@ import {
   faBuildingColumns,
   faClipboardUser,
   faComment,
-  // faSuitcase,
   faFileInvoice,
   faGraduationCap,
   faHome,
@@ -14,14 +13,7 @@ import {
   faEnvelope,
   faSchool,
   faAddressCard,
-  // faUserPlus,
   faShoppingBasket,
-  // faTape,
-  // faUsers,
-  // faBusinessTime,
-  // faCalendar,
-  // faPeopleLine,
-  // faCar,
   faTruck,
   faMoneyBill,
   faMarker,
@@ -30,6 +22,7 @@ import {
   faTimeline,
   faBusSimple,
   faChartSimple,
+  faChildren,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const backendAPI = "https://schoolmate.powershellerp.com/api";
@@ -74,6 +67,11 @@ export const dashboardSideBarLinks = {
       to: "/app/grading",
       title: "Grading",
       icon: faMarker,
+    },
+    {
+      to: "/app/pre-school",
+      title: "Pre School",
+      icon: faChildren,
     },
     {
       to: "/app/resumption-date",
