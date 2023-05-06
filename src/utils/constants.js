@@ -50,21 +50,6 @@ export const dashboardSideBarLinks = {
       title: "Home",
       icon: faHome,
     },
-    // {
-    //   to: "/",
-    //   title: "Assets",
-    //   icon: faTape,
-    // },
-    // {
-    //   to: "/app/attendance",
-    //   title: "Attendance",
-    //   icon: faPeopleGroup,
-    // },
-    // {
-    //   to: "/app/",
-    //   title: "Broadsheet",
-    //   icon: faTape,
-    // },
     {
       to: "/app/calendar",
       title: "Calendar",
@@ -80,21 +65,11 @@ export const dashboardSideBarLinks = {
       title: "Classes",
       icon: faSchool,
     },
-    // {
-    //   to: "/",
-    //   title: "Code of Conduct",
-    //   icon: faCode,
-    // },
     {
       to: "/app/departments",
       title: "Departments",
       icon: faBuilding,
     },
-    // {
-    //   to: "/",
-    //   title: "Disciplinary Action",
-    //   icon: faScaleBalanced,
-    // },
     {
       to: "/app/grading",
       title: "Grading",
@@ -216,11 +191,6 @@ export const dashboardSideBarLinks = {
       icon: faComment,
     },
     {
-      to: "/app/reports",
-      title: "Reports",
-      icon: faFileInvoice,
-    },
-    {
       to: "/app/results",
       title: "Results",
       icon: faBuildingColumns,
@@ -235,11 +205,6 @@ export const dashboardSideBarLinks = {
       title: "Students",
       icon: faGraduationCap,
     },
-    {
-      to: "/app/vehicles",
-      title: "Vehicles",
-      icon: faTruck,
-    },
   ],
   Student: [
     {
@@ -249,7 +214,7 @@ export const dashboardSideBarLinks = {
     },
     {
       to: "/app/accounts",
-      title: "Accounts",
+      title: "Finance",
       icon: faSchool,
     },
     {
@@ -264,7 +229,7 @@ export const dashboardSideBarLinks = {
     },
     {
       to: "/app/vehicles",
-      title: "Vehicles",
+      title: "School Bus",
       icon: faTruck,
     },
   ],
@@ -315,12 +280,6 @@ export const dashboardSideBarLinks = {
       title: "Bank",
       icon: faBuildingColumns,
     },
-    
-    // {
-    //   to: "/app/discount",
-    //   title: "Setup Discount",
-    //   icon: faSuitcase,
-    // },
     {
       to: "/app/invoice",
       title: "Invoice",

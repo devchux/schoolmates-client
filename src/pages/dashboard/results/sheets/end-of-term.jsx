@@ -757,7 +757,8 @@ const EndOfTerm = ({ isCompute = false }) => {
                 </tr>
                 <tr>
                   <td colSpan="6">
-                    {isCompute ? (
+                    {isCompute ||
+                    user?.designation_name?.toLowerCase() === "principal" ? (
                       <>
                         <textarea
                           className="form-control"
@@ -803,7 +804,8 @@ const EndOfTerm = ({ isCompute = false }) => {
                 </tr>
                 <tr>
                   <td colSpan="6">
-                    {isCompute ? (
+                    {isCompute ||
+                    user?.designation_name?.toLowerCase() === "principal" ? (
                       <>
                         <textarea
                           className="form-control"
@@ -842,7 +844,8 @@ const EndOfTerm = ({ isCompute = false }) => {
               </tbody>
             </table>
           </div>
-          {isCompute && (
+          {(isCompute ||
+            user?.designation_name?.toLowerCase() === "principal") && (
             <div className="mt-3 d-flex justify-content-end">
               <ButtonGroup
                 options={[

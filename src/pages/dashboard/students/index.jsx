@@ -66,10 +66,6 @@ const Student = () => {
             accessor: "middlename",
           },
           {
-            Header: "Username",
-            accessor: "username",
-          },
-          {
             Header: "Phone Number",
             accessor: "phone_number",
           },
@@ -82,44 +78,12 @@ const Student = () => {
             accessor: "admission_number",
           },
           {
-            Header: "Class",
-            accessor: "class",
-          },
-          {
             Header: "Present Class",
             accessor: "present_class",
           },
           {
-            Header: "Session Admitted",
-            accessor: "session_admitted",
-          },
-          {
-            Header: "Email Address",
-            accessor: "email_address",
-          },
-          {
-            Header: "Home Address",
-            accessor: "home_address",
-          },
-          {
             Header: "Gender",
             accessor: "gender",
-          },
-          {
-            Header: "Blood Group",
-            accessor: "blood_group",
-          },
-          {
-            Header: "Genotype",
-            accessor: "genotype",
-          },
-          {
-            Header: "State",
-            accessor: "state",
-          },
-          {
-            Header: "Nationality",
-            accessor: "nationality",
           },
         ];
       case "alumni":
@@ -145,10 +109,6 @@ const Student = () => {
             accessor: "middlename",
           },
           {
-            Header: "Username",
-            accessor: "username",
-          },
-          {
             Header: "Phone Number",
             accessor: "phone_number",
           },
@@ -161,44 +121,12 @@ const Student = () => {
             accessor: "admission_number",
           },
           {
-            Header: "Class",
-            accessor: "class",
-          },
-          {
             Header: "Present Class",
             accessor: "present_class",
           },
           {
-            Header: "Session Admitted",
-            accessor: "session_admitted",
-          },
-          {
-            Header: "Email Address",
-            accessor: "email_address",
-          },
-          {
-            Header: "Home Address",
-            accessor: "home_address",
-          },
-          {
             Header: "Gender",
             accessor: "gender",
-          },
-          {
-            Header: "Blood Group",
-            accessor: "blood_group",
-          },
-          {
-            Header: "Genotype",
-            accessor: "genotype",
-          },
-          {
-            Header: "State",
-            accessor: "state",
-          },
-          {
-            Header: "Nationality",
-            accessor: "nationality",
           },
         ];
 
@@ -221,10 +149,6 @@ const Student = () => {
             accessor: "middlename",
           },
           {
-            Header: "Username",
-            accessor: "username",
-          },
-          {
             Header: "Phone Number",
             accessor: "phone_number",
           },
@@ -237,44 +161,12 @@ const Student = () => {
             accessor: "admission_number",
           },
           {
-            Header: "Class",
-            accessor: "class",
-          },
-          {
             Header: "Present Class",
             accessor: "present_class",
           },
           {
-            Header: "Session Admitted",
-            accessor: "session_admitted",
-          },
-          {
-            Header: "Email Address",
-            accessor: "email_address",
-          },
-          {
-            Header: "Home Address",
-            accessor: "home_address",
-          },
-          {
             Header: "Gender",
             accessor: "gender",
-          },
-          {
-            Header: "Blood Group",
-            accessor: "blood_group",
-          },
-          {
-            Header: "Genotype",
-            accessor: "genotype",
-          },
-          {
-            Header: "State",
-            accessor: "state",
-          },
-          {
-            Header: "Nationality",
-            accessor: "nationality",
           },
         ];
 
@@ -291,10 +183,6 @@ const Student = () => {
           {
             Header: "Middle Name",
             accessor: "middlename",
-          },
-          {
-            Header: "Username",
-            accessor: "username",
           },
           {
             Header: "Admission Number",
@@ -433,10 +321,6 @@ const Student = () => {
             accessor: "middlename",
           },
           {
-            Header: "Class",
-            accessor: "class",
-          },
-          {
             Header: "Present Class",
             accessor: "present_class",
           },
@@ -463,10 +347,6 @@ const Student = () => {
           {
             Header: "Middle Name",
             accessor: "middlename",
-          },
-          {
-            Header: "Class",
-            accessor: "class",
           },
           {
             Header: "Present Class",
@@ -781,12 +661,8 @@ const Student = () => {
         { value: "class", title: "Class" },
       ]}
       onSearch={onSearch}
-      rowHasUpdate={
-        !["creditors", "debtors"].includes(indexStatus) && permission?.update
-      }
-      rowHasDelete={
-        !["creditors", "debtors"].includes(indexStatus) && permission?.delete
-      }
+      rowHasUpdate={["all"].includes(indexStatus) && permission?.update}
+      rowHasDelete={["all"].includes(indexStatus) && permission?.delete}
       searchPlaceholder={searchPlaceholder[sortBy] || "Enter Admission Number"}
     />
   );

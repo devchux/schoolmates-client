@@ -189,16 +189,6 @@ const StudentDetail = () => {
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
-            label="Username"
-            hasError={!!errors.username}
-            {...getFieldProps("username")}
-          />
-          {!!errors.username && (
-            <p className="error-message">{errors.username}</p>
-          )}
-        </Col>
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
             label="Admission Number"
             hasError={!!errors.admission_number}
             {...getFieldProps("admission_number")}
@@ -207,8 +197,6 @@ const StudentDetail = () => {
             <p className="error-message">{errors.admission_number}</p>
           )}
         </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             isPhone
@@ -221,6 +209,8 @@ const StudentDetail = () => {
             <p className="error-message">{errors.phone_number}</p>
           )}
         </Col>
+      </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Address"
@@ -231,8 +221,6 @@ const StudentDetail = () => {
             <p className="error-message">{errors.home_address}</p>
           )}
         </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Nationality"
@@ -246,6 +234,8 @@ const StudentDetail = () => {
             <p className="error-message">{errors.nationality}</p>
           )}
         </Col>
+      </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="State"
@@ -254,8 +244,6 @@ const StudentDetail = () => {
           />
           {!!errors.state && <p className="error-message">{errors.state}</p>}
         </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Genotype"
@@ -275,6 +263,8 @@ const StudentDetail = () => {
             <p className="error-message">{errors.genotype}</p>
           )}
         </Col>
+      </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Blood Group"
@@ -297,8 +287,6 @@ const StudentDetail = () => {
             <p className="error-message">{errors.blood_group}</p>
           )}
         </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Gender"
@@ -313,6 +301,8 @@ const StudentDetail = () => {
           />
           {!!errors.gender && <p className="error-message">{errors.gender}</p>}
         </Col>
+      </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput
             label="Date of Birth"
@@ -322,8 +312,6 @@ const StudentDetail = () => {
           />
           {!!errors.dob && <p className="error-message">{errors.dob}</p>}
         </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Session Admitted"
@@ -340,6 +328,8 @@ const StudentDetail = () => {
             <p className="error-message">{errors.session_admitted}</p>
           )}
         </Col>
+      </Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Present Class"
@@ -362,8 +352,6 @@ const StudentDetail = () => {
             <p className="error-message">{errors.present_class}</p>
           )}
         </Col>
-      </Row>
-      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Sub Class"
@@ -383,18 +371,8 @@ const StudentDetail = () => {
             <p className="error-message">{errors.sub_class}</p>
           )}
         </Col>
-        <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            type="file"
-            className="px-0"
-            wrapperClassName="border-0"
-            label="Profile Image"
-            onChange={handleImageChange}
-            ref={fileRef}
-          />
-        </Col>
       </Row>
-      <Row>
+      <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthSelect
             label="Admitted Class"
@@ -410,6 +388,16 @@ const StudentDetail = () => {
             }))}
           />
           {!!errors.class && <p className="error-message">{errors.class}</p>}
+        </Col>
+        <Col sm="6" className="mb-4 mb-sm-0">
+          <AuthInput
+            type="file"
+            className="px-0"
+            wrapperClassName="border-0"
+            label="Profile Image"
+            onChange={handleImageChange}
+            ref={fileRef}
+          />
         </Col>
       </Row>
       <ImagePreview
