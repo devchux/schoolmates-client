@@ -22,7 +22,7 @@ export const useSkills = () => {
     {
       enabled: permission.read || false,
       onError: apiServices.errorHandler,
-      select: (data) => data?.data?.map((x) => ({ id: x.id, ...x.attribites })),
+      select: (data) => data?.data?.map((x) => ({ id: x.id, ...x.attributes })),
     }
   );
 

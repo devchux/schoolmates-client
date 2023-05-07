@@ -4,7 +4,6 @@ import { useSkills } from "../../../hooks/useSkills";
 
 const Skills = () => {
   const { isLoading, skills, permission } = useSkills();
-  console.log("skills", skills);
 
   return (
     <PageView
