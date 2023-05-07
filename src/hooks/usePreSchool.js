@@ -3,10 +3,12 @@ import { useAppContext } from "./useAppContext";
 import { toast } from "react-toastify";
 import queryKeys from "../utils/queryKeys";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 export const usePreSchool = () => {
   const { apiServices, permission } = useAppContext("pre-school");
   const [period, setPeriod] = useState({ session: "", term: "", period: "" });
+  const { id } = useParams();
 
   const { data: preSchools, isLoading: preSchoolsLoading } = useQuery(
     [queryKeys.GET_ALL_PRE_SCHOOLS],
@@ -18,23 +20,40 @@ export const usePreSchool = () => {
     }
   );
 
-  const { data: preSchoolSubjects, isLoading: preSchoolSubjectsLoading } =
-    useQuery(
-      [
-        queryKeys.GET_ALL_PRE_SCHOOL_SUBJECTS,
+  const {
+    data: preSchoolSubjects,
+    isLoading: preSchoolSubjectsLoading,
+    refetch: refetchSubjects,
+  } = useQuery(
+    [
+      queryKeys.GET_ALL_PRE_SCHOOL_SUBJECTS,
+      period.period,
+      period.session,
+      period.term,
+    ],
+    () =>
+      apiServices.getPreSchoolSubjects(
         period.period,
-        period.session,
         period.term,
-      ],
-      () =>
-        apiServices.getPreSchoolSubjects(
-          period.period,
-          period.term,
-          period.session
-        ),
+        period.session
+      ),
+    {
+      enabled:
+        permission?.subject &&
+        !!period.period &&
+        !!period.session &&
+        !!period.term,
+      select: apiServices.formatData,
+      onError: apiServices.errorHandler,
+    }
+  );
+
+  const { data: preSchoolSubject, isLoading: preSchoolSubjectLoading } =
+    useQuery(
+      [queryKeys.GET_ALL_PRE_SCHOOL_SUBJECTS, id],
+      () => apiServices.getPreSchoolSubject(id),
       {
-        enabled:
-          permission?.subject && !!period.period && !!period.session && !!period.term,
+        enabled: permission?.subject && !!id,
         select: apiServices.formatData,
         onError: apiServices.errorHandler,
       }
@@ -58,11 +77,35 @@ export const usePreSchool = () => {
     },
   });
 
+  const {
+    mutateAsync: deletePreSchoolSubject,
+    isLoading: deletePreSchoolSubjectLoading,
+  } = useMutation(apiServices.deletePreSchoolSubjects, {
+    onError: apiServices.errorHandler,
+    onSuccess() {
+      toast.success("Pre School Subject has been deleted successfully");
+      refetchSubjects();
+    },
+  });
+
+  const {
+    mutateAsync: editPreSchoolSubject,
+    isLoading: editPreSchoolSubjectLoading,
+  } = useMutation(apiServices.editPreSchoolSubject, {
+    onError: apiServices.errorHandler,
+    onSuccess() {
+      toast.success("Pre School Subject has been updated successfully");
+    },
+  });
+
   const isLoading =
     createPreSchoolLoading ||
     preSchoolsLoading ||
     createPreSchoolSubjectLoading ||
-    preSchoolSubjectsLoading;
+    preSchoolSubjectsLoading ||
+    deletePreSchoolSubjectLoading ||
+    preSchoolSubjectLoading ||
+    editPreSchoolSubjectLoading;
 
   return {
     createPreSchool,
@@ -72,5 +115,9 @@ export const usePreSchool = () => {
     permission,
     preSchoolSubjects,
     setPeriod,
+    deletePreSchoolSubject,
+    preSchoolSubject,
+    editPreSchoolSubject,
+    isEdit: !!id,
   };
 };

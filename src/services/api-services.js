@@ -1512,9 +1512,50 @@ class APIServies extends Helpers {
 
     return data;
   }
+
   async getPreSchoolSubjects(period, term, session) {
     const { data } = await axios.get(
       `${backendAPI}/preschoolsubject/${period}/${term}/${session}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async deletePreSchoolSubjects(id) {
+    const { data } = await axios.delete(
+      `${backendAPI}/preschoolsubject/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async getPreSchoolSubject(id) {
+    const { data } = await axios.get(`${backendAPI}/preschoolsubject/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async editPreSchoolSubject({ id, ...body }) {
+    const { data } = await axios.patch(
+      `${backendAPI}/preschoolsubject/${id}`,
+      body,
       {
         headers: {
           "Content-Type": "application/json",

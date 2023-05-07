@@ -30,7 +30,13 @@ const PreSchoolSubject = () => {
   });
 
   const { isLoading: loadingSessions, data: sessions } = useAcademicSession();
-  const { setPeriod, preSchoolSubjects, isLoading, permission } = usePreSchool();
+  const {
+    setPeriod,
+    preSchoolSubjects,
+    isLoading,
+    permission,
+    deletePreSchoolSubject,
+  } = usePreSchool();
 
   const getToggleButtons = () => {
     const arr = [
@@ -55,6 +61,7 @@ const PreSchoolSubject = () => {
         isLoading={isLoading}
         rowHasUpdate={permission?.update}
         rowHasDelete={permission?.delete}
+        onDelete={deletePreSchoolSubject}
         columns={[
           {
             Header: "id",

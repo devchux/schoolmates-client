@@ -278,6 +278,15 @@ const CustomRoutes = () => {
         />
         <Route
           exact
+          path="pre-school/subjects/edit/:id"
+          element={
+            <Guard routeName="pre-school">
+              <PreSchoolSubjectDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
           path="students"
           element={
             <Guard routeName="students">

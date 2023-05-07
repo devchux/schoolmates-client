@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PageSheet from "../../../../components/common/page-sheet";
 import AuthInput from "../../../../components/inputs/auth-input";
 import Button from "../../../../components/buttons/button";
@@ -18,7 +18,13 @@ const PreSchoolSubjectDetail = () => {
   const [openPeriodPrompt, setPeriodPrompt] = useState(false);
   const [showSubjects, setShowSubjects] = useState(false);
   const navigate = useNavigate();
-  const { isLoading, createPreSchoolSubject } = usePreSchool();
+  const {
+    isLoading,
+    createPreSchoolSubject,
+    isEdit,
+    preSchoolSubject,
+    editPreSchoolSubject,
+  } = usePreSchool();
 
   const {
     handleChange: handlePeriodChange,
@@ -44,20 +50,25 @@ const PreSchoolSubjectDetail = () => {
     },
   });
 
-  const { inputs, errors, handleSubmit, handleChange, setFieldValue } = useForm(
-    {
-      defaultValues: {
-        name: "",
-        topics: [""],
+  const {
+    inputs,
+    errors,
+    handleSubmit,
+    handleChange,
+    setFieldValue,
+    setInputs,
+  } = useForm({
+    defaultValues: {
+      name: "",
+      topics: [""],
+    },
+    validation: {
+      name: { required: true },
+      topics: {
+        shouldHaveContents: (val) => val.length > 0 && val?.every((x) => !!x),
       },
-      validation: {
-        name: { required: true },
-        topics: {
-          shouldHaveContents: (val) => val.length > 0 && val?.every((x) => !!x),
-        },
-      },
-    }
-  );
+    },
+  });
 
   const { isLoading: loadingSessions, data: sessions } = useAcademicSession();
 
@@ -66,22 +77,43 @@ const PreSchoolSubjectDetail = () => {
     setShowSubjects(true);
   };
 
-  const onFinalSubmit = (data) => {
+  const onFinalSubmit = async (data) => {
     const finalData = {
-      ...periodInputs,
       subject: data.name,
       topic: data.topics.map((t) => ({ name: t })),
     };
+    if (isEdit) {
+      await editPreSchoolSubject({ ...finalData, id: preSchoolSubject[0].id });
+      return;
+    }
 
-    createPreSchoolSubject(finalData);
+    await createPreSchoolSubject({
+      ...periodInputs,
+      ...finalData,
+    });
   };
+
+  useEffect(() => {
+    if (preSchoolSubject) {
+      setInputs({
+        ...inputs,
+        name: preSchoolSubject[0]?.subject,
+        topics: preSchoolSubject[0]?.topic?.map(({ name }) => name),
+      });
+      setShowSubjects(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preSchoolSubject]);
 
   return (
     <PageSheet>
       <PageTitle>Pre School Subject</PageTitle>
-      <div className={`mt-3 mb-5`}>
-        <Button onClick={() => setPeriodPrompt(true)}>Enter Period</Button>
-      </div>
+      {!isEdit && (
+        <div className={`mt-3 mb-5`}>
+          <Button onClick={() => setPeriodPrompt(true)}>Enter Period</Button>
+        </div>
+      )}
+
       {showSubjects && (
         <Form onSubmit={handleSubmit(onFinalSubmit)}>
           <Row className="mb-0 mb-sm-4">
