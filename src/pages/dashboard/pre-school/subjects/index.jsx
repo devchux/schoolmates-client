@@ -30,9 +30,7 @@ const PreSchoolSubject = () => {
   });
 
   const { isLoading: loadingSessions, data: sessions } = useAcademicSession();
-  const { setPeriod, preSchoolSubjects, isLoading } = usePreSchool();
-
-  console.log("preSchoolSubjects", preSchoolSubjects);
+  const { setPeriod, preSchoolSubjects, isLoading, permission } = usePreSchool();
 
   const getToggleButtons = () => {
     const arr = [
@@ -55,10 +53,16 @@ const PreSchoolSubject = () => {
         hideTable={hideTable}
         groupedButtonOptions={getToggleButtons()}
         isLoading={isLoading}
+        rowHasUpdate={permission?.update}
+        rowHasDelete={permission?.delete}
         columns={[
           {
             Header: "id",
             accessor: "id",
+          },
+          {
+            Header: "Subjects",
+            accessor: "subject",
           },
         ]}
         data={preSchoolSubjects || []}
