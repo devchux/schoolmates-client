@@ -204,8 +204,6 @@ const Reports = () => {
       },
     ],
   };
-
-  console.log(indexStatus)
   
   return (
     <div>

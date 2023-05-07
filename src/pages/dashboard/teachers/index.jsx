@@ -23,6 +23,7 @@ const Teacher = () => {
       <div className="teachers-cards-wrapper">
         <HomeCard
           isBadge
+          variant="purple"
           title="My Students"
           icon={faPeopleLine}
           onClick={() =>
@@ -31,6 +32,7 @@ const Teacher = () => {
         />
         <HomeCard
           isBadge
+          variant="orange"
           title="Calender"
           icon={faCalendar}
           isLink
@@ -49,6 +51,7 @@ const Teacher = () => {
         />
         <HomeCard
           isBadge
+          variant="pink"
           title="Dress Code"
           icon={faPersonDress}
           to="/app/dress-code"

@@ -77,6 +77,8 @@ import CommunicationBook from "../pages/dashboard/students/communication";
 import VehicleLogs from "../pages/dashboard/vehicles/logs";
 import PreSchoolDetail from "../pages/dashboard/pre-school/detail";
 import PreSchool from "../pages/dashboard/pre-school";
+import PreSchoolSubjectDetail from "../pages/dashboard/pre-school/subjects/detail";
+import PreSchoolSubject from "../pages/dashboard/pre-school/subjects";
 
 const CustomRoutes = () => {
   return (
@@ -234,6 +236,24 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="pre-school" action={["create"]}>
               <PreSchoolDetail />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="pre-school/subjects"
+          element={
+            <Guard routeName="pre-school">
+              <PreSchoolSubject />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="pre-school/subjects/new"
+          element={
+            <Guard routeName="pre-school">
+              <PreSchoolSubjectDetail />
             </Guard>
           }
         />

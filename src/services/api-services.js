@@ -940,6 +940,7 @@ class APIServies extends Helpers {
 
     return data;
   }
+
   async getCreditors(term, session) {
     const { data } = await axios.get(
       `${backendAPI}/creditors/${term}/${session}`,
@@ -1475,6 +1476,30 @@ class APIServies extends Helpers {
         Authorization: `Bearer ${super.getToken()}`,
       },
     });
+
+    return data;
+  }
+
+  async postPreSchoolSubject(body) {
+    const { data } = await axios.post(`${backendAPI}/preschoolsubject`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+  async getPreSchoolSubjects(period, term, session) {
+    const { data } = await axios.get(
+      `${backendAPI}/preschoolsubject/${period}/${term}/${session}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }
