@@ -23,6 +23,7 @@ import {
   faBusSimple,
   faChartSimple,
   faChildren,
+  faBalanceScale,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const backendAPI = "https://schoolmate.powershellerp.com/api";
@@ -77,6 +78,11 @@ export const dashboardSideBarLinks = {
       to: "/app/resumption-date",
       title: "Resumption Date",
       icon: faSchoolLock,
+    },
+    {
+      to: "/app/skills",
+      title: "Skills",
+      icon: faBalanceScale,
     },
     {
       to: "/app/staffs",

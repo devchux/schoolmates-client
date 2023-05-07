@@ -105,7 +105,9 @@ const PreSchoolSubjectDetail = () => {
                   type="text"
                   placeholder="Enter Topic Here..."
                   value={input}
-                  name="firstname"
+                  hasError={
+                    !!errors.topics && inputs.topics.length === index + 1
+                  }
                   onChange={({ target: { value } }) => {
                     const format = inputs.topics.map((x, k) => {
                       if (k === index) return value;

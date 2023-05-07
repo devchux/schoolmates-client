@@ -256,6 +256,12 @@ export const permissions = {
       delete: true,
       statusToggle: false,
     },
+    skills: {
+      create: true,
+      read: true,
+      update: true,
+      delete: true,
+    },
     "pre-school": {
       create: true,
       read: true,

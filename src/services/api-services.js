@@ -1480,6 +1480,28 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async postSkill(body) {
+    const { data } = await axios.post(`${backendAPI}/skills`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async getSkills() {
+    const { data } = await axios.get(`${backendAPI}/skills`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async postPreSchoolSubject(body) {
     const { data } = await axios.post(`${backendAPI}/preschoolsubject`, body, {
       headers: {
