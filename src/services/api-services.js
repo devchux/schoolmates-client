@@ -1502,6 +1502,39 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getSkill(id) {
+    const { data } = await axios.get(`${backendAPI}/skills/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deleteSkill(id) {
+    const { data } = await axios.delete(`${backendAPI}/skills/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async editSkill({ id, ...body }) {
+    const { data } = await axios.patch(`${backendAPI}/skills/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async postPreSchoolSubject(body) {
     const { data } = await axios.post(`${backendAPI}/preschoolsubject`, body, {
       headers: {

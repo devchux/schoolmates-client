@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DetailView from "../../../components/views/detail-view";
 import { useSkills } from "../../../hooks/useSkills";
 import { Col, Row, Button as Btn } from "reactstrap";
@@ -6,28 +6,49 @@ import AuthInput from "../../../components/inputs/auth-input";
 import { useForm } from "react-formid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBucket, faPen } from "@fortawesome/free-solid-svg-icons";
+import AuthSelect from "../../../components/inputs/auth-select";
 
 const SkillsDetail = () => {
-  const { isLoading, addSkill } = useSkills();
+  const { isLoading, addSkill, isEdit, editSkill, skill } = useSkills();
 
-  const { inputs, errors, handleSubmit, handleChange, setFieldValue } = useForm(
-    {
-      defaultValues: {
-        skill_type: "",
-        attribute: [""],
+  const {
+    inputs,
+    errors,
+    handleSubmit,
+    handleChange,
+    setFieldValue,
+    setInputs,
+  } = useForm({
+    defaultValues: {
+      skill_type: "",
+      attribute: [""],
+    },
+    validation: {
+      skill_type: { required: true },
+      attribute: {
+        shouldHaveContents: (val) => val.length > 0 && val?.every((x) => !!x),
       },
-      validation: {
-        skill_type: { required: true },
-        attribute: {
-          shouldHaveContents: (val) => val.length > 0 && val?.every((x) => !!x),
-        },
-      },
-    }
-  );
+    },
+  });
 
   const onSubmit = async (data) => {
+    if (isEdit) {
+      await editSkill({ ...data, id: skill.id });
+      return;
+    }
     await addSkill(data);
   };
+
+  useEffect(() => {
+    if (skill) {
+      setInputs({
+        ...inputs,
+        skill_type: skill.skill_type,
+        attribute: skill.attribute,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [skill]);
 
   return (
     <DetailView
@@ -37,15 +58,23 @@ const SkillsDetail = () => {
     >
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
-          <AuthInput
-            type="text"
-            placeholder="Enter Skill Title"
+          <AuthSelect
+            placeholder="Select Skill Title"
             hasError={!!errors.skill_type}
             value={inputs.skill_type}
             name="skill_type"
             onChange={handleChange}
+            options={[
+              {
+                value: "AFFECTIVE DISPOSITION",
+                title: "AFFECTIVE DISPOSITION",
+              },
+              { value: "PSYCHOMOTOR SKILLS", title: "PSYCHOMOTOR SKILLS" },
+            ]}
           />
-          {!!errors.skill_type && <p className="error-message">{errors.skill_type}</p>}
+          {!!errors.skill_type && (
+            <p className="error-message">{errors.skill_type}</p>
+          )}
         </Col>
       </Row>
       <hr />

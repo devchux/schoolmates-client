@@ -3,7 +3,7 @@ import PageView from "../../../components/views/table-view";
 import { useSkills } from "../../../hooks/useSkills";
 
 const Skills = () => {
-  const { isLoading, skills, permission } = useSkills();
+  const { isLoading, skills, permission, deleteSkill } = useSkills();
 
   return (
     <PageView
@@ -12,6 +12,7 @@ const Skills = () => {
       isLoading={isLoading}
       rowHasUpdate={permission?.update}
       rowHasDelete={permission?.delete}
+      onDelete={deleteSkill}
       columns={[
         {
           Header: "id",

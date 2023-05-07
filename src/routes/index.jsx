@@ -242,6 +242,14 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          path="skills/edit/:id"
+          element={
+            <Guard routeName="skills" action={["create"]}>
+              <SkillsDetail />
+            </Guard>
+          }
+        />
+        <Route
           exact
           path="pre-school"
           element={
@@ -782,25 +790,6 @@ const CustomRoutes = () => {
             </Guard>
           }
         />
-        {/* <Route
-          exact
-          path="debtors"
-          element={
-            <Guard routeName="debtors">
-              <Deptors/>
-            </Guard>
-          }
-        />
-        <Route
-          exact
-          path="creditors"
-          element={
-            <Guard routeName="creditors">
-              <CreditorsList/>
-            </Guard>
-          }
-        />
-         */}
         <Route exact path="profile" element={<Profile />} />
         <Route exact path="not-found" element={<NotFound />} />
         <Route exact path="change-password" element={<ChangePassword />} />
