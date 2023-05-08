@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const PreSchool = () => {
   const navigate = useNavigate();
-  const { permission, preSchools, isLoading } = usePreSchool();
+  const { permission, preSchools, isLoading, deletePreSchool } = usePreSchool();
 
   const getSortButtonOptions = () => {
     let arr = [];
@@ -27,6 +27,9 @@ const PreSchool = () => {
       data={preSchools}
       canCreate={permission?.create}
       hasSortOptions={permission?.sort}
+      rowHasUpdate={permission?.update}
+      rowHasDelete={permission?.delete}
+      onDelete={deletePreSchool}
       isLoading={isLoading}
       columns={[
         {

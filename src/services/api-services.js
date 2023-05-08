@@ -1622,6 +1622,39 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getPreSchool(id) {
+    const { data } = await axios.get(`${backendAPI}/preschool/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async editPreSchool({ id, ...body }) {
+    const { data } = await axios.patch(`${backendAPI}/preschool/${id}`, body, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
+  async deletePreSchool(id) {
+    const { data } = await axios.delete(`${backendAPI}/preschool/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${super.getToken()}`,
+      },
+    });
+
+    return data;
+  }
+
   async getAcademicSessions() {
     const { data } = await axios.get(`${backendAPI}/getacademicsessions`, {
       headers: {

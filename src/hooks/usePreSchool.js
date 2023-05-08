@@ -20,6 +20,16 @@ export const usePreSchool = () => {
     }
   );
 
+  const { data: preSchool, isLoading: preSchoolLoading } = useQuery(
+    [queryKeys.GET_ALL_PRE_SCHOOLS, id],
+    () => apiServices.getPreSchool(id),
+    {
+      enabled: permission?.read && !!id,
+      select: apiServices.formatSingleData,
+      onError: apiServices.errorHandler,
+    }
+  );
+
   const {
     data: preSchoolSubjects,
     isLoading: preSchoolSubjectsLoading,
@@ -88,6 +98,15 @@ export const usePreSchool = () => {
     },
   });
 
+  const { mutateAsync: deletePreSchool, isLoading: deletePreSchoolLoading } =
+    useMutation(apiServices.deletePreSchool, {
+      onError: apiServices.errorHandler,
+      onSuccess() {
+        toast.success("Pre School has been deleted successfully");
+        refetchSubjects();
+      },
+    });
+
   const {
     mutateAsync: editPreSchoolSubject,
     isLoading: editPreSchoolSubjectLoading,
@@ -98,6 +117,14 @@ export const usePreSchool = () => {
     },
   });
 
+  const { mutateAsync: editPreSchool, isLoading: editPreSchoolLoading } =
+    useMutation(apiServices.editPreSchool, {
+      onError: apiServices.errorHandler,
+      onSuccess() {
+        toast.success("Pre School has been updated successfully");
+      },
+    });
+
   const isLoading =
     createPreSchoolLoading ||
     preSchoolsLoading ||
@@ -105,7 +132,10 @@ export const usePreSchool = () => {
     preSchoolSubjectsLoading ||
     deletePreSchoolSubjectLoading ||
     preSchoolSubjectLoading ||
-    editPreSchoolSubjectLoading;
+    editPreSchoolSubjectLoading ||
+    preSchoolLoading ||
+    editPreSchoolLoading ||
+    deletePreSchoolLoading;
 
   return {
     createPreSchool,
@@ -118,6 +148,9 @@ export const usePreSchool = () => {
     deletePreSchoolSubject,
     preSchoolSubject,
     editPreSchoolSubject,
+    preSchool,
+    editPreSchool,
+    deletePreSchool,
     isEdit: !!id,
   };
 };

@@ -267,6 +267,14 @@ const CustomRoutes = () => {
           }
         />
         <Route
+          path="pre-school/edit/:id"
+          element={
+            <Guard routeName="pre-school" action={["create"]}>
+              <PreSchoolDetail />
+            </Guard>
+          }
+        />
+        <Route
           exact
           path="pre-school/subjects"
           element={
