@@ -24,6 +24,7 @@ const PreSchool = () => {
 
   return (
     <PageView
+      rowHasAction
       data={preSchools}
       canCreate={permission?.create}
       hasSortOptions={permission?.sort}
@@ -43,6 +44,16 @@ const PreSchool = () => {
         {
           Header: "Campus",
           accessor: "campus",
+        },
+      ]}
+      action={[
+        {
+          title: "Assign Subjects",
+          onClick: (id) => navigate(`/app/pre-school/subjects/assign/${id}`),
+        },
+        {
+          title: "View Subjects",
+          onClick: (id) => navigate(`/app/pre-school/subjects/${id}`),
         },
       ]}
       groupedButtonOptions={getSortButtonOptions()}
