@@ -11,8 +11,6 @@ const UserProvider = ({ children }) => {
   const [loginPrompt, setLoginPrompt] = useState(false);
   const navigate = useNavigate();
 
-  console.log(loginPrompt)
-
   const updateUser = (data) => {
     const userStorage = localStorage.getItem("userData");
     const userData = userStorage ? JSON.parse(userStorage) : {};

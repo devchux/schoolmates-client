@@ -125,6 +125,16 @@ export const usePreSchool = () => {
       },
     });
 
+  const {
+    mutateAsync: postSubjectsByPreSchool,
+    isLoading: postSubjectsByPreSchoolLoading,
+  } = useMutation(apiServices.postSubjectsByPreSchool, {
+    onError: apiServices.errorHandler,
+    onSuccess() {
+      toast.success("Pre School Subjects has been updated successfully");
+    },
+  });
+
   const isLoading =
     createPreSchoolLoading ||
     preSchoolsLoading ||
@@ -135,7 +145,8 @@ export const usePreSchool = () => {
     editPreSchoolSubjectLoading ||
     preSchoolLoading ||
     editPreSchoolLoading ||
-    deletePreSchoolLoading;
+    deletePreSchoolLoading ||
+    postSubjectsByPreSchoolLoading;
 
   return {
     createPreSchool,
@@ -151,6 +162,7 @@ export const usePreSchool = () => {
     preSchool,
     editPreSchool,
     deletePreSchool,
+    postSubjectsByPreSchool,
     isEdit: !!id,
   };
 };

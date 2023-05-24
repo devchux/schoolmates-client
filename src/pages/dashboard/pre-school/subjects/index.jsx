@@ -8,7 +8,7 @@ import { useAcademicSession } from "../../../../hooks/useAcademicSession";
 import { usePreSchool } from "../../../../hooks/usePreSchool";
 
 const PreSchoolSubject = () => {
-  const [loginPrompt, setLoginPrompt] = useState(false);
+  const [prompt, setPrompt] = useState(false);
   const [hideTable, setHideTable] = useState(true);
   const { inputs, errors, handleChange } = useForm({
     defaultValues: {
@@ -43,7 +43,7 @@ const PreSchoolSubject = () => {
       {
         title: "Academic Period",
         type: "button",
-        onClick: () => setLoginPrompt(true),
+        onClick: () => setPrompt(true),
       },
     ];
 
@@ -75,15 +75,15 @@ const PreSchoolSubject = () => {
         data={preSchoolSubjects || []}
       />
       <Prompt
-        isOpen={loginPrompt}
-        toggle={() => setLoginPrompt(!loginPrompt)}
+        isOpen={prompt}
+        toggle={() => setPrompt(!prompt)}
         singleButtonProps={{
           type: "button",
           isLoading: loadingSessions,
           disabled: loadingSessions,
           onClick: () => {
             setHideTable(false);
-            setLoginPrompt(false);
+            setPrompt(false);
             setPeriod(inputs);
           },
         }}

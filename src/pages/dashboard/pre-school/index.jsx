@@ -48,10 +48,6 @@ const PreSchool = () => {
       ]}
       action={[
         {
-          title: "Assign Subjects",
-          onClick: (id) => navigate(`/app/pre-school/subjects/assign/${id}`),
-        },
-        {
           title: "View Subjects",
           onClick: (id) => navigate(`/app/pre-school/subjects/${id}`),
         },

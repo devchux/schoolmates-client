@@ -81,6 +81,7 @@ import PreSchoolSubjectDetail from "../pages/dashboard/pre-school/subjects/detai
 import PreSchoolSubject from "../pages/dashboard/pre-school/subjects";
 import Skills from "../pages/dashboard/skills";
 import SkillsDetail from "../pages/dashboard/skills/detail";
+import SubjectsByPreSchool from "../pages/dashboard/pre-school/subjects/subjects-by-preschool";
 
 const CustomRoutes = () => {
   return (
@@ -288,16 +289,7 @@ const CustomRoutes = () => {
           path="pre-school/subjects/:id"
           element={
             <Guard routeName="pre-school">
-              <PreSchoolSubject />
-            </Guard>
-          }
-        />
-        <Route
-          exact
-          path="pre-school/subjects/assign/:id"
-          element={
-            <Guard routeName="pre-school">
-              <PreSchoolSubject />
+              <SubjectsByPreSchool />
             </Guard>
           }
         />
