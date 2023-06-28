@@ -583,7 +583,7 @@ const Student = () => {
   };
 
   const data = {
-    all: sorted ? sortedStudents : students,
+    all: sorted ? sortedStudents : students?.data,
     creditors: studentCreditors,
     debtors: studentDebtors,
     myStudents: studentByClassAndSession,
@@ -591,6 +591,10 @@ const Student = () => {
     loginDetails: studentLoginDetailsStudents,
     communication: communicationList,
   };
+
+  const pagination = {
+    all: students?.pagination
+  }
 
   const searchByClass = (value) => {
     const findClass = classes?.find((each) => each?.class_name === value) || {};
@@ -640,6 +644,7 @@ const Student = () => {
       }}
       action={getActionOptions()}
       data={data[indexStatus]}
+      pagination={pagination[indexStatus]}
       onDelete={onDeleteStudent}
       onSelectChange={handleSortBy}
       canCreate={permission?.create}

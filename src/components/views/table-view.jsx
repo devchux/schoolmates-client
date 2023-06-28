@@ -8,6 +8,7 @@ import CustomTable from "../tables/table";
 import illustrationImage from "../../assets/images/illustration.png";
 import PageTitle from "../common/title";
 import AuthSelect from "../inputs/auth-select";
+import PaginationComponent from "../tables/pagination";
 
 const PageView = ({
   onStatusToggle,
@@ -16,6 +17,7 @@ const PageView = ({
   hasSortOptions = false,
   hasSearch,
   onSearch,
+  pagination,
   searchPlaceholder,
   isLoading,
   onSearchClear,
@@ -102,6 +104,9 @@ const PageView = ({
             onRowDelete={async (data) => await onDelete(data)}
             {...rest}
           />
+          {pagination && rest.data ? (
+            <PaginationComponent pagination={pagination} />
+          ) : null}
         </div>
       )}
     </PageSheet>

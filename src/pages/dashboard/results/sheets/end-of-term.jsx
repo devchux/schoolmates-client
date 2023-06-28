@@ -13,6 +13,7 @@ import { useAppContext } from "../../../../hooks/useAppContext";
 import moment from "moment";
 import AuthSelect from "../../../../components/inputs/auth-select";
 import { useState } from "react";
+import { useSkills } from "../../../../hooks/useSkills";
 
 const AffectiveDispositionTableRow = ({
   isCompute,
@@ -51,9 +52,11 @@ const EndOfTerm = ({ isCompute = false }) => {
   const navigate = useNavigate();
   const { user } = useAppContext("results");
   const {
-    // isLoading,
+    isLoading: skillLoading,
+    skills,
+  } = useSkills();
+  const {
     academicDate,
-    // permission,
     idWithComputedResult,
     openPrompt,
     setOpenPrompt,
@@ -68,7 +71,7 @@ const EndOfTerm = ({ isCompute = false }) => {
     pdfExportComponent,
     handlePrint,
     maxScores,
-    isLoading,
+    isLoading: resultLoading,
     setStudentData,
     studentByClassAndSession,
     setInitGetExistingSecondHalfResult,
@@ -87,6 +90,8 @@ const EndOfTerm = ({ isCompute = false }) => {
     createEndOfTermResult,
     getScoreRemark,
   } = useResults();
+
+  const isLoading = skillLoading || resultLoading
 
   const getAddSubjectSelectOptions = () => {
     const mapSubjects = subjectsByClass?.map((x) => ({
@@ -127,6 +132,8 @@ const EndOfTerm = ({ isCompute = false }) => {
       });
     }
   };
+
+  console.log(skills)
 
   return (
     <div className="results-sheet">

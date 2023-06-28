@@ -94,11 +94,18 @@ export const permissions = {
       graduateStudent: false,
       readClass: true,
       studentLoginDetails: false,
+      communication: false,
     },
     results: {
       compute: true,
       view: true,
       preSchool: true,
+    },
+    skills: {
+      create: false,
+      read: true,
+      update: false,
+      delete: false,
     },
     attendance: {
       retrieve: true,
@@ -157,6 +164,12 @@ export const permissions = {
       view: true,
       preSchool: true,
     },
+    skills: {
+      create: false,
+      read: true,
+      update: false,
+      delete: false,
+    },
   },
   Student: {
     "student-home": {
@@ -170,6 +183,12 @@ export const permissions = {
       delete: false,
       sort: true,
       assignedBus: true,
+    },
+    skills: {
+      create: false,
+      read: true,
+      update: false,
+      delete: false,
     },
     results: {
       compute: false,

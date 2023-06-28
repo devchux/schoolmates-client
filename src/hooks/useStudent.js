@@ -111,7 +111,7 @@ export const useStudent = () => {
       errorHandler(err);
     },
     select: (data) => {
-      return apiServices.formatData(data)?.map((student) => {
+      const format = apiServices.formatData(data)?.map((student) => {
         return {
           ...student,
           image: (
@@ -119,6 +119,8 @@ export const useStudent = () => {
           ),
         };
       });
+      
+      return { ...data, data: format }
     },
   });
 
@@ -455,7 +457,7 @@ export const useStudent = () => {
       apiServices.getCommunicationBook,
       {
         retry: 3,
-        enabled: permission?.communication,
+        enabled: permission?.communication ?? false,
         select: apiServices.formatData,
         onError(err) {
           errorHandler(err);
