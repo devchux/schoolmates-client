@@ -5,7 +5,8 @@ import { useStaff } from "../../../hooks/useStaff";
 
 const Staff = () => {
   const navigate = useNavigate();
-  const [setSearchParams] = useSearchParams();
+  // eslint-disable-next-line no-unused-vars
+  const [_, setSearchParams] = useSearchParams();
   const {
     isLoading,
     onDeleteStaff,

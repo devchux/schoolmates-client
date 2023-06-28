@@ -15,7 +15,8 @@ import {
 const Student = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const [setSearchParams] = useSearchParams();
+  // eslint-disable-next-line no-unused-vars
+  const [_, setSearchParams] = useSearchParams();
   const {
     students,
     isLoading,

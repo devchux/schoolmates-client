@@ -14,20 +14,12 @@ const PaginationComponent = ({ pagination, limit = 10 }) => {
 
   useEffect(() => {
     setState({
-      start: page > state.end ? page - (page % limit) : state.start,
-      end: page > state.end ? page - (page % limit) + limit : state.end,
-      page: page,
+      start: page - (page % limit),
+      end: page - (page % limit) + limit,
+      page,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    setState({
-      start: 0,
-      end: pagination.last_page > limit ? limit : pagination.last_page,
-      page: pagination.current_page,
-    });
-  }, [limit, pagination]);
+  }, [pagination, limit, page]);
 
   return (
     <Pagination>
@@ -37,11 +29,6 @@ const PaginationComponent = ({ pagination, limit = 10 }) => {
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            setState({
-              start: 0,
-              end: limit,
-              page: 1,
-            });
             navigate(`?page=1`);
           }}
         />
@@ -53,17 +40,6 @@ const PaginationComponent = ({ pagination, limit = 10 }) => {
           onClick={(e) => {
             e.preventDefault();
             if (state.page === 1) return;
-            setState({
-              start:
-                state.page === 1 || state.page - 1 !== state.start
-                  ? state.start
-                  : state.start - limit,
-              end:
-                state.page === 1 || state.page - 1 !== state.start
-                  ? state.end
-                  : state.start,
-              page: state.page - 1,
-            });
             navigate(`?page=${state.page - 1}`);
           }}
         />
@@ -78,9 +54,6 @@ const PaginationComponent = ({ pagination, limit = 10 }) => {
               href={`?page=${i}`}
               onClick={(e) => {
                 e.preventDefault();
-                setState({
-                  page: i,
-                });
                 navigate(`?page=${i}`);
               }}
             >
@@ -95,16 +68,6 @@ const PaginationComponent = ({ pagination, limit = 10 }) => {
           onClick={(e) => {
             e.preventDefault();
             if (pagination.last_page === state.page) return;
-            setState({
-              start: state.page === state.end ? state.end : state.start,
-              end:
-                state.page === state.end
-                  ? pagination.last_page > state.end + limit
-                    ? state.end + limit
-                    : pagination.last_page
-                  : state.end,
-              page: state.page + 1,
-            });
             navigate(`?page=${state.page + 1}`);
           }}
         />
@@ -115,11 +78,6 @@ const PaginationComponent = ({ pagination, limit = 10 }) => {
           last
           onClick={(e) => {
             e.preventDefault();
-            setState({
-              start: pagination.last_page - (pagination.last_page % limit),
-              end: pagination.last_page,
-              page: pagination.last_page,
-            });
             navigate(`?page=${pagination.last_page}`);
           }}
         />
