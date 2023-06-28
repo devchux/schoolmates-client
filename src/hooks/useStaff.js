@@ -15,7 +15,6 @@ export const useStaff = () => {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page") ?? "1");
   const [indexStatus, setIndexStatus] = useState("all");
-  const [allStaffsByAttendance, setAllStaffsByAttendance] = useState([]);
   const { id } = useParams();
 
   const {
@@ -117,24 +116,23 @@ export const useStaff = () => {
 
   const staffs = staffsData?.data ?? [];
 
-  const { isLoading: allStaffsByAttendanceLoading } = useQuery(
-    [queryKeys.GET_ALL_STAFFS_BY_ATTENDANCE],
-    apiServices.getStaffAttendance,
+  const { isLoading: allStaffsByAttendanceLoading, data: allStaffsByAttendance } = useQuery(
+    [queryKeys.GET_ALL_STAFFS_BY_ATTENDANCE, page],
+    () => apiServices.getStaffAttendance(page),
     {
       enabled: permission?.readAttendance || false,
       retry: 3,
-      onSuccess(data) {
-        const formatAllStaffsByAttendance = data?.map((x) => ({
-          ...x,
-          staff: staffs?.find(({ id }) => id === x?.staff_id),
-        }));
-
-        setAllStaffsByAttendance(formatAllStaffsByAttendance);
-      },
       onError(err) {
         errorHandler(err);
       },
-      select: apiServices.formatData,
+      select: (data) => {
+        const f = apiServices.formatData(data)?.map((x) => ({
+          ...x,
+          staff: staffs?.find(({ id }) => id === x?.staff_id),
+        }))
+
+        return {...data, data: f}
+      },
     }
   );
 
@@ -231,13 +229,13 @@ export const useStaff = () => {
 
   const { isLoading: staffLoginDetailsLoading, data: staffLoginDetails } =
     useQuery(
-      [queryKeys.GET_STAFF_LOGIN_DETAILS],
-      apiServices.getStaffLoginDetails,
+      [queryKeys.GET_STAFF_LOGIN_DETAILS, page],
+      () => apiServices.getStaffLoginDetails(page),
       {
         retry: 3,
         enabled: permission?.staffLoginDetails,
         select: (data) => {
-          return apiServices.formatData(data)?.map((staff) => {
+          const f = apiServices.formatData(data)?.map((staff) => {
             const { designation_name } = designations?.data?.find(
               (item) => item.id === staff.designation_id
             )?.attributes ?? { designation_name: "" };
@@ -246,6 +244,8 @@ export const useStaff = () => {
               designation_name: roleMap[designation_name],
             };
           });
+
+          return {...data, data: f }
         },
         onError(err) {
           errorHandler(err);
@@ -303,6 +303,6 @@ export const useStaff = () => {
     addStaffAttendance,
     apiServices,
     assignClass,
-    pagination: staffsData?.pagination
+    staffsData,
   };
 };

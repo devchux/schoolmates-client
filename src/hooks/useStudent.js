@@ -106,25 +106,29 @@ export const useStudent = () => {
     isLoading: studentListLoading,
     data: students,
     refetch: refetchStudents,
-  } = useQuery([queryKeys.GET_ALL_STUDENTS, page], () => apiServices.getAllStudents(page), {
-    enabled: permission?.read || false,
-    retry: 3,
-    onError(err) {
-      errorHandler(err);
-    },
-    select: (data) => {
-      const format = apiServices.formatData(data)?.map((student) => {
-        return {
-          ...student,
-          image: (
-            <ProfileImage src={student?.image} wrapperClassName="mx-auto" />
-          ),
-        };
-      });
-      
-      return { ...data, data: format }
-    },
-  });
+  } = useQuery(
+    [queryKeys.GET_ALL_STUDENTS, page],
+    () => apiServices.getAllStudents(page),
+    {
+      enabled: permission?.read || false,
+      retry: 3,
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) => {
+        const format = apiServices.formatData(data)?.map((student) => {
+          return {
+            ...student,
+            image: (
+              <ProfileImage src={student?.image} wrapperClassName="mx-auto" />
+            ),
+          };
+        });
+
+        return { ...data, data: format };
+      },
+    }
+  );
 
   const { data: studentByClassAndSession, isLoading: studentByClassLoading } =
     useQuery(
@@ -441,12 +445,11 @@ export const useStudent = () => {
     isLoading: studentLoginDetailsLoading,
     data: studentLoginDetailsStudents,
   } = useQuery(
-    [queryKeys.GET_STUDENT_LOGIN_DETAILS],
-    apiServices.getStudentLoginDetails,
+    [queryKeys.GET_STUDENT_LOGIN_DETAILS, page],
+    () => apiServices.getStudentLoginDetails(page),
     {
       retry: 3,
       enabled: permission?.studentLoginDetails,
-      select: (data) => data?.data,
       onError(err) {
         errorHandler(err);
       },

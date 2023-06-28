@@ -15,14 +15,19 @@ const PaginationComponent = ({ pagination, limit = 10 }) => {
   useEffect(() => {
     setState({
       start: page > state.end ? page - (page % limit) : state.start,
-      end:
-        page > state.end
-          ? page - (page % limit) + limit
-          : state.end,
+      end: page > state.end ? page - (page % limit) + limit : state.end,
       page: page,
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    setState({
+      start: 0,
+      end: pagination.last_page > limit ? limit : pagination.last_page,
+      page: pagination.current_page,
+    });
+  }, [limit, pagination]);
 
   return (
     <Pagination>

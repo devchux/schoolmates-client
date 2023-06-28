@@ -1259,24 +1259,30 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async getStudentLoginDetails() {
-    const { data } = await axios.get(`${backendAPI}/studentlogindetails`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${super.getToken()}`,
-      },
-    });
+  async getStudentLoginDetails(page) {
+    const { data } = await axios.get(
+      `${backendAPI}/studentlogindetails?page=${page}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }
 
-  async getStaffLoginDetails() {
-    const { data } = await axios.get(`${backendAPI}/stafflogindetails`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${super.getToken()}`,
-      },
-    });
+  async getStaffLoginDetails(page) {
+    const { data } = await axios.get(
+      `${backendAPI}/stafflogindetails?page=${page}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
 
     return data;
   }

@@ -1,12 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import PageView from "../../../components/views/table-view";
 import { useStaff } from "../../../hooks/useStaff";
 
 const Staff = () => {
   const navigate = useNavigate();
+  const [setSearchParams] = useSearchParams();
   const {
-    staffs,
     isLoading,
     onDeleteStaff,
     toggleStaffStatus,
@@ -15,7 +15,7 @@ const Staff = () => {
     setIndexStatus,
     permission,
     staffLoginDetails,
-    pagination,
+    staffsData,
   } = useStaff();
 
   const dataMapper = {
@@ -66,7 +66,8 @@ const Staff = () => {
           accessor: "designation_name",
         },
       ],
-      data: staffs,
+      data: staffsData?.data,
+      pagination: staffsData?.pagination,
     },
     attendance: {
       columns: [
@@ -99,7 +100,8 @@ const Staff = () => {
           accessor: "time_out",
         },
       ],
-      data: allStaffsByAttendance,
+      data: allStaffsByAttendance?.data,
+      pagination: allStaffsByAttendance?.pagination,
     },
     loginDetails: {
       columns: [
@@ -128,7 +130,8 @@ const Staff = () => {
           accessor: "pass_word",
         },
       ],
-      data: staffLoginDetails,
+      data: staffLoginDetails?.data,
+      pagination: staffLoginDetails?.pagination,
     },
   };
 
@@ -140,7 +143,10 @@ const Staff = () => {
         title: "All",
         type: "button",
         variant: indexStatus !== "all" ? "outline" : null,
-        onClick: () => setIndexStatus("all"),
+        onClick: () => {
+          setIndexStatus("all");
+          setSearchParams({});
+        },
       });
     }
 
@@ -149,7 +155,10 @@ const Staff = () => {
         title: "Attendance List",
         type: "button",
         variant: indexStatus !== "attendance" ? "outline" : null,
-        onClick: () => setIndexStatus("attendance"),
+        onClick: () => {
+          setIndexStatus("attendance");
+          setSearchParams({});
+        },
       });
     }
 
@@ -167,7 +176,7 @@ const Staff = () => {
 
   return (
     <PageView
-      pagination={pagination}
+      pagination={dataMapper[indexStatus].pagination}
       rowHasAction={permission?.action && indexStatus === "all"}
       rowHasUpdate={indexStatus === "all" && permission?.update}
       rowHasDelete={indexStatus === "all" && permission?.delete}

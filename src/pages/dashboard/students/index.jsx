@@ -1,13 +1,21 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import PageView from "../../../components/views/table-view";
 import { useAcademicSession } from "../../../hooks/useAcademicSession";
 import { useClasses } from "../../../hooks/useClasses";
 import { useStudent } from "../../../hooks/useStudent";
+import {
+  getActionOptions,
+  getColumns,
+  getSortButtonOptions,
+  getStudentColumns,
+  searchPlaceholder,
+} from "./constant";
 
 const Student = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
+  const [setSearchParams] = useSearchParams();
   const {
     students,
     isLoading,
@@ -37,564 +45,20 @@ const Student = () => {
 
   const { data: sessions } = useAcademicSession();
 
-  const setVariant = (status) => {
-    return indexStatus !== status ? "outline" : null;
-  };
-
-  const getColumns = () => {
-    switch (indexStatus) {
-      case "all":
-        return [
-          {
-            Header: "",
-            accessor: "image",
-          },
-          {
-            Header: "id",
-            accessor: "id",
-          },
-          {
-            Header: "First Name",
-            accessor: "firstname",
-          },
-          {
-            Header: "Surname",
-            accessor: "surname",
-          },
-          {
-            Header: "Middle Name",
-            accessor: "middlename",
-          },
-          {
-            Header: "Phone Number",
-            accessor: "phone_number",
-          },
-          {
-            Header: "Status",
-            accessor: "status",
-          },
-          {
-            Header: "Admission Number",
-            accessor: "admission_number",
-          },
-          {
-            Header: "Present Class",
-            accessor: "present_class",
-          },
-          {
-            Header: "Gender",
-            accessor: "gender",
-          },
-        ];
-      case "alumni":
-        return [
-          {
-            Header: "",
-            accessor: "image",
-          },
-          {
-            Header: "id",
-            accessor: "id",
-          },
-          {
-            Header: "First Name",
-            accessor: "firstname",
-          },
-          {
-            Header: "Surname",
-            accessor: "surname",
-          },
-          {
-            Header: "Middle Name",
-            accessor: "middlename",
-          },
-          {
-            Header: "Phone Number",
-            accessor: "phone_number",
-          },
-          {
-            Header: "Status",
-            accessor: "status",
-          },
-          {
-            Header: "Admission Number",
-            accessor: "admission_number",
-          },
-          {
-            Header: "Present Class",
-            accessor: "present_class",
-          },
-          {
-            Header: "Gender",
-            accessor: "gender",
-          },
-        ];
-
-      case "myStudents":
-        return [
-          {
-            Header: "id",
-            accessor: "id",
-          },
-          {
-            Header: "First Name",
-            accessor: "firstname",
-          },
-          {
-            Header: "Surname",
-            accessor: "surname",
-          },
-          {
-            Header: "Middle Name",
-            accessor: "middlename",
-          },
-          {
-            Header: "Phone Number",
-            accessor: "phone_number",
-          },
-          {
-            Header: "Status",
-            accessor: "status",
-          },
-          {
-            Header: "Admission Number",
-            accessor: "admission_number",
-          },
-          {
-            Header: "Present Class",
-            accessor: "present_class",
-          },
-          {
-            Header: "Gender",
-            accessor: "gender",
-          },
-        ];
-
-      case "loginDetails":
-        return [
-          {
-            Header: "First Name",
-            accessor: "firstname",
-          },
-          {
-            Header: "Surname",
-            accessor: "surname",
-          },
-          {
-            Header: "Middle Name",
-            accessor: "middlename",
-          },
-          {
-            Header: "Admission Number",
-            accessor: "admission_number",
-          },
-          {
-            Header: "Present Class",
-            accessor: "present_class",
-          },
-          {
-            Header: "Password",
-            accessor: "pass_word",
-          },
-        ];
-
-      case "communication":
-        return [
-          {
-            Header: "Campus",
-            accessor: "campus",
-          },
-          {
-            Header: "Period",
-            accessor: "period",
-          },
-          {
-            Header: "Term",
-            accessor: "term",
-          },
-          {
-            Header: "Session",
-            accessor: "session",
-          },
-          {
-            Header: "Title",
-            accessor: "title",
-          },
-          {
-            Header: "Urgency",
-            accessor: "urgency",
-          },
-          {
-            Header: "Admission Number",
-            accessor: "admission_number",
-          },
-          {
-            Header: "Message",
-            accessor: "message",
-          },
-          {
-            Header: "Sender",
-            accessor: "sender",
-          },
-          {
-            Header: "Status",
-            accessor: "status",
-          },
-        ];
-
-      default:
-        return [
-          {
-            Header: "id",
-            accessor: "id",
-          },
-          {
-            Header: "Full Name",
-            accessor: "student_fullname",
-          },
-          {
-            Header: "Amount Due",
-            accessor: "amount_due",
-          },
-          {
-            Header: "Amount Paid",
-            accessor: "amount_paid",
-          },
-          {
-            Header: "Total Amount",
-            accessor: "total_amount",
-          },
-          {
-            Header: "Session",
-            accessor: "session",
-          },
-          {
-            Header: "Term",
-            accessor: "term",
-          },
-          {
-            Header: "Status",
-            accessor: "status",
-          },
-          {
-            Header: "Account Name",
-            accessor: "account_name",
-          },
-          {
-            Header: "Bank Name",
-            accessor: "bank_name",
-          },
-          {
-            Header: "Payment Method",
-            accessor: "payment_method",
-          },
-          {
-            Header: "Remark",
-            accessor: "remark",
-          },
-        ];
-    }
-  };
-
-  const getStudentColumns = () => {
-    switch (indexStatus) {
-      case "all":
-        return [
-          {
-            Header: "",
-            accessor: "image",
-          },
-          {
-            Header: "id",
-            accessor: "id",
-          },
-          {
-            Header: "First Name",
-            accessor: "firstname",
-          },
-          {
-            Header: "Surname",
-            accessor: "surname",
-          },
-          {
-            Header: "Middle Name",
-            accessor: "middlename",
-          },
-          {
-            Header: "Present Class",
-            accessor: "present_class",
-          },
-          {
-            Header: "Gender",
-            accessor: "gender",
-          },
-        ];
-
-      case "myStudents":
-        return [
-          {
-            Header: "id",
-            accessor: "id",
-          },
-          {
-            Header: "First Name",
-            accessor: "firstname",
-          },
-          {
-            Header: "Surname",
-            accessor: "surname",
-          },
-          {
-            Header: "Middle Name",
-            accessor: "middlename",
-          },
-          {
-            Header: "Present Class",
-            accessor: "present_class",
-          },
-        ];
-
-      case "communication":
-        return [
-          {
-            Header: "Campus",
-            accessor: "campus",
-          },
-          {
-            Header: "Period",
-            accessor: "period",
-          },
-          {
-            Header: "Term",
-            accessor: "term",
-          },
-          {
-            Header: "Session",
-            accessor: "session",
-          },
-          {
-            Header: "Title",
-            accessor: "title",
-          },
-          {
-            Header: "Urgency",
-            accessor: "urgency",
-          },
-          {
-            Header: "Admission Number",
-            accessor: "admission_number",
-          },
-          {
-            Header: "Message",
-            accessor: "message",
-          },
-          {
-            Header: "Sender",
-            accessor: "sender",
-          },
-          {
-            Header: "Status",
-            accessor: "status",
-          },
-        ];
-
-      default:
-        return [
-          {
-            Header: "id",
-            accessor: "id",
-          },
-          {
-            Header: "Full Name",
-            accessor: "student_fullname",
-          },
-          {
-            Header: "Amount Due",
-            accessor: "amount_due",
-          },
-          {
-            Header: "Amount Paid",
-            accessor: "amount_paid",
-          },
-          {
-            Header: "Total Amount",
-            accessor: "total_amount",
-          },
-          {
-            Header: "Session",
-            accessor: "session",
-          },
-          {
-            Header: "Term",
-            accessor: "term",
-          },
-          {
-            Header: "Status",
-            accessor: "status",
-          },
-          {
-            Header: "Account Name",
-            accessor: "account_name",
-          },
-          {
-            Header: "Bank Name",
-            accessor: "bank_name",
-          },
-          {
-            Header: "Payment Method",
-            accessor: "payment_method",
-          },
-          {
-            Header: "Remark",
-            accessor: "remark",
-          },
-        ];
-    }
-  };
-
-  const getSortButtonOptions = () => {
-    let arr = [];
-
-    if (permission?.read) {
-      arr.push({
-        title: "All",
-        type: "button",
-        onClick: () => setIndexStatus("all"),
-        variant: setVariant("all"),
-      });
-    }
-    if (permission?.readCreditors) {
-      arr.push({
-        title: "Creditors",
-        type: "button",
-        onClick: () => setIndexStatus("creditors"),
-        variant: setVariant("creditors"),
-      });
-    }
-
-    if (permission?.readDebtors) {
-      arr.push({
-        title: "Debtors",
-        type: "button",
-        onClick: () => setIndexStatus("debtors"),
-        variant: setVariant("debtors"),
-      });
-    }
-
-    if (permission?.myStudents) {
-      arr.push({
-        title:
-          user?.designation_name === "Student" ? "My Class" : "My Students",
-        type: "button",
-        onClick: () => setIndexStatus("myStudents"),
-        variant: setVariant("myStudents"),
-      });
-    }
-
-    if (permission?.alumni) {
-      arr.push({
-        title: "Alumni",
-        type: "button",
-        onClick: () => setIndexStatus("alumni"),
-        variant: setVariant("alumni"),
-      });
-    }
-
-    if (permission?.communication) {
-      arr.push({
-        title: "Communication Book",
-        type: "button",
-        onClick: () => setIndexStatus("communication"),
-        variant: setVariant("communication"),
-      });
-    }
-
-    if (permission?.studentLoginDetails) {
-      arr.push({
-        title: "Login Details",
-        type: "button",
-        onClick: () => setIndexStatus("loginDetails"),
-        variant: setVariant("loginDetails"),
-      });
-    }
-
-    return arr.length ? arr : undefined;
-  };
-
-  const getActionOptions = () => {
-    const arr = [];
-
-    if (permission?.promote) {
-      arr.push({
-        title: "Promote",
-        onClick: (id) => navigate(`/app/students/promote/${id}`),
-      });
-    }
-
-    if (permission?.transfer) {
-      arr.push({
-        title: "Transfer",
-        onClick: (id) => navigate(`/app/students/transfer/${id}`),
-      });
-    }
-
-    if (permission?.invoice) {
-      arr.push({
-        title: "Create Invoice",
-        onClick: (id) => navigate(`/app/students/invoice/${id}`),
-      });
-    }
-
-    if (permission?.payment) {
-      arr.push({
-        title: "Register Payment",
-        onClick: (id) => navigate(`/app/payment/${id}`),
-      });
-    }
-
-    if (permission["health-report"]) {
-      arr.push({
-        title: "Health Report",
-        onClick: (id) => navigate(`/app/students/health-report/${id}`),
-      });
-    }
-
-    if (permission["bus-routing"]) {
-      arr.push({
-        title: "Bus Routing",
-        onClick: (id) => navigate(`/app/students/bus-routing/${id}`),
-      });
-    }
-
-    if (permission["create-communication"]) {
-      arr.push({
-        title: "Communication Book",
-        onClick: (id) => navigate(`/app/students/communication/${id}`),
-      });
-    }
-
-    return arr.length ? arr : undefined;
-  };
-
-  const searchPlaceholder = {
-    session: "Sort by session (2021/2022)",
-    "admission-number": "Enter Admission Number",
-    class: "Select Class",
-  };
-
   const data = {
     all: sorted ? sortedStudents : students?.data,
     creditors: studentCreditors,
     debtors: studentDebtors,
     myStudents: studentByClassAndSession,
     alumni: graduatedStudents,
-    loginDetails: studentLoginDetailsStudents,
+    loginDetails: studentLoginDetailsStudents?.data,
     communication: communicationList,
   };
 
   const pagination = {
-    all: students?.pagination
-  }
+    all: !sorted && students?.pagination,
+    loginDetails: studentLoginDetailsStudents?.pagination,
+  };
 
   const searchByClass = (value) => {
     const findClass = classes?.find((each) => each?.class_name === value) || {};
@@ -642,7 +106,7 @@ const Student = () => {
         setSorted(false);
         setSortBy("");
       }}
-      action={getActionOptions()}
+      action={getActionOptions({ permission, navigate })}
       data={data[indexStatus]}
       pagination={pagination[indexStatus]}
       onDelete={onDeleteStudent}
@@ -653,10 +117,18 @@ const Student = () => {
       searchIsSelect={sortBy === "class" || sortBy === "session"}
       columns={
         user?.designation_name === "Student"
-          ? getStudentColumns()
-          : getColumns()
+          ? getStudentColumns({ indexStatus })
+          : getColumns({ indexStatus })
       }
-      groupedButtonOptions={getSortButtonOptions()}
+      groupedButtonOptions={getSortButtonOptions({
+        permission,
+        user,
+        indexStatus,
+        setIndexStatus: (index) => {
+          setIndexStatus(index)
+          setSearchParams({})
+        },
+      })}
       hasSelect={indexStatus === "all" && permission?.sortSession}
       hasSearch={indexStatus === "all" && permission?.sortSession}
       searchSelectOptions={getSelectSearchOptions()}

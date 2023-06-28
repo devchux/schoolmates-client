@@ -104,7 +104,7 @@ const PageView = ({
             onRowDelete={async (data) => await onDelete(data)}
             {...rest}
           />
-          {pagination && rest.data ? (
+          {pagination && rest?.data?.length ? (
             <PaginationComponent pagination={pagination} />
           ) : null}
         </div>
