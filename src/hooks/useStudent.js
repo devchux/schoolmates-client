@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import validator from "validator";
 import { isValidPhoneNumber } from "react-phone-number-input";
@@ -12,6 +12,8 @@ import ProfileImage from "../components/common/profile-image";
 import Numeral from "react-numeral";
 
 export const useStudent = () => {
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get("page") ?? "1");
   const { apiServices, errorHandler, permission, user } =
     useAppContext("students");
   const [sortedStudents, setSortedStudents] = useState([]);
@@ -104,7 +106,7 @@ export const useStudent = () => {
     isLoading: studentListLoading,
     data: students,
     refetch: refetchStudents,
-  } = useQuery([queryKeys.GET_ALL_STUDENTS], apiServices.getAllStudents, {
+  } = useQuery([queryKeys.GET_ALL_STUDENTS, page], () => apiServices.getAllStudents(page), {
     enabled: permission?.read || false,
     retry: 3,
     onError(err) {

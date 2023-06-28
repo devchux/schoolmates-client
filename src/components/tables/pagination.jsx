@@ -4,7 +4,7 @@ import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
 const PaginationComponent = ({ pagination, limit = 10 }) => {
   const [searchParams] = useSearchParams();
-  const query = Number(searchParams.get("page") ?? "0");
+  const page = Number(searchParams.get("page") ?? "1");
   const [state, setState] = useReducer((prev, next) => ({ ...prev, ...next }), {
     start: 0,
     end: pagination.last_page > limit ? limit : pagination.last_page,
@@ -12,18 +12,14 @@ const PaginationComponent = ({ pagination, limit = 10 }) => {
   });
   const navigate = useNavigate();
 
-  console.log(query);
-
   useEffect(() => {
     setState({
-      start: query > state.end ? query - 1 : state.start,
+      start: page > state.end ? page - (page % limit) : state.start,
       end:
-        query > state.end
-          ? query + limit > pagination.last_page
-            ? query + limit
-            : pagination.last_page
+        page > state.end
+          ? page - (page % limit) + limit
           : state.end,
-      page: query ?? 1,
+      page: page,
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

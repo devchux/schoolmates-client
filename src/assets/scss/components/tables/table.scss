@@ -1,7 +1,7 @@
 .custom-table-wrapper {
   // overflow: hidden;
   overflow-x: auto;
-  margin: 2.5rem 0;
+  margin: 2.5rem 0 0;
   padding-bottom: 5em;
 
   > div {
@@ -52,7 +52,7 @@
 
   .page-link {
     @media only screen and (min-width: 900px) {
-      padding: 0.6rem !important;
+      padding: 1rem !important;
     }
   }
 }
