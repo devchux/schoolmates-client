@@ -15,6 +15,7 @@ const Staff = () => {
     setIndexStatus,
     permission,
     staffLoginDetails,
+    pagination,
   } = useStaff();
 
   const dataMapper = {
@@ -166,6 +167,7 @@ const Staff = () => {
 
   return (
     <PageView
+      pagination={pagination}
       rowHasAction={permission?.action && indexStatus === "all"}
       rowHasUpdate={indexStatus === "all" && permission?.update}
       rowHasDelete={indexStatus === "all" && permission?.delete}

@@ -2,7 +2,7 @@ import { useState } from "react";
 import validator from "validator";
 import { isValidPhoneNumber } from "react-phone-number-input";
 import { useMutation, useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { roleMap } from "../utils/constants";
 import queryKeys from "../utils/queryKeys";
@@ -12,7 +12,8 @@ import { useFile } from "./useFile";
 import ProfileImage from "../components/common/profile-image";
 
 export const useStaff = () => {
-  const [staffs, setStaffs] = useState([]);
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get("page") ?? "1");
   const [indexStatus, setIndexStatus] = useState("all");
   const [allStaffsByAttendance, setAllStaffsByAttendance] = useState([]);
   const { id } = useParams();
@@ -82,14 +83,21 @@ export const useStaff = () => {
     }
   );
 
-  const { isLoading: staffListLoading, refetch: refetchStaffList } = useQuery(
-    [queryKeys.GET_ALL_STAFFS],
-    apiServices.getAllStaffs,
+  const {
+    isLoading: staffListLoading,
+    refetch: refetchStaffList,
+    data: staffsData,
+  } = useQuery(
+    [queryKeys.GET_ALL_STAFFS, page],
+    () => apiServices.getAllStaffs(page),
     {
       enabled: permission?.read || false,
       retry: 3,
-      onSuccess(data) {
-        const formatStaffs = data.map((staff) => {
+      onError(err) {
+        errorHandler(err);
+      },
+      select: (data) => {
+        const f = apiServices.formatData(data).map((staff) => {
           const { designation_name } =
             designations?.data?.find((item) => item.id === staff.designation_id)
               ?.attributes || {};
@@ -102,14 +110,12 @@ export const useStaff = () => {
             ),
           };
         });
-        setStaffs(formatStaffs);
+        return { ...data, data: f };
       },
-      onError(err) {
-        errorHandler(err);
-      },
-      select: apiServices.formatData,
     }
   );
+
+  const staffs = staffsData?.data ?? [];
 
   const { isLoading: allStaffsByAttendanceLoading } = useQuery(
     [queryKeys.GET_ALL_STAFFS_BY_ATTENDANCE],
@@ -297,5 +303,6 @@ export const useStaff = () => {
     addStaffAttendance,
     apiServices,
     assignClass,
+    pagination: staffsData?.pagination
   };
 };

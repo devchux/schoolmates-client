@@ -146,8 +146,8 @@ class APIServies extends Helpers {
     return data;
   }
 
-  async getAllStaffs() {
-    const { data } = await axios.get(`${backendAPI}/staff`, {
+  async getAllStaffs(page) {
+    const { data } = await axios.get(`${backendAPI}/staff?page=${page}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${super.getToken()}`,
