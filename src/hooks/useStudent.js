@@ -492,10 +492,6 @@ export const useStudent = () => {
       },
     });
 
-  const formatSingleStudent = id
-    ? students?.find((x) => x.id === id)
-    : undefined;
-
   const handleUpdateStudent = async (data) => await updateStudent(data);
 
   const handleDeleteStudent = async (data) => await deleteStudent(data);
@@ -570,6 +566,6 @@ export const useStudent = () => {
     postCommunicationBook,
     onDeleteStudent: handleDeleteStudent,
     onUpdateStudent: handleUpdateStudent,
-    studentData: singleStudent || formatSingleStudent,
+    studentData: singleStudent,
   };
 };

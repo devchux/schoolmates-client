@@ -382,3 +382,27 @@ export const useResults = () => {
     setInitGetExistingSecondHalfResult,
   };
 };
+
+// {
+//   school_opened: 0,
+//   times_absent: 0,
+//   times_absent: 0,
+//   evaluation_report: [
+//     {
+//       subject: 'Physical Development',
+//       topics: [
+//         { topic: 'Fine Motor Skills', score: 'Fair', improvement: false }
+//       ]
+//     }
+//   ],
+//   cognitive_development: [
+//     {
+//       subject: 'Physical Development',
+//       topics: [
+//         { topic: 'Fine Motor Skills', score: 'Fair', improvement: false }
+//       ]
+//     }
+//   ],
+//   teacher_comment: '',
+
+// }

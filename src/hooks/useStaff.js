@@ -253,8 +253,6 @@ export const useStaff = () => {
       }
     );
 
-  const formatSingleStaff = id ? staffs?.find((x) => x.id === id) : undefined;
-
   const handleUpdateStaff = async (data) => await updateStaff({ ...data, id });
 
   const handleDeleteStaff = async (data) => await deleteStaff(data);
@@ -279,7 +277,7 @@ export const useStaff = () => {
     isEdit: !!id,
     onUpdateStaff: handleUpdateStaff,
     addStaff,
-    staffData: singleStaff || formatSingleStaff,
+    staffData: singleStaff,
     onDeleteStaff: handleDeleteStaff,
     getFieldProps,
     inputs,
