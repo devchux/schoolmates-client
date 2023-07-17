@@ -1577,6 +1577,20 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getPreSchoolCompiledResults(period, term, session) {
+    const { data } = await axios.get(
+      `${backendAPI}/computedresult/${period}/${term}/${session}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
   async getPreSchoolResults(studentId, period, term, session) {
     const { data } = await axios.get(
       `${backendAPI}/preschoolresult/${studentId}/${period}/${term}/${session}`,

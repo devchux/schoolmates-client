@@ -210,28 +210,53 @@ export const useResults = () => {
     }
   );
 
-  const { isLoading: preSchoolResultsLoading, data: preSchoolResults } =
-    useQuery(
-      [
-        queryKeys.GET_PRE_SCHOOL_RESULTS,
-        studentData?.id,
+  // const { isLoading: preSchoolResultsLoading, data: preSchoolResults } =
+  //   useQuery(
+  //     [
+  //       queryKeys.GET_PRE_SCHOOL_RESULTS,
+  //       studentData?.id,
+  //       state?.creds?.period,
+  //       state?.creds?.term,
+  //       state?.creds?.session,
+  //     ],
+  //     () =>
+  //       apiServices.getPreSchoolResults(
+  //         studentData?.id,
+  //         state?.creds?.period,
+  //         state?.creds?.term,
+  //         state?.creds?.session
+  //       ),
+  //     {
+  //       enabled: !!studentData?.id && user.is_preschool === "true",
+  //       select: apiServices.formatData,
+  //     }
+  //   );
+
+  const {
+    isLoading: preSchoolCompiledResultsLoading,
+    data: preSchoolCompiledResults,
+  } = useQuery(
+    [
+      queryKeys.GET_PRE_SCHOOL_COMPILED_RESULTS,
+      state?.creds?.period,
+      state?.creds?.term,
+      state?.creds?.session,
+    ],
+    () =>
+      apiServices.getPreSchoolCompiledResults(
         state?.creds?.period,
         state?.creds?.term,
-        state?.creds?.session,
-      ],
-      () =>
-        apiServices.getPreSchoolResults(
-          studentData?.id,
-          state?.creds?.period,
-          state?.creds?.term,
-          state?.creds?.session
-        ),
-      {
-        enabled: !!studentData?.id && user.is_preschool === "true",
-        select: apiServices.formatData,
-        onSuccess(data) {},
-      }
-    );
+        state?.creds?.session
+      ),
+    {
+      enabled: user.is_preschool === "true",
+      select: apiServices.formatData,
+      onSuccess(data) {
+        const ids = data?.map((x) => x.student_id) ?? [];
+        setIdWithComputedResult(ids);
+      },
+    }
+  );
 
   const { data: studentResult, isLoading: studentResultLoading } = useQuery(
     [
@@ -413,7 +438,8 @@ export const useResults = () => {
     gradingLoading ||
     preSchoolSubjectsByClassLoading ||
     addPreSchoolResultLoading ||
-    preSchoolResultsLoading;
+    // preSchoolResultsLoading ||
+    preSchoolCompiledResultsLoading;
 
   return {
     isLoading,
@@ -456,6 +482,7 @@ export const useResults = () => {
     setInitGetExistingSecondHalfResult,
     preSchoolSubjectsByClass,
     addPreSchoolResult,
-    preSchoolResults,
+    // preSchoolResults,
+    preSchoolCompiledResults,
   };
 };

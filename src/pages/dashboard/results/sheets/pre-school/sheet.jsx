@@ -65,13 +65,14 @@ const PreSchoolResult = () => {
     handlePrint,
     studentByClassAndSession,
     studentData,
-    preSchoolResults,
     academicDate,
+    preSchoolCompiledResults,
   } = useResults();
 
-  const result = preSchoolResults?.[0] ?? null;
-
-  console.log({ result });
+  const result =
+    preSchoolCompiledResults?.find(
+      ({ student_id }) => student_id === studentData.id
+    ) ?? null;
 
   return (
     <div className="results-sheet">
