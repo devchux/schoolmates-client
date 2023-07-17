@@ -82,6 +82,8 @@ import PreSchoolSubject from "../pages/dashboard/pre-school/subjects";
 import Skills from "../pages/dashboard/skills";
 import SkillsDetail from "../pages/dashboard/skills/detail";
 import SubjectsByPreSchool from "../pages/dashboard/pre-school/subjects/subjects-by-preschool";
+import PreSchoolResult from "../pages/dashboard/results/sheets/pre-school/sheet";
+import ComputePreSchoolResult from "../pages/dashboard/results/sheets/pre-school/compute";
 
 const CustomRoutes = () => {
   return (
@@ -540,19 +542,19 @@ const CustomRoutes = () => {
         />
         <Route
           exact
-          path="results"
+          path="dress-code"
           element={
-            <Guard routeName="results">
-              <Results />
+            <Guard routeName="dress-code">
+              <DressCode />
             </Guard>
           }
         />
         <Route
           exact
-          path="dress-code"
+          path="results"
           element={
-            <Guard routeName="dress-code">
-              <DressCode />
+            <Guard routeName="results">
+              <Results />
             </Guard>
           }
         />
@@ -589,6 +591,24 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="results" action={["compute"]}>
               <EndOfTerm isCompute />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="results/preschool"
+          element={
+            <Guard routeName="results">
+              <PreSchoolResult />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="results/preschool/compute"
+          element={
+            <Guard routeName="results">
+              <ComputePreSchoolResult />
             </Guard>
           }
         />

@@ -51,10 +51,7 @@ const EndOfTerm = ({ isCompute = false }) => {
   const [openSubjectPrompt, setOpenSubjectPrompt] = useState(false);
   const navigate = useNavigate();
   const { user } = useAppContext("results");
-  const {
-    isLoading: skillLoading,
-    skills,
-  } = useSkills();
+  const { isLoading: skillLoading, skills } = useSkills();
   const {
     academicDate,
     idWithComputedResult,
@@ -91,7 +88,7 @@ const EndOfTerm = ({ isCompute = false }) => {
     getScoreRemark,
   } = useResults();
 
-  const isLoading = skillLoading || resultLoading
+  const isLoading = skillLoading || resultLoading;
 
   const getAddSubjectSelectOptions = () => {
     const mapSubjects = subjectsByClass?.map((x) => ({
@@ -133,7 +130,7 @@ const EndOfTerm = ({ isCompute = false }) => {
     }
   };
 
-  console.log(skills)
+  console.log({ skills });
 
   return (
     <div className="results-sheet">
@@ -317,11 +314,11 @@ const EndOfTerm = ({ isCompute = false }) => {
                   <Table>
                     <tbody>
                       <tr>
-                        <td>First Term 2021/2022 Academic Session Ends:</td>
+                        <td>This Term Ends:</td>
                         <td>{academicDate?.session_ends}</td>
                       </tr>
                       <tr>
-                        <td>Second Term 2021/2022 Academic Session Resumes:</td>
+                        <td>Next Term Begins:</td>
                         <td>{academicDate?.session_resumes}</td>
                       </tr>
                     </tbody>
@@ -410,10 +407,12 @@ const EndOfTerm = ({ isCompute = false }) => {
                       />
                     </td>
                     <td>
-                      {Number(
-                        studentMidResult?.find((x) => x.subject === s.subject)
-                          ?.score || 0
-                      ) + Number(s.grade)}
+                      {(
+                        Number(
+                          studentMidResult?.find((x) => x.subject === s.subject)
+                            ?.score || 0
+                        ) + Number(s?.grade ?? 0)
+                      ).toFixed(2)}
                     </td>
                     {!isCompute && (
                       <td>
@@ -450,8 +449,10 @@ const EndOfTerm = ({ isCompute = false }) => {
                   <tr>
                     <th>STUDENT’S OVERALL AVERAGE</th>
                     <th>
-                      {(getTotalMidScores() + getTotalScores()) /
-                        subjects?.length}
+                      {(
+                        (getTotalMidScores() + getTotalScores()) /
+                        subjects?.length
+                      ).toFixed(2)}
                     </th>
                     <th>STUDENT’S OVERALL GRADE POINT </th>
                     <th>

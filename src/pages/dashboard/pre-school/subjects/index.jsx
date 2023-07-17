@@ -71,6 +71,10 @@ const PreSchoolSubject = () => {
             Header: "Subjects",
             accessor: "subject",
           },
+          {
+            Header: "Category",
+            accessor: "category",
+          },
         ]}
         data={preSchoolSubjects || []}
       />

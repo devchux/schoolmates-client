@@ -28,6 +28,7 @@ export const useCampus = () => {
       address: "",
       state: "",
       image: "",
+      is_preschool: "false",
     },
     validation: {
       name: {

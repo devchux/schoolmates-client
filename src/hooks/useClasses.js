@@ -58,6 +58,7 @@ export const useClasses = () => {
     [queryKeys.GET_SUBJECTS, id],
     () => apiServices.getSubjectByClass(id),
     {
+      enabled: !!id,
       select: apiServices.formatData,
       onError: apiServices.errorHandler,
     }

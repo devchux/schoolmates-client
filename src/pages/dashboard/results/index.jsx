@@ -40,7 +40,11 @@ const Results = () => {
       onFormSubmit: () =>
         navigate(
           `/app/results/${
-            inputs.period === "First Half" ? "mid" : "end"
+            user.is_preschool === "false"
+              ? inputs.period === "First Half"
+                ? "mid"
+                : "end"
+              : "preschool"
           }/compute`,
           { state: { creds: inputs } }
         ),
@@ -49,7 +53,13 @@ const Results = () => {
       title: "View Result",
       onFormSubmit: () =>
         navigate(
-          `/app/results/${inputs.period === "First Half" ? "mid" : "end"}`,
+          `/app/results/${
+            user.is_preschool === "false"
+              ? inputs.period === "First Half"
+                ? "mid"
+                : "end"
+              : "preschool"
+          }`,
           { state: { creds: inputs } }
         ),
     },

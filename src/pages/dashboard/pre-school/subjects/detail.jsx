@@ -60,6 +60,7 @@ const PreSchoolSubjectDetail = () => {
   } = useForm({
     defaultValues: {
       name: "",
+      category: "evaluation_report",
       topics: [""],
     },
     validation: {
@@ -127,6 +128,21 @@ const PreSchoolSubjectDetail = () => {
                 onChange={handleChange}
               />
               {!!errors.name && <p className="error-message">{errors.name}</p>}
+            </Col>
+            <Col sm="6" className="mb-4 mb-sm-0">
+              <AuthSelect
+                noPlaceholder
+                value={inputs.category}
+                name="category"
+                onChange={handleChange}
+                options={[
+                  { value: "Evaluation Report", title: "Evaluation Report" },
+                  {
+                    value: "Cognitive Development",
+                    title: "Cognitive Development",
+                  },
+                ]}
+              />
             </Col>
           </Row>
           <hr />

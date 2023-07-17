@@ -32,7 +32,7 @@ const ProfileCard = ({ type = "super-admin" }) => {
           </div>
           <div>
             <h3>Campus:</h3>
-            <p>{user?.school?.schname}</p>
+            <p>{user?.campus}</p>
           </div>
           <div>
             <h3>Period:</h3>

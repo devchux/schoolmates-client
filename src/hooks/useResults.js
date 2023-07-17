@@ -57,6 +57,7 @@ export const useResults = () => {
     [queryKeys.GET_MAX_SCORES],
     apiServices.getMaxScores,
     {
+      enabled: user.is_preschool === "false",
       onError(err) {
         errorHandler(err);
       },
@@ -67,12 +68,16 @@ export const useResults = () => {
     useQuery(
       [
         queryKeys.GET_STUDENTS_BY_ATTENDANCE,
-        state?.creds?.class_name ? state?.creds?.class_name : user?.class_assigned,
+        state?.creds?.class_name
+          ? state?.creds?.class_name
+          : user?.class_assigned,
         state?.creds?.session,
       ],
       () =>
         apiServices.getStudentByClassAndSession(
-          state?.creds?.class_name ? state?.creds?.class_name : user?.class_assigned,
+          state?.creds?.class_name
+            ? state?.creds?.class_name
+            : user?.class_assigned,
           state?.creds?.session
         ),
       {
@@ -106,7 +111,7 @@ export const useResults = () => {
         state?.creds?.session
       ),
     {
-      enabled: initGetExistingSecondHalfResult,
+      enabled: initGetExistingSecondHalfResult && user.is_preschool === "false",
       select: apiServices.formatData,
       onSuccess(data) {
         setInitGetExistingSecondHalfResult(false);
@@ -159,14 +164,18 @@ export const useResults = () => {
   } = useQuery(
     [
       queryKeys.GET_SUBJECTS_BY_CLASS,
-      state?.creds?.class_name ? state?.creds?.class_name : user?.class_assigned,
+      state?.creds?.class_name
+        ? state?.creds?.class_name
+        : user?.class_assigned,
     ],
     () =>
       apiServices.getSubjectByClass(
-        state?.creds?.class_name ? state?.creds?.class_name : user?.class_assigned
+        state?.creds?.class_name
+          ? state?.creds?.class_name
+          : user?.class_assigned
       ),
     {
-      enabled: initGetStudentsByClass,
+      enabled: initGetStudentsByClass && user.is_preschool === "false",
       select: apiServices.formatData,
       onSuccess(data) {
         const subjectsWithGrade = data?.map((x) => ({ ...x, grade: "0" }));
@@ -175,6 +184,54 @@ export const useResults = () => {
       },
     }
   );
+
+  const {
+    data: preSchoolSubjectsByClass,
+    isLoading: preSchoolSubjectsByClassLoading,
+  } = useQuery(
+    [
+      queryKeys.GET_PRE_SCHOOL_SUBJECTS_BY_CLASS,
+      state?.creds?.class_name
+        ? state?.creds?.class_name
+        : user?.class_assigned,
+    ],
+    () =>
+      apiServices.getPreSchoolSubjectsByClass(
+        state?.creds?.period,
+        state?.creds?.term,
+        state?.creds?.session,
+        state?.creds?.class_name
+          ? state?.creds?.class_name
+          : user?.class_assigned
+      ),
+    {
+      enabled: user.is_preschool === "true",
+      select: apiServices.formatData,
+    }
+  );
+
+  const { isLoading: preSchoolResultsLoading, data: preSchoolResults } =
+    useQuery(
+      [
+        queryKeys.GET_PRE_SCHOOL_RESULTS,
+        studentData?.id,
+        state?.creds?.period,
+        state?.creds?.term,
+        state?.creds?.session,
+      ],
+      () =>
+        apiServices.getPreSchoolResults(
+          studentData?.id,
+          state?.creds?.period,
+          state?.creds?.term,
+          state?.creds?.session
+        ),
+      {
+        enabled: !!studentData?.id && user.is_preschool === "true",
+        select: apiServices.formatData,
+        onSuccess(data) {},
+      }
+    );
 
   const { data: studentResult, isLoading: studentResultLoading } = useQuery(
     [
@@ -190,7 +247,7 @@ export const useResults = () => {
         state?.creds?.session
       ),
     {
-      enabled: initGetExistingResult,
+      enabled: initGetExistingResult && user.is_preschool === "false",
       select: apiServices.formatData,
       onSuccess(data) {
         setInitGetExistingResult(false);
@@ -240,6 +297,7 @@ export const useResults = () => {
     [queryKeys.GET_GRADING],
     apiServices.getGrading,
     {
+      enabled: user.is_preschool === "false",
       select: apiServices.formatData,
       onError(err) {
         apiServices.errorHandler(err);
@@ -259,9 +317,22 @@ export const useResults = () => {
     }
   );
 
+  const {
+    mutateAsync: addPreSchoolResult,
+    isLoading: addPreSchoolResultLoading,
+  } = useMutation(apiServices.postPreSchoolResult, {
+    onSuccess() {
+      toast.success("Result has been computed successfully");
+    },
+    onError(err) {
+      apiServices.errorHandler(err);
+    },
+  });
+
   const getScoreRemark = (score) => {
     const res = grading?.find(
-      (x) => score >= Number(x?.score_from) && score <= Number(x?.score_to)
+      (x) =>
+        score >= Number(x?.score_from ?? 0) && score <= Number(x?.score_to ?? 0)
     );
 
     return res;
@@ -339,7 +410,10 @@ export const useResults = () => {
     addResultLoading ||
     commentsLoading ||
     endOfTermResultsLoading ||
-    gradingLoading;
+    gradingLoading ||
+    preSchoolSubjectsByClassLoading ||
+    addPreSchoolResultLoading ||
+    preSchoolResultsLoading;
 
   return {
     isLoading,
@@ -380,29 +454,8 @@ export const useResults = () => {
     getScoreRemark,
     idWithComputedResult,
     setInitGetExistingSecondHalfResult,
+    preSchoolSubjectsByClass,
+    addPreSchoolResult,
+    preSchoolResults,
   };
 };
-
-// {
-//   school_opened: 0,
-//   times_absent: 0,
-//   times_absent: 0,
-//   evaluation_report: [
-//     {
-//       subject: 'Physical Development',
-//       topics: [
-//         { topic: 'Fine Motor Skills', score: 'Fair', improvement: false }
-//       ]
-//     }
-//   ],
-//   cognitive_development: [
-//     {
-//       subject: 'Physical Development',
-//       topics: [
-//         { topic: 'Fine Motor Skills', score: 'Fair', improvement: false }
-//       ]
-//     }
-//   ],
-//   teacher_comment: '',
-
-// }

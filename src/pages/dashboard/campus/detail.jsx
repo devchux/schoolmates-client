@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Col, Row } from "reactstrap";
+import { Col, Input, Row } from "reactstrap";
 import AuthInput from "../../../components/inputs/auth-input";
 import { useCampus } from "../../../hooks/useCampus";
 import DetailView from "../../../components/views/detail-view";
@@ -51,6 +51,20 @@ const CampusDetail = () => {
       pageTitle={isEdit ? "Edit Campus" : "Add Campus"}
       onFormSubmit={handleSubmit(onSubmit)}
     >
+      <div className="mb-4 d-flex align-items-center">
+        <p>Check if campus is pre-school</p>
+        <Input
+          type="checkbox"
+          className="ms-3"
+          checked={inputs.is_preschool === "true"}
+          onChange={() =>
+            setFieldValue(
+              "is_preschool",
+              inputs.is_preschool === "true" ? "true" : "false"
+            )
+          }
+        />
+      </div>
       <Row className="mb-0 mb-sm-4">
         <Col sm="6" className="mb-4 mb-sm-0">
           <AuthInput

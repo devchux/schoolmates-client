@@ -11,11 +11,12 @@ const DetailView = ({
   cancelLink,
   isLoading,
   children,
+  hasGoBack = true,
 }) => {
   const navigate = useNavigate();
   return (
     <div>
-      <GoBack />
+      {hasGoBack && <GoBack />}
       <PageSheet>
         <PageTitle>{pageTitle}</PageTitle>
         <form
