@@ -1,11 +1,12 @@
 import React from "react";
 import PageSheet from "../../../../../components/common/page-sheet";
 import { useResults } from "../../../../../hooks/useResults";
-import ProfileImage from "../../../../../components/common/profile-image";
 import { useAppContext } from "../../../../../hooks/useAppContext";
 import Button from "../../../../../components/buttons/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faPrint } from "@fortawesome/free-solid-svg-icons";
+import StudentsResults from "../../../../../components/common/students-results";
+import ResultHeader from "../../../../../components/common/result-header";
 
 const SubjectTable = ({ subject, header = [], topics = [] }) => {
   return (
@@ -77,32 +78,13 @@ const PreSchoolResult = () => {
   return (
     <div className="results-sheet">
       {user?.designation_name !== "Student" && (
-        <div className="students-wrapper">
-          {studentByClassAndSession?.map((x) => (
-            <div
-              key={x.id}
-              onClick={() => {
-                setStudentData(x);
-              }}
-              className="student"
-            >
-              <div
-                className={`loader ${isLoading ? "is-loading" : ""} ${
-                  studentData.id === x.id ? "active" : ""
-                }`}
-              >
-                <ProfileImage src={x?.image} alt={x.firstname} />
-                {idWithComputedResult.includes(x.id) && (
-                  <div className="computed" />
-                )}
-              </div>
-              <div>
-                <p>{x.firstname}</p>
-                <p>{x.surname}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <StudentsResults
+          studentByClassAndSession={studentByClassAndSession}
+          setStudentData={setStudentData}
+          isLoading={isLoading}
+          studentData={studentData}
+          idWithComputedResult={idWithComputedResult}
+        />
       )}
       <PageSheet>
         <div className="mb-3">
@@ -121,24 +103,7 @@ const PreSchoolResult = () => {
           ref={pdfExportComponent}
           className="first-level-results-sheet preschool"
         >
-          <div className="school-details">
-            <div className="image">
-              {user?.school?.schlogo && (
-                <img src={user?.school?.schlogo} alt="school" />
-              )}
-            </div>
-            <div className="text">
-              <h3 className="name">{user?.school?.schname}</h3>
-              {user?.school?.schnmotto && (
-                <p className="motto">({user?.school?.schnmotto})</p>
-              )}
-
-              <p className="address">{user?.school?.schaddr}</p>
-              <p className="tel">Tel: {user?.school?.schphone}</p>
-              <p className="email">Email: {user?.school?.schemail}</p>
-              <p className="web">Website: {user?.school?.schwebsite}</p>
-            </div>
-          </div>
+          <ResultHeader user={user} />
           <div className="preschool-result-table">
             <div className="table-head">
               <h3>{result?.sesson} Academic Session</h3>

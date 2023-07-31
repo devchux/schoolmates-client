@@ -319,15 +319,13 @@ export const useStudent = () => {
     ],
     () => apiServices.getStudentByClass(classes),
     {
-      enabled:
-        !!classes.present_class &&
-        !!classes.sub_class &&
-        permission?.sortStudentByClass,
+      enabled: !!classes.present_class && permission?.sortStudentByClass,
       onError(err) {
         errorHandler(err);
         setClasses({ present_class: "", sub_class: "" });
       },
       onSuccess(data) {
+        console.log(data);
         const format = apiServices.formatData(data)?.map((student) => {
           return {
             ...student,

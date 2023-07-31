@@ -63,6 +63,7 @@ const Student = () => {
 
   const searchByClass = (value) => {
     const findClass = classes?.find((each) => each?.class_name === value) || {};
+    console.log({ findClass })
     setClasses({
       present_class: findClass?.class_name,
       sub_class: findClass?.sub_class,
@@ -98,6 +99,8 @@ const Student = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state?.status]);
+
+  console.log({sortedStudents})
 
   return (
     <PageView

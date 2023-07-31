@@ -84,6 +84,7 @@ import SkillsDetail from "../pages/dashboard/skills/detail";
 import SubjectsByPreSchool from "../pages/dashboard/pre-school/subjects/subjects-by-preschool";
 import PreSchoolResult from "../pages/dashboard/results/sheets/pre-school/sheet";
 import ComputePreSchoolResult from "../pages/dashboard/results/sheets/pre-school/compute";
+import ElementaryFirstHalfSheet from "../pages/dashboard/results/sheets/elementary/first-half/sheet";
 
 const CustomRoutes = () => {
   return (
@@ -609,6 +610,15 @@ const CustomRoutes = () => {
           element={
             <Guard routeName="results">
               <ComputePreSchoolResult />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="results/elementary"
+          element={
+            <Guard routeName="results">
+              <ElementaryFirstHalfSheet />
             </Guard>
           }
         />

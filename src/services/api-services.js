@@ -336,7 +336,7 @@ class APIServies extends Helpers {
 
   async getStudentByClass({ present_class, sub_class }) {
     const { data } = await axios.get(
-      `${backendAPI}/studentbyclass/${present_class}/${sub_class}`,
+      `${backendAPI}/studentbyclass/${present_class} ${sub_class}`,
       {
         headers: {
           "Content-Type": "application/json",
