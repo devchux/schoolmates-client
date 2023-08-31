@@ -68,33 +68,7 @@ const ComputeMidTermResult = () => {
     },
   });
 
-  const onSubjectChange = (section, subject, topic, score) => {
-    const subjectObject = {
-      subject,
-      topic: [{ topic, score }],
-    };
-
-    const findSubject = inputs[section].find(
-      (item) => item.subject === subject
-    );
-    if (findSubject) {
-      const filterTopic = findSubject.topic.filter((t) => t.topic !== topic);
-      const newSubject = inputs[section].map((item) => {
-        if (item.subject === subject) {
-          return {
-            subject,
-            topic: [...filterTopic, ...subjectObject.topic],
-          };
-        }
-
-        return item;
-      });
-      setFieldValue(section, newSubject);
-    } else {
-      setFieldValue(section, [...inputs[section], subjectObject]);
-    }
-  };
-
+ 
 
   const submit = async (data) => {
     await addPreSchoolResult({
