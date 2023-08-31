@@ -7,7 +7,6 @@ import { useForm } from "react-formid";
 import { Button, Col, FormGroup, Row } from "reactstrap";
 import AuthInput from "../../../../../components/inputs/auth-input";
 import PageTitle from "../../../../../components/common/title";
-import AuthSelect from "../../../../../components/inputs/auth-select";
 import Prompt from "../../../../../components/modals/prompt";
 
 const ComputeMidTermResult = () => {
@@ -29,7 +28,7 @@ const ComputeMidTermResult = () => {
     studentByClassAndSession,
     studentData,
     comments,
-    preSchoolSubjectsByClass,
+    // preSchoolSubjectsByClass,
     addPreSchoolResult,
     locationState,
     preSchoolResults,
@@ -96,10 +95,6 @@ const ComputeMidTermResult = () => {
     }
   };
 
-  const getTopicValue = (section, subject, topic) =>
-    inputs[section]
-      .find((item) => item.subject === subject)
-      ?.topic.find((item) => item?.topic === topic)?.score ?? "";
 
   const submit = async (data) => {
     await addPreSchoolResult({
@@ -175,7 +170,7 @@ const ComputeMidTermResult = () => {
           ))}
         </div>
       )}
-      {/* <DetailView
+      <DetailView
         hasGoBack={false}
         isLoading={isLoading}
         cancelLink="/app/results/preschool"
@@ -216,186 +211,76 @@ const ComputeMidTermResult = () => {
             )}
           </Col>
         </Row>
-        <hr className="my-5" /> */}
-        <PageTitle>Assessment Report</PageTitle>
-        {preSchoolSubjectsByClass?.[0]?.subjects
-          ?.filter(({ category }) => category === "Evaluation Report")
-          ?.map((subject, key) => (
-            <div key={key}>
-              <h4>
-                Score
-              </h4>
-              <div>
-                {/* {subject?.topic?.map((topic, i) => ( */}
-                  <Row className="my-5" >
-                    <Col sm="6" className="mb-4 mb-sm-0">
-                      <h5>
-                        {/* {i + 1}. {topic.name}: */}
-                      </h5>
-                    </Col>
-                    <Col sm="6" className="mb-4 mb-sm-0">
-                      <AuthSelect
-                      text="man"
-                      value="man"
-                        />
-                    </Col>
-                    <Col sm="6" className="mb-4 mb-sm-0">
-                      <AuthSelect
-                        />
-                    </Col>
-                  </Row>
-                {/* ))} */}
-              </div>
-            </div>
-          ))}
-         <hr className="my-5" />
+        <hr className="my-5" />
+        <PageTitle>Max Score</PageTitle>
+        <div>
+          <Row className="my-5 ">
+            <Col sm="6" className="mb-4 mb-sm-0">
+              <h5>1. Fine Motor Skills:</h5>
+            </Col>
+            <Col sm="6" className="mb-1 mb-sm-0">
+              <AuthInput />
+            </Col>
+          </Row>
+          <Row className="my-5">
+            <Col sm="6" className="mb-4 mb-sm-0">
+              <h5>2. Fine Motor Skills:</h5>
+            </Col>
+            <Col sm="6" className="mb-4 mb-sm-0">
+              <AuthInput />
+            </Col>
+          </Row>
+        </div>
+        <hr className="my-5" />
 
-        {/* <PageTitle>Evaluation Report</PageTitle>
-        {preSchoolSubjectsByClass?.[0]?.subjects
-          ?.filter(({ category }) => category === "Evaluation Report")
-          ?.map((subject, key) => (
-            <div key={key}>
-              <h4>
-                <b>- {subject.subject}</b>
-              </h4>
-              <div>
-                {subject?.topic?.map((topic, i) => (
-                  <Row className="my-5" key={i}>
-                    <Col sm="6" className="mb-4 mb-sm-0">
-                      <h5>
-                        {i + 1}. {topic.name}:
-                      </h5>
-                    </Col>
-                    <Col sm="6" className="mb-4 mb-sm-0">
-                      <AuthSelect
-                        value={getTopicValue(
-                          "evaluation_report",
-                          subject.subject,
-                          topic.name
-                        )}
-                        onChange={({ target: { value } }) => {
-                          onSubjectChange(
-                            "evaluation_report",
-                            subject.subject,
-                            topic.name,
-                            value
-                          );
-                        }}
-                        options={[
-                          "Needs Improvement",
-                          "Fair",
-                          "Good",
-                          "Excellent",
-                        ].map((x) => ({
-                          value: x,
-                          title: x,
-                        }))}
-                      />
-                    </Col>
-                  </Row>
-                ))}
-              </div>
-            </div>
-          ))}
-        <hr className="my-5" /> */}
+        <PageTitle>Evaluation Report</PageTitle>
+        <div>
+          <div>
+          <Row className="my-5 ">
+            <Col sm="6" className="mb- mb-sm-0">
+              <h5>1. Fine Motor Skills:</h5>
+            </Col>
+            <Col sm="6" className="mb-1 mb-sm-0">
+              <AuthInput />
+            </Col>
+          </Row>
+          <Row className="my-5">
+            <Col sm="6" className="mb-4 mb-sm-0">
+              <h5>2. Fine Motor Skills:</h5>
+            </Col>
+            <Col sm="6" className="mb-4 mb-sm-0">
+              <AuthInput />
+            </Col>
+          </Row>
+          </div>
+         
+        </div>
+        <hr className="my-5" />
 
-        {/* <PageTitle>Effective Development</PageTitle>
-        {preSchoolSubjectsByClass?.[0]?.subjects
-          ?.filter(({ category }) => category === "Evaluation Report")
-          ?.map((subject, key) => (
-            <div key={key}>
-              <h4>
-                <b>- {subject.subject}</b>
-              </h4>
-              <div>
-                {subject?.topic?.map((topic, i) => (
-                  <Row className="my-5" key={i}>
-                    <Col sm="6" className="mb-4 mb-sm-0">
-                      <h5>
-                        {i + 1}. {topic.name}:
-                      </h5>
-                    </Col>
-                    <Col sm="6" className="mb-4 mb-sm-0">
-                      <AuthSelect
-                        value={getTopicValue(
-                          "evaluation_report",
-                          subject.subject,
-                          topic.name
-                        )}
-                        onChange={({ target: { value } }) => {
-                          onSubjectChange(
-                            "evaluation_report",
-                            subject.subject,
-                            topic.name,
-                            value
-                          );
-                        }}
-                        options={[
-                          "Needs Improvement",
-                          "Fair",
-                          "Good",
-                          "Excellent",
-                        ].map((x) => ({
-                          value: x,
-                          title: x,
-                        }))}
-                      />
-                    </Col>
-                  </Row>
-                ))}
-              </div>
-            </div>
-          ))}
-        <hr className="my-5" /> */}
-        {/* <PageTitle>Cognitive Development</PageTitle> */}
-        {/* {preSchoolSubjectsByClass?.[0]?.subjects
-          ?.filter(({ category }) => category === "Cognitive Development")
-          ?.map((subject, key) => (
-            <div key={key}>
-              <h4>
-                <b>- {subject.subject}</b>
-              </h4>
-              <div>
-                {subject?.topic?.map((topic, i) => (
-                  <Row className="my-5" key={i}>
-                    <Col sm="6" className="mb-4 mb-sm-0">
-                      <h5>
-                        {i + 1}. {topic.name}:
-                      </h5>
-                    </Col>
-                    <Col sm="6" className="mb-4 mb-sm-0">
-                      <AuthSelect
-                        value={getTopicValue(
-                          "cognitive_development",
-                          subject.subject,
-                          topic.name
-                        )}
-                        onChange={({ target: { value } }) => {
-                          onSubjectChange(
-                            "cognitive_development",
-                            subject.subject,
-                            topic.name,
-                            value
-                          );
-                        }}
-                        options={[
-                          "Work in Progress",
-                          "Needs Reinforcement",
-                          "Archieved",
-                        ].map((x) => ({
-                          value: x,
-                          title: x,
-                        }))}
-                      />
-                    </Col>
-                  </Row>
-                ))}
-              </div>
-            </div>
-          ))} */}
-        {/* <hr className="my-5" />
-        <PageTitle>Teacher's Comment</PageTitle> */}
-        {/* <div>
+        <PageTitle>Cognitive Development</PageTitle>
+        <div>
+          <div>
+          <Row className="my-5 ">
+            <Col sm="6" className="mb-4 mb-sm-0">
+              <h5>1. Fine Motor Skills:</h5>
+            </Col>
+            <Col sm="6" className="mb-1 mb-sm-0">
+              <AuthInput  />
+            </Col>
+          </Row>
+          <Row className="my-5">
+            <Col sm="6" className="mb-4 mb-sm-0">
+              <h5>2. Fine Motor Skills:</h5>
+            </Col>
+            <Col sm="6" className="mb-4 mb-sm-0">
+              <AuthInput  />
+            </Col>
+          </Row>
+          </div>
+        </div>
+        <hr className="my-5" />
+        <PageTitle>Teacher's Comment</PageTitle>
+        <div>
           <Button
             onClick={() => {
               setComment("teacher");
@@ -467,7 +352,6 @@ const ComputeMidTermResult = () => {
           </div>
         ))}
       </Prompt>
-    </div> */}
     </div>
   );
 };
