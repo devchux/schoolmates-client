@@ -28,7 +28,6 @@ const ComputeMidTermResult = () => {
     studentByClassAndSession,
     studentData,
     comments,
-    // preSchoolSubjectsByClass,
     addPreSchoolResult,
     locationState,
     preSchoolResults,
@@ -37,7 +36,6 @@ const ComputeMidTermResult = () => {
   const {
     getFieldProps,
     inputs,
-    setFieldValue,
     handleSubmit,
     errors,
     setInputs,
