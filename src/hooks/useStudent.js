@@ -18,7 +18,9 @@ export const useStudent = () => {
     useAppContext("students");
   const [sortedStudents, setSortedStudents] = useState([]);
   const [sorted, setSorted] = useState(false);
-  const [indexStatus, setIndexStatus] = useState("all");
+  const [indexStatus, setIndexStatus] = useState(
+    permission?.read ? "all" : "myStudents"
+  );
   const [session, setSession] = useState("");
   const [admissionNumber, setAdmissionNumber] = useState("");
   const [classes, setClasses] = useState({ present_class: "", sub_class: "" });
@@ -325,7 +327,6 @@ export const useStudent = () => {
         setClasses({ present_class: "", sub_class: "" });
       },
       onSuccess(data) {
-        console.log(data);
         const format = apiServices.formatData(data)?.map((student) => {
           return {
             ...student,

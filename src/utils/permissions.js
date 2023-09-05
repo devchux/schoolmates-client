@@ -80,7 +80,7 @@ export const permissions = {
     },
     students: {
       create: false,
-      read: true,
+      read: false,
       readCreditors: false,
       readDebtors: false,
       update: false,
