@@ -86,6 +86,7 @@ import PreSchoolResult from "../pages/dashboard/results/sheets/pre-school/sheet"
 import ComputePreSchoolResult from "../pages/dashboard/results/sheets/pre-school/compute";
 import ElementaryFirstHalfSheet from "../pages/dashboard/results/sheets/elementary/first-half/sheet";
 import ElementarySecondHalfSheet from "../pages/dashboard/results/sheets/elementary/second-half/sheet";
+import ComputeMidTermResult from "../pages/dashboard/results/sheets/mid-term-form/compute";
 
 const CustomRoutes = () => {
   return (
@@ -617,6 +618,24 @@ const CustomRoutes = () => {
         <Route
           exact
           path="results/elementary/first"
+          element={
+            <Guard routeName="results">
+              <ElementaryFirstHalfSheet />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="results/midterm/compute"
+          element={
+            <Guard routeName="results">
+              <ComputeMidTermResult />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="results/elementary"
           element={
             <Guard routeName="results">
               <ElementaryFirstHalfSheet />
