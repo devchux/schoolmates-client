@@ -6,10 +6,6 @@ const PieChart = ({ label, data }) => {
     return {
       series: data,
       options: {
-        // chart: {
-        //   width: 380,
-        //   type: "pie",
-        // },
         labels: label,
         responsive: [
           {
@@ -35,7 +31,6 @@ const PieChart = ({ label, data }) => {
         options={state.options}
         series={state.series}
         type="pie"
-        // width="50%"
       />
     </div>
   );

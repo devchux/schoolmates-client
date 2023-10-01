@@ -26,7 +26,9 @@ import {
   faBalanceScale,
 } from "@fortawesome/free-solid-svg-icons";
 
-export const backendAPI = "https://schoolmate.powershellerp.com/api";
+// export const backendAPI = "https://schoolmate.powershellerp.com/api";
+
+export const backendAPI = "https://goshenpillarsportal.schoolmateglobal.com/esc/api"
 
 export const homeUrl = {
   Superadmin: "/app/super-admin",

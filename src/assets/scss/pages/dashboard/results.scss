@@ -559,6 +559,113 @@
       }
     }
   }
+
+  .second-half-result-table {
+    .table-row {
+      > .table-data {
+        width: 14%;
+        text-align: center;
+
+        &:first-child {
+          width: 42%;
+          text-align: left;
+        }
+
+        &:nth-child(5) {
+          width: 10%;
+        }
+      }
+    }
+  }
+
+  .second-half-academic-rating {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+
+    > div {
+      height: 5rem;
+    }
+  }
+
+  .second-half-cummulative-scores-table {
+    .table-row {
+      &:first-child {
+        > .table-data {
+          height: 15rem;
+          position: relative;
+
+          > h4 {
+            transform: translate(-50%, -50%) rotate(-90deg);
+            transform-origin: center;
+            white-space: nowrap;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+          }
+        }
+      }
+
+      > .table-data {
+        width: 12%;
+        text-align: center;
+
+        &:first-child {
+          width: 38%;
+          text-align: left;
+        }
+      }
+
+      &.year-total-score {
+        > .table-data {
+          &:not(:nth-last-child(3)):not(:nth-last-child(2)):not(:last-child) {
+            border-left: none;
+
+            &:not(:nth-child(4)) {
+              border-right: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .performance-remark {
+    padding: 1rem;
+
+    > h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+
+  .skills-table {
+    text-transform: uppercase;
+  
+    > .table-row {
+      > .table-data {
+        width: 14%;
+        text-align: center;
+
+        &:last-child {
+          width: 20%;
+        }
+
+        &:first-child {
+          width: 38%;
+          text-align: left;
+        }
+      }
+    }
+  }
+
+  .table-chart-wrapper {
+    padding: 2rem;
+  
+    > h4 {
+      margin-bottom: 2rem;
+    }
+  }
 }
 
 .modal-result-comment-select-options {
@@ -669,5 +776,13 @@
         }
       }
     }
+  }
+}
+
+@media print {
+  html, body {
+    margin: 1rem !important;
+    padding: 0 !important;
+    overflow: hidden;
   }
 }
