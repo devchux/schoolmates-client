@@ -486,16 +486,16 @@ const ElementarySecondHalfSheet = () => {
                       <p>{score["Remark"]}</p>
                     </div>
                     <div className="table-data">
-                      <h4>{score["Rank"]}</h4>
+                      <p>{score["Rank"]}</p>
                     </div>
                     <div className="table-data">
-                      <h4>{score["Class Average"]}</h4>
+                      <p>{score["Class Average"]}</p>
                     </div>
                     <div className="table-data">
-                      <h4>{score["Highest"]}</h4>
+                      <p>{score["Highest"]}</p>
                     </div>
                     <div className="table-data">
-                      <h4>{score["Lowest"]}</h4>
+                      <p>{score["Lowest"]}</p>
                     </div>
                   </div>
                 </div>

@@ -1,5 +1,8 @@
+$primary-color: green;
+$text-color: midnightblue;
+
 .first-level-results-sheet {
-  border: 0.4rem solid midnightblue;
+  border: 0.4rem solid $primary-color;
   border-radius: 0.3rem;
   padding: 2em;
 
@@ -25,7 +28,7 @@
 
     .name {
       font-weight: bold;
-      color: midnightblue;
+      color: $text-color;
       font-size: 2rem;
       line-height: 1em;
       text-transform: uppercase;
@@ -52,7 +55,7 @@
     .email,
     .web {
       font-weight: bold;
-      color: midnightblue;
+      color: $text-color;
       font-size: 1.3rem;
       line-height: 1.8rem;
 
@@ -72,7 +75,7 @@
 
     .title {
       font-weight: bold;
-      color: midnightblue;
+      color: $text-color;
       font-size: 2rem;
       text-decoration: underline;
       margin: 1em 0 2rem 0;
@@ -99,7 +102,7 @@
 
           h5 {
             width: fit-content;
-            color: midnightblue;
+            color: $text-color;
             font-weight: bold;
             text-transform: uppercase;
             font-size: 1.3rem;
@@ -113,9 +116,9 @@
             width: 100%;
             border: 0.1rem;
             border-style: solid;
-            border-color: midnightblue;
+            border-color: $primary-color;
             padding: 0.8rem;
-            color: midnightblue;
+            color: $text-color;
             text-transform: uppercase;
 
             @media only screen and (min-width: 428px) {
@@ -142,9 +145,9 @@
 
       td,
       th {
-        border: 0.15rem solid midnightblue;
+        border: 0.15rem solid $primary-color;
         padding: 1.5rem;
-        color: midnightblue;
+        color: $text-color;
         text-transform: uppercase;
       }
 
@@ -200,9 +203,9 @@
 
       &,
       td {
-        border: 0.1rem solid midnightblue;
+        border: 0.1rem solid $primary-color;
         padding: 1.5rem;
-        color: midnightblue;
+        color: $text-color;
         text-align: center;
         font-weight: bold;
       }
@@ -348,9 +351,9 @@
           .table {
             td,
             th {
-              border: 0.15rem solid midnightblue;
+              border: 0.15rem solid $primary-color;
               padding: 1.5rem;
-              color: midnightblue;
+              color: $text-color;
               text-transform: uppercase;
               font-weight: bold;
             }
@@ -381,9 +384,9 @@
       font-weight: 600;
 
       .table-head {
-        border: 0.2rem solid midnightblue;
+        border: 0.2rem solid $primary-color;
         padding: 1rem;
-        background-color: rgba(midnightblue, 0.4);
+        background-color: rgba($primary-color, 0.4);
 
         @media only screen and (min-width: 768px) {
           padding: 1.5rem;
@@ -393,7 +396,7 @@
           text-align: center;
           font-size: 1.3rem;
           text-transform: uppercase;
-          color: midnightblue;
+          color: $primary-color;
 
           @media only screen and (min-width: 768px) {
             font-size: 1.6rem;
@@ -402,7 +405,7 @@
       }
 
       .table-subhead {
-        border: 0.1rem solid midnightblue;
+        border: 0.1rem solid $primary-color;
         background-color: rgba(yellow, 0.4);
         height: 5rem;
         display: flex;
@@ -413,13 +416,13 @@
         > h4 {
           text-align: center;
           text-transform: uppercase;
-          color: midnightblue;
+          color: $primary-color;
         }
       }
 
       .table-data {
         padding: 1rem;
-        border: 0.1rem solid midnightblue;
+        border: 0.1rem solid $primary-color;
         width: 100%;
 
         > h4 {
@@ -643,10 +646,10 @@
       text-transform: uppercase;
 
       &:first-child {
-        border: 0.2rem solid midnightblue;
+        border: 0.2rem solid $primary-color;
         padding: 1rem;
-        background-color: rgba(midnightblue, 0.4);
-        color: midnightblue;
+        background-color: rgba($primary-color, 0.4);
+        color: $primary-color;
       }
     }
   }
