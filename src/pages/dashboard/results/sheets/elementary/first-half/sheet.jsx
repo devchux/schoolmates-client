@@ -18,8 +18,12 @@ const ElementaryFirstHalfSheet = () => {
     handlePrint,
     studentByClassAndSession,
     studentData,
-    // academicDate,
+    maxScores,
+    locationState,
+    subjects,
     preSchoolCompiledResults,
+    getTotalScores,
+    additionalCreds,
   } = useResults();
 
   const result =
@@ -32,7 +36,7 @@ const ElementaryFirstHalfSheet = () => {
       {user?.designation_name !== "Student" && (
         <StudentsResults
           studentByClassAndSession={studentByClassAndSession}
-          setStudentData={setStudentData}
+          onProfileSelect={(x) => setStudentData(x)}
           isLoading={isLoading}
           studentData={studentData}
           idWithComputedResult={idWithComputedResult}
@@ -63,24 +67,31 @@ const ElementaryFirstHalfSheet = () => {
             <div className="student-creds">
               <div>
                 <div className="table-data">
-                  <h4>Name: {result?.student_fullname}</h4>
+                  <h4>
+                    Name: {additionalCreds?.student_fullname}
+                  </h4>
                 </div>
                 <div className="table-data">
-                  <h4>Admission No.: {result?.admission_number}</h4>
+                  <h4>Admission No.: {studentData?.admission_number}</h4>
                 </div>
                 <div className="table-data">
-                  <h4>{result?.term}</h4>
+                  <h4>{locationState?.creds?.term}</h4>
                 </div>
               </div>
               <div>
                 <div className="table-data">
-                  <h4>Chronological Age: 4 years 7 month</h4>
+                  <h4>
+                    Chronological Age: {studentData?.age}
+                  </h4>
                 </div>
                 <div className="table-data">
-                  <h4>School Section: Nursery</h4>
+                  <h4>School Section: {user?.campus}</h4>
                 </div>
                 <div className="table-data">
-                  <h4>Class: {result?.class_name}</h4>
+                  <h4>
+                    Class:{" "}
+                    {`${studentData?.present_class} ${studentData?.sub_class}`}
+                  </h4>
                 </div>
               </div>
             </div>
@@ -96,50 +107,31 @@ const ElementaryFirstHalfSheet = () => {
               </div>
               <div className="table-row">
                 <div className="table-data">
-                    <h4>Max Score Obtainable</h4>
+                  <h4>Max Score Obtainable</h4>
                 </div>
                 <div className="table-data">
-                  <h4>20</h4>
-                </div>
-              </div>
-              <div className="table-row">
-                <div className="table-data">
-                    <p>Communication Skill</p>
-                </div>
-                <div className="table-data">
-                  <p>20</p>
+                  <h4>{maxScores?.midterm}</h4>
                 </div>
               </div>
+              {additionalCreds?.results?.map((x, index) => (
+                <div className="table-row" key={index}>
+                  <div className="table-data">
+                    <p>{x.subject}</p>
+                  </div>
+                  <div className="table-data">
+                    <p>{x.score}</p>
+                  </div>
+                </div>
+              ))}
               <div className="table-row">
                 <div className="table-data">
-                    <p>Science</p>
+                  <h4>Student&apos;s Total Score: {getTotalScores()}</h4>
                 </div>
                 <div className="table-data">
-                  <p>20</p>
-                </div>
-              </div>
-              <div className="table-row">
-                <div className="table-data">
-                    <p>Science</p>
-                </div>
-                <div className="table-data">
-                  <p>20</p>
-                </div>
-              </div>
-              <div className="table-row">
-                <div className="table-data">
-                    <p>Science</p>
-                </div>
-                <div className="table-data">
-                  <p>20</p>
-                </div>
-              </div>
-              <div className="table-row">
-                <div className="table-data">
-                    <h4>Student&apos;s Total Score: 644</h4>
-                </div>
-                <div className="table-data">
-                  <h4>Student&apos;s Average Score: 19</h4>
+                  <h4>
+                    Student&apos;s Average Score:{" "}
+                    {getTotalScores() / (subjects?.length || 1)}
+                  </h4>
                 </div>
               </div>
             </div>
@@ -147,14 +139,14 @@ const ElementaryFirstHalfSheet = () => {
               <h3>Class Teacher's General Comment</h3>
             </div>
             <div className="comment">
-              <h4>{result?.teacher_comment}</h4>
+              <h4>{additionalCreds?.teacher_comment}</h4>
               <div className="signature">
                 <div>
-                  {result?.teacher_signature && (
-                    <img src={result?.teacher_signature} alt="" />
+                  {additionalCreds?.teacher_signature && (
+                    <img src={additionalCreds?.teacher_signature} alt="" />
                   )}
                   <div className="line" />
-                  <h3>{result?.teacher_fullname}</h3>
+                  <h3>{additionalCreds?.teacher_fullname}</h3>
                 </div>
               </div>
             </div>

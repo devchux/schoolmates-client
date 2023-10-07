@@ -80,7 +80,7 @@ const PreSchoolResult = () => {
       {user?.designation_name !== "Student" && (
         <StudentsResults
           studentByClassAndSession={studentByClassAndSession}
-          setStudentData={setStudentData}
+          onProfileSelect={(x) => setStudentData(x)}
           isLoading={isLoading}
           studentData={studentData}
           idWithComputedResult={idWithComputedResult}

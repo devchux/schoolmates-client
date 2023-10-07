@@ -25,11 +25,15 @@ export const useResults = () => {
   const [addMidResultAsLast, setAddMidResultAsLast] = useState(false);
   const [studentMidResult, setStudentMidResult] = useState([]);
   const [additionalCreds, setAdditionalCreds] = useState({});
+  const [performanceRemark, setPerformanceRemark] = useState("");
   const { state } = useLocation();
+  const studentClassName = `${studentData?.present_class} ${studentData?.sub_class}`;
   const pdfExportComponent = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => pdfExportComponent.current,
   });
+
+  const is_preschool = !!user?.is_preschool && user.is_preschool !== "false";
 
   const { data: academicDate, isLoading: academicDateLoading } = useQuery(
     [queryKeys.GET_ACADEMIC_DATE],
@@ -57,7 +61,7 @@ export const useResults = () => {
     [queryKeys.GET_MAX_SCORES],
     apiServices.getMaxScores,
     {
-      enabled: user.is_preschool === "false",
+      enabled: !is_preschool,
       onError(err) {
         errorHandler(err);
       },
@@ -111,7 +115,7 @@ export const useResults = () => {
         state?.creds?.session
       ),
     {
-      enabled: initGetExistingSecondHalfResult && user.is_preschool === "false",
+      enabled: initGetExistingSecondHalfResult && !is_preschool,
       select: apiServices.formatData,
       onSuccess(data) {
         setInitGetExistingSecondHalfResult(false);
@@ -175,11 +179,11 @@ export const useResults = () => {
           : user?.class_assigned
       ),
     {
-      enabled: initGetStudentsByClass && user.is_preschool === "false",
+      enabled: initGetStudentsByClass && !is_preschool,
       select: apiServices.formatData,
       onSuccess(data) {
         const subjectsWithGrade = data?.map((x) => ({ ...x, grade: "0" }));
-        setSubjects(subjectsWithGrade);
+        if (subjects.length === 0) setSubjects(subjectsWithGrade);
         setInitGetStudentsByClass(false);
       },
     }
@@ -205,32 +209,10 @@ export const useResults = () => {
           : user?.class_assigned
       ),
     {
-      enabled: user.is_preschool === "true",
+      enabled: is_preschool,
       select: apiServices.formatData,
     }
   );
-
-  // const { isLoading: preSchoolResultsLoading, data: preSchoolResults } =
-  //   useQuery(
-  //     [
-  //       queryKeys.GET_PRE_SCHOOL_RESULTS,
-  //       studentData?.id,
-  //       state?.creds?.period,
-  //       state?.creds?.term,
-  //       state?.creds?.session,
-  //     ],
-  //     () =>
-  //       apiServices.getPreSchoolResults(
-  //         studentData?.id,
-  //         state?.creds?.period,
-  //         state?.creds?.term,
-  //         state?.creds?.session
-  //       ),
-  //     {
-  //       enabled: !!studentData?.id && user.is_preschool === "true",
-  //       select: apiServices.formatData,
-  //     }
-  //   );
 
   const {
     isLoading: preSchoolCompiledResultsLoading,
@@ -249,7 +231,7 @@ export const useResults = () => {
         state?.creds?.session
       ),
     {
-      enabled: user.is_preschool === "true",
+      enabled: is_preschool,
       select: apiServices.formatData,
       onSuccess(data) {
         const ids = data?.map((x) => x.student_id) ?? [];
@@ -257,6 +239,66 @@ export const useResults = () => {
       },
     }
   );
+
+  const { isLoading: getCummulativeScoresLoading, data: cummulativeScores } =
+    useQuery(
+      [
+        queryKeys.GET_RESULT_CUMMULATIVE_SCORES,
+        studentData?.id,
+        state?.creds?.period,
+        state?.creds?.term,
+        state?.creds?.session,
+      ],
+      () =>
+        apiServices.getCummulativeScores({
+          student_id: studentData?.id,
+          period: state?.creds?.period,
+          term: state?.creds?.term,
+          session: state?.creds?.session,
+        }),
+      {
+        enabled: !is_preschool && state?.creds?.period === "Second Half",
+        select: (data) => data?.data,
+      }
+    );
+
+  const { isLoading: loadingClassAverage, data: classAverage } = useQuery(
+    [
+      queryKeys.GET_YEARLY_CLASS_AVERAGE,
+      studentClassName,
+      studentData?.id,
+      state?.creds?.term,
+      state?.creds?.session,
+    ],
+    () =>
+      apiServices.getClassAverage({
+        class_name: studentClassName,
+        student_id: studentData?.id,
+        term: state?.creds?.term,
+        session: state?.creds?.session,
+      }),
+    {
+      enabled: !is_preschool && state?.creds?.period === "Second Half",
+      // select: (data) => data?.data,
+    }
+  );
+
+  const { isLoading: loadingYearlyClassAverage, data: yearlyClassAverage } =
+    useQuery(
+      [queryKeys.GET_CLASS_AVERAGE, studentClassName, state?.creds?.session],
+      () =>
+        apiServices.getYearlyClassAverage({
+          class_name: studentClassName,
+          session: state?.creds?.session,
+        }),
+      {
+        enabled:
+          !is_preschool &&
+          Boolean(studentClassName) &&
+          state?.creds?.term === "Third Term" &&
+          state?.creds?.period === "Second Half",
+      }
+    );
 
   const { data: studentResult, isLoading: studentResultLoading } = useQuery(
     [
@@ -272,7 +314,7 @@ export const useResults = () => {
         state?.creds?.session
       ),
     {
-      enabled: initGetExistingResult && user.is_preschool === "false",
+      enabled: initGetExistingResult && !is_preschool,
       select: apiServices.formatData,
       onSuccess(data) {
         setInitGetExistingResult(false);
@@ -322,7 +364,7 @@ export const useResults = () => {
     [queryKeys.GET_GRADING],
     apiServices.getGrading,
     {
-      enabled: user.is_preschool === "false",
+      enabled: !is_preschool,
       select: apiServices.formatData,
       onError(err) {
         apiServices.errorHandler(err);
@@ -364,8 +406,8 @@ export const useResults = () => {
   };
 
   const getTotalScores = () => {
-    return subjects?.reduce((a, item) => {
-      return a + Number(item.grade);
+    return additionalCreds?.results?.reduce((a, item) => {
+      return a + Number(item.score);
     }, 0);
   };
 
@@ -386,7 +428,7 @@ export const useResults = () => {
       student_id: studentData?.id,
       student_fullname: `${studentData?.firstname} ${studentData?.surname} ${studentData?.middlename}`,
       admission_number: studentData.admission_number,
-      class_name: `${studentData?.present_class} ${studentData?.sub_class}`,
+      class_name: studentClassName,
       period: state?.creds?.period,
       term: state?.creds?.term,
       session: state?.creds?.session,
@@ -394,6 +436,8 @@ export const useResults = () => {
         subject: x.subject,
         score: x.grade,
       })),
+      teacher_comment: teacherComment,
+      teacher_id: user?.id ?? "",
     };
 
     addResult(dataToSend);
@@ -404,7 +448,7 @@ export const useResults = () => {
       student_id: studentData?.id,
       student_fullname: `${studentData?.firstname} ${studentData?.surname} ${studentData?.middlename}`,
       admission_number: studentData.admission_number,
-      class_name: `${studentData?.present_class} ${studentData?.sub_class}`,
+      class_name: studentClassName,
       period: state?.creds?.period,
       term: state?.creds?.term,
       session: state?.creds?.session,
@@ -421,6 +465,7 @@ export const useResults = () => {
       teacher_id: user?.id,
       hos_comment: hosComment,
       hos_id: comments[0]?.hos_id,
+      performance_remark: performanceRemark,
     };
 
     addResult(dataToSend);
@@ -438,8 +483,10 @@ export const useResults = () => {
     gradingLoading ||
     preSchoolSubjectsByClassLoading ||
     addPreSchoolResultLoading ||
-    // preSchoolResultsLoading ||
-    preSchoolCompiledResultsLoading;
+    getCummulativeScoresLoading ||
+    preSchoolCompiledResultsLoading ||
+    loadingClassAverage ||
+    loadingYearlyClassAverage;
 
   return {
     isLoading,
@@ -482,7 +529,12 @@ export const useResults = () => {
     setInitGetExistingSecondHalfResult,
     preSchoolSubjectsByClass,
     addPreSchoolResult,
-    // preSchoolResults,
+    cummulativeScores,
     preSchoolCompiledResults,
+    grading,
+    performanceRemark,
+    setPerformanceRemark,
+    classAverage,
+    yearlyClassAverage,
   };
 };

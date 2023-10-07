@@ -3,10 +3,10 @@ import ProfileImage from "./profile-image";
 
 const StudentsResults = ({
   studentByClassAndSession,
-  setStudentData,
   isLoading,
   studentData,
-  idWithComputedResult,
+  onProfileSelect,
+  idWithComputedResult
 }) => {
   return (
     <div className="students-wrapper">
@@ -14,7 +14,7 @@ const StudentsResults = ({
         <div
           key={x.id}
           onClick={() => {
-            setStudentData(x);
+            onProfileSelect?.(x);
           }}
           className="student"
         >

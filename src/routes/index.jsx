@@ -86,7 +86,8 @@ import PreSchoolResult from "../pages/dashboard/results/sheets/pre-school/sheet"
 import ComputePreSchoolResult from "../pages/dashboard/results/sheets/pre-school/compute";
 import ElementaryFirstHalfSheet from "../pages/dashboard/results/sheets/elementary/first-half/sheet";
 import ElementarySecondHalfSheet from "../pages/dashboard/results/sheets/elementary/second-half/sheet";
-import ComputeMidTermResult from "../pages/dashboard/results/sheets/mid-term-form/compute";
+import ComputeElementarySecondHalfResult from "../pages/dashboard/results/sheets/elementary/second-half/compute";
+import ComputeElementaryFirstHalfResult from "../pages/dashboard/results/sheets/elementary/first-half/compute";
 
 const CustomRoutes = () => {
   return (
@@ -617,7 +618,7 @@ const CustomRoutes = () => {
         />
         <Route
           exact
-          path="results/elementary/first"
+          path="results/first"
           element={
             <Guard routeName="results">
               <ElementaryFirstHalfSheet />
@@ -626,28 +627,28 @@ const CustomRoutes = () => {
         />
         <Route
           exact
-          path="results/midterm/compute"
+          path="results/first/compute"
           element={
             <Guard routeName="results">
-              <ComputeMidTermResult />
+              <ComputeElementaryFirstHalfResult />
             </Guard>
           }
         />
         <Route
           exact
-          path="results/elementary"
-          element={
-            <Guard routeName="results">
-              <ElementaryFirstHalfSheet />
-            </Guard>
-          }
-        />
-        <Route
-          exact
-          path="results/elementary/second"
+          path="results/second"
           element={
             <Guard routeName="results">
               <ElementarySecondHalfSheet />
+            </Guard>
+          }
+        />
+        <Route
+          exact
+          path="results/second/compute"
+          element={
+            <Guard routeName="results">
+              <ComputeElementarySecondHalfResult />
             </Guard>
           }
         />

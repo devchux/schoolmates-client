@@ -590,7 +590,7 @@
   .second-half-cummulative-scores-table {
     .table-row {
       &:first-child {
-        > .table-data {
+        .table-data {
           height: 15rem;
           position: relative;
 
@@ -605,24 +605,27 @@
         }
       }
 
-      > .table-data {
-        width: 12%;
-        text-align: center;
+      > .right-data {
+        width: 77%;
+        display: flex;
 
-        &:first-child {
-          width: 38%;
-          text-align: left;
+        > .table-data {
+          flex-grow: 1;
+          flex-basis: 0;
+          text-align: center;
         }
       }
 
-      &.year-total-score {
-        > .table-data {
-          &:not(:nth-last-child(3)):not(:nth-last-child(2)):not(:last-child) {
-            border-left: none;
+      > .table-data {
+        width: 23%;
+        text-align: left;
+      }
 
-            &:not(:nth-child(4)) {
-              border-right: none;
-            }
+      &.year-total-score {
+        .table-data {
+          &:not(:nth-child(5)) {
+            border-right: none;
+            border-left: none;
           }
         }
       }
@@ -630,18 +633,27 @@
   }
 
   .performance-remark {
-    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 
     > h1 {
       font-size: 2rem;
       font-weight: 600;
       text-transform: uppercase;
+
+      &:first-child {
+        border: 0.2rem solid midnightblue;
+        padding: 1rem;
+        background-color: rgba(midnightblue, 0.4);
+        color: midnightblue;
+      }
     }
   }
 
   .skills-table {
     text-transform: uppercase;
-  
+
     > .table-row {
       > .table-data {
         width: 14%;
@@ -661,8 +673,13 @@
 
   .table-chart-wrapper {
     padding: 2rem;
-  
+
     > h4 {
+      line-height: 200%;
+    }
+
+    > p {
+      font-weight: 300;
       margin-bottom: 2rem;
     }
   }
@@ -780,7 +797,8 @@
 }
 
 @media print {
-  html, body {
+  html,
+  body {
     margin: 1rem !important;
     padding: 0 !important;
     overflow: hidden;

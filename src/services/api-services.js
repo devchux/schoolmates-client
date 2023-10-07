@@ -881,6 +881,48 @@ class APIServies extends Helpers {
     return data;
   }
 
+  async getCummulativeScores({ student_id, term, period, session }) {
+    const { data } = await axios.get(
+      `${backendAPI}/cumulativescore/${student_id}/${period}/${term}/${session}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async getClassAverage({ class_name, term, student_id, session }) {
+    const { data } = await axios.get(
+      `${backendAPI}/student-average/${student_id}/${class_name}/${term}/${session}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
+  async getYearlyClassAverage({ class_name, session }) {
+    const { data } = await axios.get(
+      `${backendAPI}/end-term-class-average/${class_name}/${session}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${super.getToken()}`,
+        },
+      }
+    );
+
+    return data;
+  }
+
   async addSubjectToStudent(body) {
     const { data } = await axios.post(`${backendAPI}/studentsubject`, body, {
       headers: {

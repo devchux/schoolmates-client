@@ -34,16 +34,18 @@ const Results = () => {
 
   const { data: sessions } = useAcademicSession();
 
+  const is_preschool = !!user?.is_preschool && user.is_preschool !== "false";
+
   const promptMapper = {
     compute: {
       title: "Compute Result",
       onFormSubmit: () =>
         navigate(
           `/app/results/${
-            user.is_preschool === "false"
+            !is_preschool
               ? inputs.period === "First Half"
-                ? "mid"
-                : "end"
+                ? "first"
+                : "second"
               : "preschool"
           }/compute`,
           { state: { creds: inputs } }
@@ -54,10 +56,10 @@ const Results = () => {
       onFormSubmit: () =>
         navigate(
           `/app/results/${
-            user.is_preschool === "false"
+            !is_preschool
               ? inputs.period === "First Half"
-                ? "mid"
-                : "end"
+                ? "first"
+                : "second"
               : "preschool"
           }`,
           { state: { creds: inputs } }

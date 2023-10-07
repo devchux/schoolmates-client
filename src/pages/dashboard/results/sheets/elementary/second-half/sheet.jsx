@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ResultHeader from "../../../../../../components/common/result-header";
 import { useResults } from "../../../../../../hooks/useResults";
 import { useAppContext } from "../../../../../../hooks/useAppContext";
-import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faPrint } from "@fortawesome/free-solid-svg-icons";
 import ColumnChart from "../../../../../../components/charts/column-chart";
 
 const ElementarySecondHalfSheet = () => {
@@ -19,21 +19,84 @@ const ElementarySecondHalfSheet = () => {
     handlePrint,
     studentByClassAndSession,
     studentData,
-    // academicDate,
-    preSchoolCompiledResults,
+    academicDate,
+    locationState,
+    additionalCreds,
+    studentMidResult,
+    maxScores,
+    cummulativeScores,
+    getScoreRemark,
+    grading,
+    yearlyClassAverage,
+    setInitGetExistingSecondHalfResult,
+    classAverage,
   } = useResults();
 
-  const result =
-    preSchoolCompiledResults?.find(
-      ({ student_id }) => student_id === studentData.id
-    ) ?? null;
+  const getTotalYearlyScores = () => {
+    return cummulativeScores?.reduce((a, item) => {
+      return a + Number(item["Total Score"]);
+    }, 0);
+  };
+
+  const chartTitle =
+    locationState?.creds?.term !== "Third Term"
+      ? {
+          first: "Highest Score",
+          second: "Average Score",
+          third: "Total Score",
+        }
+      : {
+          first: "First Term",
+          second: "Second Term",
+          third: "Third Term",
+        };
+
+  const generateChartData = () => {
+    const unit =
+      locationState?.creds?.term !== "Third Term"
+        ? {
+            first: "Highest",
+            second: "Average Score",
+            third: "Total Score",
+          }
+        : {
+            first: "First Term",
+            second: "Second Term",
+            third: "Third Term",
+          };
+
+    return cummulativeScores?.reduce((a, item) => {
+      const first = [];
+      const second = [];
+      const third = [];
+      const categories = [];
+
+      first.push(Number(item[unit.first]).toFixed(0));
+      second.push(Number(item[unit.second]).toFixed(0));
+      third.push(Number(item[unit.third]).toFixed(0));
+      categories.push(item.subject);
+
+      a = {
+        ...a,
+        first: [...(a.first || []), ...first],
+        second: [...(a.second || []), ...second],
+        third: [...(a.third || []), ...third],
+        categories: [...(a.categories || []), ...categories],
+      };
+
+      return a;
+    }, {});
+  };
 
   return (
     <div className="results-sheet">
       {user?.designation_name !== "Student" && (
         <StudentsResults
           studentByClassAndSession={studentByClassAndSession}
-          setStudentData={setStudentData}
+          onProfileSelect={(x) => {
+            setStudentData(x);
+            setInitGetExistingSecondHalfResult(true);
+          }}
           isLoading={isLoading}
           studentData={studentData}
           idWithComputedResult={idWithComputedResult}
@@ -59,7 +122,7 @@ const ElementarySecondHalfSheet = () => {
           <ResultHeader user={user} />
           <div className="preschool-result-table">
             <div className="table-head">
-              <h3>{result?.sesson} Academic Session</h3>
+              <h3>{locationState?.creds?.session} Academic Session</h3>
             </div>
             <div className="student-creds text-center">
               <div>
@@ -81,19 +144,24 @@ const ElementarySecondHalfSheet = () => {
               </div>
               <div>
                 <div className="table-data">
-                  <h4>{result?.student_fullname}</h4>
+                  <h4>
+                    {studentData?.firstname} {studentData?.surname}{" "}
+                    {studentData?.middlename}
+                  </h4>
                 </div>
                 <div className="table-data">
-                  <h4>MALE</h4>
+                  <h4>{studentData?.gender}</h4>
                 </div>
                 <div className="table-data">
-                  <h4>{result?.term}</h4>
+                  <h4>{locationState?.creds?.term}</h4>
                 </div>
                 <div className="table-data">
-                  <h4>{result?.class_name}</h4>
+                  <h4>
+                    {studentData?.present_class} {studentData?.sub_class}
+                  </h4>
                 </div>
                 <div className="table-data">
-                  <h4>{result?.admission_number}</h4>
+                  <h4>{studentData?.admission_number}</h4>
                 </div>
               </div>
             </div>
@@ -120,19 +188,19 @@ const ElementarySecondHalfSheet = () => {
               </div>
               <div>
                 <div className="table-data">
-                  <h4>98</h4>
+                  <h4>{additionalCreds?.school_opened}</h4>
                 </div>
                 <div className="table-data">
-                  <h4>94</h4>
+                  <h4>{additionalCreds?.times_present}</h4>
                 </div>
                 <div className="table-data">
-                  <h4>4</h4>
+                  <h4>{additionalCreds?.times_absent}</h4>
                 </div>
                 <div className="table-data">
-                  <h4>17 Jul 2023</h4>
+                  <h4>{academicDate?.session_ends}</h4>
                 </div>
                 <div className="table-data">
-                  <h4>11 Sep 2023</h4>
+                  <h4>{academicDate?.session_resumes}</h4>
                 </div>
               </div>
             </div>
@@ -163,13 +231,13 @@ const ElementarySecondHalfSheet = () => {
                   <h4>Max Score Obtainable</h4>
                 </div>
                 <div className="table-data">
-                  <h4>40</h4>
+                  <h4>{maxScores?.midterm}</h4>
                 </div>
                 <div className="table-data">
-                  <h4>60</h4>
+                  <h4>{maxScores?.exam}</h4>
                 </div>
                 <div className="table-data">
-                  <h4>100</h4>
+                  <h4>{maxScores?.total}</h4>
                 </div>
                 <div className="table-data">
                   <h4>A+</h4>
@@ -178,26 +246,58 @@ const ElementarySecondHalfSheet = () => {
                   <h4>Excellent</h4>
                 </div>
               </div>
-              <div className="table-row">
-                <div className="table-data">
-                  <p>ICT</p>
+              {additionalCreds?.results?.map((s, index) => (
+                <div className="table-row" key={index}>
+                  <div className="table-data">
+                    <p>{s?.subject}</p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {studentMidResult?.find((x) => x.subject === s.subject)
+                        ?.score || 0}
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>{s.score}</p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {(
+                        Number(
+                          studentMidResult?.find((x) => x.subject === s.subject)
+                            ?.score || 0
+                        ) + Number(s?.score ?? 0)
+                      ).toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {
+                        getScoreRemark(
+                          Number(
+                            studentMidResult?.find(
+                              (x) => x.subject === s.subject
+                            )?.score || 0
+                          ) + Number(s.score)
+                        )?.grade
+                      }
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {
+                        getScoreRemark(
+                          Number(
+                            studentMidResult?.find(
+                              (x) => x.subject === s.subject
+                            )?.score || 0
+                          ) + Number(s.score)
+                        )?.remark
+                      }
+                    </p>
+                  </div>
                 </div>
-                <div className="table-data">
-                  <p>20</p>
-                </div>
-                <div className="table-data">
-                  <p>30</p>
-                </div>
-                <div className="table-data">
-                  <p>50</p>
-                </div>
-                <div className="table-data">
-                  <p>C</p>
-                </div>
-                <div className="table-data">
-                  <p>Good</p>
-                </div>
-              </div>
+              ))}
             </div>
             <div className="table-data">
               <br />
@@ -215,32 +315,35 @@ const ElementarySecondHalfSheet = () => {
                   <h4>Student's Grade</h4>
                 </div>
               </div>
+
               <div className="table-row">
                 <div className="table-data">
-                  <h4>90</h4>
+                  <p>
+                    {Number(classAverage?.["Class Average"] || 0).toFixed(2)}
+                  </p>
                 </div>
                 <div className="table-data">
-                  <h4>98</h4>
+                  <p>
+                    {Number(classAverage?.["Student Average"] || 0).toFixed(2)}
+                  </p>
                 </div>
                 <div className="table-data">
-                  <h4>A+</h4>
+                  <p>{classAverage?.["Grade"]}</p>
                 </div>
               </div>
             </div>
             <div className="table-head">
               <h3>Academic Rating</h3>
             </div>
-            <div className="second-half-academic-rating">
-              <div className="table-data"></div>
-              <div className="table-data"></div>
-              <div className="table-data"></div>
-              <div className="table-data"></div>
-              <div className="table-data"></div>
-              <div className="table-data"></div>
-              <div className="table-data"></div>
-              <div className="table-data"></div>
-              <div className="table-data"></div>
-              <div className="table-data"></div>
+            <div className="second-half-academic-rating text-center">
+              {grading?.map((grade) => (
+                <div key={grade?.id} className="table-data">
+                  <p>
+                    {grade?.grade} - [{grade?.score_from} - {grade?.score_to}% -{" "}
+                    {grade?.remark}]
+                  </p>
+                </div>
+              ))}
             </div>
             <div className="table-head">
               <h3>Cummulative Scores</h3>
@@ -250,115 +353,216 @@ const ElementarySecondHalfSheet = () => {
                 <div className="table-data">
                   <h4>Subjects</h4>
                 </div>
-                <div className="table-data">
-                  <h4>First Term</h4>
-                </div>
-                <div className="table-data">
-                  <h4>Second Term</h4>
-                </div>
-                <div className="table-data">
-                  <h4>Third Term</h4>
-                </div>
-                <div className="table-data">
-                  <h4>Year Score</h4>
-                </div>
-                <div className="table-data">
-                  <h4>Year AVG.</h4>
-                </div>
-                <div className="table-data">
-                  <h4>Remark</h4>
+                <div className="right-data">
+                  <div className="table-data">
+                    <h4>First Term</h4>
+                  </div>
+                  {locationState?.creds?.term !== "First Term" && (
+                    <div className="table-data">
+                      <h4>Second Term</h4>
+                    </div>
+                  )}
+                  {!(
+                    locationState?.creds?.term === "First Term" ||
+                    locationState?.creds?.term === "Second Term"
+                  ) ? (
+                    <div className="table-data">
+                      <h4>Third Term</h4>
+                    </div>
+                  ) : null}
+                  {!(
+                    locationState?.creds?.term === "First Term" ||
+                    locationState?.creds?.term === "Second Term"
+                  ) ? (
+                    <div className="table-data">
+                      <h4>Total</h4>
+                    </div>
+                  ) : null}
+                  <div className="table-data">
+                    <h4>Average</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>Remark</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>Rank</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>Class Average</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>Highest</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>Lowest</h4>
+                  </div>
                 </div>
               </div>
               <div className="table-row">
                 <div className="table-data">
                   <h4>Max Scores</h4>
                 </div>
-                <div className="table-data">
-                  <h4>100</h4>
-                </div>
-                <div className="table-data">
-                  <h4>100</h4>
-                </div>
-                <div className="table-data">
-                  <h4>100</h4>
-                </div>
-                <div className="table-data">
-                  <h4>400</h4>
-                </div>
-                <div className="table-data">
-                  <h4>100.00</h4>
-                </div>
-                <div className="table-data">
-                  <h4>Excellent</h4>
+                <div className="right-data">
+                  <div className="table-data">
+                    <h4>100</h4>
+                  </div>
+                  {locationState?.creds?.term !== "First Term" && (
+                    <div className="table-data">
+                      <h4>100</h4>
+                    </div>
+                  )}
+                  {!(
+                    locationState?.creds?.term === "First Term" ||
+                    locationState?.creds?.term === "Second Term"
+                  ) ? (
+                    <div className="table-data">
+                      <h4>100</h4>
+                    </div>
+                  ) : null}
+                  {!(
+                    locationState?.creds?.term === "First Term" ||
+                    locationState?.creds?.term === "Second Term"
+                  ) ? (
+                    <div className="table-data">
+                      <h4>100</h4>
+                    </div>
+                  ) : null}
+                  <div className="table-data">
+                    <h4>100.00</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>Excellent</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>
+                      N<sup>th</sup>
+                    </h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>100</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>100</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>100</h4>
+                  </div>
                 </div>
               </div>
-              <div className="table-row">
-                <div className="table-data">
-                  <p>ICT</p>
+              {cummulativeScores?.map((score, key) => (
+                <div className="table-row" key={key}>
+                  <div className="table-data">
+                    <p>{score.subject}</p>
+                  </div>
+                  <div className="right-data">
+                    <div className="table-data">
+                      <p>{score["First Term"]}</p>
+                    </div>
+                    {locationState?.creds?.term !== "First Term" && (
+                      <div className="table-data">
+                        <p>{score["Second Term"]}</p>
+                      </div>
+                    )}
+                    {!(
+                      locationState?.creds?.term === "First Term" ||
+                      locationState?.creds?.term === "Second Term"
+                    ) ? (
+                      <div className="table-data">
+                        <p>{score["Third Term"]}</p>
+                      </div>
+                    ) : null}
+                    {!(
+                      locationState?.creds?.term === "First Term" ||
+                      locationState?.creds?.term === "Second Term"
+                    ) ? (
+                      <div className="table-data">
+                        <p>{score["Total Score"]}</p>
+                      </div>
+                    ) : null}
+                    <div className="table-data">
+                      <p>{Number(score["Average Score"]).toFixed(2)}</p>
+                    </div>
+                    <div className="table-data">
+                      <p>{score["Remark"]}</p>
+                    </div>
+                    <div className="table-data">
+                      <h4>{score["Rank"]}</h4>
+                    </div>
+                    <div className="table-data">
+                      <h4>{score["Class Average"]}</h4>
+                    </div>
+                    <div className="table-data">
+                      <h4>{score["Highest"]}</h4>
+                    </div>
+                    <div className="table-data">
+                      <h4>{score["Lowest"]}</h4>
+                    </div>
+                  </div>
                 </div>
-                <div className="table-data">
-                  <p>87</p>
+              ))}
+              {locationState?.creds?.term === "Third Term" && (
+                <div className="table-row year-total-score">
+                  <div className="table-data">
+                    <p>End of year total score</p>
+                  </div>
+                  <div className="right-data">
+                    <div className="table-data"></div>
+                    <div className="table-data"></div>
+                    <div className="table-data"></div>
+                    <div className="table-data">
+                      <p>{getTotalYearlyScores()}</p>
+                    </div>
+                    <div className="table-data"></div>
+                    <div className="table-data"></div>
+                    <div className="table-data"></div>
+                    <div className="table-data"></div>
+                    <div className="table-data"></div>
+                    <div className="table-data"></div>
+                  </div>
                 </div>
-                <div className="table-data">
-                  <p>95</p>
-                </div>
-                <div className="table-data">
-                  <p>96</p>
-                </div>
-                <div className="table-data">
-                  <p>278</p>
-                </div>
-                <div className="table-data">
-                  <p>92.67</p>
-                </div>
-                <div className="table-data">
-                  <p>Good</p>
-                </div>
-              </div>
-              <div className="table-row year-total-score">
-                <div className="table-data">
-                  <p>End of year total score</p>
-                </div>
-                <div className="table-data"></div>
-                <div className="table-data"></div>
-                <div className="table-data"></div>
-                <div className="table-data">
-                  <p>278</p>
-                </div>
-                <div className="table-data"></div>
-                <div className="table-data"></div>
-              </div>
+              )}
               <div className="table-data">
                 <br />
                 <br />
               </div>
             </div>
-            <div className="first-half-result-table text-center">
-              <div className="table-row">
-                <div className="table-data">
-                  <h4>End of Year Class Average</h4>
+            {locationState?.creds?.term === "Third Term" && (
+              <div className="first-half-result-table text-center">
+                <div className="table-row">
+                  <div className="table-data">
+                    <h4>End of Year Class Average</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>End of Year Pupil's Average</h4>
+                  </div>
+                  <div className="table-data">
+                    <h4>End of Year Pupil's Grade</h4>
+                  </div>
                 </div>
-                <div className="table-data">
-                  <h4>End of Year Pupil's Average</h4>
-                </div>
-                <div className="table-data">
-                  <h4>End of Year Pupil's Grade</h4>
+                <div className="table-row">
+                  <div className="table-data">
+                    <p>
+                      {Number(
+                        yearlyClassAverage?.["Class Average"] || 0
+                      ).toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {Number(
+                        yearlyClassAverage?.["Student Average"] || 0
+                      ).toFixed(2)}
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>{yearlyClassAverage?.["Grade"]}</p>
+                  </div>
                 </div>
               </div>
-              <div className="table-row">
-                <div className="table-data">
-                  <p>88</p>
-                </div>
-                <div className="table-data">
-                  <p>88</p>
-                </div>
-                <div className="table-data">
-                  <p>88</p>
-                </div>
-              </div>
-            </div>
+            )}
             <div className="table-data performance-remark">
-              <h1>Performance Remark: Promoted to the next class</h1>
+              <h1>Performance Remark: </h1>
+              <h1>{additionalCreds?.performance_remark}</h1>
             </div>
             <div className="table-data">
               <br />
@@ -383,6 +587,39 @@ const ElementarySecondHalfSheet = () => {
                   <p>Need Improvement</p>
                 </div>
               </div>
+              {additionalCreds?.affective_disposition?.map((skill, key) => (
+                <div className="table-row" key={key}>
+                  <div className="table-data">{skill?.name}</div>
+                  <div className="table-data">
+                    <p>
+                      {Number(skill?.score) === 5 && (
+                        <FontAwesomeIcon icon={faCheck} color="green" />
+                      )}
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {Number(skill?.score) === 4 && (
+                        <FontAwesomeIcon icon={faCheck} color="green" />
+                      )}
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {Number(skill?.score) === 3 && (
+                        <FontAwesomeIcon icon={faCheck} color="green" />
+                      )}
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {Number(skill?.score) < 3 && (
+                        <FontAwesomeIcon icon={faCheck} color="green" />
+                      )}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
             <div className="table-data">
               <br />
@@ -409,6 +646,39 @@ const ElementarySecondHalfSheet = () => {
                   <p>Need Improvement</p>
                 </div>
               </div>
+              {additionalCreds?.psychomotor_skills?.map((skill, key) => (
+                <div className="table-row" key={key}>
+                  <div className="table-data">{skill?.name}</div>
+                  <div className="table-data">
+                    <p>
+                      {Number(skill?.score) === 5 && (
+                        <FontAwesomeIcon icon={faCheck} color="green" />
+                      )}
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {Number(skill?.score) === 4 && (
+                        <FontAwesomeIcon icon={faCheck} color="green" />
+                      )}
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {Number(skill?.score) === 3 && (
+                        <FontAwesomeIcon icon={faCheck} color="green" />
+                      )}
+                    </p>
+                  </div>
+                  <div className="table-data">
+                    <p>
+                      {Number(skill?.score) < 3 && (
+                        <FontAwesomeIcon icon={faCheck} color="green" />
+                      )}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
             <div className="table-data">
               <br />
@@ -419,33 +689,25 @@ const ElementarySecondHalfSheet = () => {
             <div className="table-data">
               <div className="table-chart-wrapper">
                 <h4>Performance Chart</h4>
+                <p>{Object.values(chartTitle).join(", ")}</p>
+
                 <div className="table-chart">
                   <ColumnChart
                     xTitle="Subjects"
                     yTitle="Scores"
-                    categories={[
-                      "Feb",
-                      "Mar",
-                      "Apr",
-                      "May",
-                      "Jun",
-                      "Jul",
-                      "Aug",
-                      "Sep",
-                      "Oct",
-                    ]}
+                    categories={generateChartData()?.categories || []}
                     data={[
                       {
-                        name: "Net Profit",
-                        data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+                        name: chartTitle.first,
+                        data: generateChartData()?.first || [],
                       },
                       {
-                        name: "Revenue",
-                        data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+                        name: chartTitle.second,
+                        data: generateChartData()?.second || [],
                       },
                       {
-                        name: "Free Cash Flow",
-                        data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+                        name: chartTitle.third,
+                        data: generateChartData()?.third || [],
                       },
                     ]}
                   />
@@ -456,14 +718,14 @@ const ElementarySecondHalfSheet = () => {
               <h3>Class Teacher's General Comment</h3>
             </div>
             <div className="comment">
-              <h4>{result?.teacher_comment}</h4>
+              <h4>{additionalCreds?.teacher_comment}</h4>
               <div className="signature">
                 <div>
-                  {result?.teacher_signature && (
-                    <img src={result?.teacher_signature} alt="" />
+                  {additionalCreds?.teacher_signature && (
+                    <img src={additionalCreds?.teacher_signature} alt="" />
                   )}
                   <div className="line" />
-                  <h3>{result?.teacher_fullname}</h3>
+                  <h3>{additionalCreds?.teacher_fullname}</h3>
                 </div>
               </div>
             </div>
@@ -471,14 +733,14 @@ const ElementarySecondHalfSheet = () => {
               <h3>Principal's Comment</h3>
             </div>
             <div className="comment">
-              <h4>{result?.teacher_comment}</h4>
+              <h4>{additionalCreds?.hos_comment}</h4>
               <div className="signature">
                 <div>
-                  {result?.teacher_signature && (
-                    <img src={result?.teacher_signature} alt="" />
+                  {additionalCreds?.hos_signature && (
+                    <img src={additionalCreds?.hos_signature} alt="" />
                   )}
                   <div className="line" />
-                  <h3>{result?.teacher_fullname}</h3>
+                  <h3>{additionalCreds?.hos_fullname}</h3>
                 </div>
               </div>
             </div>

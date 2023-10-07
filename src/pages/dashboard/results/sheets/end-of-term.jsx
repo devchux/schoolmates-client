@@ -51,7 +51,7 @@ const EndOfTerm = ({ isCompute = false }) => {
   const [openSubjectPrompt, setOpenSubjectPrompt] = useState(false);
   const navigate = useNavigate();
   const { user } = useAppContext("results");
-  const { isLoading: skillLoading, skills } = useSkills();
+  const { isLoading: skillLoading } = useSkills();
   const {
     academicDate,
     idWithComputedResult,
@@ -129,8 +129,6 @@ const EndOfTerm = ({ isCompute = false }) => {
       });
     }
   };
-
-  console.log({ skills });
 
   return (
     <div className="results-sheet">
