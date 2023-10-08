@@ -30,6 +30,7 @@ const ComputeElementaryFirstHalfResult = () => {
     subjects,
     maxScores,
     setSubjects,
+    setInitGetExistingResult,
   } = useResults();
 
   return (
@@ -39,8 +40,7 @@ const ComputeElementaryFirstHalfResult = () => {
           studentByClassAndSession={studentByClassAndSession}
           onProfileSelect={(x) => {
             setStudentData(x);
-            setHosComment("");
-            setTeacherComment("");
+            setInitGetExistingResult(true);
           }}
           isLoading={isLoading}
           studentData={studentData}

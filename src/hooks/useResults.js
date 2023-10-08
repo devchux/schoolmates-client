@@ -119,9 +119,6 @@ export const useResults = () => {
       select: apiServices.formatData,
       onSuccess(data) {
         setInitGetExistingSecondHalfResult(false);
-        setAdditionalCreds({});
-        setTeacherComment("");
-        setHosComment("");
 
         if (data?.length > 0) {
           const ids = data?.map((x) => x.student_id);
@@ -154,6 +151,10 @@ export const useResults = () => {
             setAddMidResultAsLast(true);
           }
         } else {
+          setAdditionalCreds({});
+          setTeacherComment("");
+          setHosComment("");
+          setSubjects([]);
           setInitGetExistingResult(true);
           setAddMidResultAsLast(true);
         }
@@ -279,7 +280,6 @@ export const useResults = () => {
       }),
     {
       enabled: !is_preschool && state?.creds?.period === "Second Half",
-      // select: (data) => data?.data,
     }
   );
 
@@ -318,6 +318,7 @@ export const useResults = () => {
       select: apiServices.formatData,
       onSuccess(data) {
         setInitGetExistingResult(false);
+
         if (data.length > 0) {
           const ids = data?.map((x) => x.student_id);
           setIdWithComputedResult(ids);
@@ -351,7 +352,11 @@ export const useResults = () => {
             refetchStudentsByClass();
           }
         } else {
+          setSubjects([]);
           setStudentMidResult([]);
+          setAdditionalCreds({});
+          setTeacherComment("");
+          setHosComment("");
           setInitGetStudentsByClass(true);
           refetchStudentsByClass();
         }

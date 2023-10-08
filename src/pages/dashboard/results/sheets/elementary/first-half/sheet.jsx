@@ -24,6 +24,7 @@ const ElementaryFirstHalfSheet = () => {
     preSchoolCompiledResults,
     getTotalScores,
     additionalCreds,
+    setInitGetExistingResult,
   } = useResults();
 
   const result =
@@ -36,7 +37,10 @@ const ElementaryFirstHalfSheet = () => {
       {user?.designation_name !== "Student" && (
         <StudentsResults
           studentByClassAndSession={studentByClassAndSession}
-          onProfileSelect={(x) => setStudentData(x)}
+          onProfileSelect={(x) => {
+            setStudentData(x);
+            setInitGetExistingResult(true);
+          }}
           isLoading={isLoading}
           studentData={studentData}
           idWithComputedResult={idWithComputedResult}
@@ -68,7 +72,8 @@ const ElementaryFirstHalfSheet = () => {
               <div>
                 <div className="table-data">
                   <h4>
-                    Name: {additionalCreds?.student_fullname}
+                    Name: {studentData?.firstname} {studentData?.surname}{" "}
+                    {studentData?.middlename}
                   </h4>
                 </div>
                 <div className="table-data">
@@ -80,9 +85,7 @@ const ElementaryFirstHalfSheet = () => {
               </div>
               <div>
                 <div className="table-data">
-                  <h4>
-                    Chronological Age: {studentData?.age}
-                  </h4>
+                  <h4>Chronological Age: {studentData?.age}</h4>
                 </div>
                 <div className="table-data">
                   <h4>School Section: {user?.campus}</h4>
